@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/text_theme_manager.dart';
+import '../../core/utils/sound_utils.dart';
 
-class TimeUpDialog extends StatelessWidget {
+class TimeUpDialog extends StatefulWidget {
   final int score;
   final VoidCallback onTryAgain;
 
@@ -12,6 +13,13 @@ class TimeUpDialog extends StatelessWidget {
     required this.score,
     required this.onTryAgain,
   });
+
+  @override
+  State<TimeUpDialog> createState() => _TimeUpDialogState();
+}
+
+class _TimeUpDialogState extends State<TimeUpDialog> {
+  // Zaman bitti dialogu için ses çalmıyoruz
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +138,7 @@ class TimeUpDialog extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      "${'score'.tr()}: $score",
+                      "${'score'.tr()}: ${widget.score}",
                       style: TextThemeManager.bodyMedium.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -146,7 +154,7 @@ class TimeUpDialog extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: ElevatedButton(
-                onPressed: onTryAgain,
+                onPressed: widget.onTryAgain,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
