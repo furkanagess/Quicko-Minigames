@@ -6,17 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 // Core
 import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
-
-// Features
-import 'features/home/views/home_screen.dart';
-import 'features/blind_sort/views/blind_sort_screen.dart';
-import 'features/higher_lower/views/higher_lower_screen.dart';
-import 'features/color_hunt/views/color_hunt_screen.dart';
-import 'features/aim_trainer/views/aim_trainer_screen.dart';
-import 'features/favorites/views/favorites_screen.dart';
-import 'features/favorites/providers/favorites_provider.dart';
-import 'features/leaderboard/views/leaderboard_screen.dart';
-import 'features/leaderboard/providers/leaderboard_provider.dart';
+import 'core/routes/app_router.dart';
+import 'core/providers/app_providers.dart';
 import 'core/utils/sound_utils.dart';
 
 void main() async {
@@ -45,10 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
-        ChangeNotifierProvider(create: (_) => LeaderboardProvider()),
-      ],
+      providers: AppProviders.providers,
       child: MaterialApp(
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
@@ -64,16 +52,8 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
 
         // Routes
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const HomeScreen(),
-          '/blind-sort': (context) => const BlindSortScreen(),
-          '/higher-lower': (context) => const HigherLowerScreen(),
-          '/color-hunt': (context) => const ColorHuntScreen(),
-          '/aim-trainer': (context) => const AimTrainerScreen(),
-          '/favorites': (context) => const FavoritesScreen(),
-          '/leaderboard': (context) => const LeaderboardScreen(),
-        },
+        initialRoute: AppRouter.home,
+        onGenerateRoute: AppRouter.generateRoute,
 
         // System UI
         builder: (context, child) {
