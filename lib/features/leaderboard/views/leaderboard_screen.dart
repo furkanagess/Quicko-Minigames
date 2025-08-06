@@ -7,6 +7,8 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/games_config.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/utils/share_utils.dart';
+import '../../../core/routes/app_router.dart';
+import '../../../core/providers/app_providers.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -41,7 +43,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             Icons.arrow_back_rounded,
             color: Theme.of(context).colorScheme.onSurface,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => AppRouter.pop(context),
         ),
       ),
       body: Consumer<LeaderboardProvider>(
@@ -94,7 +96,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           ),
           const SizedBox(height: AppConstants.extraLargeSpacing),
           ElevatedButton.icon(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => AppRouter.pop(context),
             icon: const Icon(Icons.games_rounded),
             label: Text('play_games'.tr()),
             style: ElevatedButton.styleFrom(
@@ -195,9 +197,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 
   Widget _buildLeaderboardCard(LeaderboardEntry entry, int rank) {
     final gameConfig = GamesConfig.getGameById(entry.gameId);
-    final leaderboardProvider = Provider.of<LeaderboardProvider>(
+    final leaderboardProvider = AppProviders.getProvider<LeaderboardProvider>(
       context,
-      listen: false,
     );
 
     return Container(
@@ -230,8 +231,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             color: Colors.transparent,
             child: InkWell(
               onTap:
-                  () =>
-                      Navigator.of(context).pushNamed(gameConfig?.route ?? '/'),
+                  () => AppRouter.pushNamed(
+                    context,
+                    gameConfig?.route ?? AppRouter.home,
+                  ),
               borderRadius: BorderRadius.circular(20),
               child: Container(
                 padding: const EdgeInsets.all(20),
@@ -374,11 +377,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                           ),
                           actions: [
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
+                              onPressed: () => AppRouter.pop(context, false),
                               child: const Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
+                              onPressed: () => AppRouter.pop(context, true),
                               child: const Text(
                                 'Delete',
                                 style: TextStyle(color: Colors.red),
@@ -453,7 +456,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                     groupValue: leaderboardProvider.sortBy,
                     onChanged: (value) {
                       leaderboardProvider.changeSortBy(value!);
-                      Navigator.of(context).pop();
+                      AppRouter.pop(context);
                     },
                   ),
                   RadioListTile<String>(
@@ -462,7 +465,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                     groupValue: leaderboardProvider.sortBy,
                     onChanged: (value) {
                       leaderboardProvider.changeSortBy(value!);
-                      Navigator.of(context).pop();
+                      AppRouter.pop(context);
                     },
                   ),
                 ],
@@ -529,7 +532,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 ),
                 title: Text('preview_image'.tr()),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  AppRouter.pop(context);
                   _previewAchievementImage(context, leaderboardProvider);
                 },
               ),
@@ -540,7 +543,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 ),
                 title: Text('share_image'.tr()),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  AppRouter.pop(context);
                   _shareAchievementImage(context, leaderboardProvider);
                 },
               ),
