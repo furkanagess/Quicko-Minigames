@@ -7,6 +7,8 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/games_config.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/routes/app_router.dart';
+import '../../../core/providers/app_providers.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -41,7 +43,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             Icons.arrow_back_rounded,
             color: Theme.of(context).colorScheme.onSurface,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => AppRouter.pop(context),
         ),
       ),
       body: Consumer<FavoritesProvider>(
@@ -94,7 +96,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ),
           const SizedBox(height: AppConstants.extraLargeSpacing),
           ElevatedButton.icon(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => AppRouter.pop(context),
             icon: const Icon(Icons.games_rounded),
             label: Text('browse_games'.tr()),
             style: ElevatedButton.styleFrom(
@@ -157,7 +159,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => Navigator.of(context).pushNamed(game.route),
+          onTap: () => AppRouter.pushNamed(context, game.route),
           borderRadius: BorderRadius.circular(20),
           child: Container(
             padding: const EdgeInsets.all(20),

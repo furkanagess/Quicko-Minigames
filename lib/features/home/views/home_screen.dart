@@ -6,6 +6,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/games_config.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/routes/app_router.dart';
 import '../../favorites/providers/favorites_provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -52,7 +53,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/favorites');
+                    AppRouter.pushNamed(context, AppRouter.favorites);
                   },
                   icon: Icon(
                     Icons.favorite_rounded,
@@ -95,7 +96,7 @@ class HomeScreen extends StatelessWidget {
         // Leaderboard Button
         IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/leaderboard');
+            AppRouter.pushNamed(context, AppRouter.leaderboard);
           },
           icon: Icon(
             Icons.emoji_events_rounded,

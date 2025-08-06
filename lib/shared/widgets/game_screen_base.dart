@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/text_theme_manager.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/routes/app_router.dart';
+import '../../core/providers/app_providers.dart';
 import '../../features/favorites/providers/favorites_provider.dart';
 import 'game_description.dart';
 
@@ -66,7 +68,7 @@ class GameScreenBase extends StatelessWidget {
           if (actions != null) ...actions!,
         ],
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => AppRouter.pop(context),
           icon: Icon(Icons.arrow_back, color: Colors.white),
         ),
       ),
