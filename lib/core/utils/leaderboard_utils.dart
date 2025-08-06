@@ -39,6 +39,9 @@ class LeaderboardUtils {
     String gameTitle,
     int score,
   ) async {
+    // Score 0 ise leaderboard'a ekleme
+    if (score <= 0) return;
+
     final entries = await loadLeaderboard();
     final existingIndex = entries.indexWhere((entry) => entry.gameId == gameId);
 
