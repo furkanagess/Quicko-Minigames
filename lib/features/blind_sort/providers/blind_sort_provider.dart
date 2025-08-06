@@ -1,0 +1,353 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import '../../../shared/models/game_state.dart';
+import '../../../core/utils/game_utils.dart';
+import '../../../core/utils/leaderboard_utils.dart';
+import '../../../core/utils/sound_utils.dart';
+
+class BlindSortProvider extends ChangeNotifier {
+  GameState _gameState = GameState();
+  Timer? _numberAnimationTimer;
+  int _animatedNumber = 0;
+  bool _isAnimating = false;
+  Set<int> _usedNumbers = {}; // Kullanılmış sayıları takip etmek için
+  bool _hasBrokenRecordThisGame = false;
+
+  GameState get gameState => _gameState;
+  int get animatedNumber => _animatedNumber;
+  bool get isAnimating => _isAnimating;
+
+  /// Kullanılmamış rastgele sayı üretir
+  int _generateUniqueRandomNumber() {
+    final availableNumbers = <int>[];
+    for (int i = 1; i <= 50; i++) {
+      if (!_usedNumbers.contains(i)) {
+        availableNumbers.add(i);
+      }
+    }
+
+    if (availableNumbers.isEmpty) {
+      // Tüm sayılar kullanılmışsa, oyunu kazandı olarak işaretle
+      return -1; // Özel durum için -1 döndür
+    }
+
+    availableNumbers.shuffle();
+    return availableNumbers.first;
+  }
+
+  /// Oyunu başlat
+  void startGame() {
+    // Önce animasyonu durdur (eğer çalışıyorsa)
+    stopNumberAnimation();
+    _hasBrokenRecordThisGame = false;
+
+    // Kullanılmış sayıları sıfırla
+    _usedNumbers.clear();
+
+    _gameState = _gameState.copyWith(
+      status: GameStatus.playing,
+      slots: const <int?>[
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ],
+      currentNumber: _generateUniqueRandomNumber(),
+      score: 0,
+      showGameOver: false,
+    );
+
+    // İlk sayıyı kullanılmış olarak işaretle
+    if (_gameState.currentNumber != null && _gameState.currentNumber! > 0) {
+      _usedNumbers.add(_gameState.currentNumber!);
+    }
+
+    notifyListeners();
+  }
+
+  /// Rastgele sayı animasyonu başlat
+  void startNumberAnimation() {
+    SoundUtils.playSpinnerSound();
+    _isAnimating = true;
+    _animatedNumber = _generateUniqueRandomNumber();
+    notifyListeners();
+
+    _numberAnimationTimer = Timer.periodic(const Duration(milliseconds: 100), (
+      timer,
+    ) {
+      _animatedNumber = _generateUniqueRandomNumber();
+      notifyListeners();
+    });
+
+    // 2 saniye sonra animasyonu durdur ve final sayıyı göster
+    Timer(const Duration(seconds: 2), () async {
+      stopNumberAnimation();
+      final finalNumber = _generateUniqueRandomNumber();
+
+      if (finalNumber == -1) {
+        // Tüm sayılar kullanılmış, oyunu kazandı olarak işaretle
+        await SoundUtils.stopSpinnerSound();
+        _gameWon(_gameState.score);
+        return;
+      }
+
+      _gameState = _gameState.copyWith(currentNumber: finalNumber);
+      _animatedNumber = finalNumber;
+      _isAnimating = false;
+
+      // Final sayıyı kullanılmış olarak işaretle
+      _usedNumbers.add(finalNumber);
+
+      await SoundUtils.stopSpinnerSound();
+      notifyListeners();
+    });
+  }
+
+  /// Rastgele sayı animasyonunu durdur
+  void stopNumberAnimation() {
+    _numberAnimationTimer?.cancel();
+    _numberAnimationTimer = null;
+  }
+
+  /// Oyunu sıfırla
+  void resetGame() {
+    _gameState = GameState();
+    _usedNumbers.clear(); // Kullanılmış sayıları da sıfırla
+    _hasBrokenRecordThisGame = false;
+    notifyListeners();
+  }
+
+  /// Game over animasyonunu gizle
+  void hideGameOver() {
+    _gameState = _gameState.copyWith(showGameOver: false);
+    notifyListeners();
+  }
+
+  /// Sayıyı belirtilen pozisyona yerleştir
+  void placeNumber(int position) async {
+    if (!_gameState.isGameActive || _gameState.currentNumber == null) return;
+
+    final currentNumber = _gameState.currentNumber!;
+    final currentSlots = List<int?>.from(_gameState.slots);
+
+    // Sayının yerleştirilebilir olup olmadığını kontrol et
+    if (!GameUtils.canPlaceNumber(currentSlots, currentNumber, position)) {
+      _gameOver();
+      return;
+    }
+
+    // Tap sesi çal (başarıyla yerleştiriliyorsa)
+    SoundUtils.playTapSound();
+
+    // Skor artışı öncesi rekor kontrolü
+    final newScore = GameUtils.calculateScore(
+      (() {
+        final tempSlots = List<int?>.from(currentSlots);
+        tempSlots[position] = currentNumber;
+        return tempSlots;
+      })(),
+    );
+    final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
+      'blind_sort',
+    );
+    final previousHighScore = previousEntry?.highScore ?? 0;
+    // Oyun bitti flag'i ve aktiflik kontrolü, async gap sonrası tekrar kontrol
+    if (!_hasBrokenRecordThisGame &&
+        previousEntry != null &&
+        newScore > previousHighScore &&
+        _gameState.isGameActive) {
+      SoundUtils.playNewLevelSound();
+      _hasBrokenRecordThisGame = true;
+    }
+
+    // Sayıyı yerleştir
+    currentSlots[position] = currentNumber;
+
+    // Yerleştirilen sayıyı kullanılmış olarak işaretle
+    _usedNumbers.add(currentNumber);
+
+    // Yerleştirilen sayıdan sonra sıralamanın doğru olup olmadığını kontrol et
+    if (!GameUtils.isSortingValidAfterPlacement(
+      currentSlots,
+      currentNumber,
+      position,
+    )) {
+      _gameOver();
+      return;
+    }
+
+    // Oyun kazanıldı mı kontrol et
+    if (GameUtils.isGameWon(currentSlots)) {
+      _gameWon(newScore);
+      return;
+    }
+
+    // Önce mevcut durumu güncelle (sayı yerleştirildi)
+    _gameState = _gameState.copyWith(slots: currentSlots, score: newScore);
+    notifyListeners();
+
+    // Kısa bir bekleme sonrası yeni sayı animasyonu başlat
+    Timer(const Duration(milliseconds: 500), () {
+      _startNewNumberAnimation(currentSlots, newScore);
+    });
+  }
+
+  /// Yeni sayı animasyonu başlat
+  void _startNewNumberAnimation(List<int?> currentSlots, int currentScore) {
+    SoundUtils.playSpinnerSound();
+    _isAnimating = true;
+    _animatedNumber = _generateUniqueRandomNumber();
+    notifyListeners();
+
+    _numberAnimationTimer = Timer.periodic(const Duration(milliseconds: 100), (
+      timer,
+    ) {
+      _animatedNumber = _generateUniqueRandomNumber();
+      notifyListeners();
+    });
+
+    // 2 saniye sonra animasyonu durdur ve final sayıyı göster
+    Timer(const Duration(seconds: 2), () async {
+      stopNumberAnimation();
+      final finalNumber = _generateUniqueRandomNumber();
+
+      if (finalNumber == -1) {
+        // Tüm sayılar kullanılmış, oyunu kazandı olarak işaretle
+        await SoundUtils.stopSpinnerSound();
+        _gameWon(currentScore);
+        return;
+      }
+
+      // Eğer yeni sayı hiçbir yere yerleştirilemiyorsa oyun biter
+      if (!GameUtils.canPlaceNumberAnywhere(currentSlots, finalNumber)) {
+        await SoundUtils.stopSpinnerSound();
+        _nextNumberUnplayable(finalNumber, currentScore);
+        return;
+      }
+
+      _gameState = _gameState.copyWith(currentNumber: finalNumber);
+      _animatedNumber = finalNumber;
+      _isAnimating = false;
+
+      // Final sayıyı kullanılmış olarak işaretle
+      _usedNumbers.add(finalNumber);
+
+      await SoundUtils.stopSpinnerSound();
+      notifyListeners();
+    });
+  }
+
+  /// Oyun bitti
+  void _gameOver() async {
+    final finalScore = _gameState.score;
+    _hasBrokenRecordThisGame = true;
+    final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
+      'blind_sort',
+    );
+    final previousHighScore = previousEntry?.highScore ?? 0;
+    if (!_hasBrokenRecordThisGame &&
+        previousEntry != null &&
+        finalScore > previousHighScore &&
+        _gameState.isGameActive) {
+      SoundUtils.playNewLevelSound();
+      _hasBrokenRecordThisGame = true;
+    }
+    _gameState = _gameState.copyWith(
+      status: GameStatus.gameOver,
+      showGameOver: true,
+    );
+
+    // Yüksek skoru güncelle
+    await LeaderboardUtils.updateHighScore(
+      'blind_sort',
+      'Blind Sort',
+      finalScore,
+    );
+
+    notifyListeners();
+  }
+
+  /// Oyun kazanıldı
+  void _gameWon(int finalScore) async {
+    _hasBrokenRecordThisGame = true;
+    final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
+      'blind_sort',
+    );
+    final previousHighScore = previousEntry?.highScore ?? 0;
+    if (!_hasBrokenRecordThisGame &&
+        previousEntry != null &&
+        finalScore > previousHighScore &&
+        _gameState.isGameActive) {
+      SoundUtils.playNewLevelSound();
+      _hasBrokenRecordThisGame = true;
+    }
+    await SoundUtils.stopSpinnerSound();
+    _gameState = _gameState.copyWith(
+      status: GameStatus.won,
+      score: finalScore,
+      showGameOver: true,
+    );
+
+    // Yüksek skoru güncelle
+    await LeaderboardUtils.updateHighScore(
+      'blind_sort',
+      'Blind Sort',
+      finalScore,
+    );
+
+    notifyListeners();
+  }
+
+  /// Yeni sayı hiçbir yere sığmıyor
+  void _nextNumberUnplayable(int unplayableNumber, int finalScore) async {
+    _hasBrokenRecordThisGame = true;
+    final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
+      'blind_sort',
+    );
+    final previousHighScore = previousEntry?.highScore ?? 0;
+    if (!_hasBrokenRecordThisGame &&
+        previousEntry != null &&
+        finalScore > previousHighScore &&
+        _gameState.isGameActive) {
+      SoundUtils.playNewLevelSound();
+      _hasBrokenRecordThisGame = true;
+    }
+    await SoundUtils.stopSpinnerSound();
+    // Oynanamayan sayıyı da kullanılmış olarak işaretle
+    _usedNumbers.add(unplayableNumber);
+
+    _gameState = _gameState.copyWith(
+      status: GameStatus.nextNumberUnplayable,
+      currentNumber: unplayableNumber,
+      score: finalScore,
+      showGameOver: true,
+    );
+
+    // Yüksek skoru güncelle
+    await LeaderboardUtils.updateHighScore(
+      'blind_sort',
+      'Blind Sort',
+      finalScore,
+    );
+
+    notifyListeners();
+  }
+
+  /// Tam ekran modunu değiştir
+  void toggleFullscreen() {
+    _gameState = _gameState.copyWith(isFullscreen: !_gameState.isFullscreen);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _numberAnimationTimer?.cancel();
+    super.dispose();
+  }
+}

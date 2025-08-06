@@ -1,0 +1,78 @@
+name: quicko_app
+description: "A new Flutter project."
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.8
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  
+  # Shared Preferences for settings
+  shared_preferences: ^2.2.2
+  
+  # Easy Localization
+  easy_localization: ^3.0.3
+  
+  # Audio
+  audioplayers: ^5.2.1
+  
+  # Image Generation and Sharing
+  screenshot: ^3.0.0
+  share_plus: ^7.2.1
+  path_provider: ^2.1.2
+  
+  # Google Fonts
+  # google_fonts: ^6.1.0  # KALDIRILDI
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/translations/
+    - assets/images/
+    - assets/sounds/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
