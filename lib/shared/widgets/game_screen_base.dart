@@ -17,6 +17,7 @@ class GameScreenBase extends StatelessWidget {
   final IconData? descriptionIcon;
   final List<Widget>? actions;
   final String? gameId;
+  final bool isWaiting;
 
   const GameScreenBase({
     super.key,
@@ -27,6 +28,7 @@ class GameScreenBase extends StatelessWidget {
     this.descriptionIcon,
     this.actions,
     this.gameId,
+    this.isWaiting = false,
   });
 
   @override
@@ -97,7 +99,11 @@ class GameScreenBase extends StatelessWidget {
                           maxWidth: 350, // Maksimum genişlik
                           maxHeight: 400, // Maksimum yükseklik
                         ),
-                        child: child,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: isWaiting ? 0.4 : 1.0,
+                          child: child,
+                        ),
                       ),
                     ),
                   ],
