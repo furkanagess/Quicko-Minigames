@@ -33,6 +33,13 @@ class GamesConfig {
       route: '/aim-trainer',
       icon: 'gps_fixed',
     ),
+    GameModel(
+      id: 'number_memory',
+      titleKey: 'number_memory',
+      descriptionKey: 'number_memory_description',
+      route: '/number-memory',
+      icon: 'memory',
+    ),
   ];
 
   // Oyun renkleri
@@ -41,6 +48,7 @@ class GamesConfig {
     'higher_lower': AppTheme.darkSecondary,
     'color_hunt': AppTheme.darkSuccess,
     'aim_trainer': AppTheme.darkWarning,
+    'number_memory': AppTheme.darkPrimary,
   };
 
   // Icon mapping
@@ -49,6 +57,7 @@ class GamesConfig {
     'trending_up': Icons.trending_up_rounded,
     'palette': Icons.palette_rounded,
     'gps_fixed': Icons.gps_fixed_rounded,
+    'memory': Icons.memory_rounded,
   };
 
   /// Belirli bir oyunu ID'ye göre bul

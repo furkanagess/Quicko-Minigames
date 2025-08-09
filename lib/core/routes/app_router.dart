@@ -7,6 +7,7 @@ import '../../features/blind_sort/views/blind_sort_screen.dart';
 import '../../features/higher_lower/views/higher_lower_screen.dart';
 import '../../features/color_hunt/views/color_hunt_screen.dart';
 import '../../features/aim_trainer/views/aim_trainer_screen.dart';
+import '../../features/number_memory/views/number_memory_screen.dart';
 import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
 
@@ -16,6 +17,7 @@ class AppRouter {
   static const String higherLower = '/higher-lower';
   static const String colorHunt = '/color-hunt';
   static const String aimTrainer = '/aim-trainer';
+  static const String numberMemory = '/number-memory';
   static const String favorites = '/favorites';
   static const String leaderboard = '/leaderboard';
 
@@ -35,6 +37,9 @@ class AppRouter {
 
       case aimTrainer:
         return _buildRoute(settings, const AimTrainerScreen());
+
+      case numberMemory:
+        return _buildRoute(settings, const NumberMemoryScreen());
 
       case favorites:
         return _buildRoute(settings, const FavoritesScreen());
