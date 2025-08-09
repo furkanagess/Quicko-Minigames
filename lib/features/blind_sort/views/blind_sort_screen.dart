@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../shared/widgets/game_slot.dart';
 import '../../../shared/widgets/game_screen_base.dart';
 import '../../../shared/widgets/game_over_dialog.dart';
+import '../../../shared/widgets/game_action_button.dart';
 import '../providers/blind_sort_provider.dart';
 import '../../../shared/models/game_state.dart';
 import '../../../core/constants/app_constants.dart';
@@ -362,114 +363,16 @@ class _BlindSortView extends StatelessWidget {
     GameState gameState,
     BlindSortProvider provider,
   ) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        height: 60,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors:
-                gameState.isWaiting
-                    ? [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.8),
-                    ]
-                    : [
-                      Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.8),
-                      Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.6),
-                    ],
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(
-                alpha: gameState.isWaiting ? 0.4 : 0.2,
-              ),
-              blurRadius: gameState.isWaiting ? 16 : 8,
-              offset: Offset(0, gameState.isWaiting ? 6 : 3),
-              spreadRadius: 0,
-            ),
-            BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(
-                alpha: gameState.isWaiting ? 0.2 : 0.1,
-              ),
-              blurRadius: gameState.isWaiting ? 32 : 16,
-              offset: Offset(0, gameState.isWaiting ? 12 : 6),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () {
-              if (gameState.isWaiting) {
-                provider.startGame();
-                provider.startNumberAnimation();
-              } else {
-                provider.resetGame();
-              }
-            },
-            borderRadius: BorderRadius.circular(20),
-            splashColor: Colors.white.withValues(alpha: 0.3),
-            highlightColor: Colors.white.withValues(alpha: 0.1),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    child: Icon(
-                      gameState.isWaiting
-                          ? Icons.play_arrow_rounded
-                          : Icons.refresh_rounded,
-                      size: 28,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 200),
-                    style: TextThemeManager.buttonLarge.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 0.5,
-                    ),
-                    child: Text(
-                      gameState.isWaiting ? 'Start Game' : 'Restart Game',
-                    ),
-                  ),
-                  if (gameState.isWaiting) ...[
-                    const SizedBox(width: 8),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+    return GameActionButton(
+      isWaiting: gameState.isWaiting,
+      onPressed: () {
+        if (gameState.isWaiting) {
+          provider.startGame();
+          provider.startNumberAnimation();
+        } else {
+          provider.resetGame();
+        }
+      },
     );
   }
 }

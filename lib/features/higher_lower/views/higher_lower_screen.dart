@@ -563,7 +563,6 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  bool _isPressed = false;
 
   @override
   void initState() {
@@ -586,18 +585,12 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
 
   void _onTapDown() {
     if (widget.onPressed != null) {
-      setState(() {
-        _isPressed = true;
-      });
       _controller.forward();
     }
   }
 
   void _onTapUp() {
     if (widget.onPressed != null) {
-      setState(() {
-        _isPressed = false;
-      });
       _controller.reverse();
       widget.onPressed!();
     }
@@ -605,9 +598,6 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
 
   void _onTapCancel() {
     if (widget.onPressed != null) {
-      setState(() {
-        _isPressed = false;
-      });
       _controller.reverse();
     }
   }
@@ -630,21 +620,13 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 100),
-                    scale: _isPressed ? 0.9 : 1.0,
-                    child: Icon(widget.icon, color: Colors.white, size: 24),
-                  ),
+                  Icon(widget.icon, color: Colors.white, size: 24),
                   const SizedBox(width: AppConstants.smallSpacing),
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 100),
-                    scale: _isPressed ? 0.95 : 1.0,
-                    child: Text(
-                      widget.text,
-                      style: TextThemeManager.buttonMedium.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    widget.text,
+                    style: TextThemeManager.buttonMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

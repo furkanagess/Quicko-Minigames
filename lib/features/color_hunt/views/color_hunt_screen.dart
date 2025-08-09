@@ -427,7 +427,6 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  bool _isPressed = false;
 
   @override
   void initState() {
@@ -450,18 +449,12 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
 
   void _onTapDown() {
     if (widget.onTap != null) {
-      setState(() {
-        _isPressed = true;
-      });
       _controller.forward();
     }
   }
 
   void _onTapUp() {
     if (widget.onTap != null) {
-      setState(() {
-        _isPressed = false;
-      });
       _controller.reverse();
       widget.onTap!();
     }
@@ -469,9 +462,6 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
 
   void _onTapCancel() {
     if (widget.onTap != null) {
-      setState(() {
-        _isPressed = false;
-      });
       _controller.reverse();
     }
   }
@@ -491,17 +481,13 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
               ),
-              child: AnimatedScale(
-                duration: const Duration(milliseconds: 100),
-                scale: _isPressed ? 0.9 : 1.0,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: widget.isWrong ? Colors.red : widget.color,
-                    borderRadius: BorderRadius.circular(
-                      AppConstants.mediumRadius,
-                    ),
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: widget.isWrong ? Colors.red : widget.color,
+                  borderRadius: BorderRadius.circular(
+                    AppConstants.mediumRadius,
                   ),
                 ),
               ),

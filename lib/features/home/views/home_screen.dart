@@ -18,7 +18,9 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.mediumSpacing,
+          ),
           child: Column(
             children: [
               // Header
