@@ -1,0 +1,266 @@
+{
+  "@@locale": "tr",
+  "appName": "Quicko",
+  
+  "blindSort": "Kör Sıralama",
+  "blindSortDescription": "1-50 arası 10 sayıyı sıralayın. Yeni sayı hiçbir yere sığmazsa kaybedersiniz!",
+  "nextNumber": "Sonraki Sayı",
+  "newNumberComing": "Yeni Sayı Geliyor...",
+  
+  "start": "Başla",
+  "restart": "Yeniden Başla",
+  "home": "Ana Sayfa",
+  "games": "Oyunlar",
+  "score": "Puan",
+  "gameOver": "Oyun Bitti",
+  "tryAgain": "Tekrar Dene",
+  "share": "Paylaş",
+  "confirm": "Onayla",
+  "fullscreen": "Tam Ekran",
+  "cancel": "İptal",
+  "reset": "Sıfırla",
+  
+  "higherLower": "Yüksek mi Düşük mü",
+  "higherLowerDescription": "Sonraki sayının yüksek mi yoksa düşük mü olacağını tahmin edin!",
+  "higher": "Yüksek",
+  "lower": "Düşük",
+  "lastNumber": "Son Sayı",
+  "currentNumber": "Mevcut Sayı",
+  "close": "Kapat",
+  "betterLuckNextTime": "Bir dahaki sefere daha şanslı olacaksın!",
+  "losingNumbers": "Kaybetmemize Neden Olan Sayılar",
+  "losingNumber": "Kaybetmemize Neden Olan Sayı",
+  
+  "colorHunt": "Renk Avı",
+  "colorHuntDescription": "Hedef rengi bulun! Metnin rengi sizi kandırmaya çalışabilir!",
+  "target": "Hedef",
+  "time": "Süre",
+  "wrongColorSelected": "Yanlış Renk Seçildi",
+  
+  "favorites": "Favoriler",
+  "@favorites": {
+    "description": "Favorites navigation label"
+  },
+  "loadingFavorites": "Favoriler Yükleniyor...",
+  "@loadingFavorites": {
+    "description": "Message when loading favorites"
+  },
+  "noFavoritesYet": "Henüz Favori Yok",
+  "@noFavoritesYet": {
+    "description": "Message when no favorites exist"
+  },
+  "addGamesToFavorites": "Oyunları favorilere ekleyerek hızlı erişim sağlayın",
+  "browseGames": "Oyunları Keşfet",
+  
+  "aimTrainer": "Nişan Antrenmanı",
+  "aimTrainerDescription": "20 saniye boyunca rastgele beliren kırmızı hedefleri vurmaya çalışın. Her vuruş 1 puan!",
+  
+  "numberMemory": "Sayı Hafızası",
+  "numberMemoryDescription": "Sayı dizisini ezberleyin ve tuş takımını kullanarak doğru şekilde girin. Kaç basamak hatırlayabilirsiniz?",
+  
+  "findDifference": "Farklı Rengi Bul",
+  "findDifferenceDescription": "Farklı renkte olan tek kareyi bulun. Her turda daha zorlaşır!",
+  
+  "rockPaperScissors": "Taş-Kağıt-Makas",
+  "rockPaperScissorsDescription": "Bilgisayara karşı oyna. 5 puana ilk ulaşan kazanır.",
+  
+  "twentyOne": "21 (Blackjack)",
+  "twentyOneDescription": "Krupiyeyi 21'e kadar yenin! Aşmadan mümkün olduğunca yaklaşın.",
+  
+  "nowYourTurn": "Şimdi sıra sizde!",
+  "correct": "Doğru!",
+  "playing": "Oynanıyor",
+  "youReachedLevel": "Seviye {level}'e ulaştınız",
+  "tapToStartGuessing": "Tahmin etmeye başlamak için Yüksek veya Düşük'e dokunun! Sayılar 1-50 arasındadır.",
+  "numbersBetween1And50": "Sayılar 1-50 arasındadır",
+  
+  "leaderboard": "Liderlik Tablosu",
+  "noLeaderboardData": "Liderlik Tablosu Verisi Yok",
+  "playGamesToSeeScores": "Yüksek skorlarınızı görmek için oyun oynayın!",
+  "playGames": "Oyun Oyna",
+  "totalGames": "Toplam Oyun",
+  "highestScore": "En Yüksek Skor",
+  "averageScore": "Ortalama Skor",
+  "highScore": "Yüksek Skor: {score}",
+  "lastPlayed": "Son Oynama: {date}",
+  "sortBy": "Sırala",
+  "sortByScore": "Skora Göre Sırala",
+  "sortByLastPlayed": "Son Oynama Tarihine Göre Sırala",
+  "shareAchievements": "Başarıları Paylaş",
+  "previewImage": "Görseli Önizle",
+  "shareImage": "Görseli Paylaş",
+  "shareNoData": "Henüz paylaşılacak veri yok. Önce biraz oyun oynayın!",
+  "shareError": "Başarılar paylaşılırken hata oluştu. Lütfen tekrar deneyin.",
+  
+  "timeUp": "Süre Doldu",
+  "timeUpMessage": "Süreniz bitti!",
+  
+  "finalScore": "Final Skor",
+  "timeRanOut": "Süre bitti!",
+  "youWon": "Kazandınız!",
+  "congratulationsMessage": "Tebrikler! Görevi tamamladınız!",
+  "excellentPerformance": "Mükemmel performans!",
+  "playAgain": "Tekrar Oyna",
+  "deleteHighScore": "Yüksek Skoru Sil",
+  "deleteHighScoreMessage": "Bu oyun için yüksek skoru silmek istediğinizden emin misiniz?",
+  "delete": "Sil",
+  "language": "Dil",
+  "selectLanguage": "Dil Seçin",
+  "languageChangeInfo": "Dil değişiklikleri hemen uygulanacak. Yeni dil uygulamak için uygulama yeniden başlatılacak.",
+  "@languageChangeInfo": {
+    "description": "Information about language change"
+  },
+  
+  "sort_by_date": "Tarihe Göre Sırala",
+  "@sort_by_date": {
+    "description": "Sort by date option"
+  },
+  
+  "sort_by_game": "Oyuna Göre Sırala",
+  "@sort_by_game": {
+    "description": "Sort by game option"
+  },
+  
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme settings title"
+  },
+  
+  "selectTheme": "Tema Seçin",
+  "@selectTheme": {
+    "description": "Select theme prompt"
+  },
+  
+  "lightTheme": "Açık",
+  "@lightTheme": {
+    "description": "Light theme option"
+  },
+  
+  "darkTheme": "Koyu",
+  "@darkTheme": {
+    "description": "Dark theme option"
+  },
+  
+  "systemTheme": "Sistem",
+  "@systemTheme": {
+    "description": "System theme option"
+  },
+  
+  "lightThemeDescription": "Aydınlık ortamlar için açık tema",
+  "@lightThemeDescription": {
+    "description": "Light theme description"
+  },
+  
+  "darkThemeDescription": "Az ışıklı ortamlar için koyu tema",
+  "@darkThemeDescription": {
+    "description": "Dark theme description"
+  },
+  
+  "systemThemeDescription": "Cihazınızın tema ayarını takip eder",
+  "@systemThemeDescription": {
+    "description": "System theme description"
+  },
+  
+  "themeChangeInfo": "Tema değişiklikleri uygulama genelinde hemen uygulanacaktır.",
+  "@themeChangeInfo": {
+    "description": "Information about theme changes"
+  },
+  
+  "startGame": "Oyunu Başlat",
+  "@startGame": {
+    "description": "Start game button text"
+  },
+  "restartGame": "Oyunu Yeniden Başlat",
+  "@restartGame": {
+    "description": "Restart game button text"
+  },
+  "you": "Sen",
+  "@you": {
+    "description": "Player label"
+  },
+  "cpu": "PC",
+  "@cpu": {
+    "description": "Computer opponent label"
+  },
+  "dealer": "Krupiye",
+  "@dealer": {
+    "description": "Dealer label for card games"
+  },
+  "youWin": "Kazandın!",
+  "@youWin": {
+    "description": "Win message"
+  },
+  "youLose": "Kaybettin!",
+  "@youLose": {
+    "description": "Lose message"
+  },
+  "tie": "Berabere!",
+  "@tie": {
+    "description": "Tie message"
+  },
+  "total": "Toplam",
+  "@total": {
+    "description": "Total score label"
+  },
+  
+  "red": "Kırmızı",
+  "@red": {
+    "description": "Red color name"
+  },
+  "green": "Yeşil",
+  "@green": {
+    "description": "Green color name"
+  },
+  "blue": "Mavi",
+  "@blue": {
+    "description": "Blue color name"
+  },
+  "purple": "Mor",
+  "@purple": {
+    "description": "Purple color name"
+  },
+  "orange": "Turuncu",
+  "@orange": {
+    "description": "Orange color name"
+  },
+  "yellow": "Sarı",
+  "@yellow": {
+    "description": "Yellow color name"
+  },
+  "pink": "Pembe",
+  "@pink": {
+    "description": "Pink color name"
+  },
+  "brown": "Kahverengi",
+  "@brown": {
+    "description": "Brown color name"
+  },
+  
+  "play": "Oyna",
+  "@play": {
+    "description": "Play button text"
+  },
+  
+  "appSettings": "Uygulama Ayarları",
+  "@appSettings": {
+    "description": "App settings title"
+  },
+  "customizeAppExperience": "Uygulama deneyiminizi özelleştirin",
+  "@customizeAppExperience": {
+    "description": "App settings description"
+  },
+  
+  "settings": "Ayarlar",
+  "@settings": {
+    "description": "Settings screen title"
+  },
+  
+  "hit": "Kart Çek",
+  "@hit": {
+    "description": "Hit button text for 21 game"
+  },
+  "stand": "Kal",
+  "@stand": {
+    "description": "Stand button text for 21 game"
+  }
+}

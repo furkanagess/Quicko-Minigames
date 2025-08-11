@@ -1,0 +1,524 @@
+{
+  "@@locale": "en",
+  "appName": "Quicko",
+  "@appName": {
+    "description": "The name of the application"
+  },
+  
+  "blindSort": "Blind Sort",
+  "@blindSort": {
+    "description": "Title for the Blind Sort game"
+  },
+  "blindSortDescription": "Sort 10 numbers from 1-50. You lose if the new number doesn't fit anywhere!",
+  "@blindSortDescription": {
+    "description": "Description for the Blind Sort game"
+  },
+  "nextNumber": "Next Number",
+  "@nextNumber": {
+    "description": "Label for the next number in Blind Sort"
+  },
+  "newNumberComing": "New Number Coming...",
+  "@newNumberComing": {
+    "description": "Message when a new number is about to appear"
+  },
+  
+  "start": "Start",
+  "@start": {
+    "description": "Start button text"
+  },
+  "restart": "Restart",
+  "@restart": {
+    "description": "Restart button text"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Home navigation label"
+  },
+  "games": "Games",
+  "@games": {
+    "description": "Games navigation label"
+  },
+  "score": "Score",
+  "@score": {
+    "description": "Score label"
+  },
+  "gameOver": "Game Over",
+  "@gameOver": {
+    "description": "Game over message"
+  },
+  "tryAgain": "Try Again",
+  "@tryAgain": {
+    "description": "Try again button text"
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Share button text"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button text"
+  },
+  "fullscreen": "Fullscreen",
+  "@fullscreen": {
+    "description": "Fullscreen button text"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Reset button text"
+  },
+  
+  "higherLower": "Higher or Lower",
+  "@higherLower": {
+    "description": "Title for the Higher or Lower game"
+  },
+  "higherLowerDescription": "Guess if the next number will be higher or lower!",
+  "@higherLowerDescription": {
+    "description": "Description for the Higher or Lower game"
+  },
+  "higher": "Higher",
+  "@higher": {
+    "description": "Higher button text"
+  },
+  "lower": "Lower",
+  "@lower": {
+    "description": "Lower button text"
+  },
+  "lastNumber": "Last Number",
+  "@lastNumber": {
+    "description": "Label for the last number"
+  },
+  "currentNumber": "Current Number",
+  "@currentNumber": {
+    "description": "Label for the current number"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
+  },
+  "betterLuckNextTime": "Better luck next time!",
+  "@betterLuckNextTime": {
+    "description": "Message shown when player loses"
+  },
+  "losingNumbers": "Numbers That Caused Loss",
+  "@losingNumbers": {
+    "description": "Title for losing numbers section"
+  },
+  "losingNumber": "Number That Caused Loss",
+  "@losingNumber": {
+    "description": "Label for the number that caused loss"
+  },
+  
+  "colorHunt": "Color Hunt",
+  "@colorHunt": {
+    "description": "Title for the Color Hunt game"
+  },
+  "colorHuntDescription": "Find the target color! The text color might trick you!",
+  "@colorHuntDescription": {
+    "description": "Description for the Color Hunt game"
+  },
+  "target": "Target",
+  "@target": {
+    "description": "Target label"
+  },
+  "time": "Time",
+  "@time": {
+    "description": "Time label"
+  },
+  "wrongColorSelected": "Wrong Color Selected",
+  "@wrongColorSelected": {
+    "description": "Message when wrong color is selected"
+  },
+  
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Favorites navigation label"
+  },
+  "loadingFavorites": "Loading Favorites...",
+  "@loadingFavorites": {
+    "description": "Message when loading favorites"
+  },
+  "noFavoritesYet": "No Favorites Yet",
+  "@noFavoritesYet": {
+    "description": "Message when no favorites exist"
+  },
+  "addGamesToFavorites": "Add games to favorites for quick access",
+  "@addGamesToFavorites": {
+    "description": "Instruction to add games to favorites"
+  },
+  "browseGames": "Browse Games",
+  "@browseGames": {
+    "description": "Browse games button text"
+  },
+  
+  "aimTrainer": "Aim Trainer",
+  "@aimTrainer": {
+    "description": "Title for the Aim Trainer game"
+  },
+  "aimTrainerDescription": "Try to shoot the randomly appearing red targets for 20 seconds. Each hit is 1 point!",
+  "@aimTrainerDescription": {
+    "description": "Description for the Aim Trainer game"
+  },
+  
+  "numberMemory": "Number Memory",
+  "@numberMemory": {
+    "description": "Title for the Number Memory game"
+  },
+  "numberMemoryDescription": "Memorize the sequence of numbers and enter it correctly using the keypad. How many digits can you remember?",
+  "@numberMemoryDescription": {
+    "description": "Description for the Number Memory game"
+  },
+  
+  "findDifference": "Find the Difference",
+  "@findDifference": {
+    "description": "Title for the Find the Difference game"
+  },
+  "findDifferenceDescription": "Find the one square with a different color. It gets harder with each round!",
+  "@findDifferenceDescription": {
+    "description": "Description for the Find the Difference game"
+  },
+  
+  "rockPaperScissors": "Rock-Paper-Scissors",
+  "@rockPaperScissors": {
+    "description": "Title for the Rock-Paper-Scissors game"
+  },
+  "rockPaperScissorsDescription": "Play against the computer. First to 5 points wins.",
+  "@rockPaperScissorsDescription": {
+    "description": "Description for the Rock-Paper-Scissors game"
+  },
+  
+  "twentyOne": "21 (Blackjack)",
+  "@twentyOne": {
+    "description": "Title for the 21 (Blackjack) game"
+  },
+  "twentyOneDescription": "Beat the dealer to 21! Get as close as possible without going over.",
+  "@twentyOneDescription": {
+    "description": "Description for the 21 (Blackjack) game"
+  },
+  
+  "nowYourTurn": "Now, your turn!",
+  "@nowYourTurn": {
+    "description": "Message indicating it's the player's turn"
+  },
+  "correct": "Correct!",
+  "@correct": {
+    "description": "Message when answer is correct"
+  },
+  "playing": "Playing",
+  "@playing": {
+    "description": "Playing status label"
+  },
+  "youReachedLevel": "You reached Level {level}",
+  "@youReachedLevel": {
+    "description": "Message when player reaches a new level",
+    "placeholders": {
+      "level": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "tapToStartGuessing": "Tap Higher or Lower to start guessing! Numbers are between 1-50.",
+  "@tapToStartGuessing": {
+    "description": "Instruction to start guessing in Higher or Lower"
+  },
+  "numbersBetween1And50": "Numbers are between 1-50",
+  "@numbersBetween1And50": {
+    "description": "Information about number range"
+  },
+  
+  "leaderboard": "Leaderboard",
+  "@leaderboard": {
+    "description": "Leaderboard navigation label"
+  },
+  "noLeaderboardData": "No Leaderboard Data",
+  "@noLeaderboardData": {
+    "description": "Message when no leaderboard data exists"
+  },
+  "playGamesToSeeScores": "Play games to see your high scores here!",
+  "@playGamesToSeeScores": {
+    "description": "Instruction to play games to see scores"
+  },
+  "playGames": "Play Games",
+  "@playGames": {
+    "description": "Play games button text"
+  },
+  "totalGames": "Total Games",
+  "@totalGames": {
+    "description": "Total games label"
+  },
+  "highestScore": "Highest Score",
+  "@highestScore": {
+    "description": "Highest score label"
+  },
+  "averageScore": "Average Score",
+  "@averageScore": {
+    "description": "Average score label"
+  },
+  "highScore": "High Score: {score}",
+  "@highScore": {
+    "description": "High score display with score value",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "lastPlayed": "Last Played: {date}",
+  "@lastPlayed": {
+    "description": "Last played date display",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "22.03.25"
+      }
+    }
+  },
+  "sortBy": "Sort By",
+  "@sortBy": {
+    "description": "Sort by label"
+  },
+  "sortByScore": "Sort by Score",
+  "@sortByScore": {
+    "description": "Sort by score option"
+  },
+  "sortByLastPlayed": "Sort by Last Played",
+  "@sortByLastPlayed": {
+    "description": "Sort by last played option"
+  },
+  "shareAchievements": "Share Achievements",
+  "@shareAchievements": {
+    "description": "Share achievements button text"
+  },
+  "previewImage": "Preview Image",
+  "@previewImage": {
+    "description": "Preview image button text"
+  },
+  "shareImage": "Share Image",
+  "@shareImage": {
+    "description": "Share image button text"
+  },
+  "shareNoData": "No data to share yet. Play some games first!",
+  "@shareNoData": {
+    "description": "Message when no data is available to share"
+  },
+  "shareError": "Error sharing achievements. Please try again.",
+  "@shareError": {
+    "description": "Error message when sharing fails"
+  },
+  
+  "timeUp": "Time's Up",
+  "@timeUp": {
+    "description": "Time up message"
+  },
+  "timeUpMessage": "You ran out of time!",
+  "@timeUpMessage": {
+    "description": "Message when time runs out"
+  },
+  
+  "finalScore": "Final Score",
+  "@finalScore": {
+    "description": "Final score label"
+  },
+  "timeRanOut": "Time ran out!",
+  "@timeRanOut": {
+    "description": "Message indicating time ran out"
+  },
+  "youWon": "You Won!",
+  "@youWon": {
+    "description": "You won message"
+  },
+  "congratulationsMessage": "Congratulations! You've completed the challenge!",
+  "@congratulationsMessage": {
+    "description": "Congratulations message for winning"
+  },
+  "excellentPerformance": "Excellent performance!",
+  "@excellentPerformance": {
+    "description": "Message for excellent performance"
+  },
+  "playAgain": "Play Again",
+  "@playAgain": {
+    "description": "Play again button text"
+  },
+  "deleteHighScore": "Delete High Score",
+  "@deleteHighScore": {
+    "description": "Delete high score dialog title"
+  },
+  "deleteHighScoreMessage": "Are you sure you want to delete the high score for this game?",
+  "@deleteHighScoreMessage": {
+    "description": "Delete high score confirmation message"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button text"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language settings title"
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Select language prompt"
+  },
+  "languageChangeInfo": "Language changes will be applied immediately. The app will restart to apply the new language.",
+  "@languageChangeInfo": {
+    "description": "Information about language change"
+  },
+  
+  "sort_by_date": "Sort by Date",
+  "@sort_by_date": {
+    "description": "Sort by date option"
+  },
+  
+  "sort_by_game": "Sort by Game",
+  "@sort_by_game": {
+    "description": "Sort by game option"
+  },
+  
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme settings title"
+  },
+  
+  "selectTheme": "Select Theme",
+  "@selectTheme": {
+    "description": "Select theme prompt"
+  },
+  
+  "lightTheme": "Light",
+  "@lightTheme": {
+    "description": "Light theme option"
+  },
+  
+  "darkTheme": "Dark",
+  "@darkTheme": {
+    "description": "Dark theme option"
+  },
+  
+  "systemTheme": "System",
+  "@systemTheme": {
+    "description": "System theme option"
+  },
+  
+  "lightThemeDescription": "Light theme for bright environments",
+  "@lightThemeDescription": {
+    "description": "Light theme description"
+  },
+  
+  "darkThemeDescription": "Dark theme for low-light environments",
+  "@darkThemeDescription": {
+    "description": "Dark theme description"
+  },
+  
+  "systemThemeDescription": "Follows your device theme setting",
+  "@systemThemeDescription": {
+    "description": "System theme description"
+  },
+  
+  "themeChangeInfo": "Theme changes will be applied immediately throughout the app.",
+  "@themeChangeInfo": {
+    "description": "Information about theme changes"
+  },
+  
+  "startGame": "Start Game",
+  "@startGame": {
+    "description": "Start game button text"
+  },
+  "restartGame": "Restart Game",
+  "@restartGame": {
+    "description": "Restart game button text"
+  },
+  "you": "You",
+  "@you": {
+    "description": "Player label"
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Computer opponent label"
+  },
+  "dealer": "Dealer",
+  "@dealer": {
+    "description": "Dealer label for card games"
+  },
+  "youWin": "You Win!",
+  "@youWin": {
+    "description": "Win message"
+  },
+  "youLose": "You Lose!",
+  "@youLose": {
+    "description": "Lose message"
+  },
+  "tie": "Tie!",
+  "@tie": {
+    "description": "Tie message"
+  },
+  "total": "Total",
+  "@total": {
+    "description": "Total score label"
+  },
+  
+  "red": "Red",
+  "@red": {
+    "description": "Red color name"
+  },
+  "green": "Green",
+  "@green": {
+    "description": "Green color name"
+  },
+  "blue": "Blue",
+  "@blue": {
+    "description": "Blue color name"
+  },
+  "purple": "Purple",
+  "@purple": {
+    "description": "Purple color name"
+  },
+  "orange": "Orange",
+  "@orange": {
+    "description": "Orange color name"
+  },
+  "yellow": "Yellow",
+  "@yellow": {
+    "description": "Yellow color name"
+  },
+  "pink": "Pink",
+  "@pink": {
+    "description": "Pink color name"
+  },
+  "brown": "Brown",
+  "@brown": {
+    "description": "Brown color name"
+  },
+  
+  "play": "Play",
+  "@play": {
+    "description": "Play button text"
+  },
+  
+  "appSettings": "App Settings",
+  "@appSettings": {
+    "description": "App settings title"
+  },
+  "customizeAppExperience": "Customize your app experience",
+  "@customizeAppExperience": {
+    "description": "App settings description"
+  },
+  
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings screen title"
+  },
+  
+  "hit": "Hit",
+  "@hit": {
+    "description": "Hit button text for 21 game"
+  },
+  "stand": "Stand",
+  "@stand": {
+    "description": "Stand button text for 21 game"
+  }
+}
