@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-import '../../../shared/models/color_hunt_game_state.dart';
+import '../models/color_hunt_game_state.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class ColorHuntProvider extends ChangeNotifier {
   ColorHuntGameState _gameState = const ColorHuntGameState();
@@ -13,20 +15,20 @@ class ColorHuntProvider extends ChangeNotifier {
 
   ColorHuntGameState get gameState => _gameState;
 
-  // Color names and their corresponding colors
+  // Color keys and their corresponding colors
   final Map<String, Color> _colorMap = {
-    'Red': Colors.red,
-    'Green': Colors.green,
-    'Blue': Colors.blue,
-    'Purple': Colors.purple,
-    'Orange': Colors.orange,
-    'Yellow': Colors.yellow,
-    'Pink': Colors.pink,
-    'Brown': Colors.brown,
+    'red': AppTheme.darkError,
+    'green': Colors.green,
+    'blue': Colors.blue,
+    'purple': Colors.purple,
+    'orange': Colors.orange,
+    'yellow': Colors.yellow,
+    'pink': Colors.pink,
+    'brown': Colors.brown,
   };
 
   final List<Color> _availableColors = [
-    Colors.red,
+    AppTheme.darkError,
     Colors.green,
     Colors.blue,
     Colors.purple,
@@ -79,9 +81,12 @@ class ColorHuntProvider extends ChangeNotifier {
 
   /// Yeni hedef oluştur
   void _generateNewTarget() {
-    final colorNames = _colorMap.keys.toList();
-    final targetColorName = colorNames[_random.nextInt(colorNames.length)];
-    final targetColor = _colorMap[targetColorName]!;
+    final colorKeys = _colorMap.keys.toList();
+    final targetColorKey = colorKeys[_random.nextInt(colorKeys.length)];
+    final targetColor = _colorMap[targetColorKey]!;
+
+    // Get localized color name
+    final targetColorName = LocalizationUtils.getStringGlobal(targetColorKey);
 
     // Misleading text color (different from target color)
     Color textColor;
@@ -202,11 +207,7 @@ class ColorHuntProvider extends ChangeNotifier {
     if (_gameState.score > previousHighScore) {
       SoundUtils.playNewLevelSound();
     }
-    await LeaderboardUtils.updateHighScore(
-      'color_hunt',
-      'Color Hunt',
-      _gameState.score,
-    );
+    await LeaderboardUtils.updateHighScore('color_hunt', _gameState.score);
   }
 
   /// Oyunu sıfırla
