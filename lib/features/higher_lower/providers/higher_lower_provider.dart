@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-import '../../../shared/models/higher_lower_game_state.dart';
+import '../models/higher_lower_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
 
@@ -216,11 +216,7 @@ class HigherLowerProvider extends ChangeNotifier {
     if (_gameState.score > previousHighScore) {
       SoundUtils.playNewLevelSound();
     }
-    await LeaderboardUtils.updateHighScore(
-      'higher_lower',
-      'Higher or Lower',
-      _gameState.score,
-    );
+    await LeaderboardUtils.updateHighScore('higher_lower', _gameState.score);
   }
 
   /// Game over animasyonunu gizle
