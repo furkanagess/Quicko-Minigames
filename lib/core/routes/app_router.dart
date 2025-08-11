@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 
 // Features
 import '../../features/home/views/home_screen.dart';
@@ -8,8 +8,12 @@ import '../../features/higher_lower/views/higher_lower_screen.dart';
 import '../../features/color_hunt/views/color_hunt_screen.dart';
 import '../../features/aim_trainer/views/aim_trainer_screen.dart';
 import '../../features/number_memory/views/number_memory_screen.dart';
+import '../../features/rps/views/rps_page.dart';
+import '../../features/find_difference/views/find_difference_page.dart';
+import '../../features/twenty_one/views/twenty_one_screen.dart';
 import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
+import '../../features/settings/views/settings_screen.dart';
 
 class AppRouter {
   static const String home = '/';
@@ -18,50 +22,94 @@ class AppRouter {
   static const String colorHunt = '/color-hunt';
   static const String aimTrainer = '/aim-trainer';
   static const String numberMemory = '/number-memory';
+  static const String rps = '/rps';
+  static const String findDifference = '/find-difference';
+  static const String twentyOne = '/twenty-one';
   static const String favorites = '/favorites';
   static const String leaderboard = '/leaderboard';
+  static const String settings = '/settings';
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
+  static Route<dynamic> generateRoute(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
       case home:
-        return _buildRoute(settings, const HomeScreen());
+        return _buildModernRoute(routeSettings, const HomeScreen());
 
       case blindSort:
-        return _buildRoute(settings, const BlindSortScreen());
+        return _buildModernRoute(routeSettings, const BlindSortScreen());
 
       case higherLower:
-        return _buildRoute(settings, const HigherLowerScreen());
+        return _buildModernRoute(routeSettings, const HigherLowerScreen());
 
       case colorHunt:
-        return _buildRoute(settings, const ColorHuntScreen());
+        return _buildModernRoute(routeSettings, const ColorHuntScreen());
 
       case aimTrainer:
-        return _buildRoute(settings, const AimTrainerScreen());
+        return _buildModernRoute(routeSettings, const AimTrainerScreen());
 
       case numberMemory:
-        return _buildRoute(settings, const NumberMemoryScreen());
+        return _buildModernRoute(routeSettings, const NumberMemoryScreen());
+
+      case rps:
+        return _buildModernRoute(routeSettings, const RpsPage());
+
+      case findDifference:
+        return _buildModernRoute(routeSettings, const FindDifferencePage());
+
+      case twentyOne:
+        return _buildModernRoute(routeSettings, const TwentyOneScreen());
 
       case favorites:
-        return _buildRoute(settings, const FavoritesScreen());
+        return _buildModernRoute(routeSettings, const FavoritesScreen());
 
       case leaderboard:
-        return _buildRoute(settings, const LeaderboardScreen());
+        return _buildModernRoute(routeSettings, const LeaderboardScreen());
+
+      case settings:
+        return _buildModernRoute(routeSettings, const SettingsScreen());
 
       default:
-        return _buildRoute(
-          settings,
+        return _buildModernRoute(
+          routeSettings,
           Scaffold(
-            body: Center(child: Text('Route not found: ${settings.name}')),
+            body: Center(child: Text('Route not found: ${routeSettings.name}')),
           ),
         );
     }
   }
 
-  static PageRoute<dynamic> _buildRoute(RouteSettings settings, Widget child) {
-    return MaterialPageRoute(settings: settings, builder: (context) => child);
+  static PageRoute<dynamic> _buildModernRoute(
+    RouteSettings settings,
+    Widget child,
+  ) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 0.1);
+        const end = Offset.zero;
+        const curve = Curves.easeOutCubic;
+
+        var tween = Tween(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
+
+        var offsetAnimation = animation.drive(tween);
+        var fadeAnimation = animation.drive(
+          Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve)),
+        );
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: FadeTransition(opacity: fadeAnimation, child: child),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 250),
+      reverseTransitionDuration: const Duration(milliseconds: 200),
+    );
   }
 
-  // Navigation helper methods
+  // Navigation helper methods with modern transitions
   static Future<T?> pushNamed<T extends Object?>(
     BuildContext context,
     String routeName, {

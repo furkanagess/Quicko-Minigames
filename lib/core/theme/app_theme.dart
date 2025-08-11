@@ -30,6 +30,12 @@ class AppTheme {
   static const Color darkSuccess = Color(0xFF68D391);
   static const Color darkWarning = Color(0xFFF6E05E);
 
+  // Extended Named Colors (centralized usage across app)
+  static const Color vividGreen = Color(0xFF64DD17);
+  static const Color vividGreenAlt = Color(0xFF5AC715);
+  static const Color goldYellow = Color(0xFFFFD700);
+  static const Color overlayDark = Color(0xFF2B2E3A);
+
   // Game Specific Colors
   static const Color slotBorder = Color(0xFF9F7AEA);
   static const Color slotBackground = Color(0xFF2D3748);
@@ -37,6 +43,11 @@ class AppTheme {
   static const Color darkSlotBorder = Color(0xFFB794F4);
   static const Color darkSlotBackground = Color(0xFF1A202C);
   static const Color darkQuestionMark = Color(0xFF718096);
+
+  // Light theme specific slot colors for better contrast
+  static const Color lightSlotBorder = Color(0xFF8B5CF6);
+  static const Color lightSlotBackground = Color(0xFFF8FAFC);
+  static const Color lightSlotText = Color(0xFF4C1D95);
 
   static ThemeData getLightTheme() {
     return ThemeData(

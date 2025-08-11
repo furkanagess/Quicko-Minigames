@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'l10n/app_localizations.dart';
 
-// Core
 import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
-import 'core/routes/app_router.dart';
+import 'core/theme/text_theme_manager.dart';
 import 'core/providers/app_providers.dart';
-import 'core/utils/sound_utils.dart';
+import 'core/providers/language_provider.dart';
+import 'core/providers/theme_provider.dart';
+import 'core/routes/app_router.dart';
+import 'core/utils/global_context.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Easy Localization başlat
-  await EasyLocalization.ensureInitialized();
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-  // Ses sistemini başlat
-  await SoundUtils.initialize();
-
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('tr', 'TR'), Locale('en', 'US')],
-      path: 'assets/translations/',
-      fallbackLocale: const Locale('tr', 'TR'),
-      useOnlyLangCode: true, // Sadece dil kodunu kullan
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,38 +32,58 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: AppProviders.providers,
-      child: MaterialApp(
-        title: AppConstants.appName,
-        debugShowCheckedModeBanner: false,
+      child: Consumer2<LanguageProvider, ThemeProvider>(
+        builder: (context, languageProvider, themeProvider, child) {
+          return MaterialApp(
+            title: 'Quicko',
+            debugShowCheckedModeBanner: false,
+            navigatorKey: GlobalContext.navigatorKey,
 
-        // Localization
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+            // Localization
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('tr'), // Turkish
+            ],
+            locale: languageProvider.currentLocale,
 
-        // Theme
-        theme: AppTheme.getDarkTheme(),
-        darkTheme: AppTheme.getDarkTheme(),
-        themeMode: ThemeMode.dark,
+            // Theme
+            theme: AppTheme.getLightTheme(),
+            darkTheme: AppTheme.getDarkTheme(),
+            themeMode: _getThemeMode(themeProvider),
 
-        // Routes
-        initialRoute: AppRouter.home,
-        onGenerateRoute: AppRouter.generateRoute,
+            // Routes
+            initialRoute: AppRouter.home,
+            onGenerateRoute: AppRouter.generateRoute,
 
-        // System UI
-        builder: (context, child) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness:
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Brightness.light
-                      : Brightness.dark,
-            ),
-            child: child!,
+            // Performance
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: const TextScaler.linear(1.0)),
+                child: child!,
+              );
+            },
           );
         },
       ),
     );
+  }
+
+  ThemeMode _getThemeMode(ThemeProvider themeProvider) {
+    switch (themeProvider.currentThemeMode) {
+      case AppThemeMode.light:
+        return ThemeMode.light;
+      case AppThemeMode.dark:
+        return ThemeMode.dark;
+      case AppThemeMode.system:
+        return ThemeMode.system;
+    }
   }
 }

@@ -24,8 +24,8 @@ class AppConstants {
   static const double largeRadius = 16.0;
 
   // Supported Languages
-  static const List<String> supportedLanguages = ['tr', 'en'];
-  static const String defaultLanguage = 'tr';
+  static const List<String> supportedLanguages = ['en', 'tr'];
+  static const String defaultLanguage = 'en';
 
   // Supported Themes
 }

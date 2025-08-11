@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import '../../features/favorites/providers/favorites_provider.dart';
 import '../../features/leaderboard/providers/leaderboard_provider.dart';
 
+// Core
+import 'language_provider.dart';
+import 'theme_provider.dart';
+
 class AppProviders {
   static List<ChangeNotifierProvider> get providers => [
     ChangeNotifierProvider<FavoritesProvider>(
@@ -13,6 +17,8 @@ class AppProviders {
     ChangeNotifierProvider<LeaderboardProvider>(
       create: (_) => LeaderboardProvider(),
     ),
+    ChangeNotifierProvider<LanguageProvider>(create: (_) => LanguageProvider()),
+    ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
   ];
 
   // Helper method to get provider instance

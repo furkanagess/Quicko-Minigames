@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/models/game_model.dart';
 import '../theme/app_theme.dart';
+import 'app_icons.dart';
 
 class GamesConfig {
   // Tüm oyunların merkezi konfigürasyonu
@@ -11,6 +12,8 @@ class GamesConfig {
       descriptionKey: 'blind_sort_description',
       route: '/blind-sort',
       icon: 'sort',
+      category: 'Logic',
+      order: 2,
     ),
     GameModel(
       id: 'higher_lower',
@@ -18,6 +21,8 @@ class GamesConfig {
       descriptionKey: 'higher_lower_description',
       route: '/higher-lower',
       icon: 'trending_up',
+      category: 'Numbers',
+      order: 1,
     ),
     GameModel(
       id: 'color_hunt',
@@ -25,6 +30,8 @@ class GamesConfig {
       descriptionKey: 'color_hunt_description',
       route: '/color-hunt',
       icon: 'palette',
+      category: 'Vision',
+      order: 3,
     ),
     GameModel(
       id: 'aim_trainer',
@@ -32,6 +39,8 @@ class GamesConfig {
       descriptionKey: 'aim_trainer_description',
       route: '/aim-trainer',
       icon: 'gps_fixed',
+      category: 'Reflex',
+      order: 4,
     ),
     GameModel(
       id: 'number_memory',
@@ -39,25 +48,61 @@ class GamesConfig {
       descriptionKey: 'number_memory_description',
       route: '/number-memory',
       icon: 'memory',
+      category: 'Memory',
+      order: 5,
+    ),
+    GameModel(
+      id: 'find_difference',
+      titleKey: 'find_difference',
+      descriptionKey: 'find_difference_description',
+      route: '/find-difference',
+      icon: 'difference',
+      category: 'Vision',
+      order: 0,
+    ),
+    GameModel(
+      id: 'rps',
+      titleKey: 'rock_paper_scissors',
+      descriptionKey: 'rock_paper_scissors_description',
+      route: '/rps',
+      icon: 'hand',
+      category: 'Reflex',
+      order: 6,
+    ),
+    GameModel(
+      id: 'twenty_one',
+      titleKey: 'twenty_one',
+      descriptionKey: 'twenty_one_description',
+      route: '/twenty-one',
+      icon: 'casino',
+      category: 'Cards',
+      order: 7,
     ),
   ];
 
   // Oyun renkleri
   static const Map<String, Color> gameColors = {
-    'blind_sort': AppTheme.darkPrimary,
-    'higher_lower': AppTheme.darkSecondary,
-    'color_hunt': AppTheme.darkSuccess,
-    'aim_trainer': AppTheme.darkWarning,
-    'number_memory': AppTheme.darkPrimary,
+    // Distinct palette aligned with Find Difference game's rotating colors
+    'blind_sort': AppTheme.darkPrimary, // purple
+    'higher_lower': AppTheme.darkWarning, // yellow
+    'color_hunt': AppTheme.darkSuccess, // green
+    'aim_trainer': AppTheme.darkError, // red
+    'number_memory': AppTheme.vividGreen, // vivid green
+    'find_difference': AppTheme.darkSecondary, // soft purple
+    'rps': AppTheme.darkPrimary, // purple
+    'twenty_one': AppTheme.goldYellow, // gold
   };
 
   // Icon mapping
   static const Map<String, IconData> gameIcons = {
-    'sort': Icons.sort_rounded,
-    'trending_up': Icons.trending_up_rounded,
-    'palette': Icons.palette_rounded,
-    'gps_fixed': Icons.gps_fixed_rounded,
-    'memory': Icons.memory_rounded,
+    'sort': AppIcons.sort,
+    'trending_up': AppIcons.trending,
+    'palette': AppIcons.palette,
+    'gps_fixed': AppIcons.gpsFixed,
+    'memory': AppIcons.memory,
+    'difference': AppIcons.gridOn,
+    'hand': AppIcons.hand,
+    'casino': Icons.casino,
   };
 
   /// Belirli bir oyunu ID'ye göre bul

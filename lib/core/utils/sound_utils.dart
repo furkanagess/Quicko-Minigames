@@ -61,6 +61,18 @@ class SoundUtils {
     }
   }
 
+  /// Kazanma (You Won) sesi çal
+  static Future<void> playWinnerSound() async {
+    if (!_isInitialized) await initialize();
+
+    try {
+      await _audioPlayer?.play(AssetSource('sounds/winner_sound.mp3'));
+      await _audioPlayer?.setVolume(0.8);
+    } catch (e) {
+      print('Winner sesi çalınırken hata: $e');
+    }
+  }
+
   /// Oyun bitiş sesi çal (eski versiyon - geriye uyumluluk için)
   static Future<void> playGameOverSoundLegacy() async {
     if (!_isInitialized) await initialize();

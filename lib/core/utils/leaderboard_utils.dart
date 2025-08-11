@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/models/leaderboard_entry.dart';
+import 'localization_utils.dart';
 
 class LeaderboardUtils {
   static const String _leaderboardKey = 'leaderboard_entries';
@@ -33,8 +34,47 @@ class LeaderboardUtils {
     return [];
   }
 
-  /// Oyun için yüksek skoru güncelle
-  static Future<void> updateHighScore(
+  /// Oyun için yüksek skoru güncelle (context-free version)
+  static Future<void> updateHighScore(String gameId, int score) async {
+    // Score 0 ise leaderboard'a ekleme
+    if (score <= 0) return;
+
+    // Get localized game title using the new approach
+    final gameTitle = LocalizationUtils.getStringGlobal(gameId);
+
+    final entries = await loadLeaderboard();
+    final existingIndex = entries.indexWhere((entry) => entry.gameId == gameId);
+
+    if (existingIndex != -1) {
+      // Mevcut girişi güncelle
+      if (score > entries[existingIndex].highScore) {
+        entries[existingIndex] = entries[existingIndex].copyWith(
+          highScore: score,
+          lastPlayed: DateTime.now(),
+        );
+      } else {
+        // Sadece son oynama tarihini güncelle
+        entries[existingIndex] = entries[existingIndex].copyWith(
+          lastPlayed: DateTime.now(),
+        );
+      }
+    } else {
+      // Yeni giriş ekle
+      entries.add(
+        LeaderboardEntry(
+          gameId: gameId,
+          gameTitle: gameTitle,
+          highScore: score,
+          lastPlayed: DateTime.now(),
+        ),
+      );
+    }
+
+    await saveLeaderboard(entries);
+  }
+
+  /// Oyun için yüksek skoru güncelle (with context version - for backward compatibility)
+  static Future<void> updateHighScoreWithContext(
     String gameId,
     String gameTitle,
     int score,
