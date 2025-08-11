@@ -264,11 +264,7 @@ class BlindSortProvider extends ChangeNotifier {
     );
 
     // Yüksek skoru güncelle
-    await LeaderboardUtils.updateHighScore(
-      'blind_sort',
-      'Blind Sort',
-      finalScore,
-    );
+    await LeaderboardUtils.updateHighScore('blind_sort', finalScore);
 
     notifyListeners();
   }
@@ -295,11 +291,7 @@ class BlindSortProvider extends ChangeNotifier {
     );
 
     // Yüksek skoru güncelle
-    await LeaderboardUtils.updateHighScore(
-      'blind_sort',
-      'Blind Sort',
-      finalScore,
-    );
+    await LeaderboardUtils.updateHighScore('blind_sort', finalScore);
 
     notifyListeners();
   }
@@ -330,11 +322,7 @@ class BlindSortProvider extends ChangeNotifier {
     );
 
     // Yüksek skoru güncelle
-    await LeaderboardUtils.updateHighScore(
-      'blind_sort',
-      'Blind Sort',
-      finalScore,
-    );
+    await LeaderboardUtils.updateHighScore('blind_sort', finalScore);
 
     notifyListeners();
   }

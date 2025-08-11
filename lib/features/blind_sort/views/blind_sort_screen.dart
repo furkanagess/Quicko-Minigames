@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../../shared/widgets/game_slot.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_over_dialog.dart';
 import '../../../shared/widgets/game_action_button.dart';
 import '../providers/blind_sort_provider.dart';
 import '../../../shared/models/game_state.dart';
@@ -32,18 +31,49 @@ class _BlindSortView extends StatelessWidget {
       builder: (context, provider, child) {
         final gameState = provider.gameState;
 
-        // Show game over dialog when needed
+        // Create game result when game is over
+        GameResult? gameResult;
         if (gameState.showGameOver) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _showGameOverDialog(context, gameState, provider);
-          });
+          gameResult = GameResult(
+            isWin: gameState.status == GameStatus.won,
+            score: gameState.score,
+            losingNumber:
+                gameState.status != GameStatus.won &&
+                        gameState.currentNumber != null
+                    ? gameState.currentNumber.toString()
+                    : null,
+            title:
+                gameState.status == GameStatus.won
+                    ? 'Congratulations!'
+                    : AppLocalizations.of(context)!.gameOver,
+            subtitle:
+                gameState.status == GameStatus.won
+                    ? 'You successfully sorted all numbers!'
+                    : null,
+          );
         }
 
         return GameScreenBase(
           title: 'blind_sort',
           descriptionKey: 'blind_sort_description',
           gameId: 'blind_sort',
-          bottomActions: _buildBottomActions(context, gameState, provider),
+          gameResult: gameResult,
+          onTryAgain: () {
+            provider.hideGameOver();
+            provider.resetGame();
+          },
+          onBackToMenu: () {
+            provider.hideGameOver();
+            Navigator.of(context).pop();
+          },
+          onStartGame: () {
+            provider.startGame();
+            provider.startNumberAnimation();
+          },
+          onResetGame: () {
+            provider.resetGame();
+          },
+          isWaiting: gameState.isWaiting,
           child: _buildGameContent(context, gameState, provider),
         );
       },
@@ -67,9 +97,6 @@ class _BlindSortView extends StatelessWidget {
 
           // Sabit oyun slotları alanı
           _buildGameSlots(context, gameState, provider),
-
-          // Dinamik içerik alanı (uyarı mesajları, oyun sonu mesajları)
-          Expanded(child: _buildDynamicContent(context, gameState, provider)),
         ],
       ),
     );
@@ -80,6 +107,8 @@ class _BlindSortView extends StatelessWidget {
     GameState gameState,
     BlindSortProvider provider,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       constraints: const BoxConstraints(
         maxWidth: 300, // Maksimum genişlik
@@ -87,18 +116,28 @@ class _BlindSortView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Skor rozeti (Higher or Lower ile aynı)
+          // Skor rozeti - aydınlık tema için daha iyi kontrast
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.15),
+              color:
+                  isDark
+                      ? Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.15)
+                      : Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.2),
+                color:
+                    isDark
+                        ? Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.2)
+                        : Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -112,7 +151,7 @@ class _BlindSortView extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  '${'score'.tr()}: ${gameState.score}',
+                  '${AppLocalizations.of(context)!.score}: ${gameState.score}',
                   style: TextThemeManager.subtitleMedium.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -123,7 +162,7 @@ class _BlindSortView extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.mediumSpacing),
 
-          // Modern sayı gösterimi
+          // Modern sayı gösterimi - aydınlık tema için daha iyi kontrast
           Container(
             width: 100,
             height: 100,
@@ -136,7 +175,7 @@ class _BlindSortView extends StatelessWidget {
                   _getNumberDisplayColor(
                     context,
                     gameState,
-                  ).withValues(alpha: 0.8),
+                  ).withValues(alpha: isDark ? 0.8 : 0.9),
                 ],
               ),
               borderRadius: BorderRadius.circular(AppConstants.largeRadius),
@@ -145,7 +184,7 @@ class _BlindSortView extends StatelessWidget {
                   color: _getNumberDisplayColor(
                     context,
                     gameState,
-                  ).withValues(alpha: 0.4),
+                  ).withValues(alpha: isDark ? 0.4 : 0.3),
                   blurRadius: 12,
                   spreadRadius: 0,
                   offset: const Offset(0, 4),
@@ -154,7 +193,7 @@ class _BlindSortView extends StatelessWidget {
                   color: _getNumberDisplayColor(
                     context,
                     gameState,
-                  ).withValues(alpha: 0.2),
+                  ).withValues(alpha: isDark ? 0.2 : 0.15),
                   blurRadius: 20,
                   spreadRadius: 0,
                   offset: const Offset(0, 8),
@@ -171,10 +210,10 @@ class _BlindSortView extends StatelessWidget {
   }
 
   Color _getNumberDisplayColor(BuildContext context, GameState gameState) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     if (gameState.isNextNumberUnplayable) {
-      return Theme.of(context).brightness == Brightness.dark
-          ? AppTheme.darkError
-          : AppTheme.darkError;
+      return isDark ? AppTheme.darkError : AppTheme.lightError;
     }
     return Theme.of(context).colorScheme.primary;
   }
@@ -184,6 +223,8 @@ class _BlindSortView extends StatelessWidget {
     GameState gameState,
     BlindSortProvider provider,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     if (gameState.isWaiting) {
       return TweenAnimationBuilder<double>(
         duration: const Duration(milliseconds: 2000),
@@ -194,13 +235,16 @@ class _BlindSortView extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
+                color:
+                    isDark
+                        ? Colors.white.withValues(alpha: 0.2)
+                        : Colors.white.withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(AppConstants.smallRadius),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.question_mark_rounded,
                 size: 36,
-                color: Colors.white,
+                color: isDark ? Colors.white : Colors.white,
               ),
             ),
           );
@@ -212,7 +256,10 @@ class _BlindSortView extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.15),
+          color:
+              isDark
+                  ? Colors.white.withValues(alpha: 0.15)
+                  : Colors.white.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(AppConstants.smallRadius),
         ),
         child: Text(
@@ -235,7 +282,10 @@ class _BlindSortView extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
+              color:
+                  isDark
+                      ? Colors.white.withValues(alpha: 0.15)
+                      : Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(AppConstants.smallRadius),
             ),
             child: Text(
@@ -261,47 +311,6 @@ class _BlindSortView extends StatelessWidget {
   ) {
     // Oyun devam ediyor veya bekliyor - boş alan
     return const SizedBox.shrink();
-  }
-
-  void _showGameOverDialog(
-    BuildContext context,
-    GameState gameState,
-    BlindSortProvider provider,
-  ) {
-    // Ensure we have the final score
-    final finalScore = gameState.score;
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return PopScope(
-          canPop: false,
-          child: GameOverDialog(
-            title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
-                    : 'game_over'.tr(),
-            subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You successfully sorted all numbers!'
-                    : null,
-            score: finalScore,
-            isWin: gameState.status == GameStatus.won,
-            losingNumber:
-                gameState.status != GameStatus.won &&
-                        gameState.currentNumber != null
-                    ? gameState.currentNumber.toString()
-                    : null,
-            onTryAgain: () {
-              Navigator.of(context).pop();
-              provider.hideGameOver();
-              provider.resetGame();
-            },
-          ),
-        );
-      },
-    );
   }
 
   Widget _buildGameSlots(
@@ -355,24 +364,6 @@ class _BlindSortView extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildBottomActions(
-    BuildContext context,
-    GameState gameState,
-    BlindSortProvider provider,
-  ) {
-    return GameActionButton(
-      isWaiting: gameState.isWaiting,
-      onPressed: () {
-        if (gameState.isWaiting) {
-          provider.startGame();
-          provider.startNumberAnimation();
-        } else {
-          provider.resetGame();
-        }
-      },
     );
   }
 }
