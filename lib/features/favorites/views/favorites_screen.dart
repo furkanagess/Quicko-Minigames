@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../../../shared/models/game_model.dart';
-import '../providers/favorites_provider.dart';
+
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/games_config.dart';
-import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/routes/app_router.dart';
+import '../../../core/constants/app_icons.dart';
 import '../../../core/providers/app_providers.dart';
+import '../../../shared/models/game_model.dart';
+import '../providers/favorites_provider.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -17,94 +19,148 @@ class FavoritesScreen extends StatefulWidget {
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _FavoritesScreenState extends State<FavoritesScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _fadeController;
+  late AnimationController _slideController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
   @override
   void initState() {
     super.initState();
-    // Favorileri yükle
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<FavoritesProvider>().loadFavorites();
-    });
+    _fadeController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _slideController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.05),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
+
+    _fadeController.forward();
+    _slideController.forward();
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    _slideController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          'favorites'.tr(),
-          style: TextThemeManager.appTitlePrimary(context),
+      appBar: _buildAppBar(),
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SlideTransition(
+          position: _slideAnimation,
+          child: Consumer<FavoritesProvider>(
+            builder: (context, favoritesProvider, child) {
+              // Load favorites if not already loaded
+              if (!favoritesProvider.isLoading &&
+                  favoritesProvider.favorites.isEmpty) {
+                print('FavoritesScreen: Triggering favorites load...');
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  favoritesProvider.loadFavorites();
+                });
+              }
+
+              print(
+                'FavoritesScreen: isLoading: ${favoritesProvider.isLoading}, hasFavorites: ${favoritesProvider.hasFavorites}, favoritesCount: ${favoritesProvider.favoritesCount}',
+              );
+
+              if (favoritesProvider.isLoading) {
+                return _buildLoadingState();
+              }
+
+              if (!favoritesProvider.hasFavorites) {
+                return _buildEmptyState();
+              }
+
+              return _buildFavoritesList(favoritesProvider);
+            },
+          ),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
+      ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      title: Text(
+        AppLocalizations.of(context)!.favorites,
+        style: TextThemeManager.appTitlePrimary(context),
+      ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Container(
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: IconButton(
           icon: Icon(
-            Icons.arrow_back_rounded,
+            AppIcons.back,
             color: Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: () => AppRouter.pop(context),
         ),
       ),
-      body: Consumer<FavoritesProvider>(
-        builder: (context, favoritesProvider, child) {
-          if (favoritesProvider.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (!favoritesProvider.hasFavorites) {
-            return _buildEmptyState();
-          }
-
-          return _buildFavoritesList(favoritesProvider);
-        },
-      ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildLoadingState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.favorite_border_rounded,
-            size: 80,
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.5),
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              strokeWidth: 3,
+            ),
           ),
           const SizedBox(height: AppConstants.largeSpacing),
           Text(
-            'no_favorites_yet'.tr(),
-            style: TextThemeManager.screenTitle.copyWith(
-              color: Theme.of(
-                context,
-              ).colorScheme.onSurface.withValues(alpha: 0.7),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppConstants.mediumSpacing),
-          Text(
-            'add_games_to_favorites'.tr(),
+            AppLocalizations.of(context)!.loadingFavorites,
             style: TextThemeManager.bodyMedium.copyWith(
               color: Theme.of(
                 context,
-              ).colorScheme.onSurface.withValues(alpha: 0.5),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppConstants.extraLargeSpacing),
-          ElevatedButton.icon(
-            onPressed: () => AppRouter.pop(context),
-            icon: const Icon(Icons.games_rounded),
-            label: Text('browse_games'.tr()),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-              ),
+              ).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -112,46 +168,149 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
   }
 
+  Widget _buildEmptyState() {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.all(AppConstants.largeSpacing),
+        padding: const EdgeInsets.all(AppConstants.extraLargeSpacing),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.1),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: AppTheme.darkError.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Icon(
+                AppIcons.favoriteOutline,
+                size: 64,
+                color: AppTheme.darkError,
+              ),
+            ),
+            const SizedBox(height: AppConstants.largeSpacing),
+            Text(
+              AppLocalizations.of(context)!.noFavoritesYet,
+              style: TextThemeManager.screenTitle.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppConstants.mediumSpacing),
+            Text(
+              AppLocalizations.of(context)!.addGamesToFavorites,
+              style: TextThemeManager.bodyMedium.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppConstants.extraLargeSpacing),
+            Container(
+              width: double.infinity,
+              height: 56,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.8),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ElevatedButton.icon(
+                onPressed: () => AppRouter.pop(context),
+                icon: const Icon(Icons.games_rounded),
+                label: Text(
+                  AppLocalizations.of(context)!.browseGames,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildFavoritesList(FavoritesProvider favoritesProvider) {
     final favoriteGames =
-        GamesConfig.allGames
-            .where((game) => favoritesProvider.isFavorite(game.id))
+        favoritesProvider.favorites
+            .map((gameId) => GamesConfig.getGameById(gameId))
+            .where((game) => game != null)
             .toList();
 
     return ListView.builder(
       padding: const EdgeInsets.all(AppConstants.mediumSpacing),
       itemCount: favoriteGames.length,
       itemBuilder: (context, index) {
-        final game = favoriteGames[index];
-        return _buildFavoriteGameCard(game, favoritesProvider);
+        final game = favoriteGames[index]!;
+        return AnimatedBuilder(
+          animation: _fadeController,
+          builder: (context, child) {
+            return Transform.translate(
+              offset: Offset(0, 10 * (1 - _fadeAnimation.value)),
+              child: Opacity(
+                opacity: _fadeAnimation.value,
+                child: _buildFavoriteCard(context, game),
+              ),
+            );
+          },
+        );
       },
     );
   }
 
-  Widget _buildFavoriteGameCard(
-    GameModel game,
-    FavoritesProvider favoritesProvider,
-  ) {
+  Widget _buildFavoriteCard(BuildContext context, GameModel game) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.06),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.08),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.06),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: const Offset(0, 6),
-            spreadRadius: 0,
-          ),
-          BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.03),
-            blurRadius: 40,
-            offset: const Offset(0, 12),
+            offset: const Offset(0, 8),
             spreadRadius: 0,
           ),
         ],
@@ -170,7 +329,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 end: Alignment.bottomRight,
                 colors: [
                   Theme.of(context).colorScheme.surface,
-                  Theme.of(context).colorScheme.surface.withValues(alpha: 0.92),
+                  Theme.of(context).colorScheme.surface.withValues(alpha: 0.95),
                 ],
               ),
             ),
@@ -183,7 +342,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   decoration: BoxDecoration(
                     color: Theme.of(
                       context,
-                    ).colorScheme.primary.withValues(alpha: 0.12),
+                    ).colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(18),
                     boxShadow: [
                       BoxShadow(
@@ -210,123 +369,49 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        game.titleKey.tr(),
+                        game.getTitle(context),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurface,
                           fontWeight: FontWeight.w800,
                           fontSize: 18,
                           letterSpacing: 0.3,
-                          height: 1.2,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 4),
                       Text(
-                        game.descriptionKey.tr(),
-                        style: TextStyle(
+                        game.getDescription(context),
+                        style: TextThemeManager.bodyMedium.copyWith(
                           color: Theme.of(
                             context,
                           ).colorScheme.onSurface.withValues(alpha: 0.7),
-                          fontSize: 14,
-                          height: 1.4,
-                          fontWeight: FontWeight.w500,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 12),
-                      // Play button indicator
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: 0.2),
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.play_arrow_rounded,
-                              size: 14,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              'Play Now',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                letterSpacing: 0.3,
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
                 ),
 
-                // Favorite button with modern design
+                // Remove from favorites button
                 Container(
-                  width: 44,
-                  height: 44,
                   decoration: BoxDecoration(
-                    color:
-                        favoritesProvider.isFavorite(game.id)
-                            ? AppTheme.darkError.withValues(alpha: 0.12)
-                            : Theme.of(context).colorScheme.surface,
-                    shape: BoxShape.circle,
+                    color: AppTheme.darkError.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color:
-                          favoritesProvider.isFavorite(game.id)
-                              ? AppTheme.darkError.withValues(alpha: 0.3)
-                              : Theme.of(
-                                context,
-                              ).colorScheme.outline.withValues(alpha: 0.15),
-                      width: 1.5,
+                      color: AppTheme.darkError.withValues(alpha: 0.2),
+                      width: 1,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                            favoritesProvider.isFavorite(game.id)
-                                ? AppTheme.darkError.withValues(alpha: 0.2)
-                                : Theme.of(
-                                  context,
-                                ).colorScheme.shadow.withValues(alpha: 0.08),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                        spreadRadius: 0,
-                      ),
-                    ],
                   ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () => favoritesProvider.toggleFavorite(game.id),
-                      borderRadius: BorderRadius.circular(22),
-                      child: Icon(
-                        favoritesProvider.isFavorite(game.id)
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border_rounded,
-                        color:
-                            favoritesProvider.isFavorite(game.id)
-                                ? AppTheme.darkError
-                                : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.6),
-                        size: 22,
-                      ),
+                  child: IconButton(
+                    onPressed: () {
+                      final favoritesProvider =
+                          AppProviders.getProvider<FavoritesProvider>(context);
+                      favoritesProvider.toggleFavorite(game.id);
+                    },
+                    icon: const Icon(
+                      AppIcons.favoriteFilled,
+                      color: AppTheme.darkError,
+                      size: 20,
                     ),
                   ),
                 ),

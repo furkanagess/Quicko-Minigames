@@ -3,24 +3,33 @@ import '../../../core/utils/favorites_utils.dart';
 
 class FavoritesProvider extends ChangeNotifier {
   List<String> _favorites = [];
-  bool _isLoading = true;
+  bool _isLoading = false; // Changed from true to false
 
   List<String> get favorites => _favorites;
   bool get isLoading => _isLoading;
 
   /// Favorileri yükle
   Future<void> loadFavorites() async {
+    if (_isLoading) return; // Prevent multiple simultaneous loads
+
+    print('FavoritesProvider: Loading favorites...');
     _isLoading = true;
     notifyListeners();
 
     try {
       _favorites = await FavoritesUtils.loadFavorites();
+      print(
+        'FavoritesProvider: Loaded ${_favorites.length} favorites: $_favorites',
+      );
     } catch (e) {
-      print('Favoriler yüklenirken hata: $e');
+      print('FavoritesProvider: Error loading favorites: $e');
       _favorites = [];
     }
 
     _isLoading = false;
+    print(
+      'FavoritesProvider: Loading completed. isLoading: $_isLoading, favorites: $_favorites',
+    );
     notifyListeners();
   }
 
