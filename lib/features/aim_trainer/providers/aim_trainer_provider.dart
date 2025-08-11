@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-import '../../../shared/models/aim_trainer_game_state.dart';
+import '../models/aim_trainer_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
 
@@ -140,11 +140,7 @@ class AimTrainerProvider extends ChangeNotifier {
     if (_gameState.score > previousHighScore) {
       SoundUtils.playNewLevelSound();
     }
-    await LeaderboardUtils.updateHighScore(
-      'aim_trainer',
-      'Aim Trainer',
-      _gameState.score,
-    );
+    await LeaderboardUtils.updateHighScore('aim_trainer', _gameState.score);
   }
 
   /// Reset the game
