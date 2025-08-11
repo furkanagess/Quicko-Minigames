@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../../shared/models/number_memory_game_state.dart';
+import 'package:quicko_app/l10n/app_localizations.dart';
+import '../models/number_memory_game_state.dart';
 import '../../../core/utils/sound_utils.dart';
 import '../../../core/utils/leaderboard_utils.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class NumberMemoryProvider extends ChangeNotifier {
   NumberMemoryGameState _gameState = const NumberMemoryGameState();
@@ -143,11 +143,7 @@ class NumberMemoryProvider extends ChangeNotifier {
     );
 
     // Update leaderboard
-    await LeaderboardUtils.updateHighScore(
-      'number_memory',
-      'number_memory'.tr(),
-      _gameState.score,
-    );
+    await LeaderboardUtils.updateHighScore('number_memory', _gameState.score);
 
     notifyListeners();
   }

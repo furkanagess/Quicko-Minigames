@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:quicko_app/core/constants/app_icons.dart';
 import '../../../shared/widgets/game_screen_base.dart';
 import '../../../shared/widgets/game_over_dialog.dart';
 import '../../../shared/widgets/game_action_button.dart';
-import '../../../shared/models/number_memory_game_state.dart';
+import '../models/number_memory_game_state.dart';
 import '../providers/number_memory_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../shared/models/game_state.dart';
 
 class NumberMemoryScreen extends StatelessWidget {
   const NumberMemoryScreen({super.key});
@@ -31,21 +33,41 @@ class _NumberMemoryView extends StatelessWidget {
       builder: (context, provider, child) {
         final gameState = provider.gameState;
 
-        // Show game over dialog when needed
+        // Create game result when game is over
+        GameResult? gameResult;
         if (gameState.showGameOver) {
-          // Clear the flag immediately to avoid duplicate dialogs
-          provider.hideGameOver();
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _showGameOverDialog(context, gameState, provider);
-          });
+          final isWin = gameState.showCorrectMessage;
+          gameResult = GameResult(
+            isWin: isWin,
+            score: gameState.score,
+            title:
+                isWin
+                    ? 'Congratulations!'
+                    : AppLocalizations.of(context)!.gameOver,
+            subtitle: isWin ? 'You remembered all numbers!' : 'Wrong number!',
+          );
         }
 
         return GameScreenBase(
           title: 'number_memory',
           descriptionKey: 'number_memory_description',
           gameId: 'number_memory',
+          gameResult: gameResult,
+          onTryAgain: () {
+            provider.hideGameOver();
+            provider.resetGame();
+          },
+          onBackToMenu: () {
+            provider.hideGameOver();
+            Navigator.of(context).pop();
+          },
+          onStartGame: () {
+            provider.startGame();
+          },
+          onResetGame: () {
+            provider.resetGame();
+          },
           isWaiting: !gameState.isGameActive,
-          bottomActions: _buildBottomActions(context, gameState, provider),
           child: _buildGameContent(context, gameState, provider),
         );
       },
@@ -106,13 +128,13 @@ class _NumberMemoryView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.emoji_events_rounded,
+            AppIcons.trophy,
             color: Theme.of(context).colorScheme.primary,
             size: 18,
           ),
           const SizedBox(width: 6),
           Text(
-            '${'score'.tr()}: ${gameState.score}',
+            '${AppLocalizations.of(context)!.score}: ${gameState.score}',
             style: TextThemeManager.subtitleMedium.copyWith(
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
@@ -143,18 +165,18 @@ class _NumberMemoryView extends StatelessWidget {
 
                 if (gameState.isShowingSequence) {
                   displayText = gameState.sequence[index].toString();
-                  textColor = const Color(0xFFFFD700);
+                  textColor = AppTheme.goldYellow;
                 } else {
                   if (index < gameState.userInput.length) {
                     displayText = gameState.userInput[index].toString();
                     if (gameState.wrongIndices.contains(index)) {
-                      textColor = Colors.red;
+                      textColor = AppTheme.darkError;
                     } else {
-                      textColor = const Color(0xFFFFD700);
+                      textColor = AppTheme.goldYellow;
                     }
                   } else {
                     displayText = '—';
-                    textColor = const Color(0xFFFFD700);
+                    textColor = AppTheme.goldYellow;
                   }
                 }
 
@@ -307,24 +329,6 @@ class _NumberMemoryView extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomActions(
-    BuildContext context,
-    NumberMemoryGameState gameState,
-    NumberMemoryProvider provider,
-  ) {
-    final bool isWaiting = !gameState.isGameActive;
-    return GameActionButton(
-      isWaiting: isWaiting,
-      onPressed: () {
-        if (isWaiting) {
-          provider.startGame();
-        } else {
-          provider.resetGame();
-        }
-      },
-    );
-  }
-
   Widget _buildInlineDeleteButton(
     BuildContext context,
     NumberMemoryGameState gameState,
@@ -368,37 +372,11 @@ class _NumberMemoryView extends StatelessWidget {
               ],
             ),
             child: const Center(
-              child: Icon(
-                Icons.backspace_rounded,
-                color: Colors.white,
-                size: 22,
-              ),
+              child: Icon(AppIcons.backspace, color: Colors.white, size: 22),
             ),
           ),
         ),
       ),
-    );
-  }
-
-  void _showGameOverDialog(
-    BuildContext context,
-    NumberMemoryGameState gameState,
-    NumberMemoryProvider provider,
-  ) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder:
-          (context) => GameOverDialog(
-            title: 'game_over'.tr(),
-
-            score: gameState.score,
-            isWin: false,
-            onTryAgain: () {
-              Navigator.of(context).pop();
-              provider.restartGame();
-            },
-          ),
     );
   }
 }
