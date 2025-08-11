@@ -29,12 +29,8 @@ class LeaderboardProvider extends ChangeNotifier {
   }
 
   /// Yüksek skoru güncelle
-  Future<void> updateHighScore(
-    String gameId,
-    String gameTitle,
-    int score,
-  ) async {
-    await LeaderboardUtils.updateHighScore(gameId, gameTitle, score);
+  Future<void> updateHighScore(String gameId, int score) async {
+    await LeaderboardUtils.updateHighScore(gameId, score);
     await loadLeaderboard(); // Liderlik tablosunu yeniden yükle
   }
 
