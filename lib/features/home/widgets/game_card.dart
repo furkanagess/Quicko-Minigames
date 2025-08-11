@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 class GameCard extends StatelessWidget {
   final String title;
@@ -130,7 +131,7 @@ class GameCard extends StatelessWidget {
                       Icon(Icons.play_arrow_rounded, size: 16, color: color),
                       const SizedBox(width: 4),
                       Text(
-                        'Play',
+                        AppLocalizations.of(context)!.play,
                         style: TextStyle(
                           color: color,
                           fontWeight: FontWeight.w600,
