@@ -35,9 +35,14 @@ class GameSlot extends StatelessWidget {
               height: 60,
               decoration: BoxDecoration(
                 color:
-                    isDark ? AppTheme.darkSlotBackground : AppTheme.darkSurface,
+                    isDark
+                        ? AppTheme.darkSlotBackground
+                        : AppTheme.lightSlotBackground,
                 border: Border.all(
-                  color: isDark ? AppTheme.darkSlotBorder : AppTheme.slotBorder,
+                  color:
+                      isDark
+                          ? AppTheme.darkSlotBorder
+                          : AppTheme.lightSlotBorder,
                   width: 2,
                   style: BorderStyle.solid,
                 ),
@@ -48,8 +53,8 @@ class GameSlot extends StatelessWidget {
                           BoxShadow(
                             color: (isDark
                                     ? AppTheme.darkSlotBorder
-                                    : AppTheme.slotBorder)
-                                .withValues(alpha: 0.3),
+                                    : AppTheme.lightSlotBorder)
+                                .withValues(alpha: isDark ? 0.3 : 0.4),
                             blurRadius: 8,
                             spreadRadius: 2,
                           ),
@@ -59,13 +64,20 @@ class GameSlot extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Pozisyon numarası
+                  // Pozisyon numarası - aydınlık tema için daha iyi kontrast
                   Text(
                     '${position + 1}.',
-                    style: TextThemeManager.gameSlotNumberOnSurface(context),
+                    style: TextThemeManager.gameSlotNumber.copyWith(
+                      color:
+                          isDark
+                              ? theme.colorScheme.onSurface.withValues(
+                                alpha: 0.7,
+                              )
+                              : AppTheme.lightSlotText.withValues(alpha: 0.8),
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  // Sayı veya boş alan
+                  // Sayı veya boş alan - aydınlık tema için daha iyi kontrast
                   number != null
                       ? TweenAnimationBuilder<double>(
                         duration: const Duration(milliseconds: 200),
@@ -75,8 +87,12 @@ class GameSlot extends StatelessWidget {
                             scale: scaleValue,
                             child: Text(
                               number.toString(),
-                              style: TextThemeManager.gameSlotValuePrimary(
-                                context,
+                              style: TextThemeManager.gameSlotValue.copyWith(
+                                color:
+                                    isDark
+                                        ? theme.colorScheme.primary
+                                        : AppTheme.lightSlotText,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           );
@@ -86,9 +102,14 @@ class GameSlot extends StatelessWidget {
                         width: 20,
                         height: 20,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.onSurface.withValues(
-                            alpha: 0.1,
-                          ),
+                          color:
+                              isDark
+                                  ? theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.1,
+                                  )
+                                  : AppTheme.lightSlotText.withValues(
+                                    alpha: 0.15,
+                                  ),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),

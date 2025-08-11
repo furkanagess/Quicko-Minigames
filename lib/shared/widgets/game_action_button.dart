@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/text_theme_manager.dart';
+import '../../core/constants/app_icons.dart';
+import '../../l10n/app_localizations.dart';
 
 class GameActionButton extends StatelessWidget {
   final bool isWaiting;
@@ -21,8 +23,8 @@ class GameActionButton extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
         height: 60,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -50,18 +52,9 @@ class GameActionButton extends StatelessWidget {
             BoxShadow(
               color: Theme.of(
                 context,
-              ).colorScheme.primary.withValues(alpha: isWaiting ? 0.4 : 0.2),
-              blurRadius: isWaiting ? 16 : 8,
-              offset: Offset(0, isWaiting ? 6 : 3),
-              spreadRadius: 0,
-            ),
-            BoxShadow(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: isWaiting ? 0.2 : 0.1),
-              blurRadius: isWaiting ? 32 : 16,
-              offset: Offset(0, isWaiting ? 12 : 6),
-              spreadRadius: 0,
+              ).colorScheme.primary.withValues(alpha: isWaiting ? 0.3 : 0.15),
+              blurRadius: isWaiting ? 12 : 6,
+              offset: Offset(0, isWaiting ? 4 : 2),
             ),
           ],
         ),
@@ -78,18 +71,16 @@ class GameActionButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 150),
                     child: Icon(
-                      isWaiting
-                          ? Icons.play_arrow_rounded
-                          : Icons.refresh_rounded,
+                      isWaiting ? AppIcons.play : AppIcons.refresh,
                       size: 28,
                       color: Colors.white,
                     ),
                   ),
                   const SizedBox(width: 12),
                   AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 150),
                     style: TextThemeManager.buttonLarge.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -98,14 +89,16 @@ class GameActionButton extends StatelessWidget {
                     ),
                     child: Text(
                       isWaiting
-                          ? (startText ?? 'Start Game')
-                          : (restartText ?? 'Restart Game'),
+                          ? (startText ??
+                              AppLocalizations.of(context)!.startGame)
+                          : (restartText ??
+                              AppLocalizations.of(context)!.restartGame),
                     ),
                   ),
                   if (isWaiting) ...[
                     const SizedBox(width: 8),
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 200),
                       width: 8,
                       height: 8,
                       decoration: const BoxDecoration(

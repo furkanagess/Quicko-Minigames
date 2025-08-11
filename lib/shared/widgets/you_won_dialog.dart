@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
-import '../../core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
+
+import '../../core/constants/app_icons.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/text_theme_manager.dart';
 import '../../core/utils/sound_utils.dart';
 import 'base_dialog.dart';
 
-class TimeUpDialog extends StatefulWidget {
+class YouWonDialog extends StatefulWidget {
   final int score;
   final VoidCallback onTryAgain;
 
-  const TimeUpDialog({
+  const YouWonDialog({
     super.key,
     required this.score,
     required this.onTryAgain,
   });
 
   @override
-  State<TimeUpDialog> createState() => _TimeUpDialogState();
+  State<YouWonDialog> createState() => _YouWonDialogState();
 }
 
-class _TimeUpDialogState extends State<TimeUpDialog> {
+class _YouWonDialogState extends State<YouWonDialog> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SoundUtils.playWinnerSound();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
@@ -30,13 +39,14 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
         children: [
           // Header
           BaseDialogHeader(
-            icon: const Icon(AppIcons.timer),
-            title: AppLocalizations.of(context)!.timeUp,
-            subtitle: AppLocalizations.of(context)!.timeUpMessage,
-            backgroundColor: AppTheme.darkWarning.withValues(alpha: 0.1),
-            iconColor: AppTheme.darkWarning,
-            titleColor: AppTheme.darkWarning,
-            subtitleColor: AppTheme.darkWarning,
+            icon: const Icon(AppIcons.trophy),
+            title: AppLocalizations.of(context)!.youWon,
+            subtitle: AppLocalizations.of(context)!.congratulationsMessage,
+            backgroundColor: AppTheme.darkSuccess.withValues(alpha: 0.1),
+            iconColor: AppTheme.darkSuccess,
+            titleColor: AppTheme.darkSuccess,
+            subtitleColor: AppTheme.darkSuccess,
+            iconSize: 32,
           ),
 
           // Content
@@ -48,14 +58,10 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.05),
+                    color: AppTheme.darkSuccess.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.1),
+                      color: AppTheme.darkSuccess.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),
@@ -66,14 +72,14 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
                         children: [
                           Icon(
                             AppIcons.trophy,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: AppTheme.darkSuccess,
                             size: 20,
                           ),
                           const SizedBox(width: 8),
                           Text(
                             AppLocalizations.of(context)!.finalScore,
                             style: TextThemeManager.bodyMedium.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: AppTheme.darkSuccess,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -83,7 +89,7 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
                       Text(
                         widget.score.toString(),
                         style: TextThemeManager.gameNumber.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: AppTheme.darkSuccess,
                         ),
                       ),
                     ],
@@ -92,31 +98,31 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
 
                 const SizedBox(height: 16),
 
-                // Time up message
+                // Celebration message
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppTheme.darkWarning.withValues(alpha: 0.05),
+                    color: AppTheme.darkSuccess.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppTheme.darkWarning.withValues(alpha: 0.1),
+                      color: AppTheme.darkSuccess.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),
                   child: Row(
                     children: [
                       Icon(
-                        AppIcons.timer,
-                        color: AppTheme.darkWarning,
+                        Icons.celebration_rounded,
+                        color: AppTheme.darkSuccess,
                         size: 20,
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          AppLocalizations.of(context)!.timeRanOut,
+                          AppLocalizations.of(context)!.excellentPerformance,
                           style: TextThemeManager.bodyMedium.copyWith(
-                            color: AppTheme.darkWarning,
+                            color: AppTheme.darkSuccess,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -132,10 +138,10 @@ class _TimeUpDialogState extends State<TimeUpDialog> {
           BaseDialogActions(
             children: [
               BaseDialogButton(
-                text: AppLocalizations.of(context)!.tryAgain,
+                text: AppLocalizations.of(context)!.playAgain,
                 onPressed: widget.onTryAgain,
                 isPrimary: true,
-                icon: Icons.refresh_rounded,
+                icon: Icons.play_arrow_rounded,
                 width: 140,
               ),
             ],

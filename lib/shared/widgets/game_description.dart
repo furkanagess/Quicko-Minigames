@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/text_theme_manager.dart';
+import '../../core/utils/localization_utils.dart';
 
 class GameDescription extends StatelessWidget {
   final String descriptionKey;
@@ -11,32 +11,34 @@ class GameDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          Icon(
+    return Row(
+      children: [
+        // Icon with modern styling
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
             icon ?? Icons.info_outline,
             color: Theme.of(context).colorScheme.primary,
             size: 20,
           ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Expanded(
-            child: Text(
-              descriptionKey.tr(),
-              style: TextThemeManager.descriptionOnSurface(context),
+        ),
+        const SizedBox(width: AppConstants.mediumSpacing),
+        // Description text
+        Expanded(
+          child: Text(
+            LocalizationUtils.getStringWithContext(context, descriptionKey),
+            style: TextThemeManager.bodyMedium.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w500,
+              height: 1.4,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
