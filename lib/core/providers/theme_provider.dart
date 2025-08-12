@@ -19,10 +19,10 @@ class ThemeProvider extends ChangeNotifier {
   bool get isSystemMode => _currentThemeMode == AppThemeMode.system;
 
   ThemeProvider() {
-    _initializeTheme();
+    initializeTheme();
   }
 
-  Future<void> _initializeTheme() async {
+  Future<void> initializeTheme() async {
     _isLoading = true;
     notifyListeners();
 
@@ -30,18 +30,27 @@ class ThemeProvider extends ChangeNotifier {
       _prefs = await SharedPreferences.getInstance();
       final savedThemeIndex = _prefs.getInt(_themeKey);
 
+      debugPrint('ThemeProvider: Loading saved theme index: $savedThemeIndex');
+
       if (savedThemeIndex != null &&
           savedThemeIndex < AppThemeMode.values.length) {
         _currentThemeMode = AppThemeMode.values[savedThemeIndex];
+        debugPrint(
+          'ThemeProvider: Loaded saved theme: ${_currentThemeMode.name}',
+        );
       } else {
         // Default to dark theme for new installations
         _currentThemeMode = AppThemeMode.dark;
         // Save the default theme preference
         await _prefs.setInt(_themeKey, AppThemeMode.dark.index);
+        debugPrint(
+          'ThemeProvider: Set default theme: ${_currentThemeMode.name}',
+        );
       }
     } catch (e) {
       // Fallback to dark theme if there's an error
       _currentThemeMode = AppThemeMode.dark;
+      debugPrint('ThemeProvider: Error loading theme, using fallback: $e');
     }
 
     _isLoading = false;
@@ -51,15 +60,20 @@ class ThemeProvider extends ChangeNotifier {
   Future<void> changeTheme(AppThemeMode themeMode) async {
     if (_currentThemeMode == themeMode) return;
 
+    debugPrint(
+      'ThemeProvider: Changing theme from ${_currentThemeMode.name} to ${themeMode.name}',
+    );
+
     _isLoading = true;
     notifyListeners();
 
     try {
       _currentThemeMode = themeMode;
       await _prefs.setInt(_themeKey, themeMode.index);
+      debugPrint('ThemeProvider: Theme saved successfully: ${themeMode.name}');
     } catch (e) {
       // Handle error if needed
-      debugPrint('Error saving theme preference: $e');
+      debugPrint('ThemeProvider: Error saving theme preference: $e');
     }
 
     _isLoading = false;
@@ -134,6 +148,20 @@ class ThemeProvider extends ChangeNotifier {
         return '🌙';
       case AppThemeMode.system:
         return '⚙️';
+    }
+  }
+
+  // Debug method to check saved theme value
+  Future<void> debugCheckSavedTheme() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedThemeIndex = prefs.getInt(_themeKey);
+      debugPrint('ThemeProvider: Debug - Saved theme index: $savedThemeIndex');
+      debugPrint(
+        'ThemeProvider: Debug - Current theme mode: ${_currentThemeMode.name}',
+      );
+    } catch (e) {
+      debugPrint('ThemeProvider: Debug - Error checking saved theme: $e');
     }
   }
 }

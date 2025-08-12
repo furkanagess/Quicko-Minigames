@@ -183,7 +183,7 @@ class _ThemeSettingsScreenState extends State<ThemeSettingsScreen>
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Choose your preferred theme',
+                  AppLocalizations.of(context)!.choosePreferredTheme,
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
                       context,

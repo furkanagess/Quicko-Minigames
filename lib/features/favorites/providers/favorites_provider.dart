@@ -3,10 +3,12 @@ import '../../../core/utils/favorites_utils.dart';
 
 class FavoritesProvider extends ChangeNotifier {
   List<String> _favorites = [];
-  bool _isLoading = false; // Changed from true to false
+  bool _isLoading = false;
+  bool _isInitialized = false;
 
   List<String> get favorites => _favorites;
   bool get isLoading => _isLoading;
+  bool get isInitialized => _isInitialized;
 
   /// Favorileri yükle
   Future<void> loadFavorites() async {
@@ -27,10 +29,18 @@ class FavoritesProvider extends ChangeNotifier {
     }
 
     _isLoading = false;
+    _isInitialized = true;
     print(
       'FavoritesProvider: Loading completed. isLoading: $_isLoading, favorites: $_favorites',
     );
     notifyListeners();
+  }
+
+  /// Uygulama başlangıcında favorileri yükle
+  Future<void> initialize() async {
+    if (!_isInitialized && !_isLoading) {
+      await loadFavorites();
+    }
   }
 
   /// Oyunu favorilere ekle

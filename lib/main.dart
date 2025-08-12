@@ -12,6 +12,7 @@ import 'core/providers/language_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/routes/app_router.dart';
 import 'core/utils/global_context.dart';
+import 'features/favorites/providers/favorites_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,19 @@ class MyApp extends StatelessWidget {
       providers: AppProviders.providers,
       child: Consumer2<LanguageProvider, ThemeProvider>(
         builder: (context, languageProvider, themeProvider, child) {
+          // Debug: Check saved values when app starts
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            themeProvider.debugCheckSavedTheme();
+            languageProvider.debugCheckSavedLanguage();
+
+            // Initialize favorites provider
+            final favoritesProvider = Provider.of<FavoritesProvider>(
+              context,
+              listen: false,
+            );
+            favoritesProvider.initialize();
+          });
+
           return MaterialApp(
             title: 'Quicko',
             debugShowCheckedModeBanner: false,

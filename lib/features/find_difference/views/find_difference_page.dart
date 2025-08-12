@@ -9,6 +9,7 @@ import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/find_difference_provider.dart';
 import '../models/find_difference_game_state.dart';
+import '../../../core/utils/localization_utils.dart';
 
 // Reusable tile widget for the grid
 class ColorTile extends StatelessWidget {
@@ -103,9 +104,9 @@ class GameOverOverlay extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Game Over',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.gameOver,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -113,7 +114,7 @@ class GameOverOverlay extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Score: $score',
+                '${AppLocalizations.of(context)!.score}: $score',
                 style: const TextStyle(fontSize: 16, color: Colors.white70),
               ),
               const SizedBox(height: 16),
@@ -130,7 +131,7 @@ class GameOverOverlay extends StatelessWidget {
                   ),
                 ),
                 onPressed: onRestart,
-                child: const Text('Restart'),
+                child: Text(AppLocalizations.of(context)!.restart),
               ),
             ],
           ),
@@ -168,7 +169,14 @@ class _FindDifferenceView extends StatelessWidget {
             isWin: false,
             score: gameState.score,
             title: AppLocalizations.of(context)!.timeUp,
-            subtitle: 'Time ran out!',
+            subtitle: LocalizationUtils.getStringWithContext(
+              context,
+              'timeRanOut',
+            ),
+            lossReason: LocalizationUtils.getStringWithContext(
+              context,
+              'timeUpMessage',
+            ),
           );
         }
 

@@ -78,6 +78,15 @@ class GamesConfig {
       category: 'Cards',
       order: 7,
     ),
+    GameModel(
+      id: 'reaction_time',
+      titleKey: 'reactionTime',
+      descriptionKey: 'reactionTimeDescription',
+      route: '/reaction-time',
+      icon: 'timer',
+      category: 'Reflex',
+      order: 8,
+    ),
   ];
 
   // Oyun renkleri
@@ -91,6 +100,7 @@ class GamesConfig {
     'find_difference': AppTheme.darkSecondary, // soft purple
     'rps': AppTheme.darkPrimary, // purple
     'twenty_one': AppTheme.goldYellow, // gold
+    'reaction_time': AppTheme.darkPrimary, // purple
   };
 
   // Icon mapping
@@ -103,6 +113,7 @@ class GamesConfig {
     'difference': AppIcons.gridOn,
     'hand': AppIcons.hand,
     'casino': Icons.casino,
+    'timer': Icons.timer,
   };
 
   /// Belirli bir oyunu ID'ye göre bul

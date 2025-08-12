@@ -9,6 +9,7 @@ import '../models/color_hunt_game_state.dart';
 import '../providers/color_hunt_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class ColorHuntScreen extends StatelessWidget {
   const ColorHuntScreen({super.key});
@@ -34,17 +35,22 @@ class _ColorHuntView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          final isWin = gameState.status == GameStatus.won;
           gameResult = GameResult(
-            isWin: gameState.status == GameStatus.won,
+            isWin: isWin,
             score: gameState.score,
             title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
+                isWin
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
-            subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You found all colors!'
-                    : 'Time ran out!',
+
+            lossReason:
+                isWin
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'wrongColorSelection',
+                    ),
           );
         }
 
@@ -105,42 +111,37 @@ class _ColorHuntView extends StatelessWidget {
     BuildContext context,
     ColorHuntGameState gameState,
   ) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.largeSpacing,
-        vertical: AppConstants.mediumSpacing,
+        horizontal: AppConstants.mediumSpacing,
+        vertical: AppConstants.smallSpacing,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        color: colorScheme.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
         border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+          color: colorScheme.primary.withValues(alpha: 0.25),
           width: 1,
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: AppConstants.mediumSpacing,
+        runSpacing: AppConstants.smallSpacing,
         children: [
-          Icon(
-            AppIcons.score,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
+          _InfoPill(
+            icon: AppIcons.score,
+            label: AppLocalizations.of(context)!.score,
+            value: '${gameState.score}',
+            color: colorScheme.primary,
           ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Text(
-            '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-            style: TextThemeManager.gameScorePrimary(context),
-          ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Icon(
-            AppIcons.timer,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
-          ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Text(
-            '${AppLocalizations.of(context)!.time}: ${gameState.timeLeft}s',
-            style: TextThemeManager.gameScorePrimary(context),
+          _InfoPill(
+            icon: AppIcons.timer,
+            label: AppLocalizations.of(context)!.time,
+            value: '${gameState.timeLeft}s',
+            color: colorScheme.primary,
           ),
         ],
       ),
@@ -258,6 +259,58 @@ class _ColorHuntView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _InfoPill extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  const _InfoPill({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 6),
+          Text(
+            '$label:',
+            style: TextThemeManager.bodySmall.copyWith(
+              color: onSurface.withValues(alpha: 0.75),
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            value,
+            overflow: TextOverflow.ellipsis,
+            style: TextThemeManager.subtitleMedium.copyWith(
+              color: onSurface,
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

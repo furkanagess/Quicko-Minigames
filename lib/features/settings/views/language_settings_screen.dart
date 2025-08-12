@@ -183,7 +183,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Choose your preferred language',
+                  AppLocalizations.of(context)!.choosePreferredLanguage,
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
                       context,

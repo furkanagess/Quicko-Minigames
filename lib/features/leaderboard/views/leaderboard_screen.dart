@@ -11,7 +11,6 @@ import '../../../core/routes/app_router.dart';
 import '../../../core/providers/app_providers.dart';
 import '../../../core/utils/share_utils.dart';
 import '../../../shared/models/leaderboard_entry.dart';
-import '../../../shared/widgets/confirmation_dialog.dart';
 import '../providers/leaderboard_provider.dart';
 import '../../../core/constants/games_config.dart';
 import '../../../core/utils/localization_utils.dart';
@@ -397,241 +396,258 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       context,
     );
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.08),
-          width: 1,
+    return Dismissible(
+      key: Key('leaderboard_${entry.gameId}_${entry.highScore}'),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) async {
+        return await _showDeleteConfirmation(
+          context,
+          entry,
+          leaderboardProvider,
+        );
+      },
+      background: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: AppTheme.darkError,
+          borderRadius: BorderRadius.circular(20),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-            spreadRadius: 0,
-          ),
-        ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.delete_forever_rounded,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+          ],
+        ),
       ),
-      child: Stack(
-        children: [
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap:
-                  () => AppRouter.pushNamed(
-                    context,
-                    gameConfig?.route ?? AppRouter.home,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Theme.of(
+              context,
+            ).colorScheme.outline.withValues(alpha: 0.08),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap:
+                    () => AppRouter.pushNamed(
+                      context,
+                      gameConfig?.route ?? AppRouter.home,
+                    ),
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Theme.of(context).colorScheme.surface,
+                        Theme.of(
+                          context,
+                        ).colorScheme.surface.withValues(alpha: 0.95),
+                      ],
+                    ),
                   ),
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Theme.of(context).colorScheme.surface,
-                      Theme.of(
-                        context,
-                      ).colorScheme.surface.withValues(alpha: 0.95),
-                    ],
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    // Rank
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            _getRankColor(rank),
-                            _getRankColor(rank).withValues(alpha: 0.8),
+                  child: Row(
+                    children: [
+                      // Rank
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              _getRankColor(rank),
+                              _getRankColor(rank).withValues(alpha: 0.8),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: _getRankColor(rank).withValues(alpha: 0.3),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                              spreadRadius: 0,
+                            ),
                           ],
                         ),
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: _getRankColor(rank).withValues(alpha: 0.3),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                            spreadRadius: 0,
+                        child: Center(
+                          child: Text(
+                            rank.toString(),
+                            style: TextThemeManager.subtitleMedium.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                        ],
+                        ),
                       ),
-                      child: Center(
+                      const SizedBox(width: 16),
+
+                      // Game icon
+                      Container(
+                        width: 64,
+                        height: 64,
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withValues(alpha: 0.15),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          gameConfig != null
+                              ? GamesConfig.getGameIcon(gameConfig.icon)
+                              : Icons.games_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+
+                      // Game info
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              LocalizationUtils.getStringWithContext(
+                                context,
+                                entry.gameId,
+                              ),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              _formatDate(entry.lastPlayed ?? DateTime.now()),
+                              style: TextThemeManager.bodySmall.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Score
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              _getRankColor(rank).withValues(alpha: 0.1),
+                              _getRankColor(rank).withValues(alpha: 0.05),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: _getRankColor(rank).withValues(alpha: 0.2),
+                            width: 1,
+                          ),
+                        ),
                         child: Text(
-                          rank.toString(),
-                          style: TextThemeManager.subtitleMedium.copyWith(
-                            color: Colors.white,
+                          entry.highScore.toString(),
+                          style: TextStyle(
+                            color: _getRankColor(rank),
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-
-                    // Game icon
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: 0.15),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        gameConfig != null
-                            ? GamesConfig.getGameIcon(gameConfig.icon)
-                            : Icons.games_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 30,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-
-                    // Game info
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            LocalizationUtils.getStringWithContext(
-                              context,
-                              entry.gameId,
-                            ),
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 16,
-                              letterSpacing: 0.3,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            _formatDate(entry.lastPlayed ?? DateTime.now()),
-                            style: TextThemeManager.bodySmall.copyWith(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurface.withValues(alpha: 0.6),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Score
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            _getRankColor(rank).withValues(alpha: 0.1),
-                            _getRankColor(rank).withValues(alpha: 0.05),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: _getRankColor(rank).withValues(alpha: 0.2),
-                          width: 1,
-                        ),
-                      ),
-                      child: Text(
-                        entry.highScore.toString(),
-                        style: TextStyle(
-                          color: _getRankColor(rank),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          // Delete button
-          Positioned(
-            top: 8,
-            right: 8,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () async {
-                  final confirm = await showDialog<bool>(
-                    context: context,
-                    builder:
-                        (context) => ConfirmationDialog(
-                          title: 'Delete High Score',
-                          message:
-                              'Are you sure you want to delete the high score for this game?',
-                          onConfirm: () async {
-                            await leaderboardProvider.removeHighScore(
-                              entry.gameId,
-                            );
-                            Navigator.of(
-                              context,
-                            ).pop(true); // Close dialog and return true
-                          },
-                          onCancel:
-                              () => Navigator.of(
-                                context,
-                              ).pop(false), // Close dialog and return false
-                          isDestructive: true,
-                          confirmText: 'Delete',
-                          cancelText: 'Cancel',
-                        ),
-                  );
-                  // Remove the duplicate call since it's now handled in onConfirm
-                },
-                child: Tooltip(
-                  message: 'Delete High Score',
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppTheme.darkError.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppTheme.darkError.withValues(alpha: 0.2),
-                        width: 1,
+            // Delete button
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap:
+                      () => _showDeleteConfirmation(
+                        context,
+                        entry,
+                        leaderboardProvider,
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.delete_outline_rounded,
-                      color: AppTheme.darkError,
-                      size: 20,
+                  child: Tooltip(
+                    message: AppLocalizations.of(context)!.deleteHighScore,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppTheme.darkError.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppTheme.darkError.withValues(alpha: 0.2),
+                          width: 1,
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.delete_outline_rounded,
+                        color: AppTheme.darkError,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -658,17 +674,382 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     return '$day.$month.$year';
   }
 
-  void _showSortDialog(BuildContext context) {
-    showDialog(
+  Future<bool?> _showDeleteConfirmation(
+    BuildContext context,
+    LeaderboardEntry entry,
+    LeaderboardProvider leaderboardProvider,
+  ) async {
+    return await showModalBottomSheet<bool>(
       context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.2),
+                blurRadius: 20,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Handle bar
+                Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Warning icon
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppTheme.darkError.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.warning_amber_rounded,
+                    color: AppTheme.darkError,
+                    size: 32,
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Title
+                Text(
+                  AppLocalizations.of(context)!.deleteHighScore,
+                  style: TextThemeManager.subtitleMedium.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                // Message
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    AppLocalizations.of(context)!.deleteHighScoreMessage,
+                    style: TextThemeManager.bodyMedium.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Score preview
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.1),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.emoji_events_rounded,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.highestScore,
+                              style: TextThemeManager.bodySmall.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                              ),
+                            ),
+                            Text(
+                              entry.highScore.toString(),
+                              style: TextThemeManager.subtitleMedium.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                // Action buttons
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      // Cancel button
+                      Expanded(
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outline.withValues(alpha: 0.2),
+                              width: 1,
+                            ),
+                          ),
+                          child: TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!.cancel,
+                              style: TextThemeManager.bodyMedium.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+
+                      // Delete button
+                      Expanded(
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppTheme.darkError,
+                                AppTheme.darkError.withValues(alpha: 0.8),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppTheme.darkError.withValues(
+                                  alpha: 0.3,
+                                ),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              await leaderboardProvider.removeHighScore(
+                                entry.gameId,
+                              );
+                              Navigator.of(context).pop(true);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              foregroundColor: Colors.white,
+                              shadowColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.delete_forever_rounded,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  AppLocalizations.of(context)!.delete,
+                                  style: TextThemeManager.bodyMedium.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSortDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Consumer<LeaderboardProvider>(
           builder: (context, leaderboardProvider, child) {
-            return SortDialog(
-              currentSortBy: leaderboardProvider.sortBy,
-              onSortChanged: (value) {
-                leaderboardProvider.changeSortBy(value);
-              },
+            return Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+              child: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Handle bar
+                    Container(
+                      margin: const EdgeInsets.only(top: 12),
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Title
+                    Text(
+                      AppLocalizations.of(context)!.sortLeaderboard,
+                      style: TextThemeManager.subtitleMedium.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Sort options
+                    ListTile(
+                      leading: Icon(
+                        Icons.sort_by_alpha_rounded,
+                        color:
+                            leaderboardProvider.sortBy == 'name'
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.sortByName,
+                        style: TextStyle(
+                          color:
+                              leaderboardProvider.sortBy == 'name'
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface,
+                          fontWeight:
+                              leaderboardProvider.sortBy == 'name'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                        ),
+                      ),
+                      onTap: () {
+                        leaderboardProvider.changeSortBy('name');
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.emoji_events_rounded,
+                        color:
+                            leaderboardProvider.sortBy == 'score'
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.sortByScore,
+                        style: TextStyle(
+                          color:
+                              leaderboardProvider.sortBy == 'score'
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface,
+                          fontWeight:
+                              leaderboardProvider.sortBy == 'score'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                        ),
+                      ),
+                      onTap: () {
+                        leaderboardProvider.changeSortBy('score');
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.calendar_today_rounded,
+                        color:
+                            leaderboardProvider.sortBy == 'date'
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.sortByDate,
+                        style: TextStyle(
+                          color:
+                              leaderboardProvider.sortBy == 'date'
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).colorScheme.onSurface,
+                          fontWeight:
+                              leaderboardProvider.sortBy == 'date'
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                        ),
+                      ),
+                      onTap: () {
+                        leaderboardProvider.changeSortBy('date');
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             );
           },
         );

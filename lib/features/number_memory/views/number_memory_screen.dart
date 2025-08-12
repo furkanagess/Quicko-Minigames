@@ -3,7 +3,6 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_over_dialog.dart';
 import '../../../shared/widgets/game_action_button.dart';
 import '../models/number_memory_game_state.dart';
 import '../providers/number_memory_provider.dart';
@@ -11,6 +10,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../shared/models/game_state.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class NumberMemoryScreen extends StatelessWidget {
   const NumberMemoryScreen({super.key});
@@ -42,9 +42,25 @@ class _NumberMemoryView extends StatelessWidget {
             score: gameState.score,
             title:
                 isWin
-                    ? 'Congratulations!'
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
-            subtitle: isWin ? 'You remembered all numbers!' : 'Wrong number!',
+            subtitle:
+                isWin
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'youRememberedAllNumbers',
+                    )
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'wrongNumber',
+                    ),
+            lossReason:
+                isWin
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'wrongNumber',
+                    ),
           );
         }
 

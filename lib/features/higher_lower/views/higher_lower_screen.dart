@@ -9,6 +9,7 @@ import '../providers/higher_lower_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class HigherLowerScreen extends StatelessWidget {
   const HigherLowerScreen({super.key});
@@ -34,22 +35,29 @@ class _HigherLowerView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          final isWin = gameState.status == GameStatus.won;
           gameResult = GameResult(
-            isWin: gameState.status == GameStatus.won,
+            isWin: isWin,
             score: gameState.score,
-            losingNumber:
-                gameState.status != GameStatus.won &&
-                        gameState.currentNumber != null
-                    ? gameState.currentNumber.toString()
-                    : null,
+
             title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
+                isWin
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You guessed correctly!'
+                isWin
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'youGuessedCorrectly',
+                    )
                     : null,
+            lossReason:
+                isWin
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'betterLuckNextTime',
+                    ),
           );
         }
 

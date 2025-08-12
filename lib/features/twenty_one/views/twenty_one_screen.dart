@@ -10,6 +10,7 @@ import '../providers/twenty_one_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class TwentyOneScreen extends StatelessWidget {
   const TwentyOneScreen({super.key});
@@ -35,17 +36,31 @@ class _TwentyOneView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          final isWin = gameState.status == GameStatus.won;
           gameResult = GameResult(
-            isWin: gameState.status == GameStatus.won,
+            isWin: isWin,
             score: gameState.score,
             title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
+                isWin
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You reached 21!'
-                    : 'You went over 21!',
+                isWin
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'youReached21',
+                    )
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'youWentOver21',
+                    ),
+            lossReason:
+                isWin
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'youWentOver21',
+                    ),
           );
         }
 

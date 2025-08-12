@@ -11,6 +11,7 @@ import '../../features/number_memory/views/number_memory_screen.dart';
 import '../../features/rps/views/rps_page.dart';
 import '../../features/find_difference/views/find_difference_page.dart';
 import '../../features/twenty_one/views/twenty_one_screen.dart';
+import '../../features/reaction_time/views/reaction_time_screen.dart';
 import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
 import '../../features/settings/views/settings_screen.dart';
@@ -25,6 +26,7 @@ class AppRouter {
   static const String rps = '/rps';
   static const String findDifference = '/find-difference';
   static const String twentyOne = '/twenty-one';
+  static const String reactionTime = '/reaction-time';
   static const String favorites = '/favorites';
   static const String leaderboard = '/leaderboard';
   static const String settings = '/settings';
@@ -57,6 +59,9 @@ class AppRouter {
 
       case twentyOne:
         return _buildModernRoute(routeSettings, const TwentyOneScreen());
+
+      case reactionTime:
+        return _buildModernRoute(routeSettings, const ReactionTimeScreen());
 
       case favorites:
         return _buildModernRoute(routeSettings, const FavoritesScreen());

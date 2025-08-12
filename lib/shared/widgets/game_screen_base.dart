@@ -48,17 +48,27 @@ class GameScreenBase extends StatefulWidget {
 class GameResult {
   final bool isWin;
   final int score;
-  final String? losingNumber;
   final String? subtitle;
   final String title;
+  final String? customIcon;
+  final String? lossReason; // New field for explaining why player lost
 
   const GameResult({
     required this.isWin,
     required this.score,
-    this.losingNumber,
     this.subtitle,
     required this.title,
+    this.customIcon,
+    this.lossReason,
   });
+}
+
+class GameResultField {
+  final String label;
+  final IconData? icon;
+  final Color? color;
+
+  const GameResultField({required this.label, this.icon, this.color});
 }
 
 class _GameScreenBaseState extends State<GameScreenBase>
@@ -85,7 +95,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
       vsync: this,
     );
     _flipController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
     _scoreController = AnimationController(
@@ -142,11 +152,14 @@ class _GameScreenBaseState extends State<GameScreenBase>
       SoundUtils.playGameOverSound();
     }
 
-    // Flip animasyonunu başlat
-    _flipController.forward();
+    // Add a delay to make the flip more noticeable and understandable
+    Future.delayed(const Duration(milliseconds: 300), () {
+      // Flip animasyonunu başlat
+      _flipController.forward();
+    });
 
-    // Skor animasyonunu başlat
-    Future.delayed(const Duration(milliseconds: 400), () {
+    // Skor animasyonunu başlat - after flip completes
+    Future.delayed(const Duration(milliseconds: 900), () {
       _scoreController.forward();
     });
   }
@@ -196,17 +209,20 @@ class _GameScreenBaseState extends State<GameScreenBase>
                   // Main game content - FLIP ANİMASYONU SADECE BURADA
                   Expanded(
                     child: Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 500,
-                          maxHeight: 600, // Rapor için daha az yer
-                        ),
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 200),
-                          opacity: widget.isWaiting ? 0.5 : 1.0,
-                          child: IgnorePointer(
-                            ignoring: widget.isWaiting,
-                            child: _buildFlipContent(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 500,
+                            maxHeight: 600, // Rapor için daha az yer
+                          ),
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 200),
+                            opacity: widget.isWaiting ? 0.5 : 1.0,
+                            child: IgnorePointer(
+                              ignoring: widget.isWaiting,
+                              child: _buildFlipContent(),
+                            ),
                           ),
                         ),
                       ),
@@ -233,17 +249,43 @@ class _GameScreenBaseState extends State<GameScreenBase>
         final flipValue = _flipAnimation.value;
         final isFlipped = flipValue > 0.5;
 
-        return Transform(
-          alignment: Alignment.center,
-          transform:
-              Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
-                ..rotateY(flipValue * 3.14159),
-          child: Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()..rotateY(isFlipped ? 3.14159 : 0),
-            child: isFlipped ? _buildGameResult() : widget.child,
-          ),
+        // Add scale effect during flip - modern and subtle
+        final scale = 1.0 + (flipValue * 0.03); // Scale up to 1.03 during flip
+
+        // Add bounce effect - modern and subtle
+        final bounce =
+            flipValue > 0.5 ? (1.0 - flipValue) * 0.03 : flipValue * 0.03;
+
+        // Add flash effect during the middle of the flip - modern and subtle
+        final flashOpacity = flipValue > 0.48 && flipValue < 0.52 ? 0.1 : 0.0;
+
+        return Stack(
+          children: [
+            // Flash effect
+            if (flashOpacity > 0)
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: flashOpacity),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            // Main flip content
+            Transform(
+              alignment: Alignment.center,
+              transform:
+                  Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateY(flipValue * 3.14159)
+                    ..scale(scale + bounce),
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..rotateY(isFlipped ? 3.14159 : 0),
+                child: isFlipped ? _buildGameResult() : widget.child,
+              ),
+            ),
+          ],
         );
       },
     );
@@ -257,41 +299,52 @@ class _GameScreenBaseState extends State<GameScreenBase>
     final accentColor =
         result.isWin ? AppTheme.darkSuccess : AppTheme.darkError;
     final icon =
-        result.isWin ? AppIcons.trophy : Icons.sentiment_dissatisfied_rounded;
+        result.customIcon != null
+            ? IconData(
+              int.parse(result.customIcon!),
+              fontFamily: 'MaterialIcons',
+            )
+            : (result.isWin
+                ? AppIcons.trophy
+                : Icons.sentiment_dissatisfied_rounded);
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      height: double.infinity,
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: [
-            accentColor.withValues(alpha: 0.1),
-            accentColor.withValues(alpha: 0.05),
+            Theme.of(context).colorScheme.surface,
+            Theme.of(context).colorScheme.surface.withValues(alpha: 0.98),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: accentColor.withValues(alpha: 0.2), width: 2),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: accentColor.withValues(alpha: 0.3),
+          width: 2.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: accentColor.withValues(alpha: 0.15),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 25,
+            offset: const Offset(0, 10),
           ),
           BoxShadow(
-            color: accentColor.withValues(alpha: 0.1),
+            color: accentColor.withValues(alpha: 0.12),
             blurRadius: 40,
-            offset: const Offset(0, 16),
+            offset: const Offset(0, 20),
           ),
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Header - daha kompakt
+          // Modern header with animated icon and title
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -301,13 +354,26 @@ class _GameScreenBaseState extends State<GameScreenBase>
                   accentColor.withValues(alpha: 0.08),
                 ],
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: accentColor.withValues(alpha: 0.2),
+                width: 1.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.1),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
-            child: Column(
+            child: Row(
               children: [
-                Container(
-                  width: 60,
-                  height: 60,
+                // Animated icon container
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: 70,
+                  height: 70,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -317,49 +383,55 @@ class _GameScreenBaseState extends State<GameScreenBase>
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: accentColor.withValues(alpha: 0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                        color: accentColor.withValues(alpha: 0.4),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
                       ),
                     ],
                   ),
-                  child: Icon(icon, color: Colors.white, size: 30),
+                  child: Icon(icon, color: Colors.white, size: 32),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  result.title,
-                  style: TextThemeManager.screenTitle.copyWith(
-                    color: accentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                const SizedBox(width: 20),
+                // Title and subtitle
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        result.title,
+                        style: TextThemeManager.screenTitle.copyWith(
+                          color: accentColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                        ),
+                      ),
+                      if (result.subtitle != null) ...[
+                        const SizedBox(height: 6),
+                        Text(
+                          result.subtitle!,
+                          style: TextThemeManager.bodyMedium.copyWith(
+                            color: accentColor.withValues(alpha: 0.9),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                  textAlign: TextAlign.center,
                 ),
-                if (result.subtitle != null) ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    result.subtitle!,
-                    style: TextThemeManager.bodyMedium.copyWith(
-                      color: accentColor.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
               ],
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
 
-          // Score display - daha kompakt
+          // Modern score display with animation
           AnimatedBuilder(
             animation: _scoreAnimation,
             builder: (context, child) {
               return Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -367,40 +439,68 @@ class _GameScreenBaseState extends State<GameScreenBase>
                     colors: [
                       Theme.of(
                         context,
-                      ).colorScheme.primary.withValues(alpha: 0.1),
+                      ).colorScheme.primary.withValues(alpha: 0.12),
                       Theme.of(
                         context,
-                      ).colorScheme.primary.withValues(alpha: 0.05),
+                      ).colorScheme.primary.withValues(alpha: 0.06),
                     ],
                   ),
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(18),
                   border: Border.all(
                     color: Theme.of(
                       context,
-                    ).colorScheme.primary.withValues(alpha: 0.15),
-                    width: 1.5,
+                    ).colorScheme.primary.withValues(alpha: 0.2),
+                    width: 2,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.15),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
                 ),
-                child: Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
+                    // Animated trophy icon
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.8),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
                             color: Theme.of(
                               context,
-                            ).colorScheme.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
+                            ).colorScheme.primary.withValues(alpha: 0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                          child: Icon(
-                            AppIcons.trophy,
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 20,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
+                        ],
+                      ),
+                      child: Icon(
+                        AppIcons.trophy,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    // Score content
+                    Column(
+                      children: [
                         Text(
                           AppLocalizations.of(context)!.score,
                           style: TextThemeManager.bodyMedium.copyWith(
@@ -409,16 +509,18 @@ class _GameScreenBaseState extends State<GameScreenBase>
                             fontSize: 14,
                           ),
                         ),
+                        const SizedBox(height: 6),
+                        Text(
+                          (result.score * _scoreAnimation.value)
+                              .round()
+                              .toString(),
+                          style: TextThemeManager.gameNumber.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      (result.score * _scoreAnimation.value).round().toString(),
-                      style: TextThemeManager.gameNumber.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                   ],
                 ),
@@ -426,54 +528,88 @@ class _GameScreenBaseState extends State<GameScreenBase>
             },
           ),
 
-          // Losing number (if provided) - daha kompakt
-          if (result.losingNumber != null) ...[
-            const SizedBox(height: 12),
+          // Loss reason section (only show when game is lost)
+          if (!result.isWin && result.lossReason != null) ...[
+            const SizedBox(height: 16),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    accentColor.withValues(alpha: 0.1),
-                    accentColor.withValues(alpha: 0.05),
+                    AppTheme.darkError.withValues(alpha: 0.08),
+                    AppTheme.darkError.withValues(alpha: 0.04),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: accentColor.withValues(alpha: 0.15),
+                  color: AppTheme.darkError.withValues(alpha: 0.2),
                   width: 1.5,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.darkError.withValues(alpha: 0.1),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.lastNumber,
-                    style: TextThemeManager.bodySmall.copyWith(
-                      color: accentColor.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppTheme.darkError.withValues(alpha: 0.15),
+                          AppTheme.darkError.withValues(alpha: 0.08),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.darkError.withValues(alpha: 0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.info_outline_rounded,
+                      color: AppTheme.darkError,
+                      size: 20,
                     ),
                   ),
-                  const SizedBox(height: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: accentColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      result.losingNumber!,
-                      style: TextThemeManager.subtitleMedium.copyWith(
-                        color: accentColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LocalizationUtils.getStringWithContext(
+                            context,
+                            'whyYouLost',
+                          ),
+                          style: TextThemeManager.bodySmall.copyWith(
+                            color: AppTheme.darkError.withValues(alpha: 0.8),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          result.lossReason!,
+                          style: TextThemeManager.bodyMedium.copyWith(
+                            color: AppTheme.darkError,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -481,7 +617,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
             ),
           ],
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
           // Action buttons - kaldırıldı, bottom actions kullanılıyor
           // Row(
@@ -595,6 +731,144 @@ class _GameScreenBaseState extends State<GameScreenBase>
           //     ),
           //   ],
           // ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAdditionalField(BuildContext context, GameResultField field) {
+    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            fieldColor.withValues(alpha: 0.1),
+            fieldColor.withValues(alpha: 0.05),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: fieldColor.withValues(alpha: 0.15),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: fieldColor.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          if (field.icon != null) ...[
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: fieldColor.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(field.icon, color: fieldColor, size: 20),
+            ),
+            const SizedBox(width: 12),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompactField(BuildContext context, GameResultField field) {
+    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            fieldColor.withValues(alpha: 0.1),
+            fieldColor.withValues(alpha: 0.05),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: fieldColor.withValues(alpha: 0.15), width: 1),
+      ),
+      child: Row(
+        children: [
+          if (field.icon != null) ...[
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: fieldColor.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Icon(field.icon, color: fieldColor, size: 16),
+            ),
+            const SizedBox(width: 8),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildModernField(BuildContext context, GameResultField field) {
+    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            fieldColor.withValues(alpha: 0.08),
+            fieldColor.withValues(alpha: 0.04),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: fieldColor.withValues(alpha: 0.15),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        children: [
+          if (field.icon != null) ...[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    fieldColor.withValues(alpha: 0.2),
+                    fieldColor.withValues(alpha: 0.1),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: fieldColor.withValues(alpha: 0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Icon(field.icon, color: fieldColor, size: 20),
+            ),
+            const SizedBox(width: 14),
+          ],
         ],
       ),
     );

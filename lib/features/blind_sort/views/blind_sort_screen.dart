@@ -7,8 +7,10 @@ import '../../../shared/widgets/game_action_button.dart';
 import '../providers/blind_sort_provider.dart';
 import '../../../shared/models/game_state.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class BlindSortScreen extends StatelessWidget {
   const BlindSortScreen({super.key});
@@ -34,22 +36,29 @@ class _BlindSortView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          final isWin = gameState.status == GameStatus.won;
           gameResult = GameResult(
-            isWin: gameState.status == GameStatus.won,
+            isWin: isWin,
             score: gameState.score,
-            losingNumber:
-                gameState.status != GameStatus.won &&
-                        gameState.currentNumber != null
-                    ? gameState.currentNumber.toString()
-                    : null,
+
             title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
+                isWin
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You successfully sorted all numbers!'
+                isWin
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'youSuccessfullySortedAllNumbers',
+                    )
                     : null,
+            lossReason:
+                isWin
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'betterLuckNextTime',
+                    ),
           );
         }
 
@@ -333,9 +342,11 @@ class _BlindSortView extends StatelessWidget {
                 number: gameState.slots[index],
                 position: index,
                 isActive:
-                    gameState.isGameActive && gameState.slots[index] == null,
+                    gameState.isGameActive &&
+                    !provider.isAnimating &&
+                    gameState.slots[index] == null,
                 onTap:
-                    gameState.isGameActive
+                    gameState.isGameActive && !provider.isAnimating
                         ? () => provider.placeNumber(index)
                         : null,
               );
@@ -354,9 +365,10 @@ class _BlindSortView extends StatelessWidget {
                 position: slotIndex,
                 isActive:
                     gameState.isGameActive &&
+                    !provider.isAnimating &&
                     gameState.slots[slotIndex] == null,
                 onTap:
-                    gameState.isGameActive
+                    gameState.isGameActive && !provider.isAnimating
                         ? () => provider.placeNumber(slotIndex)
                         : null,
               );

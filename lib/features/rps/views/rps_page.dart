@@ -5,9 +5,11 @@ import '../../../shared/widgets/game_screen_base.dart';
 import '../../../shared/widgets/game_action_button.dart';
 import '../../../shared/models/game_state.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/rps_provider.dart';
 import '../models/rps_game_state.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class RpsPage extends StatelessWidget {
   const RpsPage({super.key});
@@ -38,10 +40,25 @@ class _RpsView extends StatelessWidget {
             score: state.youScore,
             title:
                 state.youWon
-                    ? 'Congratulations!'
+                    ? AppLocalizations.of(context)!.congratulations
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
-                state.youWon ? 'You won the game!' : 'Better luck next time!',
+                state.youWon
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'youWonTheGame',
+                    )
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'betterLuckNextTime',
+                    ),
+            lossReason:
+                state.youWon
+                    ? null
+                    : LocalizationUtils.getStringWithContext(
+                      context,
+                      'betterLuckNextTime',
+                    ),
           );
         }
 
