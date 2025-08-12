@@ -1,11 +1,11 @@
 {
-    "name": "quicko_app",
-    "short_name": "quicko_app",
+    "name": "Quicko",
+    "short_name": "Quicko",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#hexcode",
+    "theme_color": "#hexcode",
+    "description": "Quicko - Brain Training Games",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -87,6 +87,20 @@ class LocalizationUtils {
       'settings': 'Settings',
       'hit': 'Hit',
       'stand': 'Stand',
+      'reactionTime': 'Reaksiyon Süresi',
+      'reactionTimeDescription':
+          '1\'den 12\'ye kadar sayıları doğru sırayla mümkün olduğunca hızlı tıklayın. Süreniz ölçülecek (düşük olan daha iyi).',
+      'time': 'Süre',
+      'wrongSequence': 'Yanlış sıra!',
+      'congratulations': 'Tebrikler!',
+      'next': 'Sıradaki',
+      'reactionTime': 'Reaction Time',
+      'reactionTimeDescription':
+          'Click the numbers from 1 to 12 in the correct order as fast as you can. Your time will be measured (lower is better).',
+      'time': 'Time',
+      'wrongSequence': 'Wrong sequence!',
+      'congratulations': 'Congratulations!',
+      'next': 'Next',
     },
     'tr': {
       'blind_sort': 'Kör Sıralama',
@@ -168,6 +182,13 @@ class LocalizationUtils {
       'settings': 'Ayarlar',
       'hit': 'Kart Çek',
       'stand': 'Kal',
+      'reactionTime': 'Reaksiyon Süresi',
+      'reactionTimeDescription':
+          '1\'den 12\'ye kadar sayıları doğru sırayla mümkün olduğunca hızlı tıklayın. Süreniz ölçülecek (düşük olan daha iyi).',
+      'time': 'Süre',
+      'wrongSequence': 'Yanlış sıra!',
+      'congratulations': 'Tebrikler!',
+      'next': 'Sıradaki',
     },
   };
 
@@ -341,6 +362,60 @@ class LocalizationUtils {
             return localizations.hit;
           case 'stand':
             return localizations.stand;
+          case 'reactionTime':
+            return localizations.reactionTime;
+          case 'reactionTimeDescription':
+            return localizations.reactionTimeDescription;
+          case 'time':
+            return localizations.time;
+          case 'wrongSequence':
+            return localizations.wrongSequence;
+          case 'congratulations':
+            return localizations.congratulations;
+          case 'next':
+            return localizations.next;
+          case 'betterLuckNextTime':
+            return localizations.betterLuckNextTime;
+          case 'whyYouLost':
+            return localizations.whyYouLost;
+          case 'youWonTheGame':
+            return localizations.youWonTheGame;
+          case 'youSuccessfullySortedAllNumbers':
+            return localizations.youSuccessfullySortedAllNumbers;
+          case 'youGuessedCorrectly':
+            return localizations.youGuessedCorrectly;
+          case 'missionFailed':
+            return localizations.missionFailed;
+          case 'greenTargetHit':
+            return localizations.greenTargetHit;
+          case 'youHitAllTargets':
+            return localizations.youHitAllTargets;
+          case 'youFoundAllColors':
+            return localizations.youFoundAllColors;
+          case 'wrongColorSelection':
+            return localizations.wrongColorSelection;
+          case 'youRememberedAllNumbers':
+            return localizations.youRememberedAllNumbers;
+          case 'youReached21':
+            return localizations.youReached21;
+          case 'youWentOver21':
+            return localizations.youWentOver21;
+          case 'civilianHit':
+            return localizations.civilianHit;
+          case 'perfectTime':
+            return localizations.perfectTime;
+          case 'goodTime':
+            return localizations.goodTime;
+          case 'averageTime':
+            return localizations.averageTime;
+          case 'slowTime':
+            return localizations.slowTime;
+          case 'verySlowTime':
+            return localizations.verySlowTime;
+          case 'wrongNumber':
+            return localizations.wrongNumber;
+          case 'gameOver':
+            return localizations.gameOver;
           default:
             return getString(key);
         }
