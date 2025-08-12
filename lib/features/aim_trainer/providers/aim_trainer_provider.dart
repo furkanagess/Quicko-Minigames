@@ -8,6 +8,7 @@ import '../../../core/utils/sound_utils.dart';
 class AimTrainerProvider extends ChangeNotifier {
   AimTrainerGameState _gameState = const AimTrainerGameState();
   Timer? _timer;
+  Timer? _civilianTimer;
   final Random _random = Random();
   Size? _gameAreaSize;
   bool _hasBrokenRecordThisGame = false;
@@ -30,10 +31,14 @@ class AimTrainerProvider extends ChangeNotifier {
       timeLeft: 20,
       status: AimTrainerGameStatus.playing,
       showGameOver: false,
+      showCivilian: false,
+      civilianPosition: null,
+      gameOverReason: null,
     );
 
     _generateNewTarget();
     _startTimer();
+    _startCivilianTimer();
 
     // Oyun başlama sesi çal
     await SoundUtils.playGameStartSound();
@@ -55,23 +60,67 @@ class AimTrainerProvider extends ChangeNotifier {
 
         notifyListeners();
       } else {
-        _gameOver();
+        _gameOver(GameOverReason.timeUp);
       }
     });
+  }
+
+  /// Start civilian timer to randomly show civilians
+  void _startCivilianTimer() {
+    _civilianTimer?.cancel();
+    _civilianTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_gameState.isGameActive && !_gameState.showCivilian) {
+        // 30% chance to show civilian
+        if (_random.nextDouble() < 0.3) {
+          _showCivilian();
+        }
+      }
+    });
+  }
+
+  /// Show civilian target
+  void _showCivilian() {
+    if (_gameAreaSize == null) return;
+
+    const civilianRadius = 18.0; // Reduced from 24px
+    final maxX = _gameAreaSize!.width - civilianRadius;
+    final maxY = _gameAreaSize!.height - civilianRadius;
+    final minX = civilianRadius;
+    final minY = civilianRadius;
+
+    final newX = minX + _random.nextDouble() * (maxX - minX);
+    final newY = minY + _random.nextDouble() * (maxY - minY);
+
+    _gameState = _gameState.copyWith(
+      civilianPosition: Offset(newX, newY),
+      showCivilian: true,
+    );
+
+    // Hide civilian after 2 seconds
+    Timer(const Duration(seconds: 2), () {
+      if (_gameState.isGameActive) {
+        _gameState = _gameState.copyWith(showCivilian: false);
+        notifyListeners();
+      }
+    });
+
+    notifyListeners();
   }
 
   /// Stop the timer
   void _stopTimer() {
     _timer?.cancel();
     _timer = null;
+    _civilianTimer?.cancel();
+    _civilianTimer = null;
   }
 
   /// Generate a new target at a random position
   void _generateNewTarget() {
     if (_gameAreaSize == null) return;
 
-    // Target radius is 24px, so we need to account for that in positioning
-    const targetRadius = 24.0;
+    // Target radius is 18px, so we need to account for that in positioning
+    const targetRadius = 18.0;
     final maxX = _gameAreaSize!.width - targetRadius;
     final maxY = _gameAreaSize!.height - targetRadius;
     final minX = targetRadius;
@@ -110,8 +159,16 @@ class AimTrainerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Handle civilian tap
+  void onCivilianTap() async {
+    if (!_gameState.isGameActive) return;
+
+    // Game over when civilian is hit
+    _gameOver(GameOverReason.civilianHit);
+  }
+
   /// Game over
-  void _gameOver() async {
+  void _gameOver(GameOverReason reason) async {
     _stopTimer();
     _hasBrokenRecordThisGame = true;
 
@@ -122,6 +179,8 @@ class AimTrainerProvider extends ChangeNotifier {
       status: AimTrainerGameStatus.gameOver,
       showGameOver: true,
       score: finalScore, // Explicitly set the final score
+      gameOverReason: reason,
+      showCivilian: false, // Hide civilian when game ends
     );
 
     // Oyun bitiş sesi çal

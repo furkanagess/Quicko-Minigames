@@ -4,11 +4,11 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/models/game_state.dart';
 import '../models/aim_trainer_game_state.dart';
 import '../providers/aim_trainer_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class AimTrainerScreen extends StatelessWidget {
   const AimTrainerScreen({super.key});
@@ -34,17 +34,37 @@ class _AimTrainerView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          final isWin =
+              gameState.gameOverReason == GameOverReason.timeUp &&
+              gameState.score > 0;
+          final isCivilianHit =
+              gameState.gameOverReason == GameOverReason.civilianHit;
+
           gameResult = GameResult(
-            isWin: gameState.status == GameStatus.won,
+            isWin: isWin,
             score: gameState.score,
             title:
-                gameState.status == GameStatus.won
-                    ? 'Congratulations!'
-                    : AppLocalizations.of(context)!.gameOver,
-            subtitle:
-                gameState.status == GameStatus.won
-                    ? 'You hit all targets!'
-                    : 'Time ran out!',
+                isCivilianHit
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'missionFailed',
+                    )
+                    : (isWin
+                        ? AppLocalizations.of(context)!.congratulations
+                        : AppLocalizations.of(context)!.gameOver),
+
+            lossReason:
+                isCivilianHit
+                    ? LocalizationUtils.getStringWithContext(
+                      context,
+                      'greenTargetHit',
+                    )
+                    : (isWin
+                        ? null
+                        : LocalizationUtils.getStringWithContext(
+                          context,
+                          'timeRanOut',
+                        )),
           );
         }
 
@@ -97,42 +117,37 @@ class _AimTrainerView extends StatelessWidget {
     BuildContext context,
     AimTrainerGameState gameState,
   ) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.largeSpacing,
-        vertical: AppConstants.mediumSpacing,
+        horizontal: AppConstants.mediumSpacing,
+        vertical: AppConstants.smallSpacing,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        color: colorScheme.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
         border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+          color: colorScheme.primary.withValues(alpha: 0.25),
           width: 1,
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: AppConstants.mediumSpacing,
+        runSpacing: AppConstants.smallSpacing,
         children: [
-          Icon(
-            AppIcons.timer,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
+          _InfoPill(
+            icon: AppIcons.timer,
+            label: AppLocalizations.of(context)!.time,
+            value: '${gameState.timeLeft}s',
+            color: colorScheme.primary,
           ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Text(
-            '${AppLocalizations.of(context)!.time}: ${gameState.timeLeft}s',
-            style: TextThemeManager.gameScorePrimary(context),
-          ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Icon(
-            AppIcons.score,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
-          ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Text(
-            '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-            style: TextThemeManager.gameScorePrimary(context),
+          _InfoPill(
+            icon: AppIcons.score,
+            label: AppLocalizations.of(context)!.score,
+            value: '${gameState.score}',
+            color: colorScheme.primary,
           ),
         ],
       ),
@@ -173,9 +188,21 @@ class _AimTrainerView extends StatelessWidget {
               // Target
               if (gameState.isGameActive)
                 Positioned(
-                  left: gameState.targetPosition.dx - 24, // Center the target
-                  top: gameState.targetPosition.dy - 24,
+                  left:
+                      gameState.targetPosition.dx -
+                      18, // Center the target (36px diameter)
+                  top: gameState.targetPosition.dy - 18,
                   child: _buildTarget(context, gameState, provider),
+                ),
+
+              // Civilian target (green circle)
+              if (gameState.isGameActive &&
+                  gameState.showCivilian &&
+                  gameState.civilianPosition != null)
+                Positioned(
+                  left: gameState.civilianPosition!.dx - 18,
+                  top: gameState.civilianPosition!.dy - 18,
+                  child: _buildCivilianTarget(context, gameState, provider),
                 ),
             ],
           ),
@@ -192,8 +219,8 @@ class _AimTrainerView extends StatelessWidget {
     return GestureDetector(
       onTap: () => provider.onTargetTap(),
       child: Container(
-        width: 48, // 24px radius * 2
-        height: 48,
+        width: 36, // 18px radius * 2 (reduced from 48px)
+        height: 36,
         decoration: BoxDecoration(
           color: AppTheme.darkError,
           shape: BoxShape.circle,
@@ -206,6 +233,84 @@ class _AimTrainerView extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCivilianTarget(
+    BuildContext context,
+    AimTrainerGameState gameState,
+    AimTrainerProvider provider,
+  ) {
+    return GestureDetector(
+      onTap: () => provider.onCivilianTap(),
+      child: Container(
+        width: 36, // Reduced from 48px
+        height: 36,
+        decoration: BoxDecoration(
+          color: Colors.green,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.green.withValues(alpha: 0.4),
+              blurRadius: 8,
+              spreadRadius: 0,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoPill extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  const _InfoPill({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 6),
+          Text(
+            '$label:',
+            style: TextThemeManager.bodySmall.copyWith(
+              color: onSurface.withValues(alpha: 0.75),
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            value,
+            overflow: TextOverflow.ellipsis,
+            style: TextThemeManager.subtitleMedium.copyWith(
+              color: onSurface,
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
     );
   }
