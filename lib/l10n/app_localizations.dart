@@ -230,6 +230,90 @@ abstract class AppLocalizations {
   /// **'Last Number'**
   String get lastNumber;
 
+  /// Message when all targets are completed
+  ///
+  /// In en, this message translates to:
+  /// **'Completed all targets!'**
+  String get completedAllTargets;
+
+  /// Label for targets
+  ///
+  /// In en, this message translates to:
+  /// **'Targets'**
+  String get targets;
+
+  /// Text shown when there are more items to display
+  ///
+  /// In en, this message translates to:
+  /// **'and more...'**
+  String get andMore;
+
+  /// Mission failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Mission Failed!'**
+  String get missionFailed;
+
+  /// Green target hit message
+  ///
+  /// In en, this message translates to:
+  /// **'Green target hit!'**
+  String get greenTargetHit;
+
+  /// All targets hit message
+  ///
+  /// In en, this message translates to:
+  /// **'You hit all targets!'**
+  String get youHitAllTargets;
+
+  /// Message indicating time ran out
+  ///
+  /// In en, this message translates to:
+  /// **'Time ran out!'**
+  String get timeRanOut;
+
+  /// Targets hit label
+  ///
+  /// In en, this message translates to:
+  /// **'Targets Hit'**
+  String get targetsHit;
+
+  /// Mistake label
+  ///
+  /// In en, this message translates to:
+  /// **'Mistake'**
+  String get mistake;
+
+  /// Civilian hit message
+  ///
+  /// In en, this message translates to:
+  /// **'Civilian Hit'**
+  String get civilianHit;
+
+  /// All colors found message
+  ///
+  /// In en, this message translates to:
+  /// **'You found all colors!'**
+  String get youFoundAllColors;
+
+  /// Colors found label
+  ///
+  /// In en, this message translates to:
+  /// **'Colors Found'**
+  String get colorsFound;
+
+  /// Last mistake label
+  ///
+  /// In en, this message translates to:
+  /// **'Last Mistake'**
+  String get lastMistake;
+
+  /// Wrong color message
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Color'**
+  String get wrongColor;
+
   /// Label for the current number
   ///
   /// In en, this message translates to:
@@ -289,6 +373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrong Color Selected'**
   String get wrongColorSelected;
+
+  /// Message when player loses due to wrong color selection
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Color Selection'**
+  String get wrongColorSelection;
 
   /// Favorites navigation label
   ///
@@ -530,17 +620,11 @@ abstract class AppLocalizations {
   /// **'You ran out of time!'**
   String get timeUpMessage;
 
-  /// Final score label
+  /// Label for final score in 21 game
   ///
   /// In en, this message translates to:
   /// **'Final Score'**
   String get finalScore;
-
-  /// Message indicating time ran out
-  ///
-  /// In en, this message translates to:
-  /// **'Time ran out!'**
-  String get timeRanOut;
 
   /// You won message
   ///
@@ -601,6 +685,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language changes will be applied immediately. The app will restart to apply the new language.'**
   String get languageChangeInfo;
+
+  /// Text for language selection prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred language'**
+  String get choosePreferredLanguage;
 
   /// Sort by date option
   ///
@@ -667,6 +757,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Theme changes will be applied immediately throughout the app.'**
   String get themeChangeInfo;
+
+  /// Text for theme selection prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred theme'**
+  String get choosePreferredTheme;
 
   /// Start game button text
   ///
@@ -805,6 +901,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stand'**
   String get stand;
+
+  /// Title for the Reaction Time game
+  ///
+  /// In en, this message translates to:
+  /// **'Reaction Time'**
+  String get reactionTime;
+
+  /// Description for the Reaction Time game
+  ///
+  /// In en, this message translates to:
+  /// **'Click the numbers from 1 to 12 in the correct order as fast as you can. Your time will be measured (lower is better).'**
+  String get reactionTimeDescription;
+
+  /// Wrong sequence message for reaction time game
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong sequence!'**
+  String get wrongSequence;
+
+  /// Congratulations message for winning games
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations!'**
+  String get congratulations;
+
+  /// Next label
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// Label for numbers sorted in Blind Sort game
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers Sorted'**
+  String get numbersSorted;
+
+  /// Label for numbers remembered in Number Memory game
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers Remembered'**
+  String get numbersRemembered;
+
+  /// Label for correct guesses in Higher Lower game
+  ///
+  /// In en, this message translates to:
+  /// **'Correct Guesses'**
+  String get correctGuesses;
+
+  /// Label for player score in RPS game
+  ///
+  /// In en, this message translates to:
+  /// **'Your Score'**
+  String get yourScore;
+
+  /// Label for CPU score in RPS game
+  ///
+  /// In en, this message translates to:
+  /// **'CPU Score'**
+  String get cpuScore;
+
+  /// Label for result in 21 game
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get result;
+
+  /// Message when player goes over 21
+  ///
+  /// In en, this message translates to:
+  /// **'Bust!'**
+  String get bust;
+
+  /// Message for wrong number in Number Memory
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Number'**
+  String get wrongNumber;
+
+  /// Success message for Blind Sort game
+  ///
+  /// In en, this message translates to:
+  /// **'You successfully sorted all numbers!'**
+  String get youSuccessfullySortedAllNumbers;
+
+  /// Success message for Number Memory game
+  ///
+  /// In en, this message translates to:
+  /// **'You remembered all numbers!'**
+  String get youRememberedAllNumbers;
+
+  /// Success message for Higher Lower game
+  ///
+  /// In en, this message translates to:
+  /// **'You guessed correctly!'**
+  String get youGuessedCorrectly;
+
+  /// Success message for RPS game
+  ///
+  /// In en, this message translates to:
+  /// **'You won the game!'**
+  String get youWonTheGame;
+
+  /// Success message for 21 game
+  ///
+  /// In en, this message translates to:
+  /// **'You reached 21!'**
+  String get youReached21;
+
+  /// Failure message for 21 game
+  ///
+  /// In en, this message translates to:
+  /// **'You went over 21!'**
+  String get youWentOver21;
+
+  /// Label for loss reason section
+  ///
+  /// In en, this message translates to:
+  /// **'Why you lost'**
+  String get whyYouLost;
+
+  /// Title for sort leaderboard dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Sort Leaderboard'**
+  String get sortLeaderboard;
+
+  /// Sort by name option
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by Name'**
+  String get sortByName;
+
+  /// Sort by date option
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by Date'**
+  String get sortByDate;
+
+  /// Message for perfect completion time
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect Time!'**
+  String get perfectTime;
+
+  /// Message for good completion time
+  ///
+  /// In en, this message translates to:
+  /// **'Good Time!'**
+  String get goodTime;
+
+  /// Message for average completion time
+  ///
+  /// In en, this message translates to:
+  /// **'Average Time'**
+  String get averageTime;
+
+  /// Message for slow completion time
+  ///
+  /// In en, this message translates to:
+  /// **'Slow Time'**
+  String get slowTime;
+
+  /// Message for very slow completion time
+  ///
+  /// In en, this message translates to:
+  /// **'Very Slow Time'**
+  String get verySlowTime;
 }
 
 class _AppLocalizationsDelegate

@@ -77,6 +77,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lastNumber => 'Last Number';
 
   @override
+  String get completedAllTargets => 'Completed all targets!';
+
+  @override
+  String get targets => 'Targets';
+
+  @override
+  String get andMore => 'and more...';
+
+  @override
+  String get missionFailed => 'Mission Failed!';
+
+  @override
+  String get greenTargetHit => 'Green target hit!';
+
+  @override
+  String get youHitAllTargets => 'You hit all targets!';
+
+  @override
+  String get timeRanOut => 'Time ran out!';
+
+  @override
+  String get targetsHit => 'Targets Hit';
+
+  @override
+  String get mistake => 'Mistake';
+
+  @override
+  String get civilianHit => 'Civilian Hit';
+
+  @override
+  String get youFoundAllColors => 'You found all colors!';
+
+  @override
+  String get colorsFound => 'Colors Found';
+
+  @override
+  String get lastMistake => 'Last Mistake';
+
+  @override
+  String get wrongColor => 'Wrong Color';
+
+  @override
   String get currentNumber => 'Current Number';
 
   @override
@@ -106,6 +148,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wrongColorSelected => 'Wrong Color Selected';
+
+  @override
+  String get wrongColorSelection => 'Wrong Color Selection';
 
   @override
   String get favorites => 'Favorites';
@@ -243,9 +288,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finalScore => 'Final Score';
 
   @override
-  String get timeRanOut => 'Time ran out!';
-
-  @override
   String get youWon => 'You Won!';
 
   @override
@@ -277,6 +319,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get languageChangeInfo =>
       'Language changes will be applied immediately. The app will restart to apply the new language.';
+
+  @override
+  String get choosePreferredLanguage => 'Choose your preferred language';
 
   @override
   String get sort_by_date => 'Sort by Date';
@@ -311,6 +356,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get themeChangeInfo =>
       'Theme changes will be applied immediately throughout the app.';
+
+  @override
+  String get choosePreferredTheme => 'Choose your preferred theme';
 
   @override
   String get startGame => 'Start Game';
@@ -380,4 +428,90 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stand => 'Stand';
+
+  @override
+  String get reactionTime => 'Reaction Time';
+
+  @override
+  String get reactionTimeDescription =>
+      'Click the numbers from 1 to 12 in the correct order as fast as you can. Your time will be measured (lower is better).';
+
+  @override
+  String get wrongSequence => 'Wrong sequence!';
+
+  @override
+  String get congratulations => 'Congratulations!';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get numbersSorted => 'Numbers Sorted';
+
+  @override
+  String get numbersRemembered => 'Numbers Remembered';
+
+  @override
+  String get correctGuesses => 'Correct Guesses';
+
+  @override
+  String get yourScore => 'Your Score';
+
+  @override
+  String get cpuScore => 'CPU Score';
+
+  @override
+  String get result => 'Result';
+
+  @override
+  String get bust => 'Bust!';
+
+  @override
+  String get wrongNumber => 'Wrong Number';
+
+  @override
+  String get youSuccessfullySortedAllNumbers =>
+      'You successfully sorted all numbers!';
+
+  @override
+  String get youRememberedAllNumbers => 'You remembered all numbers!';
+
+  @override
+  String get youGuessedCorrectly => 'You guessed correctly!';
+
+  @override
+  String get youWonTheGame => 'You won the game!';
+
+  @override
+  String get youReached21 => 'You reached 21!';
+
+  @override
+  String get youWentOver21 => 'You went over 21!';
+
+  @override
+  String get whyYouLost => 'Why you lost';
+
+  @override
+  String get sortLeaderboard => 'Sort Leaderboard';
+
+  @override
+  String get sortByName => 'Sort by Name';
+
+  @override
+  String get sortByDate => 'Sort by Date';
+
+  @override
+  String get perfectTime => 'Perfect Time!';
+
+  @override
+  String get goodTime => 'Good Time!';
+
+  @override
+  String get averageTime => 'Average Time';
+
+  @override
+  String get slowTime => 'Slow Time';
+
+  @override
+  String get verySlowTime => 'Very Slow Time';
 }

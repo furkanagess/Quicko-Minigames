@@ -91,6 +91,62 @@
   "@lastNumber": {
     "description": "Label for the last number"
   },
+  "completedAllTargets": "Completed all targets!",
+  "@completedAllTargets": {
+    "description": "Message when all targets are completed"
+  },
+  "targets": "Targets",
+  "@targets": {
+    "description": "Label for targets"
+  },
+  "andMore": "and more...",
+  "@andMore": {
+    "description": "Text shown when there are more items to display"
+  },
+  "missionFailed": "Mission Failed!",
+  "@missionFailed": {
+    "description": "Mission failed message"
+  },
+  "greenTargetHit": "Green target hit!",
+  "@greenTargetHit": {
+    "description": "Green target hit message"
+  },
+  "youHitAllTargets": "You hit all targets!",
+  "@youHitAllTargets": {
+    "description": "All targets hit message"
+  },
+  "timeRanOut": "Time ran out!",
+  "@timeRanOut": {
+    "description": "Time ran out message"
+  },
+  "targetsHit": "Targets Hit",
+  "@targetsHit": {
+    "description": "Targets hit label"
+  },
+  "mistake": "Mistake",
+  "@mistake": {
+    "description": "Mistake label"
+  },
+  "civilianHit": "Civilian Hit",
+  "@civilianHit": {
+    "description": "Civilian hit message"
+  },
+  "youFoundAllColors": "You found all colors!",
+  "@youFoundAllColors": {
+    "description": "All colors found message"
+  },
+  "colorsFound": "Colors Found",
+  "@colorsFound": {
+    "description": "Colors found label"
+  },
+  "lastMistake": "Last Mistake",
+  "@lastMistake": {
+    "description": "Last mistake label"
+  },
+  "wrongColor": "Wrong Color",
+  "@wrongColor": {
+    "description": "Wrong color message"
+  },
   "currentNumber": "Current Number",
   "@currentNumber": {
     "description": "Label for the current number"
@@ -131,6 +187,10 @@
   "wrongColorSelected": "Wrong Color Selected",
   "@wrongColorSelected": {
     "description": "Message when wrong color is selected"
+  },
+  "wrongColorSelection": "Wrong Color Selection",
+  "@wrongColorSelection": {
+    "description": "Message when player loses due to wrong color selection"
   },
   
   "favorites": "Favorites",
@@ -368,6 +428,10 @@
   "@languageChangeInfo": {
     "description": "Information about language change"
   },
+  "choosePreferredLanguage": "Choose your preferred language",
+  "@choosePreferredLanguage": {
+    "description": "Text for language selection prompt"
+  },
   
   "sort_by_date": "Sort by Date",
   "@sort_by_date": {
@@ -422,6 +486,10 @@
   "themeChangeInfo": "Theme changes will be applied immediately throughout the app.",
   "@themeChangeInfo": {
     "description": "Information about theme changes"
+  },
+  "choosePreferredTheme": "Choose your preferred theme",
+  "@choosePreferredTheme": {
+    "description": "Text for theme selection prompt"
   },
   
   "startGame": "Start Game",
@@ -520,5 +588,131 @@
   "stand": "Stand",
   "@stand": {
     "description": "Stand button text for 21 game"
+  },
+  
+  "reactionTime": "Reaction Time",
+  "@reactionTime": {
+    "description": "Title for the Reaction Time game"
+  },
+  "reactionTimeDescription": "Click the numbers from 1 to 12 in the correct order as fast as you can. Your time will be measured (lower is better).",
+  "@reactionTimeDescription": {
+    "description": "Description for the Reaction Time game"
+  },
+  "time": "Time",
+  "@time": {
+    "description": "Time label"
+  },
+  "wrongSequence": "Wrong sequence!",
+  "@wrongSequence": {
+    "description": "Wrong sequence message for reaction time game"
+  },
+  "congratulations": "Congratulations!",
+  "@congratulations": {
+    "description": "Congratulations message for winning games"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Next label"
+  },
+  
+  "numbersSorted": "Numbers Sorted",
+  "@numbersSorted": {
+    "description": "Label for numbers sorted in Blind Sort game"
+  },
+  "numbersRemembered": "Numbers Remembered",
+  "@numbersRemembered": {
+    "description": "Label for numbers remembered in Number Memory game"
+  },
+  "correctGuesses": "Correct Guesses",
+  "@correctGuesses": {
+    "description": "Label for correct guesses in Higher Lower game"
+  },
+  "yourScore": "Your Score",
+  "@yourScore": {
+    "description": "Label for player score in RPS game"
+  },
+  "cpuScore": "CPU Score",
+  "@cpuScore": {
+    "description": "Label for CPU score in RPS game"
+  },
+  "finalScore": "Final Score",
+  "@finalScore": {
+    "description": "Label for final score in 21 game"
+  },
+  "result": "Result",
+  "@result": {
+    "description": "Label for result in 21 game"
+  },
+  "bust": "Bust!",
+  "@bust": {
+    "description": "Message when player goes over 21"
+  },
+  "wrongNumber": "Wrong Number",
+  "@wrongNumber": {
+    "description": "Message for wrong number in Number Memory"
+  },
+  "youSuccessfullySortedAllNumbers": "You successfully sorted all numbers!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "Success message for Blind Sort game"
+  },
+  "youRememberedAllNumbers": "You remembered all numbers!",
+  "@youRememberedAllNumbers": {
+    "description": "Success message for Number Memory game"
+  },
+  "youGuessedCorrectly": "You guessed correctly!",
+  "@youGuessedCorrectly": {
+    "description": "Success message for Higher Lower game"
+  },
+  "youWonTheGame": "You won the game!",
+  "@youWonTheGame": {
+    "description": "Success message for RPS game"
+  },
+  "youReached21": "You reached 21!",
+  "@youReached21": {
+    "description": "Success message for 21 game"
+  },
+  "youWentOver21": "You went over 21!",
+  "@youWentOver21": {
+    "description": "Failure message for 21 game"
+  },
+  "whyYouLost": "Why you lost",
+  "@whyYouLost": {
+    "description": "Label for loss reason section"
+  },
+  "sortLeaderboard": "Sort Leaderboard",
+  "@sortLeaderboard": {
+    "description": "Title for sort leaderboard dialog"
+  },
+  "sortByName": "Sort by Name",
+  "@sortByName": {
+    "description": "Sort by name option"
+  },
+  "sortByScore": "Sort by Score",
+  "@sortByScore": {
+    "description": "Sort by score option"
+  },
+  "sortByDate": "Sort by Date",
+  "@sortByDate": {
+    "description": "Sort by date option"
+  },
+  "perfectTime": "Perfect Time!",
+  "@perfectTime": {
+    "description": "Message for perfect completion time"
+  },
+  "goodTime": "Good Time!",
+  "@goodTime": {
+    "description": "Message for good completion time"
+  },
+  "averageTime": "Average Time",
+  "@averageTime": {
+    "description": "Message for average completion time"
+  },
+  "slowTime": "Slow Time",
+  "@slowTime": {
+    "description": "Message for slow completion time"
+  },
+  "verySlowTime": "Very Slow Time",
+  "@verySlowTime": {
+    "description": "Message for very slow completion time"
   }
 }

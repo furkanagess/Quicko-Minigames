@@ -77,6 +77,48 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lastNumber => 'Son Sayı';
 
   @override
+  String get completedAllTargets => 'Tüm hedefleri tamamladın!';
+
+  @override
+  String get targets => 'Hedefler';
+
+  @override
+  String get andMore => 've daha fazlası...';
+
+  @override
+  String get missionFailed => 'Görev Başarısız!';
+
+  @override
+  String get greenTargetHit => 'Yeşil hedef vuruldu!';
+
+  @override
+  String get youHitAllTargets => 'Tüm hedefleri vurdun!';
+
+  @override
+  String get timeRanOut => 'Süre bitti!';
+
+  @override
+  String get targetsHit => 'Vurulan Hedefler';
+
+  @override
+  String get mistake => 'Hata';
+
+  @override
+  String get civilianHit => 'Sivil Vuruldu';
+
+  @override
+  String get youFoundAllColors => 'Tüm renkleri buldun!';
+
+  @override
+  String get colorsFound => 'Bulunan Renkler';
+
+  @override
+  String get lastMistake => 'Son Hata';
+
+  @override
+  String get wrongColor => 'Yanlış Renk';
+
+  @override
   String get currentNumber => 'Mevcut Sayı';
 
   @override
@@ -106,6 +148,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get wrongColorSelected => 'Yanlış Renk Seçildi';
+
+  @override
+  String get wrongColorSelection => 'Yanlış Renk Seçimi';
 
   @override
   String get favorites => 'Favoriler';
@@ -247,9 +292,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get finalScore => 'Final Skor';
 
   @override
-  String get timeRanOut => 'Süre bitti!';
-
-  @override
   String get youWon => 'Kazandınız!';
 
   @override
@@ -280,6 +322,9 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get languageChangeInfo =>
       'Dil değişiklikleri hemen uygulanacak. Yeni dil uygulamak için uygulama yeniden başlatılacak.';
+
+  @override
+  String get choosePreferredLanguage => 'Tercih ettiğiniz dili seçin';
 
   @override
   String get sort_by_date => 'Tarihe Göre Sırala';
@@ -314,6 +359,9 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get themeChangeInfo =>
       'Tema değişiklikleri uygulama genelinde hemen uygulanacaktır.';
+
+  @override
+  String get choosePreferredTheme => 'Tercih ettiğiniz temayı seçin';
 
   @override
   String get startGame => 'Oyunu Başlat';
@@ -383,4 +431,90 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get stand => 'Kal';
+
+  @override
+  String get reactionTime => 'Reaksiyon Süresi';
+
+  @override
+  String get reactionTimeDescription =>
+      '1\'den 12\'ye kadar sayıları doğru sırayla mümkün olduğunca hızlı tıklayın. Süreniz ölçülecek (düşük olan daha iyi).';
+
+  @override
+  String get wrongSequence => 'Yanlış sıra!';
+
+  @override
+  String get congratulations => 'Tebrikler!';
+
+  @override
+  String get next => 'Sıradaki';
+
+  @override
+  String get numbersSorted => 'Sıralanan Sayılar';
+
+  @override
+  String get numbersRemembered => 'Hatırlanan Sayılar';
+
+  @override
+  String get correctGuesses => 'Doğru Tahminler';
+
+  @override
+  String get yourScore => 'Senin Skorun';
+
+  @override
+  String get cpuScore => 'PC Skoru';
+
+  @override
+  String get result => 'Sonuç';
+
+  @override
+  String get bust => 'Patladın!';
+
+  @override
+  String get wrongNumber => 'Yanlış Sayı';
+
+  @override
+  String get youSuccessfullySortedAllNumbers =>
+      'Tüm sayıları başarıyla sıraladın!';
+
+  @override
+  String get youRememberedAllNumbers => 'Tüm sayıları hatırladın!';
+
+  @override
+  String get youGuessedCorrectly => 'Doğru tahmin ettin!';
+
+  @override
+  String get youWonTheGame => 'Oyunu kazandın!';
+
+  @override
+  String get youReached21 => '21\'e ulaştın!';
+
+  @override
+  String get youWentOver21 => '21\'i aştın!';
+
+  @override
+  String get whyYouLost => 'Neden kaybettin';
+
+  @override
+  String get sortLeaderboard => 'Liderlik Tablosunu Sırala';
+
+  @override
+  String get sortByName => 'İsme Göre Sırala';
+
+  @override
+  String get sortByDate => 'Tarihe Göre Sırala';
+
+  @override
+  String get perfectTime => 'Mükemmel Süre!';
+
+  @override
+  String get goodTime => 'İyi Süre!';
+
+  @override
+  String get averageTime => 'Ortalama Süre';
+
+  @override
+  String get slowTime => 'Yavaş Süre';
+
+  @override
+  String get verySlowTime => 'Çok Yavaş Süre';
 }

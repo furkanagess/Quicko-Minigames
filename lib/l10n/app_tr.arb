@@ -25,6 +25,20 @@
   "higher": "Yüksek",
   "lower": "Düşük",
   "lastNumber": "Son Sayı",
+  "completedAllTargets": "Tüm hedefleri tamamladın!",
+  "targets": "Hedefler",
+  "andMore": "ve daha fazlası...",
+  "missionFailed": "Görev Başarısız!",
+  "greenTargetHit": "Yeşil hedef vuruldu!",
+  "youHitAllTargets": "Tüm hedefleri vurdun!",
+  "timeRanOut": "Süre doldu!",
+  "targetsHit": "Vurulan Hedefler",
+  "mistake": "Hata",
+  "civilianHit": "Sivil Vuruldu",
+  "youFoundAllColors": "Tüm renkleri buldun!",
+  "colorsFound": "Bulunan Renkler",
+  "lastMistake": "Son Hata",
+  "wrongColor": "Yanlış Renk",
   "currentNumber": "Mevcut Sayı",
   "close": "Kapat",
   "betterLuckNextTime": "Bir dahaki sefere daha şanslı olacaksın!",
@@ -36,6 +50,7 @@
   "target": "Hedef",
   "time": "Süre",
   "wrongColorSelected": "Yanlış Renk Seçildi",
+  "wrongColorSelection": "Yanlış Renk Seçimi",
   
   "favorites": "Favoriler",
   "@favorites": {
@@ -110,6 +125,10 @@
   "@languageChangeInfo": {
     "description": "Information about language change"
   },
+  "choosePreferredLanguage": "Tercih ettiğiniz dili seçin",
+  "@choosePreferredLanguage": {
+    "description": "Text for language selection prompt"
+  },
   
   "sort_by_date": "Tarihe Göre Sırala",
   "@sort_by_date": {
@@ -164,6 +183,10 @@
   "themeChangeInfo": "Tema değişiklikleri uygulama genelinde hemen uygulanacaktır.",
   "@themeChangeInfo": {
     "description": "Information about theme changes"
+  },
+  "choosePreferredTheme": "Tercih ettiğiniz temayı seçin",
+  "@choosePreferredTheme": {
+    "description": "Text for theme selection prompt"
   },
   
   "startGame": "Oyunu Başlat",
@@ -262,5 +285,131 @@
   "stand": "Kal",
   "@stand": {
     "description": "Stand button text for 21 game"
+  },
+  
+  "reactionTime": "Reaksiyon Süresi",
+  "@reactionTime": {
+    "description": "Title for the Reaction Time game"
+  },
+  "reactionTimeDescription": "1'den 12'ye kadar sayıları doğru sırayla mümkün olduğunca hızlı tıklayın. Süreniz ölçülecek (düşük olan daha iyi).",
+  "@reactionTimeDescription": {
+    "description": "Description for the Reaction Time game"
+  },
+  "time": "Süre",
+  "@time": {
+    "description": "Time label"
+  },
+  "wrongSequence": "Yanlış sıra!",
+  "@wrongSequence": {
+    "description": "Wrong sequence message for reaction time game"
+  },
+  "congratulations": "Tebrikler!",
+  "@congratulations": {
+    "description": "Congratulations message for winning games"
+  },
+  "next": "Sıradaki",
+  "@next": {
+    "description": "Next label"
+  },
+  
+  "numbersSorted": "Sıralanan Sayılar",
+  "@numbersSorted": {
+    "description": "Label for numbers sorted in Blind Sort game"
+  },
+  "numbersRemembered": "Hatırlanan Sayılar",
+  "@numbersRemembered": {
+    "description": "Label for numbers remembered in Number Memory game"
+  },
+  "correctGuesses": "Doğru Tahminler",
+  "@correctGuesses": {
+    "description": "Label for correct guesses in Higher Lower game"
+  },
+  "yourScore": "Senin Skorun",
+  "@yourScore": {
+    "description": "Label for player score in RPS game"
+  },
+  "cpuScore": "PC Skoru",
+  "@cpuScore": {
+    "description": "Label for CPU score in RPS game"
+  },
+  "finalScore": "Final Skor",
+  "@finalScore": {
+    "description": "Label for final score in 21 game"
+  },
+  "result": "Sonuç",
+  "@result": {
+    "description": "Label for result in 21 game"
+  },
+  "bust": "Patladın!",
+  "@bust": {
+    "description": "Message when player goes over 21"
+  },
+  "wrongNumber": "Yanlış Sayı",
+  "@wrongNumber": {
+    "description": "Message for wrong number in Number Memory"
+  },
+  "youSuccessfullySortedAllNumbers": "Tüm sayıları başarıyla sıraladın!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "Success message for Blind Sort game"
+  },
+  "youRememberedAllNumbers": "Tüm sayıları hatırladın!",
+  "@youRememberedAllNumbers": {
+    "description": "Success message for Number Memory game"
+  },
+  "youGuessedCorrectly": "Doğru tahmin ettin!",
+  "@youGuessedCorrectly": {
+    "description": "Success message for Higher Lower game"
+  },
+  "youWonTheGame": "Oyunu kazandın!",
+  "@youWonTheGame": {
+    "description": "Success message for RPS game"
+  },
+  "youReached21": "21'e ulaştın!",
+  "@youReached21": {
+    "description": "Success message for 21 game"
+  },
+  "youWentOver21": "21'i aştın!",
+  "@youWentOver21": {
+    "description": "Failure message for 21 game"
+  },
+  "whyYouLost": "Neden kaybettin",
+  "@whyYouLost": {
+    "description": "Label for loss reason section"
+  },
+  "sortLeaderboard": "Liderlik Tablosunu Sırala",
+  "@sortLeaderboard": {
+    "description": "Title for sort leaderboard dialog"
+  },
+  "sortByName": "İsme Göre Sırala",
+  "@sortByName": {
+    "description": "Sort by name option"
+  },
+  "sortByScore": "Skora Göre Sırala",
+  "@sortByScore": {
+    "description": "Sort by score option"
+  },
+  "sortByDate": "Tarihe Göre Sırala",
+  "@sortByDate": {
+    "description": "Sort by date option"
+  },
+  "perfectTime": "Mükemmel Süre!",
+  "@perfectTime": {
+    "description": "Message for perfect completion time"
+  },
+  "goodTime": "İyi Süre!",
+  "@goodTime": {
+    "description": "Message for good completion time"
+  },
+  "averageTime": "Ortalama Süre",
+  "@averageTime": {
+    "description": "Message for average completion time"
+  },
+  "slowTime": "Yavaş Süre",
+  "@slowTime": {
+    "description": "Message for slow completion time"
+  },
+  "verySlowTime": "Çok Yavaş Süre",
+  "@verySlowTime": {
+    "description": "Message for very slow completion time"
   }
 }
