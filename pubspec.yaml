@@ -29,12 +29,16 @@ dependencies:
   screenshot: ^3.0.0
   share_plus: ^7.2.1
   path_provider: ^2.1.2
+  
+  # AdMob for Rewarded Ads
+  google_mobile_ads: ^4.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
 
 flutter:
   uses-material-design: true
@@ -60,17 +64,34 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/quicko_logo.png"
+  image_path: "assets/icon/quicko_icon.png"
   min_sdk_android: 21
   web:
     generate: true
-    image_path: "assets/icon/quicko_logo.png"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    image_path: "assets/icon/quicko_icon.png"
+    background_color: "#6B46C1"
+    theme_color: "#6B46C1"
   windows:
     generate: true
-    image_path: "assets/icon/quicko_logo.png"
+    image_path: "assets/icon/quicko_icon.png"
     icon_size: 48
   macos:
     generate: true
-    image_path: "assets/icon/quicko_logo.png"
+    image_path: "assets/icon/quicko_icon.png"
+
+flutter_native_splash:
+  color: "#6B46C1"
+  color_dark: "#8E44AD"
+  
+  image: assets/icon/quicko_icon.png
+  image_dark: assets/icon/quicko_icon.png
+  
+  android_12:
+    image: assets/icon/quicko_icon.png
+    image_dark: assets/icon/quicko_icon.png
+    color: "#6B46C1"
+    color_dark: "#8E44AD"
+    icon_background_color: "#6B46C1"
+    icon_background_color_dark: "#8E44AD"
+  
+  web: false

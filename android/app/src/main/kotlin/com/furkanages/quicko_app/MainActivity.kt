@@ -1,4 +1,4 @@
-package com.example.quicko_app
+package com.furkanages.quicko_app
 
 import io.flutter.embedding.android.FlutterActivity
 
