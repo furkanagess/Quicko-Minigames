@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../models/find_difference_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 import '../../../core/providers/app_providers.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -20,7 +21,7 @@ class FindDifferenceProvider extends ChangeNotifier {
     _gameState = const FindDifferenceGameState(
       status: FindDifferenceStatus.playing,
       mistakesLeft: 3, // Start with 3 mistakes allowed
-      timeLeft: 30, // Start with 30 seconds
+      timeLeft: 30, // Total game time: 30 seconds
     );
     _generateRound();
     _startTimer();
@@ -40,6 +41,11 @@ class FindDifferenceProvider extends ChangeNotifier {
 
   void hideTimeUp() {
     _gameState = _gameState.copyWith(showTimeUp: false);
+    notifyListeners();
+  }
+
+  void hideContinueDialog() {
+    _gameState = _gameState.copyWith(showContinueDialog: false);
     notifyListeners();
   }
 
@@ -68,6 +74,7 @@ class FindDifferenceProvider extends ChangeNotifier {
       showGameOver: false, // Don't show dialog
     );
     notifyListeners();
+    _saveGameState();
   }
 
   void _gameOverWithMistakes() {
@@ -75,21 +82,25 @@ class FindDifferenceProvider extends ChangeNotifier {
     _gameState = _gameState.copyWith(
       status: FindDifferenceStatus.gameOver,
       showGameOver: false, // Don't show dialog
+      showContinueDialog: true, // Show continue game dialog
       // Keep the correct answer highlighted permanently
       pulseIndex: _gameState.oddIndex,
     );
     notifyListeners();
+    _saveGameState();
   }
 
   void _timeUp() {
     _timeTimer?.cancel();
     _gameState = _gameState.copyWith(
       status: FindDifferenceStatus.gameOver,
-      showTimeUp: true, // Show time up dialog
+      showTimeUp: false, // Don't show time up dialog
+      showContinueDialog: true, // Show continue game dialog
       // Keep the correct answer highlighted permanently
       pulseIndex: _gameState.oddIndex,
     );
     notifyListeners();
+    _saveGameState();
   }
 
   int _gridForLevel(int level) {
@@ -137,20 +148,14 @@ class FindDifferenceProvider extends ChangeNotifier {
   }
 
   int _timeForLevel(int level) {
-    // Decreasing time limit based on level
-    if (level <= 3) return 30; // Levels 1-3: 30 seconds
-    if (level <= 6) return 25; // Levels 4-6: 25 seconds
-    if (level <= 9) return 20; // Levels 7-9: 20 seconds
-    if (level <= 12) return 15; // Levels 10-12: 15 seconds
-    if (level <= 15) return 12; // Levels 13-15: 12 seconds
-    return 10; // Level 16+: 10 seconds
+    // Not used anymore - total game time is managed in startGame()
+    return 30;
   }
 
   void _generateRound() {
     final grid = _gridForLevel(_gameState.level);
     final total = grid * grid;
     final oddIndex = _random.nextInt(total);
-    final timeLimit = _timeForLevel(_gameState.level);
 
     // Rotate base color across app theme accents to avoid monotony
     final basePalette = <HSVColor>[
@@ -216,7 +221,7 @@ class FindDifferenceProvider extends ChangeNotifier {
       oddColor: oddColor,
       wrongFlashIndex: null,
       pulseIndex: null,
-      timeLeft: timeLimit, // Reset time for new round
+      // Don't reset time - keep the total game time running
     );
   }
 
@@ -280,5 +285,58 @@ class FindDifferenceProvider extends ChangeNotifier {
         notifyListeners();
       }
     }
+  }
+
+  Future<void> _saveGameState() async {
+    final state = {
+      'level': _gameState.level,
+      'score': _gameState.score,
+      'timeLeft': _gameState.timeLeft,
+      'mistakesLeft': _gameState.mistakesLeft,
+    };
+    await GameStateService().saveGameState('find_difference', state);
+    await GameStateService().saveGameScore('find_difference', _gameState.score);
+  }
+
+  Future<bool> continueGame() async {
+    final saved = await GameStateService().loadGameState('find_difference');
+    if (saved == null) return false;
+    try {
+      // When continuing after watching ad, give full time and lives
+      // but keep the current score and advance to next level
+      final currentScore = (saved['score'] as int?) ?? 0;
+      final currentLevel = (saved['level'] as int?) ?? 1;
+
+      _gameState = _gameState.copyWith(
+        level: currentLevel + 1, // Continue from next level
+        score: currentScore, // Keep current score
+        timeLeft: 30, // Full 30 seconds
+        mistakesLeft: 3, // Full 3 lives
+        status: FindDifferenceStatus.playing,
+        showGameOver: false,
+        showTimeUp: false,
+        showContinueDialog: false,
+        pulseIndex: null,
+        wrongFlashIndex: null,
+      );
+      _startTimer();
+      _generateRound();
+
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+
+      notifyListeners();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    return await GameStateService().hasGameState('find_difference');
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('find_difference');
   }
 }

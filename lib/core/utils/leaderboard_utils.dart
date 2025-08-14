@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/models/leaderboard_entry.dart';
-import 'localization_utils.dart';
 
 class LeaderboardUtils {
   static const String _leaderboardKey = 'leaderboard_entries';
@@ -39,9 +38,6 @@ class LeaderboardUtils {
     // Score 0 ise leaderboard'a ekleme
     if (score <= 0) return;
 
-    // Get localized game title using the new approach
-    final gameTitle = LocalizationUtils.getStringGlobal(gameId);
-
     final entries = await loadLeaderboard();
     final existingIndex = entries.indexWhere((entry) => entry.gameId == gameId);
 
@@ -63,7 +59,6 @@ class LeaderboardUtils {
       entries.add(
         LeaderboardEntry(
           gameId: gameId,
-          gameTitle: gameTitle,
           highScore: score,
           lastPlayed: DateTime.now(),
         ),
@@ -103,7 +98,6 @@ class LeaderboardUtils {
       entries.add(
         LeaderboardEntry(
           gameId: gameId,
-          gameTitle: gameTitle,
           highScore: score,
           lastPlayed: DateTime.now(),
         ),
@@ -121,7 +115,6 @@ class LeaderboardUtils {
       orElse:
           () => const LeaderboardEntry(
             gameId: '',
-            gameTitle: '',
             highScore: 0,
             lastPlayed: null,
           ),

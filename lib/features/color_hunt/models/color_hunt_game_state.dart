@@ -7,6 +7,7 @@ class ColorHuntGameState {
   final int score;
   final int timeLeft;
   final String targetColorName;
+  final String? targetColorKey;
   final Color targetColor;
   final Color textColor;
   final List<Color> availableColors;
@@ -18,6 +19,7 @@ class ColorHuntGameState {
     this.score = 0,
     this.timeLeft = 30,
     this.targetColorName = '',
+    this.targetColorKey,
     this.targetColor = Colors.green,
     this.textColor = AppTheme.darkError,
     this.availableColors = const [
@@ -35,6 +37,7 @@ class ColorHuntGameState {
     int? score,
     int? timeLeft,
     String? targetColorName,
+    String? targetColorKey,
     Color? targetColor,
     Color? textColor,
     List<Color>? availableColors,
@@ -46,6 +49,7 @@ class ColorHuntGameState {
       score: score ?? this.score,
       timeLeft: timeLeft ?? this.timeLeft,
       targetColorName: targetColorName ?? this.targetColorName,
+      targetColorKey: targetColorKey ?? this.targetColorKey,
       targetColor: targetColor ?? this.targetColor,
       textColor: textColor ?? this.textColor,
       availableColors: availableColors ?? this.availableColors,
@@ -66,6 +70,7 @@ class ColorHuntGameState {
         other.score == score &&
         other.timeLeft == timeLeft &&
         other.targetColorName == targetColorName &&
+        other.targetColorKey == targetColorKey &&
         other.targetColor == targetColor &&
         other.textColor == textColor &&
         other.availableColors == availableColors &&
@@ -80,6 +85,7 @@ class ColorHuntGameState {
       score,
       timeLeft,
       targetColorName,
+      targetColorKey,
       targetColor,
       textColor,
       availableColors,

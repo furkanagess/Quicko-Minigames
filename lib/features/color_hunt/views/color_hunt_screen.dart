@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../../core/theme/app_theme.dart';
-import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/models/game_state.dart';
-import '../models/color_hunt_game_state.dart';
-import '../providers/color_hunt_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/utils/localization_utils.dart';
+import '../../../shared/widgets/game_screen_base.dart';
+import '../models/color_hunt_game_state.dart';
+import '../providers/color_hunt_provider.dart';
 
 class ColorHuntScreen extends StatelessWidget {
   const ColorHuntScreen({super.key});
@@ -35,22 +32,13 @@ class _ColorHuntView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
-          final isWin = gameState.status == GameStatus.won;
+          // Color Hunt doesn't have a win condition, only game over
+          final isWin = false; // Always false since there's no win condition
           gameResult = GameResult(
             isWin: isWin,
             score: gameState.score,
-            title:
-                isWin
-                    ? AppLocalizations.of(context)!.congratulations
-                    : AppLocalizations.of(context)!.gameOver,
-
-            lossReason:
-                isWin
-                    ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'wrongColorSelection',
-                    ),
+            title: AppLocalizations.of(context)!.gameOver,
+            lossReason: AppLocalizations.of(context)!.wrongColorSelection,
           );
         }
 
@@ -62,6 +50,11 @@ class _ColorHuntView extends StatelessWidget {
           onTryAgain: () {
             provider.hideGameOver();
             provider.resetGame();
+          },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
+          onGameResultCleared: () {
+            provider.hideGameOver();
           },
           onBackToMenu: () {
             provider.hideGameOver();
@@ -105,6 +98,31 @@ class _ColorHuntView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getLocalizedColorName(BuildContext context, String? colorKey) {
+    if (colorKey == null) return '';
+
+    switch (colorKey) {
+      case 'red':
+        return AppLocalizations.of(context)!.red;
+      case 'green':
+        return AppLocalizations.of(context)!.green;
+      case 'blue':
+        return AppLocalizations.of(context)!.blue;
+      case 'purple':
+        return AppLocalizations.of(context)!.purple;
+      case 'orange':
+        return AppLocalizations.of(context)!.orange;
+      case 'yellow':
+        return AppLocalizations.of(context)!.yellow;
+      case 'pink':
+        return AppLocalizations.of(context)!.pink;
+      case 'brown':
+        return AppLocalizations.of(context)!.brown;
+      default:
+        return colorKey;
+    }
   }
 
   Widget _buildScoreTimeDisplay(
@@ -176,7 +194,7 @@ class _ColorHuntView extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.smallSpacing),
           Text(
-            gameState.targetColorName,
+            _getLocalizedColorName(context, gameState.targetColorKey),
             style: TextThemeManager.gameNumber.copyWith(
               fontSize: 32,
               color: gameState.textColor,
@@ -229,13 +247,13 @@ class _ColorHuntView extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: isWrong ? AppTheme.darkError : color,
+              color: color, // Always use the original color
               borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
               boxShadow: [
                 BoxShadow(
-                  color: (isWrong ? AppTheme.darkError : color).withValues(
+                  color: color.withValues(
                     alpha: 0.4,
-                  ),
+                  ), // Use original color for shadow
                   blurRadius: 8,
                   spreadRadius: 0,
                   offset: const Offset(0, 2),
@@ -249,11 +267,7 @@ class _ColorHuntView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
                 splashColor: Colors.white.withValues(alpha: 0.3),
                 highlightColor: Colors.white.withValues(alpha: 0.1),
-                child: _AnimatedColorBoxContent(
-                  color: color,
-                  isWrong: isWrong,
-                  onTap: onTap,
-                ),
+                child: _AnimatedColorBoxContent(color: color, onTap: onTap),
               ),
             ),
           ),
@@ -317,14 +331,9 @@ class _InfoPill extends StatelessWidget {
 
 class _AnimatedColorBoxContent extends StatefulWidget {
   final Color color;
-  final bool isWrong;
   final VoidCallback? onTap;
 
-  const _AnimatedColorBoxContent({
-    required this.color,
-    required this.isWrong,
-    required this.onTap,
-  });
+  const _AnimatedColorBoxContent({required this.color, required this.onTap});
 
   @override
   State<_AnimatedColorBoxContent> createState() =>
@@ -393,7 +402,7 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: widget.isWrong ? AppTheme.darkError : widget.color,
+                  color: widget.color, // Always use the original color
                   borderRadius: BorderRadius.circular(
                     AppConstants.mediumRadius,
                   ),

@@ -17,6 +17,7 @@ class FindDifferenceGameState {
   final FindDifferenceStatus status;
   final bool showGameOver;
   final bool showTimeUp; // Show time up dialog
+  final bool showContinueDialog; // Show continue game dialog
 
   const FindDifferenceGameState({
     this.level = 1,
@@ -32,6 +33,7 @@ class FindDifferenceGameState {
     this.status = FindDifferenceStatus.waiting,
     this.showGameOver = false,
     this.showTimeUp = false,
+    this.showContinueDialog = false,
   });
 
   bool get isWaiting => status == FindDifferenceStatus.waiting;
@@ -52,6 +54,7 @@ class FindDifferenceGameState {
     FindDifferenceStatus? status,
     bool? showGameOver,
     bool? showTimeUp,
+    bool? showContinueDialog,
   }) {
     return FindDifferenceGameState(
       level: level ?? this.level,
@@ -67,6 +70,7 @@ class FindDifferenceGameState {
       status: status ?? this.status,
       showGameOver: showGameOver ?? this.showGameOver,
       showTimeUp: showTimeUp ?? this.showTimeUp,
+      showContinueDialog: showContinueDialog ?? this.showContinueDialog,
     );
   }
 }

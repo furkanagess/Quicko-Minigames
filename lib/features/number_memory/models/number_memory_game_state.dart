@@ -9,6 +9,7 @@ class NumberMemoryGameState {
   final bool showCorrectMessage;
   final List<int> wrongIndices;
   final bool isGameActive;
+  final bool showContinueDialog;
 
   const NumberMemoryGameState({
     this.score = 0,
@@ -21,6 +22,7 @@ class NumberMemoryGameState {
     this.showCorrectMessage = false,
     this.wrongIndices = const [],
     this.isGameActive = false,
+    this.showContinueDialog = false,
   });
 
   NumberMemoryGameState copyWith({
@@ -34,6 +36,7 @@ class NumberMemoryGameState {
     bool? showCorrectMessage,
     List<int>? wrongIndices,
     bool? isGameActive,
+    bool? showContinueDialog,
   }) {
     return NumberMemoryGameState(
       score: score ?? this.score,
@@ -46,6 +49,7 @@ class NumberMemoryGameState {
       showCorrectMessage: showCorrectMessage ?? this.showCorrectMessage,
       wrongIndices: wrongIndices ?? this.wrongIndices,
       isGameActive: isGameActive ?? this.isGameActive,
+      showContinueDialog: showContinueDialog ?? this.showContinueDialog,
     );
   }
 

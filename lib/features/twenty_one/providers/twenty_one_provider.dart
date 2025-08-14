@@ -6,6 +6,7 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import '../models/twenty_one_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class TwentyOneProvider extends ChangeNotifier {
   final Random _random = Random();
@@ -216,6 +217,9 @@ class TwentyOneProvider extends ChangeNotifier {
 
       await LeaderboardUtils.updateHighScore('twenty_one', _gameState.score);
 
+      // Clear any saved state on success
+      await clearSavedGameState();
+
       notifyListeners();
 
       // Auto-start next round after a short delay
@@ -246,6 +250,47 @@ class TwentyOneProvider extends ChangeNotifier {
       await LeaderboardUtils.updateHighScore('twenty_one', _gameState.score);
 
       notifyListeners();
+
+      // Save state for rewarded-continue
+      await _saveGameState();
     }
+  }
+
+  Future<void> _saveGameState() async {
+    final state = {'level': _gameState.level, 'score': _gameState.score};
+    await GameStateService().saveGameState('twenty_one', state);
+    await GameStateService().saveGameScore('twenty_one', _gameState.score);
+  }
+
+  Future<bool> continueGame() async {
+    final saved = await GameStateService().loadGameState('twenty_one');
+    if (saved == null) return false;
+    try {
+      _gameState = _gameState.copyWith(
+        level: (saved['level'] as int?) ?? 1,
+        score: (saved['score'] as int?) ?? 0,
+        status: TwentyOneGameStatus.playing,
+        showGameOver: false,
+      );
+      // restart a fresh hand at the same level
+      _initializeDeck();
+      _dealInitialCards();
+
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+
+      notifyListeners();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    return await GameStateService().hasGameState('twenty_one');
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('twenty_one');
   }
 }

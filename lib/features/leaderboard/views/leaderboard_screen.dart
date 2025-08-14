@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quicko_app/core/constants/games_config.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/routes/app_router.dart';
 import '../../../core/providers/app_providers.dart';
-import '../../../core/utils/share_utils.dart';
 import '../../../shared/models/leaderboard_entry.dart';
+import '../../../shared/widgets/leaderboard_banner_ad_widget.dart';
 import '../providers/leaderboard_provider.dart';
-import '../../../core/constants/games_config.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -269,7 +266,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         // Statistics
         _buildStatistics(leaderboardProvider),
 
-        const SizedBox(height: AppConstants.largeSpacing),
+        // Banner Ad
+        const LeaderboardBannerAdWidget(),
+        const SizedBox(height: AppConstants.mediumSpacing),
 
         // Leaderboard list
         Expanded(
@@ -327,25 +326,31 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildStatItem(
-            AppLocalizations.of(context)!.totalGames,
-            leaderboardProvider.totalEntries.toString(),
-            Icons.games_rounded,
-            AppTheme.darkSuccess,
+          Expanded(
+            child: _buildStatItem(
+              AppLocalizations.of(context)!.totalGames,
+              leaderboardProvider.totalEntries.toString(),
+              Icons.games_rounded,
+              AppTheme.darkSuccess,
+            ),
           ),
-          _buildStatItem(
-            AppLocalizations.of(context)!.highestScore,
-            leaderboardProvider.highestScore.toString(),
-            Icons.emoji_events_rounded,
-            AppTheme.darkWarning,
+          Expanded(
+            child: _buildStatItem(
+              AppLocalizations.of(context)!.highestScore,
+              leaderboardProvider.highestScore.toString(),
+              Icons.emoji_events_rounded,
+              AppTheme.darkWarning,
+            ),
           ),
-          _buildStatItem(
-            AppLocalizations.of(context)!.averageScore,
-            leaderboardProvider.averageScore.toStringAsFixed(1),
-            Icons.analytics_rounded,
-            AppTheme.darkPrimary,
+          Expanded(
+            child: _buildStatItem(
+              AppLocalizations.of(context)!.averageScore,
+              leaderboardProvider.averageScore.toStringAsFixed(1),
+              Icons.analytics_rounded,
+              AppTheme.darkPrimary,
+            ),
           ),
         ],
       ),
@@ -359,7 +364,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     Color color,
   ) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        // Icon Container
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -369,6 +377,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           child: Icon(icon, color: color, size: 24),
         ),
         const SizedBox(height: AppConstants.smallSpacing),
+
+        // Value Text
         Text(
           value,
           style: TextThemeManager.subtitleMedium.copyWith(
@@ -376,15 +386,27 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
-        ),
-        Text(
-          label,
-          style: TextThemeManager.bodySmall.copyWith(
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.7),
-          ),
           textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 4),
+
+        // Title Container with guaranteed 2-line layout
+        Container(
+          height: 40, // Fixed height for consistent 2-line layout
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextThemeManager.bodySmall.copyWith(
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.7),
+              height: 1.2, // Optimized line height for 2 lines
+              fontSize: 12, // Slightly smaller font for better fit
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
@@ -551,10 +573,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              LocalizationUtils.getStringWithContext(
-                                context,
-                                entry.gameId,
-                              ),
+                              _getGameTitle(context, entry.gameId),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.w800,
@@ -610,42 +629,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                 ),
               ),
             ),
+
             // Delete button
-            Positioned(
-              top: 8,
-              right: 8,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap:
-                      () => _showDeleteConfirmation(
-                        context,
-                        entry,
-                        leaderboardProvider,
-                      ),
-                  child: Tooltip(
-                    message: AppLocalizations.of(context)!.deleteHighScore,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: AppTheme.darkError.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppTheme.darkError.withValues(alpha: 0.2),
-                          width: 1,
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.delete_outline_rounded,
-                        color: AppTheme.darkError,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -917,255 +902,32 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     );
   }
 
-  void _showSortDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Consumer<LeaderboardProvider>(
-          builder: (context, leaderboardProvider, child) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-              ),
-              child: SafeArea(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Handle bar
-                    Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.3),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Title
-                    Text(
-                      AppLocalizations.of(context)!.sortLeaderboard,
-                      style: TextThemeManager.subtitleMedium.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Sort options
-                    ListTile(
-                      leading: Icon(
-                        Icons.sort_by_alpha_rounded,
-                        color:
-                            leaderboardProvider.sortBy == 'name'
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                      title: Text(
-                        AppLocalizations.of(context)!.sortByName,
-                        style: TextStyle(
-                          color:
-                              leaderboardProvider.sortBy == 'name'
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface,
-                          fontWeight:
-                              leaderboardProvider.sortBy == 'name'
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                        ),
-                      ),
-                      onTap: () {
-                        leaderboardProvider.changeSortBy('name');
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.emoji_events_rounded,
-                        color:
-                            leaderboardProvider.sortBy == 'score'
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                      title: Text(
-                        AppLocalizations.of(context)!.sortByScore,
-                        style: TextStyle(
-                          color:
-                              leaderboardProvider.sortBy == 'score'
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface,
-                          fontWeight:
-                              leaderboardProvider.sortBy == 'score'
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                        ),
-                      ),
-                      onTap: () {
-                        leaderboardProvider.changeSortBy('score');
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.calendar_today_rounded,
-                        color:
-                            leaderboardProvider.sortBy == 'date'
-                                ? Theme.of(context).colorScheme.primary
-                                : Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                      title: Text(
-                        AppLocalizations.of(context)!.sortByDate,
-                        style: TextStyle(
-                          color:
-                              leaderboardProvider.sortBy == 'date'
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context).colorScheme.onSurface,
-                          fontWeight:
-                              leaderboardProvider.sortBy == 'date'
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                        ),
-                      ),
-                      onTap: () {
-                        leaderboardProvider.changeSortBy('date');
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  void _showShareOptions(BuildContext context) {
-    final leaderboardProvider = context.read<LeaderboardProvider>();
-
-    if (!leaderboardProvider.hasEntries) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.shareNoData),
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
-      );
-      return;
-    }
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 12),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                AppLocalizations.of(context)!.shareAchievements,
-                style: TextThemeManager.subtitleMedium.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: Icon(
-                  Icons.preview_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                title: Text(AppLocalizations.of(context)!.previewImage),
-                onTap: () {
-                  AppRouter.pop(context);
-                  _previewAchievementImage(context, leaderboardProvider);
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.share_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                title: Text(AppLocalizations.of(context)!.shareImage),
-                onTap: () {
-                  AppRouter.pop(context);
-                  _shareAchievementImage(context, leaderboardProvider);
-                },
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _previewAchievementImage(
-    BuildContext context,
-    LeaderboardProvider leaderboardProvider,
-  ) {
-    ShareUtils.showAchievementPreview(
-      context: context,
-      entries: leaderboardProvider.entries,
-      totalGames: leaderboardProvider.totalEntries,
-      highestScore: leaderboardProvider.highestScore,
-      averageScore: leaderboardProvider.averageScore,
-    );
-  }
-
-  void _shareAchievementImage(
-    BuildContext context,
-    LeaderboardProvider leaderboardProvider,
-  ) async {
-    try {
-      await ShareUtils.shareAchievementImage(
-        entries: leaderboardProvider.entries,
-        totalGames: leaderboardProvider.totalEntries,
-        highestScore: leaderboardProvider.highestScore,
-        averageScore: leaderboardProvider.averageScore,
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.shareError),
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
-      );
+  String _getGameTitle(BuildContext context, String gameId) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (gameId) {
+      case 'pattern_memory':
+        return localizations.patternMemory;
+      case 'blind_sort':
+        return localizations.blindSort;
+      case 'higher_lower':
+        return localizations.higherLower;
+      case 'color_hunt':
+        return localizations.colorHunt;
+      case 'aim_trainer':
+        return localizations.aimTrainer;
+      case 'number_memory':
+        return localizations.numberMemory;
+      case 'find_difference':
+        return localizations.findDifference;
+      case 'rock_paper_scissors':
+      case 'rps':
+        return localizations.rockPaperScissors;
+      case 'twenty_one':
+        return localizations.twentyOne;
+      case 'reactionTime':
+        return localizations.reactionTime;
+      default:
+        return gameId;
     }
   }
 }

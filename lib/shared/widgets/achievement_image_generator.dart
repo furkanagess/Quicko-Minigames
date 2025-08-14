@@ -266,7 +266,7 @@ class AchievementImageGenerator extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  entry.gameTitle,
+                  entry.gameId,
                   style: TextThemeManager.bodyMedium.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,

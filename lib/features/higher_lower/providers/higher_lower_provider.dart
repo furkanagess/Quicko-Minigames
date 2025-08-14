@@ -4,6 +4,7 @@ import 'dart:math';
 import '../models/higher_lower_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class HigherLowerProvider extends ChangeNotifier {
   HigherLowerGameState _gameState = const HigherLowerGameState();
@@ -205,6 +206,8 @@ class HigherLowerProvider extends ChangeNotifier {
 
       // Yüksek skoru güncelle
       _updateHighScore();
+      // Save state for rewarded-continue
+      await _saveGameState();
     });
   }
 
@@ -217,6 +220,47 @@ class HigherLowerProvider extends ChangeNotifier {
       SoundUtils.playNewLevelSound();
     }
     await LeaderboardUtils.updateHighScore('higher_lower', _gameState.score);
+  }
+
+  Future<void> _saveGameState() async {
+    final state = {
+      'currentNumber': _gameState.currentNumber,
+      'previousNumber': _gameState.previousNumber,
+      'score': _gameState.score,
+    };
+    await GameStateService().saveGameState('higher_lower', state);
+    await GameStateService().saveGameScore('higher_lower', _gameState.score);
+  }
+
+  Future<bool> continueGame() async {
+    final saved = await GameStateService().loadGameState('higher_lower');
+    if (saved == null) return false;
+    try {
+      _gameState = _gameState.copyWith(
+        currentNumber: (saved['currentNumber'] as int?) ?? 0,
+        previousNumber: saved['previousNumber'] as int?,
+        score: (saved['score'] as int?) ?? 0,
+        status: HigherLowerGameStatus.playing,
+        isAnimating: false,
+        showGameOver: false,
+      );
+
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+
+      notifyListeners();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    return await GameStateService().hasGameState('higher_lower');
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('higher_lower');
   }
 
   /// Game over animasyonunu gizle

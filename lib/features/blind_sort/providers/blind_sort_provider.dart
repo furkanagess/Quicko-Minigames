@@ -4,6 +4,7 @@ import '../../../shared/models/game_state.dart';
 import '../../../core/utils/game_utils.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class BlindSortProvider extends ChangeNotifier {
   GameState _gameState = GameState();
@@ -136,6 +137,9 @@ class BlindSortProvider extends ChangeNotifier {
     final currentNumber = _gameState.currentNumber!;
     final currentSlots = List<int?>.from(_gameState.slots);
 
+    // Save state before making the move (in case it's a losing move)
+    await _saveGameStateBeforeMove(currentSlots, currentNumber);
+
     // Sayının yerleştirilebilir olup olmadığını kontrol et
     if (!GameUtils.canPlaceNumber(currentSlots, currentNumber, position)) {
       _gameOver();
@@ -224,6 +228,9 @@ class BlindSortProvider extends ChangeNotifier {
         return;
       }
 
+      // Save state before showing the new number (in case it's unplayable)
+      await _saveGameStateBeforeNewNumber(currentSlots, finalNumber);
+
       // Eğer yeni sayı hiçbir yere yerleştirilemiyorsa oyun biter
       if (!GameUtils.canPlaceNumberAnywhere(currentSlots, finalNumber)) {
         await SoundUtils.stopSpinnerSound();
@@ -245,6 +252,7 @@ class BlindSortProvider extends ChangeNotifier {
 
   /// Oyun bitti
   void _gameOver() async {
+    // State is already saved before the losing move
     final finalScore = _gameState.score;
     _hasBrokenRecordThisGame = true;
     final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
@@ -293,11 +301,15 @@ class BlindSortProvider extends ChangeNotifier {
     // Yüksek skoru güncelle
     await LeaderboardUtils.updateHighScore('blind_sort', finalScore);
 
+    // Clear any saved state on success
+    await clearSavedGameState();
+
     notifyListeners();
   }
 
   /// Yeni sayı hiçbir yere sığmıyor
   void _nextNumberUnplayable(int unplayableNumber, int finalScore) async {
+    // State is already saved before showing the unplayable number
     _hasBrokenRecordThisGame = true;
     final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
       'blind_sort',
@@ -325,6 +337,96 @@ class BlindSortProvider extends ChangeNotifier {
     await LeaderboardUtils.updateHighScore('blind_sort', finalScore);
 
     notifyListeners();
+  }
+
+  Future<void> _saveGameStateBeforeMove(List<int?> currentSlots, int currentNumber) async {
+    final state = {
+      'slots': currentSlots,
+      'currentNumber': currentNumber,
+      'score': _gameState.score,
+      'usedNumbers': _usedNumbers.toList(),
+      'lastAction': 'before_move', // Indicate this is the state before a move
+    };
+    await GameStateService().saveGameState('blind_sort', state);
+  }
+
+  Future<void> _saveGameStateBeforeNewNumber(List<int?> currentSlots, int newNumber) async {
+    final state = {
+      'slots': currentSlots,
+      'currentNumber': newNumber,
+      'score': _gameState.score,
+      'usedNumbers': _usedNumbers.toList(),
+      'lastAction': 'before_new_number', // Indicate this is the state before a new number
+    };
+    await GameStateService().saveGameState('blind_sort', state);
+  }
+
+  Future<bool> continueGame() async {
+    final saved = await GameStateService().loadGameState('blind_sort');
+    if (saved == null) return false;
+    try {
+      final slots = (saved['slots'] as List).map((e) => e as int?).toList();
+      final currentNumber = saved['currentNumber'] as int?;
+      final score = (saved['score'] as int?) ?? 0;
+      final used = Set<int>.from((saved['usedNumbers'] as List?) ?? []);
+      final lastAction = saved['lastAction'] as String?;
+
+      _usedNumbers = used; // restore used numbers
+      
+      // If the last action was before a new unplayable number, 
+      // we need to generate a new playable number
+      if (lastAction == 'before_new_number' && currentNumber != null) {
+        // Remove the unplayable number from used numbers
+        _usedNumbers.remove(currentNumber);
+        
+        // Generate a new playable number
+        final newPlayableNumber = _generateUniqueRandomNumber();
+        if (newPlayableNumber != -1) {
+          _usedNumbers.add(newPlayableNumber);
+          
+          _gameState = _gameState.copyWith(
+            slots: slots,
+            currentNumber: newPlayableNumber,
+            score: score,
+            status: GameStatus.playing,
+            showGameOver: false,
+          );
+        } else {
+          // All numbers used, game won
+          _gameState = _gameState.copyWith(
+            slots: slots,
+            score: score,
+            status: GameStatus.won,
+            showGameOver: true,
+          );
+        }
+      } else {
+        // Normal continue from before a losing move
+        _gameState = _gameState.copyWith(
+          slots: slots,
+          currentNumber: currentNumber,
+          score: score,
+          status: GameStatus.playing,
+          showGameOver: false,
+        );
+      }
+      
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+      
+      notifyListeners();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    return await GameStateService().hasGameState('blind_sort');
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('blind_sort');
   }
 
   /// Tam ekran modunu değiştir

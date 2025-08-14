@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../constants/supported_locales.dart';
 
 class LanguageProvider extends ChangeNotifier {
   static const String _languageKey = 'selected_language';
 
-  Locale _currentLocale = const Locale('en');
+  Locale _currentLocale = SupportedLocales.defaultLocale;
   bool _isLoading = false;
 
   Locale get currentLocale => _currentLocale;
@@ -26,22 +27,30 @@ class LanguageProvider extends ChangeNotifier {
       debugPrint('LanguageProvider: Loading saved language: $savedLanguage');
 
       if (savedLanguage != null) {
-        _currentLocale = Locale(savedLanguage);
+        // Handle country-specific locales
+        if (savedLanguage == 'pt_BR') {
+          _currentLocale = const Locale('pt', 'BR');
+        } else {
+          _currentLocale = Locale(savedLanguage);
+        }
         debugPrint(
           'LanguageProvider: Loaded saved language: ${_currentLocale.languageCode}',
         );
       } else {
         // Default to English for new installations
-        _currentLocale = const Locale('en');
+        _currentLocale = SupportedLocales.defaultLocale;
         // Save the default language preference
-        await prefs.setString(_languageKey, 'en');
+        await prefs.setString(
+          _languageKey,
+          SupportedLocales.defaultLocale.languageCode,
+        );
         debugPrint(
           'LanguageProvider: Set default language: ${_currentLocale.languageCode}',
         );
       }
     } catch (e) {
       // Fallback to English if there's an error
-      _currentLocale = const Locale('en');
+      _currentLocale = SupportedLocales.fallbackLocale;
       debugPrint(
         'LanguageProvider: Error loading language, using fallback: $e',
       );
@@ -52,10 +61,22 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   Future<void> changeLanguage(String languageCode) async {
-    if (_currentLocale.languageCode == languageCode) return;
+    Locale? newLocale = SupportedLocales.getLocaleByLanguageCode(languageCode);
+
+    // Handle country-specific locales
+    if (languageCode == 'pt_BR') {
+      newLocale = const Locale('pt', 'BR');
+    } else if (newLocale == null) {
+      // Fallback to default locale if not supported
+      newLocale = SupportedLocales.defaultLocale;
+    }
+
+    if (_currentLocale.languageCode == newLocale.languageCode &&
+        _currentLocale.countryCode == newLocale.countryCode)
+      return;
 
     debugPrint(
-      'LanguageProvider: Changing language from ${_currentLocale.languageCode} to $languageCode',
+      'LanguageProvider: Changing language from ${_currentLocale.languageCode} to ${newLocale.languageCode}',
     );
 
     _isLoading = true;
@@ -65,7 +86,7 @@ class LanguageProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_languageKey, languageCode);
 
-      _currentLocale = Locale(languageCode);
+      _currentLocale = newLocale;
       debugPrint(
         'LanguageProvider: Language saved successfully: $languageCode',
       );
@@ -86,8 +107,54 @@ class LanguageProvider extends ChangeNotifier {
     await changeLanguage('tr');
   }
 
+  Future<void> changeLanguageToSpanish() async {
+    await changeLanguage('es');
+  }
+
+  Future<void> changeLanguageToPortuguese() async {
+    await changeLanguage('pt_BR');
+  }
+
+  Future<void> changeLanguageToArabic() async {
+    await changeLanguage('ar');
+  }
+
+  Future<void> changeLanguageToGerman() async {
+    await changeLanguage('de');
+  }
+
+  Future<void> changeLanguageToFrench() async {
+    await changeLanguage('fr');
+  }
+
+  Future<void> changeLanguageToIndonesian() async {
+    await changeLanguage('id');
+  }
+
+  Future<void> changeLanguageToHindi() async {
+    await changeLanguage('hi');
+  }
+
+  Future<void> changeLanguageToAzerbaijani() async {
+    await changeLanguage('az');
+  }
+
+  Future<void> changeLanguageToItalian() async {
+    await changeLanguage('it');
+  }
+
   bool get isEnglish => _currentLocale.languageCode == 'en';
   bool get isTurkish => _currentLocale.languageCode == 'tr';
+  bool get isSpanish => _currentLocale.languageCode == 'es';
+  bool get isPortuguese =>
+      _currentLocale.languageCode == 'pt' && _currentLocale.countryCode == 'BR';
+  bool get isArabic => _currentLocale.languageCode == 'ar';
+  bool get isGerman => _currentLocale.languageCode == 'de';
+  bool get isFrench => _currentLocale.languageCode == 'fr';
+  bool get isIndonesian => _currentLocale.languageCode == 'id';
+  bool get isHindi => _currentLocale.languageCode == 'hi';
+  bool get isAzerbaijani => _currentLocale.languageCode == 'az';
+  bool get isItalian => _currentLocale.languageCode == 'it';
 
   // Debug method to check saved language value
   Future<void> debugCheckSavedLanguage() async {
@@ -101,5 +168,29 @@ class LanguageProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('LanguageProvider: Debug - Error checking saved language: $e');
     }
+  }
+
+  /// Get all supported locales
+  List<Locale> get supportedLocales => SupportedLocales.locales;
+
+  /// Check if current locale is supported
+  bool get isCurrentLocaleSupported =>
+      SupportedLocales.isSupported(_currentLocale);
+
+  /// Get locale by index
+  Locale? getLocaleByIndex(int index) {
+    if (index >= 0 && index < SupportedLocales.locales.length) {
+      return SupportedLocales.locales[index];
+    }
+    return null;
+  }
+
+  /// Get index of current locale
+  int get currentLocaleIndex {
+    return SupportedLocales.locales.indexWhere(
+      (locale) =>
+          locale.languageCode == _currentLocale.languageCode &&
+          locale.countryCode == _currentLocale.countryCode,
+    );
   }
 }

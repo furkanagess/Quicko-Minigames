@@ -9,7 +9,6 @@ import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/rps_provider.dart';
 import '../models/rps_game_state.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class RpsPage extends StatelessWidget {
   const RpsPage({super.key});
@@ -44,21 +43,12 @@ class _RpsView extends StatelessWidget {
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
                 state.youWon
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'youWonTheGame',
-                    )
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'betterLuckNextTime',
-                    ),
+                    ? AppLocalizations.of(context)!.youWonTheGame
+                    : AppLocalizations.of(context)!.betterLuckNextTime,
             lossReason:
                 state.youWon
                     ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'betterLuckNextTime',
-                    ),
+                    : AppLocalizations.of(context)!.betterLuckNextTime,
           );
         }
 
@@ -70,6 +60,8 @@ class _RpsView extends StatelessWidget {
           onTryAgain: () {
             provider.reset();
           },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
             Navigator.of(context).pop();
           },
@@ -84,6 +76,20 @@ class _RpsView extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _getLocalizedBannerText(BuildContext context, String? bannerTextKey) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (bannerTextKey) {
+      case 'youWin':
+        return localizations.youWin;
+      case 'youLose':
+        return localizations.youLose;
+      case 'tie':
+        return localizations.tie;
+      default:
+        return '';
+    }
   }
 
   Widget _buildGameContent(
@@ -159,10 +165,9 @@ class _RpsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    state.bannerText == AppLocalizations.of(context)!.youWin
+                    state.bannerTextKey == 'youWin'
                         ? Icons.celebration_rounded
-                        : state.bannerText ==
-                            AppLocalizations.of(context)!.youLose
+                        : state.bannerTextKey == 'youLose'
                         ? Icons.sentiment_dissatisfied_rounded
                         : Icons.handshake_rounded,
                     color: AppTheme.darkPrimary,
@@ -170,7 +175,7 @@ class _RpsView extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    state.bannerText,
+                    _getLocalizedBannerText(context, state.bannerTextKey),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -192,15 +197,27 @@ class _RpsView extends StatelessWidget {
             children: [
               _ChoiceButton(
                 emoji: '✊',
-                onTap: () => provider.onPick(RpsChoice.rock),
+                onTap:
+                    state.isPlayerSelectionLocked
+                        ? null
+                        : () => provider.onPick(RpsChoice.rock),
+                isDisabled: state.isPlayerSelectionLocked,
               ),
               _ChoiceButton(
                 emoji: '✋',
-                onTap: () => provider.onPick(RpsChoice.paper),
+                onTap:
+                    state.isPlayerSelectionLocked
+                        ? null
+                        : () => provider.onPick(RpsChoice.paper),
+                isDisabled: state.isPlayerSelectionLocked,
               ),
               _ChoiceButton(
                 emoji: '✌️',
-                onTap: () => provider.onPick(RpsChoice.scissors),
+                onTap:
+                    state.isPlayerSelectionLocked
+                        ? null
+                        : () => provider.onPick(RpsChoice.scissors),
+                isDisabled: state.isPlayerSelectionLocked,
               ),
             ],
           ),
@@ -322,9 +339,14 @@ class _ScoreCard extends StatelessWidget {
 
 class _ChoiceButton extends StatefulWidget {
   final String emoji;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool isDisabled;
 
-  const _ChoiceButton({required this.emoji, required this.onTap});
+  const _ChoiceButton({
+    required this.emoji,
+    required this.onTap,
+    this.isDisabled = false,
+  });
 
   @override
   State<_ChoiceButton> createState() => _ChoiceButtonState();
@@ -395,53 +417,90 @@ class _ChoiceButtonState extends State<_ChoiceButton>
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-                ],
+                colors:
+                    widget.isDisabled
+                        ? [
+                          Colors.grey.withValues(alpha: 0.1),
+                          Colors.grey.withValues(alpha: 0.05),
+                        ]
+                        : [
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.1),
+                          Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.05),
+                        ],
               ),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.3),
+                color:
+                    widget.isDisabled
+                        ? Colors.grey.withValues(alpha: 0.3)
+                        : Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.3),
                 width: 2,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.2),
-                  blurRadius: _elevationAnimation.value,
-                  offset: Offset(0, _elevationAnimation.value / 2),
-                ),
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
-                ),
-              ],
+              boxShadow:
+                  widget.isDisabled
+                      ? [
+                        BoxShadow(
+                          color: Colors.grey.withValues(alpha: 0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ]
+                      : [
+                        BoxShadow(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.2),
+                          blurRadius: _elevationAnimation.value,
+                          offset: Offset(0, _elevationAnimation.value / 2),
+                        ),
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: widget.onTap,
-                onTapDown: _onTapDown,
-                onTapUp: _onTapUp,
-                onTapCancel: _onTapCancel,
+                onTap: widget.isDisabled ? null : widget.onTap,
+                onTapDown: widget.isDisabled ? null : _onTapDown,
+                onTapUp: widget.isDisabled ? null : _onTapUp,
+                onTapCancel: widget.isDisabled ? null : _onTapCancel,
                 borderRadius: BorderRadius.circular(20),
-                splashColor: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.3),
-                highlightColor: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.1),
+                splashColor:
+                    widget.isDisabled
+                        ? Colors.transparent
+                        : Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.3),
+                highlightColor:
+                    widget.isDisabled
+                        ? Colors.transparent
+                        : Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.1),
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(widget.emoji, style: const TextStyle(fontSize: 36)),
+                      Text(
+                        widget.emoji,
+                        style: TextStyle(
+                          fontSize: 36,
+                          color:
+                              widget.isDisabled
+                                  ? Colors.grey.withValues(alpha: 0.5)
+                                  : null,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                     ],
                   ),

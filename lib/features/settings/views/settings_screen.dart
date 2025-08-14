@@ -213,9 +213,11 @@ class _SettingsScreenState extends State<SettingsScreen>
         _buildSettingOption(
           context,
           title: AppLocalizations.of(context)!.language,
-          subtitle: _getCurrentLanguageDisplay(languageProvider),
+          subtitle: _getLanguageDisplayName(
+            languageProvider.currentLocale.languageCode,
+          ),
           icon: Icons.language_rounded,
-          emoji: '🌐',
+          emoji: _getLanguageEmoji(languageProvider.currentLocale.languageCode),
           onTap: () => _navigateToLanguageSettings(context),
         ),
 
@@ -328,13 +330,66 @@ class _SettingsScreenState extends State<SettingsScreen>
     );
   }
 
-  String _getCurrentLanguageDisplay(LanguageProvider languageProvider) {
-    if (languageProvider.isEnglish) {
-      return 'English';
-    } else if (languageProvider.isTurkish) {
-      return 'Türkçe';
+  /// Returns the display name for the given language code
+  /// This is a static method for better performance and reusability
+  static String _getLanguageDisplayName(String languageCode) {
+    switch (languageCode) {
+      case 'en':
+        return 'English';
+      case 'tr':
+        return 'Türkçe';
+      case 'es':
+        return 'Español';
+      case 'pt':
+        return 'Português';
+      case 'ar':
+        return 'العربية';
+      case 'de':
+        return 'Deutsch';
+      case 'fr':
+        return 'Français';
+      case 'id':
+        return 'Bahasa Indonesia';
+      case 'hi':
+        return 'हिंदी';
+      case 'az':
+        return 'Azərbaycan';
+      case 'it':
+        return 'Italiano';
+      default:
+        return '';
     }
-    return 'System';
+  }
+
+  /// Returns the emoji flag for the given language code
+  /// This is a static method for better performance and reusability
+  static String _getLanguageEmoji(String languageCode) {
+    switch (languageCode) {
+      case 'en':
+        return '🇺🇸';
+      case 'tr':
+        return '🇹🇷';
+      case 'es':
+        return '🇪🇸';
+      case 'pt':
+        return '🇧🇷';
+      case 'ar':
+        return '🇸🇦';
+      case 'de':
+        return '🇩🇪';
+      case 'fr':
+        return '🇫🇷';
+      case 'id':
+        return '🇮🇩';
+      case 'hi':
+        return '🇮🇳';
+      case 'az':
+        return '🇦🇿';
+      case 'it':
+        return '🇮🇹';
+      default:
+        return '🌐';
+    }
   }
 
   String _getCurrentThemeDisplay(ThemeProvider themeProvider) {

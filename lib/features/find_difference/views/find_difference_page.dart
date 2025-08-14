@@ -9,7 +9,6 @@ import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/find_difference_provider.dart';
 import '../models/find_difference_game_state.dart';
-import '../../../core/utils/localization_utils.dart';
 
 // Reusable tile widget for the grid
 class ColorTile extends StatelessWidget {
@@ -169,14 +168,16 @@ class _FindDifferenceView extends StatelessWidget {
             isWin: false,
             score: gameState.score,
             title: AppLocalizations.of(context)!.timeUp,
-            subtitle: LocalizationUtils.getStringWithContext(
-              context,
-              'timeRanOut',
-            ),
-            lossReason: LocalizationUtils.getStringWithContext(
-              context,
-              'timeUpMessage',
-            ),
+            subtitle: AppLocalizations.of(context)!.timeRanOut,
+            lossReason: AppLocalizations.of(context)!.timeUpMessage,
+          );
+        } else if (gameState.showContinueDialog) {
+          gameResult = GameResult(
+            isWin: false,
+            score: gameState.score,
+            title: AppLocalizations.of(context)!.gameOver,
+            subtitle: AppLocalizations.of(context)!.betterLuckNextTime,
+            lossReason: AppLocalizations.of(context)!.betterLuckNextTime,
           );
         }
 
@@ -187,10 +188,14 @@ class _FindDifferenceView extends StatelessWidget {
           gameResult: gameResult,
           onTryAgain: () {
             provider.hideTimeUp();
+            provider.hideContinueDialog();
             provider.resetGame();
           },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
             provider.hideTimeUp();
+            provider.hideContinueDialog();
             Navigator.of(context).pop();
           },
           onStartGame: () {

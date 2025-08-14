@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import '../models/number_memory_game_state.dart';
 import '../../../core/utils/sound_utils.dart';
 import '../../../core/utils/leaderboard_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class NumberMemoryProvider extends ChangeNotifier {
   NumberMemoryGameState _gameState = const NumberMemoryGameState();
@@ -26,7 +28,7 @@ class NumberMemoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _generateNewSequence() {
+  void _generateNewSequence({bool isAfterAd = false}) {
     final random = Random();
     final sequence = <int>[];
 
@@ -43,8 +45,10 @@ class NumberMemoryProvider extends ChangeNotifier {
       wrongIndices: [],
     );
 
-    // Show sequence for 2 seconds
-    _sequenceTimer = Timer(const Duration(seconds: 2), () {
+    // Show sequence for different durations based on context
+    final displayDuration =
+        isAfterAd ? 4 : 2; // 4 seconds after ad, 2 seconds normally
+    _sequenceTimer = Timer(Duration(seconds: displayDuration), () {
       _gameState = _gameState.copyWith(
         isShowingSequence: false,
         isWaitingForInput: true,
@@ -136,16 +140,30 @@ class NumberMemoryProvider extends ChangeNotifier {
     // Play error sound
     SoundUtils.playGameOverSound();
 
+    if (kDebugMode) {
+      print('NumberMemory: Wrong answer detected, showing continue dialog');
+    }
+
     _gameState = _gameState.copyWith(
       wrongIndices: wrongIndices,
       isWaitingForInput: false,
-      showGameOver: true,
+      showGameOver: false, // Don't show game over dialog
+      showContinueDialog: true, // Show continue game dialog
     );
 
     // Update leaderboard
     await LeaderboardUtils.updateHighScore('number_memory', _gameState.score);
 
     notifyListeners();
+
+    // Save state for rewarded-continue
+    await _saveGameState();
+
+    if (kDebugMode) {
+      print(
+        'NumberMemory: Game state saved, continue dialog should be visible',
+      );
+    }
   }
 
   void restartGame() {
@@ -164,10 +182,98 @@ class NumberMemoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> _saveGameState() async {
+    final state = {
+      'level': _gameState.level,
+      'score': _gameState.score,
+      'sequence': _gameState.sequence,
+    };
+    await GameStateService().saveGameState('number_memory', state);
+    await GameStateService().saveGameScore('number_memory', _gameState.score);
+  }
+
+  Future<bool> continueGame() async {
+    if (kDebugMode) {
+      print('NumberMemory: Continue game requested');
+    }
+
+    final saved = await GameStateService().loadGameState('number_memory');
+    if (saved == null) {
+      if (kDebugMode) {
+        print('NumberMemory: No saved state found');
+      }
+      return false;
+    }
+
+    try {
+      // When continuing after watching ad, advance to next level
+      // but keep the current score
+      final currentLevel = (saved['level'] as int?) ?? 1;
+      final currentScore = (saved['score'] as int?) ?? 0;
+
+      if (kDebugMode) {
+        print(
+          'NumberMemory: Restoring game state - Level: $currentLevel -> ${currentLevel + 1}, Score: $currentScore',
+        );
+      }
+
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+
+      // Set the new level and score first
+      _gameState = _gameState.copyWith(
+        level: currentLevel + 1, // Continue from next level
+        score: currentScore, // Keep current score
+        isGameActive: true,
+        showGameOver: false,
+        showContinueDialog: false,
+      );
+
+      // Generate new sequence for the next level and show it
+      _generateNewSequence(isAfterAd: true);
+
+      if (kDebugMode) {
+        print(
+          'NumberMemory: Game continued successfully to level ${currentLevel + 1}',
+        );
+      }
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print('NumberMemory: Error continuing game: $e');
+      }
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    final canContinue = await GameStateService().hasGameState('number_memory');
+    if (kDebugMode) {
+      print('NumberMemory: Can continue game: $canContinue');
+    }
+    return canContinue;
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('number_memory');
+  }
+
   /// Hide game over flag to prevent duplicate dialogs
   void hideGameOver() {
     if (_gameState.showGameOver) {
       _gameState = _gameState.copyWith(showGameOver: false);
+      notifyListeners();
+    }
+  }
+
+  /// Hide continue dialog
+  void hideContinueDialog() {
+    if (_gameState.showContinueDialog) {
+      if (kDebugMode) {
+        print('NumberMemory: Hiding continue dialog');
+      }
+      _gameState = _gameState.copyWith(showContinueDialog: false);
       notifyListeners();
     }
   }

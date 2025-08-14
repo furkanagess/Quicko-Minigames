@@ -8,7 +8,6 @@ import '../models/aim_trainer_game_state.dart';
 import '../providers/aim_trainer_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class AimTrainerScreen extends StatelessWidget {
   const AimTrainerScreen({super.key});
@@ -45,26 +44,15 @@ class _AimTrainerView extends StatelessWidget {
             score: gameState.score,
             title:
                 isCivilianHit
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'missionFailed',
-                    )
+                    ? AppLocalizations.of(context)!.missionFailed
                     : (isWin
                         ? AppLocalizations.of(context)!.congratulations
                         : AppLocalizations.of(context)!.gameOver),
 
             lossReason:
                 isCivilianHit
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'greenTargetHit',
-                    )
-                    : (isWin
-                        ? null
-                        : LocalizationUtils.getStringWithContext(
-                          context,
-                          'timeRanOut',
-                        )),
+                    ? AppLocalizations.of(context)!.greenTargetHit
+                    : (isWin ? null : AppLocalizations.of(context)!.timeRanOut),
           );
         }
 

@@ -4,6 +4,7 @@ import 'dart:math';
 import '../models/aim_trainer_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class AimTrainerProvider extends ChangeNotifier {
   AimTrainerGameState _gameState = const AimTrainerGameState();
@@ -189,6 +190,9 @@ class AimTrainerProvider extends ChangeNotifier {
     // Update high score
     _updateHighScore();
     notifyListeners();
+
+    // Save state for rewarded-continue
+    await _saveGameState();
   }
 
   /// Update high score
@@ -208,6 +212,43 @@ class AimTrainerProvider extends ChangeNotifier {
     _gameState = const AimTrainerGameState();
     _hasBrokenRecordThisGame = false;
     notifyListeners();
+  }
+
+  Future<void> _saveGameState() async {
+    final state = {'score': _gameState.score, 'timeLeft': _gameState.timeLeft};
+    await GameStateService().saveGameState('aim_trainer', state);
+    await GameStateService().saveGameScore('aim_trainer', _gameState.score);
+  }
+
+  Future<bool> continueGame() async {
+    final saved = await GameStateService().loadGameState('aim_trainer');
+    if (saved == null) return false;
+    try {
+      _gameState = _gameState.copyWith(
+        score: (saved['score'] as int?) ?? 0,
+        timeLeft: (saved['timeLeft'] as int?) ?? 0,
+        status: AimTrainerGameStatus.playing,
+        showGameOver: false,
+      );
+      _startTimer();
+      _startCivilianTimer();
+
+      // Clear the saved state after successful restore
+      await clearSavedGameState();
+
+      notifyListeners();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> canContinueGame() async {
+    return await GameStateService().hasGameState('aim_trainer');
+  }
+
+  Future<void> clearSavedGameState() async {
+    await GameStateService().clearGameState('aim_trainer');
   }
 
   /// Hide game over animation

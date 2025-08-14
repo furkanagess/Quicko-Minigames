@@ -99,6 +99,25 @@ class TextThemeManager {
     fontWeight: FontWeight.w500,
   );
 
+  // Headline stilleri
+  static TextStyle get headlineSmall => const TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle get titleMedium => const TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+  );
+
+  static TextStyle get titleSmall => const TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle get gameLabel => const TextStyle(
     fontFamily: fontFamily,
     fontSize: 18,

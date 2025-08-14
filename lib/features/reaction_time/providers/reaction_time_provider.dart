@@ -4,6 +4,7 @@ import 'dart:math';
 import '../models/reaction_time_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../core/services/game_state_service.dart';
 
 class ReactionTimeProvider extends ChangeNotifier {
   ReactionTimeGameState _gameState = const ReactionTimeGameState();
@@ -18,7 +19,7 @@ class ReactionTimeProvider extends ChangeNotifier {
   int calculateScore() {
     if (!_gameState.isCompleted) return 0;
 
-    final baseScore = 12; // Points for completing all 12 targets
+    final baseScore = 0; // Points for completing all 12 targets
     final timeInSeconds = _gameState.elapsedTime;
 
     // Time bonus calculation:
@@ -29,14 +30,14 @@ class ReactionTimeProvider extends ChangeNotifier {
     // - Very slow time (6.1s+): +0 bonus points (total: 12)
 
     int timeBonus;
-    if (timeInSeconds <= 3.0) {
-      timeBonus = 18; // Perfect
-    } else if (timeInSeconds <= 4.0) {
-      timeBonus = 12; // Good
-    } else if (timeInSeconds <= 5.0) {
-      timeBonus = 6; // Average
-    } else if (timeInSeconds <= 6.0) {
-      timeBonus = 3; // Slow
+    if (timeInSeconds <= 5.0) {
+      timeBonus = 24; // Perfect
+    } else if (timeInSeconds <= 8.0) {
+      timeBonus = 18; // Good
+    } else if (timeInSeconds <= 12.0) {
+      timeBonus = 12; // Average
+    } else if (timeInSeconds <= 15.0) {
+      timeBonus = 6; // Slow
     } else {
       timeBonus = 0; // Very slow
     }
@@ -50,13 +51,13 @@ class ReactionTimeProvider extends ChangeNotifier {
 
     final timeInSeconds = _gameState.elapsedTime;
 
-    if (timeInSeconds <= 3.0) {
+    if (timeInSeconds <= 5.0) {
       return 'perfectTime';
-    } else if (timeInSeconds <= 4.0) {
+    } else if (timeInSeconds <= 8.0) {
       return 'goodTime';
-    } else if (timeInSeconds <= 5.0) {
+    } else if (timeInSeconds <= 12.0) {
       return 'averageTime';
-    } else if (timeInSeconds <= 6.0) {
+    } else if (timeInSeconds <= 15.0) {
       return 'slowTime';
     } else {
       return 'verySlowTime';
@@ -233,6 +234,9 @@ class ReactionTimeProvider extends ChangeNotifier {
   void _gameOverOnWrongTap() async {
     _stopTimer();
 
+    // Save game state for continue functionality
+    await _saveGameState();
+
     _gameState = _gameState.copyWith(
       status: ReactionTimeGameStatus.gameOver,
       showGameOver: true,
@@ -241,6 +245,73 @@ class ReactionTimeProvider extends ChangeNotifier {
 
     // Don't update high score for wrong taps
     notifyListeners();
+  }
+
+  /// Save current game state
+  Future<void> _saveGameState() async {
+    final gameStateService = GameStateService();
+    final state = {
+      'nextTarget': _gameState.nextTarget,
+      'elapsedTime': _gameState.elapsedTime,
+      'completedTargets': _gameState.completedTargets.toList(),
+      'targetPositions':
+          _gameState.targetPositions
+              .map((pos) => {'dx': pos.dx, 'dy': pos.dy})
+              .toList(),
+    };
+
+    await gameStateService.saveGameState('reactionTime', state);
+    await gameStateService.saveGameScore('reactionTime', calculateScore());
+    await gameStateService.saveGameLevel('reactionTime', _gameState.nextTarget);
+  }
+
+  /// Continue game from saved state
+  Future<bool> continueGame() async {
+    final gameStateService = GameStateService();
+    final savedState = await gameStateService.loadGameState('reactionTime');
+
+    if (savedState == null) return false;
+
+    try {
+      final nextTarget = savedState['nextTarget'] as int;
+      final elapsedTime = savedState['elapsedTime'] as double;
+      final completedTargets = Set<int>.from(
+        savedState['completedTargets'] as List,
+      );
+      final targetPositions =
+          (savedState['targetPositions'] as List)
+              .map((pos) => Offset(pos['dx'] as double, pos['dy'] as double))
+              .toList();
+
+      _gameState = _gameState.copyWith(
+        nextTarget: nextTarget,
+        elapsedTime: elapsedTime,
+        completedTargets: completedTargets,
+        targetPositions: targetPositions,
+        status: ReactionTimeGameStatus.playing,
+        showGameOver: false,
+        isTimerRunning: true,
+      );
+
+      _startTimer();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print('Error loading game state: $e');
+      return false;
+    }
+  }
+
+  /// Check if game can be continued
+  Future<bool> canContinueGame() async {
+    final gameStateService = GameStateService();
+    return await gameStateService.hasGameState('reactionTime');
+  }
+
+  /// Clear saved game state
+  Future<void> clearSavedGameState() async {
+    final gameStateService = GameStateService();
+    await gameStateService.clearGameState('reactionTime');
   }
 
   /// Update high score

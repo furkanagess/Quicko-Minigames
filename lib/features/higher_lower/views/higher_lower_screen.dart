@@ -9,7 +9,6 @@ import '../providers/higher_lower_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class HigherLowerScreen extends StatelessWidget {
   const HigherLowerScreen({super.key});
@@ -46,18 +45,10 @@ class _HigherLowerView extends StatelessWidget {
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
                 isWin
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'youGuessedCorrectly',
-                    )
+                    ? AppLocalizations.of(context)!.youGuessedCorrectly
                     : null,
             lossReason:
-                isWin
-                    ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'betterLuckNextTime',
-                    ),
+                isWin ? null : AppLocalizations.of(context)!.betterLuckNextTime,
           );
         }
 
@@ -70,6 +61,8 @@ class _HigherLowerView extends StatelessWidget {
             provider.hideGameOver();
             provider.resetGame();
           },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
             provider.hideGameOver();
             Navigator.of(context).pop();

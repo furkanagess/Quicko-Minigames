@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
@@ -10,7 +11,6 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../shared/models/game_state.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class NumberMemoryScreen extends StatelessWidget {
   const NumberMemoryScreen({super.key});
@@ -46,21 +46,21 @@ class _NumberMemoryView extends StatelessWidget {
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
                 isWin
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'youRememberedAllNumbers',
-                    )
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'wrongNumber',
-                    ),
+                    ? AppLocalizations.of(context)!.youRememberedAllNumbers
+                    : AppLocalizations.of(context)!.wrongNumber,
             lossReason:
-                isWin
-                    ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'wrongNumber',
-                    ),
+                isWin ? null : AppLocalizations.of(context)!.wrongNumber,
+          );
+        } else if (gameState.showContinueDialog) {
+          if (kDebugMode) {
+            print('NumberMemory UI: Creating continue dialog game result');
+          }
+          gameResult = GameResult(
+            isWin: false,
+            score: gameState.score,
+            title: AppLocalizations.of(context)!.gameOver,
+            subtitle: AppLocalizations.of(context)!.betterLuckNextTime,
+            lossReason: AppLocalizations.of(context)!.wrongNumber,
           );
         }
 
@@ -71,10 +71,14 @@ class _NumberMemoryView extends StatelessWidget {
           gameResult: gameResult,
           onTryAgain: () {
             provider.hideGameOver();
+            provider.hideContinueDialog();
             provider.resetGame();
           },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
             provider.hideGameOver();
+            provider.hideContinueDialog();
             Navigator.of(context).pop();
           },
           onStartGame: () {

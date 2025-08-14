@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
+import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/game_screen_base.dart';
+import '../../../shared/widgets/continue_game_dialog.dart';
 import '../models/reaction_time_game_state.dart';
 import '../providers/reaction_time_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class ReactionTimeScreen extends StatelessWidget {
   const ReactionTimeScreen({super.key});
@@ -41,37 +42,25 @@ class _ReactionTimeView extends StatelessWidget {
             score: finalScore,
             title:
                 isCompleted
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'congratulations',
-                    )
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'gameOver',
-                    ),
+                    ? AppLocalizations.of(context)!.congratulations
+                    : AppLocalizations.of(context)!.gameOver,
             subtitle:
                 isCompleted
-                    ? LocalizationUtils.getStringWithContext(
+                    ? _getTimePerformanceMessage(
                       context,
                       provider.getTimePerformanceMessage(),
                     )
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'wrongSequence',
-                    ),
+                    : AppLocalizations.of(context)!.wrongSequence,
             lossReason:
                 isCompleted
                     ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'wrongSequence',
-                    ),
+                    : AppLocalizations.of(context)!.wrongSequence,
           );
         }
 
         return GameScreenBase(
-          title: 'reactionTime',
-          descriptionKey: 'reactionTimeDescription',
+          title: 'reaction_time',
+          descriptionKey: 'reaction_time_description',
           gameId: 'reaction_time',
           gameResult: gameResult,
           onTryAgain: () {
@@ -88,11 +77,35 @@ class _ReactionTimeView extends StatelessWidget {
           onResetGame: () {
             provider.resetGame();
           },
+          onContinueGame: () async {
+            return await provider.continueGame();
+          },
+          canContinueGame: () async {
+            return await provider.canContinueGame();
+          },
           isWaiting: gameState.isWaiting,
           child: _buildGameContent(context, gameState, provider),
         );
       },
     );
+  }
+
+  String _getTimePerformanceMessage(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (key) {
+      case 'perfectTime':
+        return localizations.perfectTime;
+      case 'goodTime':
+        return localizations.goodTime;
+      case 'averageTime':
+        return localizations.averageTime;
+      case 'slowTime':
+        return localizations.slowTime;
+      case 'verySlowTime':
+        return localizations.verySlowTime;
+      default:
+        return key;
+    }
   }
 
   Widget _buildGameContent(
@@ -141,20 +154,10 @@ class _ReactionTimeView extends StatelessWidget {
         children: [
           _InfoPill(
             icon: AppIcons.timer,
-            label: LocalizationUtils.getStringWithContext(context, 'time'),
+            label: AppLocalizations.of(context)!.time,
             value: '${gameState.elapsedTime.toStringAsFixed(1)}s',
             color: colorScheme.primary,
           ),
-          if (gameState.isGameActive || gameState.isCompleted)
-            _InfoPill(
-              icon: AppIcons.trophy,
-              label: LocalizationUtils.getStringWithContext(context, 'score'),
-              value: '${provider.calculateScore()}',
-              color:
-                  gameState.isCompleted
-                      ? AppTheme.darkSuccess
-                      : colorScheme.primary,
-            ),
         ],
       ),
     );

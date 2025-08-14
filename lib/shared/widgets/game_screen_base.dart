@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_constants.dart';
-import '../../core/theme/text_theme_manager.dart';
+import '../../core/constants/app_icons.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/routes/app_router.dart';
-import '../../core/constants/app_icons.dart';
-import '../../core/providers/app_providers.dart';
-import '../../features/favorites/providers/favorites_provider.dart';
-import 'game_description.dart';
-import 'game_action_button.dart';
-import '../../core/utils/localization_utils.dart';
+import '../../core/theme/text_theme_manager.dart';
 import '../../core/utils/sound_utils.dart';
+import '../../features/favorites/providers/favorites_provider.dart';
+import '../../l10n/app_localizations.dart';
+import 'continue_game_dialog.dart';
+import 'game_action_button.dart';
 
 class GameScreenBase extends StatefulWidget {
   final String title;
@@ -25,6 +23,9 @@ class GameScreenBase extends StatefulWidget {
   final VoidCallback? onBackToMenu;
   final VoidCallback? onStartGame;
   final VoidCallback? onResetGame;
+  final Future<bool> Function()? onContinueGame;
+  final Future<bool> Function()? canContinueGame;
+  final VoidCallback? onGameResultCleared;
 
   const GameScreenBase({
     super.key,
@@ -39,6 +40,9 @@ class GameScreenBase extends StatefulWidget {
     this.onBackToMenu,
     this.onStartGame,
     this.onResetGame,
+    this.onContinueGame,
+    this.canContinueGame,
+    this.onGameResultCleared,
   });
 
   @override
@@ -75,13 +79,8 @@ class _GameScreenBaseState extends State<GameScreenBase>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _slideController;
-  late AnimationController _flipController;
-  late AnimationController _scoreController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late Animation<double> _flipAnimation;
-  late Animation<double> _scoreAnimation;
-  bool _showingResult = false;
 
   @override
   void initState() {
@@ -94,14 +93,6 @@ class _GameScreenBaseState extends State<GameScreenBase>
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    _flipController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    );
-    _scoreController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
-      vsync: this,
-    );
 
     _fadeAnimation = Tween<double>(
       begin: 0.0,
@@ -109,25 +100,17 @@ class _GameScreenBaseState extends State<GameScreenBase>
     ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.05),
+      begin: const Offset(0, 0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _flipAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _flipController, curve: Curves.easeInOut),
-    );
-
-    _scoreAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _scoreController, curve: Curves.easeOutCubic),
-    );
 
     _fadeController.forward();
     _slideController.forward();
 
-    // Eğer game result varsa, flip animasyonunu başlat
+    // Eğer game result varsa, continue dialog'unu göster
     if (widget.gameResult != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showGameResult();
+        _showContinueDialog();
       });
     }
   }
@@ -136,15 +119,11 @@ class _GameScreenBaseState extends State<GameScreenBase>
   void didUpdateWidget(GameScreenBase oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.gameResult != null && oldWidget.gameResult == null) {
-      _showGameResult();
+      _showContinueDialog();
     }
   }
 
-  void _showGameResult() {
-    setState(() {
-      _showingResult = true;
-    });
-
+  void _showContinueDialog() {
     // Ses çal
     if (widget.gameResult!.isWin) {
       SoundUtils.playWinnerSound();
@@ -152,23 +131,11 @@ class _GameScreenBaseState extends State<GameScreenBase>
       SoundUtils.playGameOverSound();
     }
 
-    // Add a delay to make the flip more noticeable and understandable
-    Future.delayed(const Duration(milliseconds: 300), () {
-      // Flip animasyonunu başlat
-      _flipController.forward();
-    });
-
-    // Skor animasyonunu başlat - after flip completes
-    Future.delayed(const Duration(milliseconds: 900), () {
-      _scoreController.forward();
-    });
-  }
-
-  void _hideGameResult() {
-    _flipController.reverse();
-    _scoreController.reset();
-    setState(() {
-      _showingResult = false;
+    // Continue dialog'unu göster
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (context.mounted) {
+        _checkAndShowContinueDialog(context);
+      }
     });
   }
 
@@ -176,9 +143,63 @@ class _GameScreenBaseState extends State<GameScreenBase>
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
-    _flipController.dispose();
-    _scoreController.dispose();
     super.dispose();
+  }
+
+  String _getLocalizedTitle(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (widget.title) {
+      case 'pattern_memory':
+        return localizations.patternMemory;
+      case 'blind_sort':
+        return localizations.blindSort;
+      case 'higher_lower':
+        return localizations.higherLower;
+      case 'color_hunt':
+        return localizations.colorHunt;
+      case 'aim_trainer':
+        return localizations.aimTrainer;
+      case 'number_memory':
+        return localizations.numberMemory;
+      case 'find_difference':
+        return localizations.findDifference;
+      case 'rock_paper_scissors':
+        return localizations.rockPaperScissors;
+      case 'twenty_one':
+        return localizations.twentyOne;
+      case 'reaction_time':
+        return localizations.reactionTime;
+      default:
+        return widget.title;
+    }
+  }
+
+  String _getLocalizedDescription(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (widget.descriptionKey) {
+      case 'pattern_memory_description':
+        return localizations.patternMemoryDescription;
+      case 'blind_sort_description':
+        return localizations.blindSortDescription;
+      case 'higher_lower_description':
+        return localizations.higherLowerDescription;
+      case 'color_hunt_description':
+        return localizations.colorHuntDescription;
+      case 'aim_trainer_description':
+        return localizations.aimTrainerDescription;
+      case 'number_memory_description':
+        return localizations.numberMemoryDescription;
+      case 'find_difference_description':
+        return localizations.findDifferenceDescription;
+      case 'rock_paper_scissors_description':
+        return localizations.rockPaperScissorsDescription;
+      case 'twenty_one_description':
+        return localizations.twentyOneDescription;
+      case 'reaction_time_description':
+        return localizations.reactionTimeDescription;
+      default:
+        return widget.descriptionKey;
+    }
   }
 
   @override
@@ -243,641 +264,14 @@ class _GameScreenBaseState extends State<GameScreenBase>
   }
 
   Widget _buildFlipContent() {
-    return AnimatedBuilder(
-      animation: _flipAnimation,
-      builder: (context, child) {
-        final flipValue = _flipAnimation.value;
-        final isFlipped = flipValue > 0.5;
-
-        // Add scale effect during flip - modern and subtle
-        final scale = 1.0 + (flipValue * 0.03); // Scale up to 1.03 during flip
-
-        // Add bounce effect - modern and subtle
-        final bounce =
-            flipValue > 0.5 ? (1.0 - flipValue) * 0.03 : flipValue * 0.03;
-
-        // Add flash effect during the middle of the flip - modern and subtle
-        final flashOpacity = flipValue > 0.48 && flipValue < 0.52 ? 0.1 : 0.0;
-
-        return Stack(
-          children: [
-            // Flash effect
-            if (flashOpacity > 0)
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: flashOpacity),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            // Main flip content
-            Transform(
-              alignment: Alignment.center,
-              transform:
-                  Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(flipValue * 3.14159)
-                    ..scale(scale + bounce),
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()..rotateY(isFlipped ? 3.14159 : 0),
-                child: isFlipped ? _buildGameResult() : widget.child,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildGameResult() {
-    if (widget.gameResult == null) return widget.child;
-
-    final result = widget.gameResult!;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accentColor =
-        result.isWin ? AppTheme.darkSuccess : AppTheme.darkError;
-    final icon =
-        result.customIcon != null
-            ? IconData(
-              int.parse(result.customIcon!),
-              fontFamily: 'MaterialIcons',
-            )
-            : (result.isWin
-                ? AppIcons.trophy
-                : Icons.sentiment_dissatisfied_rounded);
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Theme.of(context).colorScheme.surface,
-            Theme.of(context).colorScheme.surface.withValues(alpha: 0.98),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: accentColor.withValues(alpha: 0.3),
-          width: 2.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 25,
-            offset: const Offset(0, 10),
-          ),
-          BoxShadow(
-            color: accentColor.withValues(alpha: 0.12),
-            blurRadius: 40,
-            offset: const Offset(0, 20),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Modern header with animated icon and title
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  accentColor.withValues(alpha: 0.15),
-                  accentColor.withValues(alpha: 0.08),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: accentColor.withValues(alpha: 0.2),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: accentColor.withValues(alpha: 0.1),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                // Animated icon container
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [accentColor, accentColor.withValues(alpha: 0.8)],
-                    ),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: accentColor.withValues(alpha: 0.4),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Icon(icon, color: Colors.white, size: 32),
-                ),
-                const SizedBox(width: 20),
-                // Title and subtitle
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        result.title,
-                        style: TextThemeManager.screenTitle.copyWith(
-                          color: accentColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
-                      if (result.subtitle != null) ...[
-                        const SizedBox(height: 6),
-                        Text(
-                          result.subtitle!,
-                          style: TextThemeManager.bodyMedium.copyWith(
-                            color: accentColor.withValues(alpha: 0.9),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          // Modern score display with animation
-          AnimatedBuilder(
-            animation: _scoreAnimation,
-            builder: (context, child) {
-              return Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.12),
-                      Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.06),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.2),
-                    width: 2,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.15),
-                      blurRadius: 15,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Animated trophy icon
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Theme.of(context).colorScheme.primary,
-                            Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: 0.8),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: 0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        AppIcons.trophy,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Score content
-                    Column(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.score,
-                          style: TextThemeManager.bodyMedium.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          (result.score * _scoreAnimation.value)
-                              .round()
-                              .toString(),
-                          style: TextThemeManager.gameNumber.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-
-          // Loss reason section (only show when game is lost)
-          if (!result.isWin && result.lossReason != null) ...[
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppTheme.darkError.withValues(alpha: 0.08),
-                    AppTheme.darkError.withValues(alpha: 0.04),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: AppTheme.darkError.withValues(alpha: 0.2),
-                  width: 1.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.darkError.withValues(alpha: 0.1),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          AppTheme.darkError.withValues(alpha: 0.15),
-                          AppTheme.darkError.withValues(alpha: 0.08),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.darkError.withValues(alpha: 0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.info_outline_rounded,
-                      color: AppTheme.darkError,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocalizationUtils.getStringWithContext(
-                            context,
-                            'whyYouLost',
-                          ),
-                          style: TextThemeManager.bodySmall.copyWith(
-                            color: AppTheme.darkError.withValues(alpha: 0.8),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          result.lossReason!,
-                          style: TextThemeManager.bodyMedium.copyWith(
-                            color: AppTheme.darkError,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-
-          const SizedBox(height: 12),
-
-          // Action buttons - kaldırıldı, bottom actions kullanılıyor
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     // Back to menu button
-          //     Expanded(
-          //       child: Container(
-          //         height: 44,
-          //         margin: const EdgeInsets.only(right: 6),
-          //         decoration: BoxDecoration(
-          //           color:
-          //               isDark
-          //                   ? Colors.white.withValues(alpha: 0.1)
-          //                   : Colors.black.withValues(alpha: 0.05),
-          //           borderRadius: BorderRadius.circular(12),
-          //           border: Border.all(
-          //             color:
-          //                 isDark
-          //                     ? Colors.white.withValues(alpha: 0.2)
-          //                     : Colors.black.withValues(alpha: 0.1),
-          //             width: 1.5,
-          //           ),
-          //         ),
-          //         child: Material(
-          //           color: Colors.transparent,
-          //           child: InkWell(
-          //             onTap:
-          //                 widget.onBackToMenu ??
-          //                 () => AppRouter.pop(context),
-          //             borderRadius: BorderRadius.circular(12),
-          //             child: Center(
-          //               child: Row(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 children: [
-          //                   Icon(
-          //                     Icons.home_rounded,
-          //                     color:
-          //                         Theme.of(context).colorScheme.onSurface,
-          //                     size: 18,
-          //                   ),
-          //                   const SizedBox(width: 6),
-          //                   Text(
-          //                     'Back to Menu',
-          //                     style: TextThemeManager.buttonMedium
-          //                         .copyWith(
-          //                           color:
-          //                               Theme.of(
-          //                                 context,
-          //                               ).colorScheme.onSurface,
-          //                           fontSize: 13,
-          //                         ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-
-          //     // Try again button
-          //     Expanded(
-          //       child: Container(
-          //         height: 44,
-          //         margin: const EdgeInsets.only(left: 6),
-          //         decoration: BoxDecoration(
-          //           gradient: LinearGradient(
-          //             begin: Alignment.topLeft,
-          //             end: Alignment.bottomRight,
-          //             colors: [accentColor, accentColor.withValues(alpha: 0.8)],
-          //           ),
-          //           borderRadius: BorderRadius.circular(12),
-          //           boxShadow: [
-          //             BoxShadow(
-          //               color: accentColor.withValues(alpha: 0.3),
-          //               blurRadius: 8,
-          //               offset: const Offset(0, 3),
-          //             ),
-          //           ],
-          //         ),
-          //         child: Material(
-          //           color: Colors.transparent,
-          //           child: InkWell(
-          //             onTap: widget.onTryAgain ?? _hideGameResult,
-          //             borderRadius: BorderRadius.circular(12),
-          //             child: Center(
-          //               child: Row(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 children: [
-          //                   Icon(
-          //                     Icons.refresh_rounded,
-          //                     color: Colors.white,
-          //                     size: 18,
-          //                   ),
-          //                   const SizedBox(width: 6),
-          //                   Text(
-          //                     AppLocalizations.of(context)!.tryAgain,
-          //                     style: TextThemeManager.buttonMedium
-          //                         .copyWith(
-          //                           color: Colors.white,
-          //                           fontSize: 13,
-          //                         ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAdditionalField(BuildContext context, GameResultField field) {
-    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            fieldColor.withValues(alpha: 0.1),
-            fieldColor.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: fieldColor.withValues(alpha: 0.15),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: fieldColor.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          if (field.icon != null) ...[
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: fieldColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(field.icon, color: fieldColor, size: 20),
-            ),
-            const SizedBox(width: 12),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCompactField(BuildContext context, GameResultField field) {
-    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            fieldColor.withValues(alpha: 0.1),
-            fieldColor.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: fieldColor.withValues(alpha: 0.15), width: 1),
-      ),
-      child: Row(
-        children: [
-          if (field.icon != null) ...[
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: fieldColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Icon(field.icon, color: fieldColor, size: 16),
-            ),
-            const SizedBox(width: 8),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildModernField(BuildContext context, GameResultField field) {
-    final fieldColor = field.color ?? Theme.of(context).colorScheme.primary;
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            fieldColor.withValues(alpha: 0.08),
-            fieldColor.withValues(alpha: 0.04),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: fieldColor.withValues(alpha: 0.15),
-          width: 1.5,
-        ),
-      ),
-      child: Row(
-        children: [
-          if (field.icon != null) ...[
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    fieldColor.withValues(alpha: 0.2),
-                    fieldColor.withValues(alpha: 0.1),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: fieldColor.withValues(alpha: 0.2),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Icon(field.icon, color: fieldColor, size: 20),
-            ),
-            const SizedBox(width: 14),
-          ],
-        ],
-      ),
-    );
+    // Simple content without flip animation
+    return widget.child;
   }
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Text(
-        LocalizationUtils.getStringWithContext(context, widget.title),
+        _getLocalizedTitle(context),
         style: TextThemeManager.appBarTitle.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -949,8 +343,8 @@ class _GameScreenBaseState extends State<GameScreenBase>
       isWaiting: widget.isWaiting,
       onPressed: () {
         if (widget.gameResult != null) {
-          // Rapor gösterilirken onTryAgain callback'ini kullan
-          widget.onTryAgain?.call();
+          // Check if game can be continued
+          _checkAndShowContinueDialog(context);
         } else if (widget.isWaiting) {
           // Oyun bekliyor, start game
           widget.onStartGame?.call();
@@ -960,6 +354,77 @@ class _GameScreenBaseState extends State<GameScreenBase>
         }
       },
     );
+  }
+
+  Future<void> _checkAndShowContinueDialog(BuildContext context) async {
+    debugPrint('GameScreenBase: Checking if continue game is available...');
+
+    // Check if continue game is available
+    if (widget.canContinueGame != null && widget.onContinueGame != null) {
+      final canContinue = await widget.canContinueGame!();
+
+      if (canContinue && context.mounted) {
+        debugPrint('GameScreenBase: Showing continue game dialog');
+
+        // Show continue game dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder:
+              (context) => ContinueGameDialog(
+                gameId: widget.gameId,
+                gameTitle: _getLocalizedTitle(context),
+                currentScore: widget.gameResult?.score ?? 0,
+                currentLevel: _getCurrentLevel(),
+                onContinue: () async {
+                  debugPrint('GameScreenBase: User chose to continue game');
+
+                  // User watched ad successfully, continue from lost score
+                  final success = await widget.onContinueGame!();
+                  if (success) {
+                    debugPrint('GameScreenBase: Continue game successful');
+
+                    // Clear the game result to hide the game over screen
+                    // and show the continued game state
+                    // Don't call onTryAgain as it would reset the game
+                    // The game state is already restored by continueGame()
+                    widget.onGameResultCleared?.call();
+                  } else {
+                    debugPrint('GameScreenBase: Continue game failed');
+                  }
+                },
+                onRestart: () {
+                  debugPrint('GameScreenBase: User chose to restart game');
+                  // User chose to restart instead of watching ad
+                  widget.onTryAgain?.call();
+                },
+                onExit: () {
+                  debugPrint('GameScreenBase: User chose to exit game');
+                  // User chose to exit
+                  widget.onBackToMenu?.call();
+                },
+              ),
+        );
+      } else {
+        debugPrint(
+          'GameScreenBase: No saved state or context not mounted, using normal try again',
+        );
+        // No saved state, use normal try again
+        widget.onTryAgain?.call();
+      }
+    } else {
+      debugPrint(
+        'GameScreenBase: No continue game support, using normal try again',
+      );
+      // No continue game support, use normal try again
+      widget.onTryAgain?.call();
+    }
+  }
+
+  int _getCurrentLevel() {
+    // This should be implemented based on the specific game
+    // For now, return a default value
+    return 1;
   }
 
   Widget _buildGameDescription() {
@@ -1014,7 +479,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocalizationUtils.getString(widget.descriptionKey),
+                  _getLocalizedDescription(context),
                   style: TextThemeManager.bodyMedium.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.w500,
@@ -1058,7 +523,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
         ],
       ),
       child: Text(
-        LocalizationUtils.getStringWithContext(context, widget.descriptionKey),
+        _getLocalizedDescription(context),
         style: TextThemeManager.bodyMedium.copyWith(
           color: Theme.of(context).colorScheme.primary,
           fontWeight: FontWeight.w500,

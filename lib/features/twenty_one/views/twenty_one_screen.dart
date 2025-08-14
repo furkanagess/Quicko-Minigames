@@ -10,7 +10,6 @@ import '../providers/twenty_one_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/utils/localization_utils.dart';
 
 class TwentyOneScreen extends StatelessWidget {
   const TwentyOneScreen({super.key});
@@ -46,21 +45,10 @@ class _TwentyOneView extends StatelessWidget {
                     : AppLocalizations.of(context)!.gameOver,
             subtitle:
                 isWin
-                    ? LocalizationUtils.getStringWithContext(
-                      context,
-                      'youReached21',
-                    )
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'youWentOver21',
-                    ),
+                    ? AppLocalizations.of(context)!.youReached21
+                    : AppLocalizations.of(context)!.youWentOver21,
             lossReason:
-                isWin
-                    ? null
-                    : LocalizationUtils.getStringWithContext(
-                      context,
-                      'youWentOver21',
-                    ),
+                isWin ? null : AppLocalizations.of(context)!.youWentOver21,
           );
         }
 
@@ -73,6 +61,8 @@ class _TwentyOneView extends StatelessWidget {
             provider.hideGameOver();
             provider.resetGame();
           },
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
             provider.hideGameOver();
             Navigator.of(context).pop();

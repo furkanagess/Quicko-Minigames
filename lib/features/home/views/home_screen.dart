@@ -10,6 +10,7 @@ import '../../../core/routes/app_router.dart';
 import '../../../core/constants/app_icons.dart';
 import '../widgets/game_card.dart';
 import '../../favorites/providers/favorites_provider.dart';
+import '../../../shared/widgets/banner_ad_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -73,6 +74,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   // Header
                   _buildHeader(context),
                   const SizedBox(height: AppConstants.largeSpacing),
+
+                  // Banner Ad
+                  const BannerAdWidget(),
+                  const SizedBox(height: AppConstants.mediumSpacing),
 
                   // Games Grid
                   Expanded(child: _buildGamesGrid(context)),
@@ -330,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         mainAxisSpacing: 16,
         childAspectRatio: 0.75,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.zero,
       itemCount: games.length,
       itemBuilder: (context, index) {
         final game = games[index];
