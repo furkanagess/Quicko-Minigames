@@ -1,284 +1,251 @@
 {
-  "@@locale": "en",
+  "@@locale": "es",
   "appName": "Quicko",
   "@appName": {
     "description": "The name of the application"
   },
   
-  "blindSort": "Blind Sort",
+  "blindSort": "Ordenamiento Ciego",
   "@blindSort": {
     "description": "Title for the Blind Sort game"
   },
-  "blindSortDescription": "Sort 10 numbers from 1-50. You lose if the new number doesn't fit anywhere!",
+  "blindSortDescription": "¡Ordena 10 números del 1-50. ¡Pierdes si el nuevo número no cabe en ningún lugar!",
   "@blindSortDescription": {
     "description": "Description for the Blind Sort game"
   },
-  "nextNumber": "Next Number",
+  "nextNumber": "Siguiente Número",
   "@nextNumber": {
     "description": "Label for the next number in Blind Sort"
   },
-  "newNumberComing": "New Number Coming...",
+  "newNumberComing": "Viene Nuevo Número...",
   "@newNumberComing": {
     "description": "Message when a new number is about to appear"
   },
   
-  "start": "Start",
+  "start": "Comenzar",
   "@start": {
     "description": "Start button text"
   },
-  "restart": "Restart",
+  "restart": "Reiniciar",
   "@restart": {
     "description": "Restart button text"
   },
-  "home": "Home",
+  "home": "Inicio",
   "@home": {
     "description": "Home navigation label"
   },
-  "games": "Games",
+  "games": "Juegos",
   "@games": {
     "description": "Games navigation label"
   },
-  "score": "Score",
+  "score": "Puntuación",
   "@score": {
     "description": "Score label"
   },
-  "gameOver": "Game Over",
+  "gameOver": "Fin del Juego",
   "@gameOver": {
     "description": "Game over message"
   },
-  "tryAgain": "Try Again",
+  "tryAgain": "Intentar de Nuevo",
   "@tryAgain": {
     "description": "Try again button text"
   },
-  "share": "Share",
+  "share": "Compartir",
   "@share": {
     "description": "Share button text"
   },
-  "confirm": "Confirm",
+  "confirm": "Confirmar",
   "@confirm": {
     "description": "Confirm button text"
   },
-  "fullscreen": "Fullscreen",
+  "fullscreen": "Pantalla Completa",
   "@fullscreen": {
     "description": "Fullscreen button text"
   },
-  "cancel": "Cancel",
+  "cancel": "Cancelar",
   "@cancel": {
     "description": "Cancel button text"
   },
-  "reset": "Reset",
+  "reset": "Reiniciar",
   "@reset": {
     "description": "Reset button text"
   },
   
-  "higherLower": "Higher or Lower",
+  "higherLower": "Mayor o Menor",
   "@higherLower": {
     "description": "Title for the Higher or Lower game"
   },
-  "higherLowerDescription": "Guess if the next number will be higher or lower!",
+  "higherLowerDescription": "¡Adivina si el siguiente número será mayor o menor!",
   "@higherLowerDescription": {
     "description": "Description for the Higher or Lower game"
   },
-  "higher": "Higher",
+  "higher": "Mayor",
   "@higher": {
     "description": "Higher button text"
   },
-  "lower": "Lower",
+  "lower": "Menor",
   "@lower": {
     "description": "Lower button text"
   },
-  "lastNumber": "Last Number",
+  "lastNumber": "Último Número",
   "@lastNumber": {
     "description": "Label for the last number"
   },
-  "completedAllTargets": "Completed all targets!",
+  "completedAllTargets": "¡Completaste todos los objetivos!",
   "@completedAllTargets": {
     "description": "Message when all targets are completed"
   },
-  "targets": "Targets",
+  "targets": "Objetivos",
   "@targets": {
     "description": "Label for targets"
   },
-  
-  "continueGame": "Continue Game",
-  "@continueGame": {
-    "description": "Continue game dialog title"
-  },
-  "watchAdToContinue": "Watch Ad to Continue",
-  "@watchAdToContinue": {
-    "description": "Watch ad to continue button text"
-  },
-  "adNotAvailable": "Ad Not Available",
-  "@adNotAvailable": {
-    "description": "Ad not available dialog title"
-  },
-  "adNotAvailableMessage": "No ads are currently available. Please try again later.",
-  "@adNotAvailableMessage": {
-    "description": "Ad not available message"
-  },
-  "adFailed": "Ad Failed",
-  "@adFailed": {
-    "description": "Ad failed dialog title"
-  },
-  "adFailedMessage": "Failed to show ad. Please try again.",
-  "@adFailedMessage": {
-    "description": "Ad failed message"
-  },
-  "ok": "OK",
-  "@ok": {
-    "description": "OK button text"
-  },
-  "exit": "Exit",
-  "@exit": {
-    "description": "Exit button text"
-  },
-  "andMore": "and more...",
+  "andMore": "y más...",
   "@andMore": {
     "description": "Text shown when there are more items to display"
   },
-  "missionFailed": "Mission Failed!",
+  "missionFailed": "¡Misión Fallida!",
   "@missionFailed": {
     "description": "Mission failed message"
   },
-  "greenTargetHit": "Green target hit!",
+  "greenTargetHit": "¡Objetivo verde alcanzado!",
   "@greenTargetHit": {
     "description": "Green target hit message"
   },
-  "youHitAllTargets": "You hit all targets!",
+  "youHitAllTargets": "¡Alcanzaste todos los objetivos!",
   "@youHitAllTargets": {
     "description": "All targets hit message"
   },
-  "timeRanOut": "Time ran out!",
+  "timeRanOut": "¡Se acabó el tiempo!",
   "@timeRanOut": {
     "description": "Time ran out message"
   },
-  "targetsHit": "Targets Hit",
+  "targetsHit": "Objetivos Alcanzados",
   "@targetsHit": {
     "description": "Targets hit label"
   },
-  "mistake": "Mistake",
+  "mistake": "Error",
   "@mistake": {
     "description": "Mistake label"
   },
-  "civilianHit": "Civilian Hit",
+  "civilianHit": "Civil Alcanzado",
   "@civilianHit": {
     "description": "Civilian hit message"
   },
-  "youFoundAllColors": "You found all colors!",
+  "youFoundAllColors": "¡Encontraste todos los colores!",
   "@youFoundAllColors": {
     "description": "All colors found message"
   },
-  "colorsFound": "Colors Found",
+  "colorsFound": "Colores Encontrados",
   "@colorsFound": {
     "description": "Colors found label"
   },
-  "lastMistake": "Last Mistake",
+  "lastMistake": "Último Error",
   "@lastMistake": {
     "description": "Last mistake label"
   },
-  "wrongColor": "Wrong Color",
+  "wrongColor": "Color Incorrecto",
   "@wrongColor": {
     "description": "Wrong color message"
   },
-  "currentNumber": "Current Number",
+  "currentNumber": "Número Actual",
   "@currentNumber": {
     "description": "Label for the current number"
   },
-  "close": "Close",
+  "close": "Cerrar",
   "@close": {
     "description": "Close button text"
   },
-  "betterLuckNextTime": "Better luck next time!",
+  "betterLuckNextTime": "¡Mejor suerte la próxima vez!",
   "@betterLuckNextTime": {
     "description": "Message shown when player loses"
   },
-  "losingNumbers": "Numbers That Caused Loss",
+  "losingNumbers": "Números Que Causaron la Pérdida",
   "@losingNumbers": {
     "description": "Title for losing numbers section"
   },
-  "losingNumber": "Number That Caused Loss",
+  "losingNumber": "Número Que Causó la Pérdida",
   "@losingNumber": {
     "description": "Label for the number that caused loss"
   },
   
-  "colorHunt": "Color Hunt",
+  "colorHunt": "Caza de Colores",
   "@colorHunt": {
     "description": "Title for the Color Hunt game"
   },
-  "colorHuntDescription": "Find the target color! The text color might trick you!",
+  "colorHuntDescription": "¡Encuentra el color objetivo! ¡El color del texto puede engañarte!",
   "@colorHuntDescription": {
     "description": "Description for the Color Hunt game"
   },
-  "target": "Target",
+  "target": "Objetivo",
   "@target": {
     "description": "Target label"
   },
-  "time": "Time",
+  "time": "Tiempo",
   "@time": {
     "description": "Time label"
   },
-  "wrongColorSelected": "Wrong Color Selected",
+  "wrongColorSelected": "Color Incorrecto Seleccionado",
   "@wrongColorSelected": {
     "description": "Message when wrong color is selected"
   },
-  "wrongColorSelection": "Wrong Color Selection",
+  "wrongColorSelection": "Selección de Color Incorrecta",
   "@wrongColorSelection": {
     "description": "Message when player loses due to wrong color selection"
   },
   
-  "favorites": "Favorites",
+  "favorites": "Favoritos",
   "@favorites": {
     "description": "Favorites navigation label"
   },
-  "loadingFavorites": "Loading Favorites...",
+  "loadingFavorites": "Cargando Favoritos...",
   "@loadingFavorites": {
     "description": "Message when loading favorites"
   },
-  "noFavoritesYet": "No Favorites Yet",
+  "noFavoritesYet": "Aún No Hay Favoritos",
   "@noFavoritesYet": {
     "description": "Message when no favorites exist"
   },
-  "addGamesToFavorites": "Add games to favorites for quick access",
+  "addGamesToFavorites": "Añade juegos a favoritos para acceso rápido",
   "@addGamesToFavorites": {
     "description": "Instruction to add games to favorites"
   },
-  "browseGames": "Browse Games",
+  "browseGames": "Explorar Juegos",
   "@browseGames": {
     "description": "Browse games button text"
   },
   
-  "aimTrainer": "Aim Trainer",
+  "aimTrainer": "Entrenador de Puntería",
   "@aimTrainer": {
     "description": "Title for the Aim Trainer game"
   },
-  "aimTrainerDescription": "Try to shoot the randomly appearing red targets for 20 seconds. Each hit is 1 point!",
+  "aimTrainerDescription": "¡Intenta disparar a los objetivos rojos que aparecen aleatoriamente durante 20 segundos. ¡Cada acierto es 1 punto!",
   "@aimTrainerDescription": {
     "description": "Description for the Aim Trainer game"
   },
   
-  "numberMemory": "Number Memory",
+  "numberMemory": "Memoria de Números",
   "@numberMemory": {
     "description": "Title for the Number Memory game"
   },
-  "numberMemoryDescription": "Memorize the sequence of numbers and enter it correctly using the keypad. How many digits can you remember?",
+  "numberMemoryDescription": "Memoriza la secuencia de números e ingrésala correctamente usando el teclado. ¿Cuántos dígitos puedes recordar?",
   "@numberMemoryDescription": {
     "description": "Description for the Number Memory game"
   },
   
-  "findDifference": "Find the Difference",
+  "findDifference": "Encuentra la Diferencia",
   "@findDifference": {
     "description": "Title for the Find the Difference game"
   },
-  "findDifferenceDescription": "Find the one square with a different color. It gets harder with each round!",
+  "findDifferenceDescription": "Encuentra el cuadrado con un color diferente. ¡Se vuelve más difícil con cada ronda!",
   "@findDifferenceDescription": {
     "description": "Description for the Find the Difference game"
   },
   
-  "rockPaperScissors": "Rock-Paper-Scissors",
+  "rockPaperScissors": "Piedra-Papel-Tijeras",
   "@rockPaperScissors": {
     "description": "Title for the Rock-Paper-Scissors game"
   },
-  "rockPaperScissorsDescription": "Play against the computer. First to 5 points wins.",
+  "rockPaperScissorsDescription": "Juega contra la computadora. El primero en llegar a 5 puntos gana.",
   "@rockPaperScissorsDescription": {
     "description": "Description for the Rock-Paper-Scissors game"
   },
@@ -287,24 +254,24 @@
   "@twentyOne": {
     "description": "Title for the 21 (Blackjack) game"
   },
-  "twentyOneDescription": "Beat the dealer to 21! Get as close as possible without going over.",
+  "twentyOneDescription": "¡Vence al crupier hasta 21! Acércate lo más posible sin pasarte.",
   "@twentyOneDescription": {
     "description": "Description for the 21 (Blackjack) game"
   },
   
-  "nowYourTurn": "Now, your turn!",
+  "nowYourTurn": "¡Ahora es tu turno!",
   "@nowYourTurn": {
     "description": "Message indicating it's the player's turn"
   },
-  "correct": "Correct!",
+  "correct": "¡Correcto!",
   "@correct": {
     "description": "Message when answer is correct"
   },
-  "playing": "Playing",
+  "playing": "Jugando",
   "@playing": {
     "description": "Playing status label"
   },
-  "youReachedLevel": "You reached Level {level}",
+  "youReachedLevel": "Llegaste al Nivel {level}",
   "@youReachedLevel": {
     "description": "Message when player reaches a new level",
     "placeholders": {
@@ -314,44 +281,44 @@
       }
     }
   },
-  "tapToStartGuessing": "Tap Higher or Lower to start guessing! Numbers are between 1-50.",
+  "tapToStartGuessing": "¡Toca Mayor o Menor para comenzar a adivinar! Los números están entre 1-50.",
   "@tapToStartGuessing": {
     "description": "Instruction to start guessing in Higher or Lower"
   },
-  "numbersBetween1And50": "Numbers are between 1-50",
+  "numbersBetween1And50": "Los números están entre 1-50",
   "@numbersBetween1And50": {
     "description": "Information about number range"
   },
   
-  "leaderboard": "Leaderboard",
+  "leaderboard": "Tabla de Posiciones",
   "@leaderboard": {
     "description": "Leaderboard navigation label"
   },
-  "noLeaderboardData": "No Leaderboard Data",
+  "noLeaderboardData": "No Hay Datos de Tabla de Posiciones",
   "@noLeaderboardData": {
     "description": "Message when no leaderboard data exists"
   },
-  "playGamesToSeeScores": "Play games to see your high scores here!",
+  "playGamesToSeeScores": "¡Juega para ver tus puntuaciones más altas aquí!",
   "@playGamesToSeeScores": {
     "description": "Instruction to play games to see scores"
   },
-  "playGames": "Play Games",
+  "playGames": "Jugar",
   "@playGames": {
     "description": "Play games button text"
   },
-  "totalGames": "Total Games",
+  "totalGames": "Total de Juegos",
   "@totalGames": {
     "description": "Total games label"
   },
-  "highestScore": "Highest Score",
+  "highestScore": "Puntuación Más Alta",
   "@highestScore": {
     "description": "Highest score label"
   },
-  "averageScore": "Average Score",
+  "averageScore": "Puntuación Promedio",
   "@averageScore": {
     "description": "Average score label"
   },
-  "highScore": "High Score: {score}",
+  "highScore": "Puntuación Alta: {score}",
   "@highScore": {
     "description": "High score display with score value",
     "placeholders": {
@@ -361,7 +328,7 @@
       }
     }
   },
-  "lastPlayed": "Last Played: {date}",
+  "lastPlayed": "Último Juego: {date}",
   "@lastPlayed": {
     "description": "Last played date display",
     "placeholders": {
@@ -371,169 +338,165 @@
       }
     }
   },
-  "sortBy": "Sort By",
+  "sortBy": "Ordenar Por",
   "@sortBy": {
     "description": "Sort by label"
   },
-  "sortByScore": "Sort by Score",
+  "sortByScore": "Ordenar por Puntuación",
   "@sortByScore": {
     "description": "Sort by score option"
   },
-  "sortByLastPlayed": "Sort by Last Played",
+  "sortByLastPlayed": "Ordenar por Último Juego",
   "@sortByLastPlayed": {
     "description": "Sort by last played option"
   },
-  "shareAchievements": "Share Achievements",
+  "shareAchievements": "Compartir Logros",
   "@shareAchievements": {
     "description": "Share achievements button text"
   },
-  "previewImage": "Preview Image",
+  "previewImage": "Vista Previa",
   "@previewImage": {
     "description": "Preview image button text"
   },
-  "shareImage": "Share Image",
+  "shareImage": "Compartir Imagen",
   "@shareImage": {
     "description": "Share image button text"
   },
-  "shareNoData": "No data to share yet. Play some games first!",
+  "shareNoData": "Aún no hay datos para compartir. ¡Juega primero!",
   "@shareNoData": {
     "description": "Message when no data is available to share"
   },
-  "shareError": "Error sharing achievements. Please try again.",
+  "shareError": "Error al compartir logros. Inténtalo de nuevo.",
   "@shareError": {
     "description": "Error message when sharing fails"
   },
   
-  "timeUp": "Time's Up",
+  "timeUp": "Se Acabó el Tiempo",
   "@timeUp": {
     "description": "Time up message"
   },
-  "timeUpMessage": "You ran out of time!",
+  "timeUpMessage": "¡Se te acabó el tiempo!",
   "@timeUpMessage": {
     "description": "Message when time runs out"
   },
   
-  "finalScore": "Final Score",
+  "finalScore": "Puntuación Final",
   "@finalScore": {
     "description": "Final score label"
   },
-  "timeRanOut": "Time ran out!",
-  "@timeRanOut": {
-    "description": "Message indicating time ran out"
-  },
-  "youWon": "You Won!",
+  "youWon": "¡Ganaste!",
   "@youWon": {
     "description": "You won message"
   },
-  "congratulationsMessage": "Congratulations! You've completed the challenge!",
+  "congratulationsMessage": "¡Felicitaciones! ¡Has completado el desafío!",
   "@congratulationsMessage": {
     "description": "Congratulations message for winning"
   },
-  "excellentPerformance": "Excellent performance!",
+  "excellentPerformance": "¡Excelente rendimiento!",
   "@excellentPerformance": {
     "description": "Message for excellent performance"
   },
-  "playAgain": "Play Again",
+  "playAgain": "Jugar de Nuevo",
   "@playAgain": {
     "description": "Play again button text"
   },
-  "deleteHighScore": "Delete High Score",
+  "deleteHighScore": "Eliminar Puntuación Alta",
   "@deleteHighScore": {
     "description": "Delete high score dialog title"
   },
-  "deleteHighScoreMessage": "Are you sure you want to delete the high score for this game?",
+  "deleteHighScoreMessage": "¿Estás seguro de que quieres eliminar la puntuación alta de este juego?",
   "@deleteHighScoreMessage": {
     "description": "Delete high score confirmation message"
   },
-  "delete": "Delete",
+  "delete": "Eliminar",
   "@delete": {
     "description": "Delete button text"
   },
-  "language": "Language",
+  "language": "Idioma",
   "@language": {
     "description": "Language settings title"
   },
-  "selectLanguage": "Select Language",
+  "selectLanguage": "Seleccionar Idioma",
   "@selectLanguage": {
     "description": "Select language prompt"
   },
-  "languageChangeInfo": "Language changes will be applied immediately. The app will restart to apply the new language.",
+  "languageChangeInfo": "Los cambios de idioma se aplicarán inmediatamente. La aplicación se reiniciará para aplicar el nuevo idioma.",
   "@languageChangeInfo": {
     "description": "Information about language change"
   },
-  "choosePreferredLanguage": "Choose your preferred language",
+  "choosePreferredLanguage": "Elige tu idioma preferido",
   "@choosePreferredLanguage": {
     "description": "Text for language selection prompt"
   },
   
-  "sort_by_date": "Sort by Date",
+  "sort_by_date": "Ordenar por Fecha",
   "@sort_by_date": {
     "description": "Sort by date option"
   },
   
-  "sort_by_game": "Sort by Game",
+  "sort_by_game": "Ordenar por Juego",
   "@sort_by_game": {
     "description": "Sort by game option"
   },
   
-  "theme": "Theme",
+  "theme": "Tema",
   "@theme": {
     "description": "Theme settings title"
   },
   
-  "selectTheme": "Select Theme",
+  "selectTheme": "Seleccionar Tema",
   "@selectTheme": {
     "description": "Select theme prompt"
   },
   
-  "lightTheme": "Light",
+  "lightTheme": "Claro",
   "@lightTheme": {
     "description": "Light theme option"
   },
   
-  "darkTheme": "Dark",
+  "darkTheme": "Oscuro",
   "@darkTheme": {
     "description": "Dark theme option"
   },
   
-  "systemTheme": "System",
+  "systemTheme": "Sistema",
   "@systemTheme": {
     "description": "System theme option"
   },
   
-  "lightThemeDescription": "Light theme for bright environments",
+  "lightThemeDescription": "Tema claro para entornos brillantes",
   "@lightThemeDescription": {
     "description": "Light theme description"
   },
   
-  "darkThemeDescription": "Dark theme for low-light environments",
+  "darkThemeDescription": "Tema oscuro para entornos con poca luz",
   "@darkThemeDescription": {
     "description": "Dark theme description"
   },
   
-  "systemThemeDescription": "Follows your device theme setting",
+  "systemThemeDescription": "Sigue la configuración de tema de tu dispositivo",
   "@systemThemeDescription": {
     "description": "System theme description"
   },
   
-  "themeChangeInfo": "Theme changes will be applied immediately throughout the app.",
+  "themeChangeInfo": "Los cambios de tema se aplicarán inmediatamente en toda la aplicación.",
   "@themeChangeInfo": {
     "description": "Information about theme changes"
   },
-  "choosePreferredTheme": "Choose your preferred theme",
+  "choosePreferredTheme": "Elige tu tema preferido",
   "@choosePreferredTheme": {
     "description": "Text for theme selection prompt"
   },
   
-  "startGame": "Start Game",
+  "startGame": "Comenzar Juego",
   "@startGame": {
     "description": "Start game button text"
   },
-  "restartGame": "Restart Game",
+  "restartGame": "Reiniciar Juego",
   "@restartGame": {
     "description": "Restart game button text"
   },
-  "you": "You",
+  "you": "Tú",
   "@you": {
     "description": "Player label"
   },
@@ -541,19 +504,19 @@
   "@cpu": {
     "description": "Computer opponent label"
   },
-  "dealer": "Dealer",
+  "dealer": "Crupier",
   "@dealer": {
     "description": "Dealer label for card games"
   },
-  "youWin": "You Win!",
+  "youWin": "¡Ganaste!",
   "@youWin": {
     "description": "Win message"
   },
-  "youLose": "You Lose!",
+  "youLose": "¡Perdiste!",
   "@youLose": {
     "description": "Lose message"
   },
-  "tie": "Tie!",
+  "tie": "¡Empate!",
   "@tie": {
     "description": "Tie message"
   },
@@ -562,255 +525,243 @@
     "description": "Total score label"
   },
   
-  "red": "Red",
+  "red": "Rojo",
   "@red": {
     "description": "Red color name"
   },
-  "green": "Green",
+  "green": "Verde",
   "@green": {
     "description": "Green color name"
   },
-  "blue": "Blue",
+  "blue": "Azul",
   "@blue": {
     "description": "Blue color name"
   },
-  "purple": "Purple",
+  "purple": "Púrpura",
   "@purple": {
     "description": "Purple color name"
   },
-  "orange": "Orange",
+  "orange": "Naranja",
   "@orange": {
     "description": "Orange color name"
   },
-  "yellow": "Yellow",
+  "yellow": "Amarillo",
   "@yellow": {
     "description": "Yellow color name"
   },
-  "pink": "Pink",
+  "pink": "Rosa",
   "@pink": {
     "description": "Pink color name"
   },
-  "brown": "Brown",
+  "brown": "Marrón",
   "@brown": {
     "description": "Brown color name"
   },
   
-  "play": "Play",
+  "play": "Jugar",
   "@play": {
     "description": "Play button text"
   },
   
-  "appSettings": "App Settings",
+  "appSettings": "Configuración de la App",
   "@appSettings": {
     "description": "App settings title"
   },
-  "customizeAppExperience": "Customize your app experience",
+  "customizeAppExperience": "Personaliza tu experiencia en la aplicación",
   "@customizeAppExperience": {
     "description": "App settings description"
   },
   
-  "settings": "Settings",
+  "settings": "Configuración",
   "@settings": {
     "description": "Settings screen title"
   },
   
-  "hit": "Hit",
+  "hit": "Pedir",
   "@hit": {
     "description": "Hit button text for 21 game"
   },
-  "stand": "Stand",
+  "stand": "Plantarse",
   "@stand": {
     "description": "Stand button text for 21 game"
   },
   
-  "reactionTime": "Reaction Time",
+  "reactionTime": "Tiempo de Reacción",
   "@reactionTime": {
     "description": "Title for the Reaction Time game"
   },
-  "reactionTimeDescription": "Click the numbers from 1 to 12 in the correct order as fast as you can. Your time will be measured (lower is better).",
+  "reactionTimeDescription": "Haz clic en los números del 1 al 12 en el orden correcto lo más rápido que puedas. Tu tiempo será medido (menor es mejor).",
   "@reactionTimeDescription": {
     "description": "Description for the Reaction Time game"
   },
-  "time": "Time",
-  "@time": {
-    "description": "Time label"
-  },
-  "wrongSequence": "Wrong sequence!",
+  "wrongSequence": "¡Secuencia incorrecta!",
   "@wrongSequence": {
     "description": "Wrong sequence message for reaction time game"
   },
-  "congratulations": "Congratulations!",
+  "congratulations": "¡Felicitaciones!",
   "@congratulations": {
     "description": "Congratulations message for winning games"
   },
-  "next": "Next",
+  "next": "Siguiente",
   "@next": {
     "description": "Next label"
   },
   
-  "numbersSorted": "Numbers Sorted",
+  "numbersSorted": "Números Ordenados",
   "@numbersSorted": {
     "description": "Label for numbers sorted in Blind Sort game"
   },
-  "numbersRemembered": "Numbers Remembered",
+  "numbersRemembered": "Números Recordados",
   "@numbersRemembered": {
     "description": "Label for numbers remembered in Number Memory game"
   },
-  "correctGuesses": "Correct Guesses",
+  "correctGuesses": "Adivinanzas Correctas",
   "@correctGuesses": {
     "description": "Label for correct guesses in Higher Lower game"
   },
-  "yourScore": "Your Score",
+  "yourScore": "Tu Puntuación",
   "@yourScore": {
     "description": "Label for player score in RPS game"
   },
-  "cpuScore": "CPU Score",
+  "cpuScore": "Puntuación CPU",
   "@cpuScore": {
     "description": "Label for CPU score in RPS game"
   },
-  "finalScore": "Final Score",
-  "@finalScore": {
-    "description": "Label for final score in 21 game"
-  },
-  "result": "Result",
+  "result": "Resultado",
   "@result": {
     "description": "Label for result in 21 game"
   },
-  "bust": "Bust!",
+  "bust": "¡Te Pasaste!",
   "@bust": {
     "description": "Message when player goes over 21"
   },
-  "wrongNumber": "Wrong Number",
+  "wrongNumber": "Número Incorrecto",
   "@wrongNumber": {
     "description": "Message for wrong number in Number Memory"
   },
-  "youSuccessfullySortedAllNumbers": "You successfully sorted all numbers!",
+  "youSuccessfullySortedAllNumbers": "¡Ordenaste exitosamente todos los números!",
   "@youSuccessfullySortedAllNumbers": {
     "description": "Success message for Blind Sort game"
   },
-  "youRememberedAllNumbers": "You remembered all numbers!",
+  "youRememberedAllNumbers": "¡Recordaste todos los números!",
   "@youRememberedAllNumbers": {
     "description": "Success message for Number Memory game"
   },
-  "youGuessedCorrectly": "You guessed correctly!",
+  "youGuessedCorrectly": "¡Adivinaste correctamente!",
   "@youGuessedCorrectly": {
     "description": "Success message for Higher Lower game"
   },
-  "youWonTheGame": "You won the game!",
+  "youWonTheGame": "¡Ganaste el juego!",
   "@youWonTheGame": {
     "description": "Success message for RPS game"
   },
-  "youReached21": "You reached 21!",
+  "youReached21": "¡Llegaste a 21!",
   "@youReached21": {
     "description": "Success message for 21 game"
   },
-  "youWentOver21": "You went over 21!",
+  "youWentOver21": "¡Te pasaste de 21!",
   "@youWentOver21": {
     "description": "Failure message for 21 game"
   },
-  "whyYouLost": "Why you lost",
+  "whyYouLost": "Por qué perdiste",
   "@whyYouLost": {
     "description": "Label for loss reason section"
   },
-  "sortLeaderboard": "Sort Leaderboard",
+  "sortLeaderboard": "Ordenar Tabla de Posiciones",
   "@sortLeaderboard": {
     "description": "Title for sort leaderboard dialog"
   },
-  "sortByName": "Sort by Name",
+  "sortByName": "Ordenar por Nombre",
   "@sortByName": {
     "description": "Sort by name option"
   },
-  "sortByScore": "Sort by Score",
-  "@sortByScore": {
-    "description": "Sort by score option"
-  },
-  "sortByDate": "Sort by Date",
+  "sortByDate": "Ordenar por Fecha",
   "@sortByDate": {
     "description": "Sort by date option"
   },
-  "perfectTime": "Perfect Time!",
+  "perfectTime": "¡Tiempo Perfecto!",
   "@perfectTime": {
     "description": "Message for perfect completion time"
   },
-  "goodTime": "Good Time!",
+  "goodTime": "¡Buen Tiempo!",
   "@goodTime": {
     "description": "Message for good completion time"
   },
-  "averageTime": "Average Time",
+  "averageTime": "Tiempo Promedio",
   "@averageTime": {
     "description": "Message for average completion time"
   },
-  "slowTime": "Slow Time",
+  "slowTime": "Tiempo Lento",
   "@slowTime": {
     "description": "Message for slow completion time"
   },
-  "verySlowTime": "Very Slow Time",
+  "verySlowTime": "Tiempo Muy Lento",
   "@verySlowTime": {
     "description": "Message for very slow completion time"
   },
-  "patternMemory": "Pattern Memory",
+  "patternMemory": "Memoria de Patrones",
   "@patternMemory": {
     "description": "Title for the Pattern Memory game"
   },
-  "patternMemoryDescription": "Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.",
+  "patternMemoryDescription": "Memoriza el patrón en la pantalla y replícalo. El patrón se vuelve más complejo con cada nivel.",
   "@patternMemoryDescription": {
     "description": "Description for the Pattern Memory game"
   },
-  "patternMemoryInstructions": "Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.",
+  "patternMemoryInstructions": "Memoriza el patrón en la pantalla y replícalo. El patrón se vuelve más complejo con cada nivel.",
   "@patternMemoryInstructions": {
     "description": "Instructions for the Pattern Memory game"
   },
-  "wrongPattern": "Wrong Pattern",
+  "wrongPattern": "Patrón Incorrecto",
   "@wrongPattern": {
     "description": "Message when wrong pattern is selected"
   },
-  "level": "Level",
+  "level": "Nivel",
   "@level": {
     "description": "Level label"
   },
-  "wrong": "Wrong",
+  "wrong": "Incorrecto",
   "@wrong": {
     "description": "Wrong message"
   },
-  "row": "row",
+  "row": "fila",
   "@row": {
     "description": "Row label for accessibility"
   },
-  "column": "column",
+  "column": "columna",
   "@column": {
     "description": "Column label for accessibility"
   },
   
-  "red": "Red",
-  "@red": {
-    "description": "Red color name"
+  "continueGame": "Continuar Juego",
+  "@continueGame": {
+    "description": "Continue game dialog title"
   },
-  "green": "Green",
-  "@green": {
-    "description": "Green color name"
+  "watchAdToContinue": "Ver anuncio para continuar",
+  "@watchAdToContinue": {
+    "description": "Watch ad to continue button text"
   },
-  "blue": "Blue",
-  "@blue": {
-    "description": "Blue color name"
+  "adNotAvailable": "Anuncio no disponible",
+  "@adNotAvailable": {
+    "description": "Ad not available dialog title"
   },
-  "purple": "Purple",
-  "@purple": {
-    "description": "Purple color name"
+  "adNotAvailableMessage": "No hay anuncios disponibles actualmente. Por favor, inténtalo de nuevo más tarde.",
+  "@adNotAvailableMessage": {
+    "description": "Ad not available message"
   },
-  "orange": "Orange",
-  "@orange": {
-    "description": "Orange color name"
+  "adFailed": "Anuncio fallido",
+  "@adFailed": {
+    "description": "Ad failed dialog title"
   },
-  "yellow": "Yellow",
-  "@yellow": {
-    "description": "Yellow color name"
+  "adFailedMessage": "No se pudo mostrar el anuncio. Por favor, inténtalo de nuevo.",
+  "@adFailedMessage": {
+    "description": "Ad failed message"
   },
-  "pink": "Pink",
-  "@pink": {
-    "description": "Pink color name"
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button text"
   },
-  "brown": "Brown",
-  "@brown": {
-    "description": "Brown color name"
+  "exit": "Salir",
+  "@exit": {
+    "description": "Exit button text"
   }
 }

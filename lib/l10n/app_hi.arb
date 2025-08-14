@@ -1,0 +1,767 @@
+{
+  "@@locale": "hi",
+  "appName": "Quicko",
+  "@appName": {
+    "description": "एप्लिकेशन का नाम"
+  },
+  
+  "blindSort": "अंधा क्रमबद्ध",
+  "@blindSort": {
+    "description": "अंधा क्रमबद्ध खेल के लिए शीर्षक"
+  },
+  "blindSortDescription": "1-50 से 10 संख्याओं को क्रमबद्ध करें। यदि नई संख्या कहीं भी फिट नहीं होती तो आप हार जाते हैं!",
+  "@blindSortDescription": {
+    "description": "अंधा क्रमबद्ध खेल के लिए विवरण"
+  },
+  "nextNumber": "अगली संख्या",
+  "@nextNumber": {
+    "description": "अंधा क्रमबद्ध में अगली संख्या के लिए लेबल"
+  },
+  "newNumberComing": "नई संख्या आ रही है...",
+  "@newNumberComing": {
+    "description": "जब नई संख्या आने वाली हो तो संदेश"
+  },
+  
+  "start": "शुरू करें",
+  "@start": {
+    "description": "शुरू करें बटन का टेक्स्ट"
+  },
+  "restart": "पुनः शुरू करें",
+  "@restart": {
+    "description": "पुनः शुरू करें बटन का टेक्स्ट"
+  },
+  "home": "होम",
+  "@home": {
+    "description": "होम नेविगेशन लेबल"
+  },
+  "games": "खेल",
+  "@games": {
+    "description": "खेल नेविगेशन लेबल"
+  },
+  "score": "स्कोर",
+  "@score": {
+    "description": "स्कोर लेबल"
+  },
+  "gameOver": "खेल समाप्त",
+  "@gameOver": {
+    "description": "खेल समाप्त संदेश"
+  },
+  "tryAgain": "फिर से कोशिश करें",
+  "@tryAgain": {
+    "description": "फिर से कोशिश करें बटन का टेक्स्ट"
+  },
+  "share": "शेयर करें",
+  "@share": {
+    "description": "शेयर करें बटन का टेक्स्ट"
+  },
+  "confirm": "पुष्टि करें",
+  "@confirm": {
+    "description": "पुष्टि करें बटन का टेक्स्ट"
+  },
+  "fullscreen": "पूर्ण स्क्रीन",
+  "@fullscreen": {
+    "description": "पूर्ण स्क्रीन बटन का टेक्स्ट"
+  },
+  "cancel": "रद्द करें",
+  "@cancel": {
+    "description": "रद्द करें बटन का टेक्स्ट"
+  },
+  "reset": "रीसेट",
+  "@reset": {
+    "description": "रीसेट बटन का टेक्स्ट"
+  },
+  
+  "higherLower": "उच्च या निम्न",
+  "@higherLower": {
+    "description": "उच्च या निम्न खेल के लिए शीर्षक"
+  },
+  "higherLowerDescription": "अनुमान लगाएं कि अगली संख्या उच्च होगी या निम्न!",
+  "@higherLowerDescription": {
+    "description": "उच्च या निम्न खेल के लिए विवरण"
+  },
+  "higher": "उच्च",
+  "@higher": {
+    "description": "उच्च बटन का टेक्स्ट"
+  },
+  "lower": "निम्न",
+  "@lower": {
+    "description": "निम्न बटन का टेक्स्ट"
+  },
+  "lastNumber": "अंतिम संख्या",
+  "@lastNumber": {
+    "description": "अंतिम संख्या लेबल"
+  },
+  "completedAllTargets": "सभी लक्ष्य पूरे हो गए!",
+  "@completedAllTargets": {
+    "description": "जब सभी लक्ष्य पूरे हो जाते हैं तो संदेश"
+  },
+  "targets": "लक्ष्य",
+  "@targets": {
+    "description": "लक्ष्य लेबल"
+  },
+  "andMore": "और अधिक...",
+  "@andMore": {
+    "description": "अधिक तत्वों के लिए टेक्स्ट"
+  },
+  "missionFailed": "मिशन विफल!",
+  "@missionFailed": {
+    "description": "मिशन विफलता संदेश"
+  },
+  "greenTargetHit": "हरा लक्ष्य मारा गया!",
+  "@greenTargetHit": {
+    "description": "हरा लक्ष्य मारा गया संदेश"
+  },
+  "youHitAllTargets": "आपने सभी लक्ष्य मारे हैं!",
+  "@youHitAllTargets": {
+    "description": "सभी लक्ष्य मारे गए संदेश"
+  },
+  "timeRanOut": "समय समाप्त हो गया!",
+  "@timeRanOut": {
+    "description": "समय समाप्त संदेश"
+  },
+  "targetsHit": "मारे गए लक्ष्य",
+  "@targetsHit": {
+    "description": "मारे गए लक्ष्य लेबल"
+  },
+  "mistake": "गलती",
+  "@mistake": {
+    "description": "गलती लेबल"
+  },
+  "civilianHit": "नागरिक मारा गया",
+  "@civilianHit": {
+    "description": "नागरिक मारा गया संदेश"
+  },
+  "youFoundAllColors": "आपने सभी रंग पाए हैं!",
+  "@youFoundAllColors": {
+    "description": "सभी रंग मिले संदेश"
+  },
+  "colorsFound": "पाए गए रंग",
+  "@colorsFound": {
+    "description": "पाए गए रंग लेबल"
+  },
+  "lastMistake": "अंतिम गलती",
+  "@lastMistake": {
+    "description": "अंतिम गलती लेबल"
+  },
+  "wrongColor": "गलत रंग",
+  "@wrongColor": {
+    "description": "गलत रंग संदेश"
+  },
+  "currentNumber": "वर्तमान संख्या",
+  "@currentNumber": {
+    "description": "वर्तमान संख्या लेबल"
+  },
+  "close": "बंद करें",
+  "@close": {
+    "description": "बंद करें बटन का टेक्स्ट"
+  },
+  "betterLuckNextTime": "अगली बार बेहतर किस्मत!",
+  "@betterLuckNextTime": {
+    "description": "प्रोत्साहन संदेश"
+  },
+  "losingNumbers": "हार का कारण बनने वाली संख्याएं",
+  "@losingNumbers": {
+    "description": "हार का कारण बनने वाली संख्याओं का लेबल"
+  },
+  "losingNumber": "हार का कारण बनने वाली संख्या",
+  "@losingNumber": {
+    "description": "हार का कारण बनने वाली संख्या का लेबल"
+  },
+  
+  "colorHunt": "रंग शिकार",
+  "@colorHunt": {
+    "description": "रंग शिकार खेल के लिए शीर्षक"
+  },
+  "colorHuntDescription": "लक्ष्य रंग खोजें! टेक्स्ट का रंग आपको धोखा दे सकता है!",
+  "@colorHuntDescription": {
+    "description": "रंग शिकार खेल के लिए विवरण"
+  },
+  "target": "लक्ष्य",
+  "@target": {
+    "description": "लक्ष्य लेबल"
+  },
+  "time": "समय",
+  "@time": {
+    "description": "समय लेबल"
+  },
+  "wrongColorSelected": "गलत रंग चुना गया",
+  "@wrongColorSelected": {
+    "description": "जब गलत रंग चुना जाता है तो संदेश"
+  },
+  "wrongColorSelection": "गलत रंग चयन",
+  "@wrongColorSelection": {
+    "description": "गलत रंग चयन लेबल"
+  },
+  
+  "favorites": "पसंदीदा",
+  "@favorites": {
+    "description": "पसंदीदा नेविगेशन लेबल"
+  },
+  "loadingFavorites": "पसंदीदा लोड हो रहे हैं...",
+  "@loadingFavorites": {
+    "description": "पसंदीदा लोड होने पर संदेश"
+  },
+  "noFavoritesYet": "अभी तक कोई पसंदीदा नहीं",
+  "@noFavoritesYet": {
+    "description": "जब कोई पसंदीदा नहीं हो तो संदेश"
+  },
+  "addGamesToFavorites": "त्वरित पहुंच के लिए खेलों को पसंदीदा में जोड़ें",
+  "@addGamesToFavorites": {
+    "description": "पसंदीदा में खेल जोड़ने का निर्देश"
+  },
+  "browseGames": "खेल ब्राउज़ करें",
+  "@browseGames": {
+    "description": "खेल ब्राउज़ करें बटन का टेक्स्ट"
+  },
+  
+  "aimTrainer": "निशाना प्रशिक्षक",
+  "@aimTrainer": {
+    "description": "निशाना प्रशिक्षक खेल के लिए शीर्षक"
+  },
+  "aimTrainerDescription": "20 सेकंड के लिए यादृच्छिक रूप से दिखाई देने वाले लाल लक्ष्यों को मारने का प्रयास करें। प्रत्येक हिट 1 अंक के लायक है!",
+  "@aimTrainerDescription": {
+    "description": "निशाना प्रशिक्षक खेल के लिए विवरण"
+  },
+  
+  "numberMemory": "संख्या स्मृति",
+  "@numberMemory": {
+    "description": "संख्या स्मृति खेल के लिए शीर्षक"
+  },
+  "numberMemoryDescription": "संख्या अनुक्रम को याद रखें और कीबोर्ड का उपयोग करके सही ढंग से दर्ज करें। आप कितने अंक याद रख सकते हैं?",
+  "@numberMemoryDescription": {
+    "description": "संख्या स्मृति खेल के लिए विवरण"
+  },
+  
+  "findDifference": "अंतर खोजें",
+  "@findDifference": {
+    "description": "अंतर खोजें खेल के लिए शीर्षक"
+  },
+  "findDifferenceDescription": "अलग रंग वाला वर्ग खोजें। हर राउंड में और कठिन हो जाता है!",
+  "@findDifferenceDescription": {
+    "description": "अंतर खोजें खेल के लिए विवरण"
+  },
+  
+  "rockPaperScissors": "पत्थर-कागज-कैंची",
+  "@rockPaperScissors": {
+    "description": "पत्थर-कागज-कैंची खेल के लिए शीर्षक"
+  },
+  "rockPaperScissorsDescription": "कंप्यूटर के खिलाफ खेलें। पहले 5 अंक प्राप्त करने वाला जीतता है।",
+  "@rockPaperScissorsDescription": {
+    "description": "पत्थर-कागज-कैंची खेल के लिए विवरण"
+  },
+  
+  "twentyOne": "21 (ब्लैकजैक)",
+  "@twentyOne": {
+    "description": "21 (ब्लैकजैक) खेल के लिए शीर्षक"
+  },
+  "twentyOneDescription": "21 तक डीलर को हराएं! सीमा से अधिक बिना जितना संभव हो उतना करीब जाएं।",
+  "@twentyOneDescription": {
+    "description": "21 (ब्लैकजैक) खेल के लिए विवरण"
+  },
+  
+  "nowYourTurn": "अब आपकी बारी है!",
+  "@nowYourTurn": {
+    "description": "संदेश कि अब खिलाड़ी की बारी है"
+  },
+  "correct": "सही!",
+  "@correct": {
+    "description": "जब उत्तर सही हो तो संदेश"
+  },
+  "playing": "खेल रहे हैं",
+  "@playing": {
+    "description": "खेल रहे हैं स्थिति लेबल"
+  },
+  "youReachedLevel": "आपने स्तर {level} तक पहुंच गए हैं",
+  "@youReachedLevel": {
+    "description": "जब खिलाड़ी नया स्तर प्राप्त करता है तो संदेश",
+    "placeholders": {
+      "level": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "tapToStartGuessing": "अनुमान लगाना शुरू करने के लिए उच्च या निम्न दबाएं! संख्याएं 1-50 के बीच हैं।",
+  "@tapToStartGuessing": {
+    "description": "उच्च या निम्न में अनुमान लगाना शुरू करने का निर्देश"
+  },
+  "numbersBetween1And50": "संख्याएं 1-50 के बीच हैं",
+  "@numbersBetween1And50": {
+    "description": "संख्या सीमा के बारे में जानकारी"
+  },
+  
+  "leaderboard": "लीडरबोर्ड",
+  "@leaderboard": {
+    "description": "लीडरबोर्ड नेविगेशन लेबल"
+  },
+  "noLeaderboardData": "कोई लीडरबोर्ड डेटा नहीं",
+  "@noLeaderboardData": {
+    "description": "जब कोई लीडरबोर्ड डेटा नहीं हो तो संदेश"
+  },
+  "playGamesToSeeScores": "अपने उच्चतम स्कोर यहां देखने के लिए खेलें!",
+  "@playGamesToSeeScores": {
+    "description": "स्कोर देखने के लिए खेलने का निर्देश"
+  },
+  "playGames": "खेलें",
+  "@playGames": {
+    "description": "खेलें बटन का टेक्स्ट"
+  },
+  "totalGames": "कुल खेल",
+  "@totalGames": {
+    "description": "कुल खेल लेबल"
+  },
+  "highestScore": "उच्चतम स्कोर",
+  "@highestScore": {
+    "description": "उच्चतम स्कोर लेबल"
+  },
+  "averageScore": "औसत स्कोर",
+  "@averageScore": {
+    "description": "औसत स्कोर लेबल"
+  },
+  "highScore": "उच्च स्कोर : {score}",
+  "@highScore": {
+    "description": "स्कोर मान के साथ उच्च स्कोर प्रदर्शन",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "lastPlayed": "अंतिम खेला गया : {date}",
+  "@lastPlayed": {
+    "description": "अंतिम खेल की तारीख प्रदर्शन",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "22.03.25"
+      }
+    }
+  },
+  "sortBy": "इसके अनुसार क्रमबद्ध करें",
+  "@sortBy": {
+    "description": "इसके अनुसार क्रमबद्ध करें लेबल"
+  },
+  "sortByScore": "स्कोर के अनुसार क्रमबद्ध करें",
+  "@sortByScore": {
+    "description": "स्कोर के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  "sortByLastPlayed": "अंतिम खेले गए के अनुसार क्रमबद्ध करें",
+  "@sortByLastPlayed": {
+    "description": "अंतिम खेले गए के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  "shareAchievements": "उपलब्धियां साझा करें",
+  "@shareAchievements": {
+    "description": "उपलब्धियां साझा करें बटन का टेक्स्ट"
+  },
+  "previewImage": "पूर्वावलोकन",
+  "@previewImage": {
+    "description": "पूर्वावलोकन बटन का टेक्स्ट"
+  },
+  "shareImage": "छवि साझा करें",
+  "@shareImage": {
+    "description": "छवि साझा करें बटन का टेक्स्ट"
+  },
+  "shareNoData": "अभी साझा करने के लिए कोई डेटा नहीं। पहले खेलें!",
+  "@shareNoData": {
+    "description": "जब साझा करने के लिए कोई डेटा उपलब्ध नहीं हो तो संदेश"
+  },
+  "shareError": "उपलब्धियां साझा करते समय त्रुटि। फिर से कोशिश करें।",
+  "@shareError": {
+    "description": "साझा करते समय त्रुटि संदेश"
+  },
+  
+  "timeUp": "समय समाप्त",
+  "@timeUp": {
+    "description": "समय समाप्त संदेश"
+  },
+  "timeUpMessage": "आपका समय समाप्त हो गया!",
+  "@timeUpMessage": {
+    "description": "जब समय समाप्त हो जाता है तो संदेश"
+  },
+  
+  "finalScore": "अंतिम स्कोर",
+  "@finalScore": {
+    "description": "अंतिम स्कोर लेबल"
+  },
+  "youWon": "आप जीत गए!",
+  "@youWon": {
+    "description": "जीत संदेश"
+  },
+  "congratulationsMessage": "बधाई हो! आपने चुनौती पूरी कर ली है!",
+  "@congratulationsMessage": {
+    "description": "जीत के लिए बधाई संदेश"
+  },
+  "excellentPerformance": "उत्कृष्ट प्रदर्शन!",
+  "@excellentPerformance": {
+    "description": "उत्कृष्ट प्रदर्शन के लिए संदेश"
+  },
+  "playAgain": "फिर से खेलें",
+  "@playAgain": {
+    "description": "फिर से खेलें बटन का टेक्स्ट"
+  },
+  "deleteHighScore": "उच्च स्कोर हटाएं",
+  "@deleteHighScore": {
+    "description": "उच्च स्कोर हटाने के संवाद का शीर्षक"
+  },
+  "deleteHighScoreMessage": "क्या आप वाकई इस खेल के लिए उच्च स्कोर हटाना चाहते हैं?",
+  "@deleteHighScoreMessage": {
+    "description": "उच्च स्कोर हटाने की पुष्टि संदेश"
+  },
+  "delete": "हटाएं",
+  "@delete": {
+    "description": "हटाएं बटन का टेक्स्ट"
+  },
+  "language": "भाषा",
+  "@language": {
+    "description": "भाषा सेटिंग्स का शीर्षक"
+  },
+  "selectLanguage": "भाषा चुनें",
+  "@selectLanguage": {
+    "description": "भाषा चयन प्रॉम्प्ट"
+  },
+  "languageChangeInfo": "भाषा परिवर्तन तुरंत लागू होगा। नई भाषा लागू करने के लिए एप्लिकेशन पुनः शुरू होगी।",
+  "@languageChangeInfo": {
+    "description": "भाषा परिवर्तन के बारे में जानकारी"
+  },
+  "choosePreferredLanguage": "अपनी पसंदीदा भाषा चुनें",
+  "@choosePreferredLanguage": {
+    "description": "भाषा चयन प्रॉम्प्ट के लिए टेक्स्ट"
+  },
+  
+  "sort_by_date": "तारीख के अनुसार क्रमबद्ध करें",
+  "@sort_by_date": {
+    "description": "तारीख के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  
+  "sort_by_game": "खेल के अनुसार क्रमबद्ध करें",
+  "@sort_by_game": {
+    "description": "खेल के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  
+  "theme": "थीम",
+  "@theme": {
+    "description": "थीम सेटिंग्स का शीर्षक"
+  },
+  
+  "selectTheme": "थीम चुनें",
+  "@selectTheme": {
+    "description": "थीम चयन प्रॉम्प्ट"
+  },
+  
+  "lightTheme": "हल्का",
+  "@lightTheme": {
+    "description": "हल्का थीम विकल्प"
+  },
+  
+  "darkTheme": "गहरा",
+  "@darkTheme": {
+    "description": "गहरा थीम विकल्प"
+  },
+  
+  "systemTheme": "सिस्टम",
+  "@systemTheme": {
+    "description": "सिस्टम थीम विकल्प"
+  },
+  
+  "lightThemeDescription": "उज्ज्वल वातावरण के लिए हल्का थीम",
+  "@lightThemeDescription": {
+    "description": "हल्का थीम का विवरण"
+  },
+  
+  "darkThemeDescription": "कम रोशनी वाले वातावरण के लिए गहरा थीम",
+  "@darkThemeDescription": {
+    "description": "गहरा थीम का विवरण"
+  },
+  
+  "systemThemeDescription": "आपके डिवाइस की थीम सेटिंग्स का पालन करता है",
+  "@systemThemeDescription": {
+    "description": "सिस्टम थीम का विवरण"
+  },
+  
+  "themeChangeInfo": "थीम परिवर्तन तुरंत पूरे एप्लिकेशन में लागू होगा।",
+  "@themeChangeInfo": {
+    "description": "थीम परिवर्तन के बारे में जानकारी"
+  },
+  "choosePreferredTheme": "अपनी पसंदीदा थीम चुनें",
+  "@choosePreferredTheme": {
+    "description": "थीम चयन प्रॉम्प्ट के लिए टेक्स्ट"
+  },
+  
+  "startGame": "खेल शुरू करें",
+  "@startGame": {
+    "description": "खेल शुरू करें बटन का टेक्स्ट"
+  },
+  "restartGame": "खेल पुनः शुरू करें",
+  "@restartGame": {
+    "description": "खेल पुनः शुरू करें बटन का टेक्स्ट"
+  },
+  "you": "आप",
+  "@you": {
+    "description": "खिलाड़ी लेबल"
+  },
+  "cpu": "सीपीयू",
+  "@cpu": {
+    "description": "कंप्यूटर प्रतिद्वंद्वी लेबल"
+  },
+  "dealer": "डीलर",
+  "@dealer": {
+    "description": "कार्ड गेम के लिए डीलर लेबल"
+  },
+  "youWin": "आप जीत गए!",
+  "@youWin": {
+    "description": "जीत संदेश"
+  },
+  "youLose": "आप हार गए!",
+  "@youLose": {
+    "description": "हार संदेश"
+  },
+  "tie": "बराबर!",
+  "@tie": {
+    "description": "बराबर संदेश"
+  },
+  "total": "कुल",
+  "@total": {
+    "description": "कुल स्कोर लेबल"
+  },
+  
+  "red": "लाल",
+  "@red": {
+    "description": "लाल रंग का नाम"
+  },
+  "green": "हरा",
+  "@green": {
+    "description": "हरा रंग का नाम"
+  },
+  "blue": "नीला",
+  "@blue": {
+    "description": "नीला रंग का नाम"
+  },
+  "purple": "बैंगनी",
+  "@purple": {
+    "description": "बैंगनी रंग का नाम"
+  },
+  "orange": "नारंगी",
+  "@orange": {
+    "description": "नारंगी रंग का नाम"
+  },
+  "yellow": "पीला",
+  "@yellow": {
+    "description": "पीला रंग का नाम"
+  },
+  "pink": "गुलाबी",
+  "@pink": {
+    "description": "गुलाबी रंग का नाम"
+  },
+  "brown": "भूरा",
+  "@brown": {
+    "description": "भूरा रंग का नाम"
+  },
+  
+  "play": "खेलें",
+  "@play": {
+    "description": "खेलें बटन का टेक्स्ट"
+  },
+  
+  "appSettings": "एप्लिकेशन सेटिंग्स",
+  "@appSettings": {
+    "description": "एप्लिकेशन सेटिंग्स का शीर्षक"
+  },
+  "customizeAppExperience": "एप्लिकेशन में अपना अनुभव अनुकूलित करें",
+  "@customizeAppExperience": {
+    "description": "एप्लिकेशन सेटिंग्स का विवरण"
+  },
+  
+  "settings": "सेटिंग्स",
+  "@settings": {
+    "description": "सेटिंग्स स्क्रीन का शीर्षक"
+  },
+  
+  "hit": "हिट",
+  "@hit": {
+    "description": "21 खेल के लिए हिट बटन का टेक्स्ट"
+  },
+  "stand": "स्टैंड",
+  "@stand": {
+    "description": "21 खेल के लिए स्टैंड बटन का टेक्स्ट"
+  },
+  
+  "reactionTime": "प्रतिक्रिया समय",
+  "@reactionTime": {
+    "description": "प्रतिक्रिया समय खेल के लिए शीर्षक"
+  },
+  "reactionTimeDescription": "1 से 12 तक की संख्याओं को सही क्रम में जितनी जल्दी हो सके क्लिक करें। आपका समय मापा जाएगा (कम बेहतर है)।",
+  "@reactionTimeDescription": {
+    "description": "प्रतिक्रिया समय खेल के लिए विवरण"
+  },
+  "wrongSequence": "गलत अनुक्रम!",
+  "@wrongSequence": {
+    "description": "प्रतिक्रिया समय खेल के लिए गलत अनुक्रम संदेश"
+  },
+  "congratulations": "बधाई हो!",
+  "@congratulations": {
+    "description": "जीते गए खेलों के लिए बधाई संदेश"
+  },
+  "next": "अगला",
+  "@next": {
+    "description": "अगला लेबल"
+  },
+  
+  "numbersSorted": "क्रमबद्ध संख्याएं",
+  "@numbersSorted": {
+    "description": "अंधा क्रमबद्ध खेल में क्रमबद्ध संख्याओं के लिए लेबल"
+  },
+  "numbersRemembered": "याद की गई संख्याएं",
+  "@numbersRemembered": {
+    "description": "संख्या स्मृति खेल में याद की गई संख्याओं के लिए लेबल"
+  },
+  "correctGuesses": "सही अनुमान",
+  "@correctGuesses": {
+    "description": "उच्च या निम्न खेल में सही अनुमानों के लिए लेबल"
+  },
+  "yourScore": "आपका स्कोर",
+  "@yourScore": {
+    "description": "पत्थर-कागज-कैंची खेल में खिलाड़ी के स्कोर के लिए लेबल"
+  },
+  "cpuScore": "सीपीयू स्कोर",
+  "@cpuScore": {
+    "description": "पत्थर-कागज-कैंची खेल में सीपीयू स्कोर के लिए लेबल"
+  },
+  "result": "परिणाम",
+  "@result": {
+    "description": "21 खेल में परिणाम के लिए लेबल"
+  },
+  "bust": "बस्ट!",
+  "@bust": {
+    "description": "जब खिलाड़ी 21 से अधिक हो जाता है तो संदेश"
+  },
+  "wrongNumber": "गलत संख्या",
+  "@wrongNumber": {
+    "description": "संख्या स्मृति में गलत संख्या के लिए संदेश"
+  },
+  "youSuccessfullySortedAllNumbers": "आपने सभी संख्याओं को सफलतापूर्वक क्रमबद्ध किया!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "अंधा क्रमबद्ध खेल के लिए सफलता संदेश"
+  },
+  "youRememberedAllNumbers": "आपने सभी संख्याएं याद रखी हैं!",
+  "@youRememberedAllNumbers": {
+    "description": "संख्या स्मृति खेल के लिए सफलता संदेश"
+  },
+  "youGuessedCorrectly": "आपने सही अनुमान लगाया!",
+  "@youGuessedCorrectly": {
+    "description": "उच्च या निम्न खेल के लिए सफलता संदेश"
+  },
+  "youWonTheGame": "आपने खेल जीत लिया!",
+  "@youWonTheGame": {
+    "description": "पत्थर-कागज-कैंची खेल के लिए सफलता संदेश"
+  },
+  "youReached21": "आपने 21 तक पहुंच गए!",
+  "@youReached21": {
+    "description": "21 खेल के लिए सफलता संदेश"
+  },
+  "youWentOver21": "आपने 21 से अधिक हो गए!",
+  "@youWentOver21": {
+    "description": "21 खेल के लिए विफलता संदेश"
+  },
+  "whyYouLost": "आप क्यों हारे",
+  "@whyYouLost": {
+    "description": "हार के कारण के अनुभाग के लिए लेबल"
+  },
+  "sortLeaderboard": "लीडरबोर्ड क्रमबद्ध करें",
+  "@sortLeaderboard": {
+    "description": "लीडरबोर्ड क्रमबद्ध करने के संवाद का शीर्षक"
+  },
+  "sortByName": "नाम के अनुसार क्रमबद्ध करें",
+  "@sortByName": {
+    "description": "नाम के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  "sortByDate": "तारीख के अनुसार क्रमबद्ध करें",
+  "@sortByDate": {
+    "description": "तारीख के अनुसार क्रमबद्ध करने का विकल्प"
+  },
+  "perfectTime": "पूर्ण समय!",
+  "@perfectTime": {
+    "description": "पूर्ण समापन समय के लिए संदेश"
+  },
+  "goodTime": "अच्छा समय!",
+  "@goodTime": {
+    "description": "अच्छे समापन समय के लिए संदेश"
+  },
+  "averageTime": "औसत समय",
+  "@averageTime": {
+    "description": "औसत समापन समय के लिए संदेश"
+  },
+  "slowTime": "धीमा समय",
+  "@slowTime": {
+    "description": "धीमे समापन समय के लिए संदेश"
+  },
+  "verySlowTime": "बहुत धीमा समय",
+  "@verySlowTime": {
+    "description": "बहुत धीमे समापन समय के लिए संदेश"
+  },
+  "patternMemory": "पैटर्न स्मृति",
+  "@patternMemory": {
+    "description": "पैटर्न स्मृति खेल के लिए शीर्षक"
+  },
+  "patternMemoryDescription": "स्क्रीन पर पैटर्न को याद रखें और पुनरुत्पादित करें। हर स्तर पर पैटर्न और जटिल हो जाता है।",
+  "@patternMemoryDescription": {
+    "description": "पैटर्न स्मृति खेल के लिए विवरण"
+  },
+  "patternMemoryInstructions": "स्क्रीन पर पैटर्न को याद रखें और पुनरुत्पादित करें। हर स्तर पर पैटर्न और जटिल हो जाता है।",
+  "@patternMemoryInstructions": {
+    "description": "पैटर्न स्मृति खेल के लिए निर्देश"
+  },
+  "wrongPattern": "गलत पैटर्न",
+  "@wrongPattern": {
+    "description": "जब गलत पैटर्न चुना जाता है तो संदेश"
+  },
+  "level": "स्तर",
+  "@level": {
+    "description": "स्तर लेबल"
+  },
+  "wrong": "गलत",
+  "@wrong": {
+    "description": "गलत संदेश"
+  },
+  "row": "पंक्ति",
+  "@row": {
+    "description": "पहुंच के लिए पंक्ति लेबल"
+  },
+  "column": "स्तंभ",
+  "@column": {
+    "description": "पहुंच के लिए स्तंभ लेबल"
+  },
+  
+  "continueGame": "खेल जारी रखें",
+  "@continueGame": {
+    "description": "खेल जारी रखने के संवाद का शीर्षक"
+  },
+  "watchAdToContinue": "जारी रखने के लिए विज्ञापन देखें",
+  "@watchAdToContinue": {
+    "description": "जारी रखने के लिए विज्ञापन देखने के बटन का पाठ"
+  },
+  "adNotAvailable": "विज्ञापन उपलब्ध नहीं",
+  "@adNotAvailable": {
+    "description": "विज्ञापन उपलब्ध नहीं संवाद का शीर्षक"
+  },
+  "adNotAvailableMessage": "वर्तमान में कोई विज्ञापन उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।",
+  "@adNotAvailableMessage": {
+    "description": "विज्ञापन उपलब्ध नहीं संदेश"
+  },
+  "adFailed": "विज्ञापन विफल",
+  "@adFailed": {
+    "description": "विज्ञापन विफल संवाद का शीर्षक"
+  },
+  "adFailedMessage": "विज्ञापन दिखाने में विफल। कृपया पुनः प्रयास करें।",
+  "@adFailedMessage": {
+    "description": "विज्ञापन विफल संदेश"
+  },
+  "ok": "ठीक है",
+  "@ok": {
+    "description": "ठीक है बटन का पाठ"
+  },
+  "exit": "बाहर निकलें",
+  "@exit": {
+    "description": "बाहर निकलने के बटन का पाठ"
+  }
+}

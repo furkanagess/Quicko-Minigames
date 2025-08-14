@@ -1,0 +1,767 @@
+{
+  "@@locale": "de",
+  "appName": "Quicko",
+  "@appName": {
+    "description": "Der Name der Anwendung"
+  },
+  
+  "blindSort": "Blindes Sortieren",
+  "@blindSort": {
+    "description": "Titel für das Blindes Sortieren Spiel"
+  },
+  "blindSortDescription": "Sortiere 10 Zahlen von 1-50. Du verlierst, wenn die neue Zahl nirgendwo passt!",
+  "@blindSortDescription": {
+    "description": "Beschreibung für das Blindes Sortieren Spiel"
+  },
+  "nextNumber": "Nächste Zahl",
+  "@nextNumber": {
+    "description": "Bezeichnung für die nächste Zahl im Blindes Sortieren"
+  },
+  "newNumberComing": "Neue Zahl kommt...",
+  "@newNumberComing": {
+    "description": "Nachricht wenn eine neue Zahl erscheint"
+  },
+  
+  "start": "Start",
+  "@start": {
+    "description": "Start-Button Text"
+  },
+  "restart": "Neustart",
+  "@restart": {
+    "description": "Neustart-Button Text"
+  },
+  "home": "Startseite",
+  "@home": {
+    "description": "Startseite Navigation Bezeichnung"
+  },
+  "games": "Spiele",
+  "@games": {
+    "description": "Spiele Navigation Bezeichnung"
+  },
+  "score": "Punktzahl",
+  "@score": {
+    "description": "Punktzahl Bezeichnung"
+  },
+  "gameOver": "Spiel Beendet",
+  "@gameOver": {
+    "description": "Spiel beendet Nachricht"
+  },
+  "tryAgain": "Nochmal Versuchen",
+  "@tryAgain": {
+    "description": "Nochmal versuchen Button Text"
+  },
+  "share": "Teilen",
+  "@share": {
+    "description": "Teilen Button Text"
+  },
+  "confirm": "Bestätigen",
+  "@confirm": {
+    "description": "Bestätigen Button Text"
+  },
+  "fullscreen": "Vollbild",
+  "@fullscreen": {
+    "description": "Vollbild Button Text"
+  },
+  "cancel": "Abbrechen",
+  "@cancel": {
+    "description": "Abbrechen Button Text"
+  },
+  "reset": "Zurücksetzen",
+  "@reset": {
+    "description": "Zurücksetzen Button Text"
+  },
+  
+  "higherLower": "Höher oder Niedriger",
+  "@higherLower": {
+    "description": "Titel für das Höher oder Niedriger Spiel"
+  },
+  "higherLowerDescription": "Rate, ob die nächste Zahl höher oder niedriger sein wird!",
+  "@higherLowerDescription": {
+    "description": "Beschreibung für das Höher oder Niedriger Spiel"
+  },
+  "higher": "Höher",
+  "@higher": {
+    "description": "Höher Button Text"
+  },
+  "lower": "Niedriger",
+  "@lower": {
+    "description": "Niedriger Button Text"
+  },
+  "lastNumber": "Letzte Zahl",
+  "@lastNumber": {
+    "description": "Bezeichnung für die letzte Zahl"
+  },
+  "completedAllTargets": "Alle Ziele abgeschlossen!",
+  "@completedAllTargets": {
+    "description": "Nachricht wenn alle Ziele abgeschlossen sind"
+  },
+  "targets": "Ziele",
+  "@targets": {
+    "description": "Ziele Bezeichnung"
+  },
+  "andMore": "und mehr...",
+  "@andMore": {
+    "description": "Text für weitere Elemente"
+  },
+  "missionFailed": "Mission Fehlgeschlagen!",
+  "@missionFailed": {
+    "description": "Mission fehlgeschlagen Nachricht"
+  },
+  "greenTargetHit": "Grünes Ziel getroffen!",
+  "@greenTargetHit": {
+    "description": "Grünes Ziel getroffen Nachricht"
+  },
+  "youHitAllTargets": "Du hast alle Ziele getroffen!",
+  "@youHitAllTargets": {
+    "description": "Alle Ziele getroffen Nachricht"
+  },
+  "timeRanOut": "Zeit ist abgelaufen!",
+  "@timeRanOut": {
+    "description": "Zeit abgelaufen Nachricht"
+  },
+  "targetsHit": "Getroffene Ziele",
+  "@targetsHit": {
+    "description": "Getroffene Ziele Bezeichnung"
+  },
+  "mistake": "Fehler",
+  "@mistake": {
+    "description": "Fehler Bezeichnung"
+  },
+  "civilianHit": "Zivilist Getroffen",
+  "@civilianHit": {
+    "description": "Zivilist getroffen Nachricht"
+  },
+  "youFoundAllColors": "Du hast alle Farben gefunden!",
+  "@youFoundAllColors": {
+    "description": "Alle Farben gefunden Nachricht"
+  },
+  "colorsFound": "Gefundene Farben",
+  "@colorsFound": {
+    "description": "Gefundene Farben Bezeichnung"
+  },
+  "lastMistake": "Letzter Fehler",
+  "@lastMistake": {
+    "description": "Letzter Fehler Bezeichnung"
+  },
+  "wrongColor": "Falsche Farbe",
+  "@wrongColor": {
+    "description": "Falsche Farbe Nachricht"
+  },
+  "currentNumber": "Aktuelle Zahl",
+  "@currentNumber": {
+    "description": "Bezeichnung für die aktuelle Zahl"
+  },
+  "close": "Schließen",
+  "@close": {
+    "description": "Schließen Button Text"
+  },
+  "betterLuckNextTime": "Viel Glück beim nächsten Mal!",
+  "@betterLuckNextTime": {
+    "description": "Ermutigende Nachricht"
+  },
+  "losingNumbers": "Zahlen die zum Verlust führten",
+  "@losingNumbers": {
+    "description": "Verlierende Zahlen Bezeichnung"
+  },
+  "losingNumber": "Zahl die zum Verlust führte",
+  "@losingNumber": {
+    "description": "Verlierende Zahl Bezeichnung"
+  },
+  
+  "colorHunt": "Farbenjagd",
+  "@colorHunt": {
+    "description": "Titel für das Farbenjagd Spiel"
+  },
+  "colorHuntDescription": "Finde die Zielfarbe! Die Textfarbe könnte dich täuschen!",
+  "@colorHuntDescription": {
+    "description": "Beschreibung für das Farbenjagd Spiel"
+  },
+  "target": "Ziel",
+  "@target": {
+    "description": "Ziel Bezeichnung"
+  },
+  "time": "Zeit",
+  "@time": {
+    "description": "Zeit Bezeichnung"
+  },
+  "wrongColorSelected": "Falsche Farbe Ausgewählt",
+  "@wrongColorSelected": {
+    "description": "Nachricht wenn falsche Farbe ausgewählt wurde"
+  },
+  "wrongColorSelection": "Falsche Farbauswahl",
+  "@wrongColorSelection": {
+    "description": "Bezeichnung für falsche Farbauswahl"
+  },
+  
+  "favorites": "Favoriten",
+  "@favorites": {
+    "description": "Favoriten Navigation Bezeichnung"
+  },
+  "loadingFavorites": "Favoriten werden geladen...",
+  "@loadingFavorites": {
+    "description": "Nachricht beim Laden der Favoriten"
+  },
+  "noFavoritesYet": "Noch Keine Favoriten",
+  "@noFavoritesYet": {
+    "description": "Nachricht wenn keine Favoriten vorhanden sind"
+  },
+  "addGamesToFavorites": "Füge Spiele zu Favoriten hinzu für schnellen Zugriff",
+  "@addGamesToFavorites": {
+    "description": "Anweisung Spiele zu Favoriten hinzuzufügen"
+  },
+  "browseGames": "Spiele Durchsuchen",
+  "@browseGames": {
+    "description": "Spiele durchsuchen Button Text"
+  },
+  
+  "aimTrainer": "Ziel-Trainer",
+  "@aimTrainer": {
+    "description": "Titel für das Ziel-Trainer Spiel"
+  },
+  "aimTrainerDescription": "Versuche die roten Ziele zu treffen, die zufällig für 20 Sekunden erscheinen. Jeder Treffer ist 1 Punkt!",
+  "@aimTrainerDescription": {
+    "description": "Beschreibung für das Ziel-Trainer Spiel"
+  },
+  
+  "numberMemory": "Zahlen-Gedächtnis",
+  "@numberMemory": {
+    "description": "Titel für das Zahlen-Gedächtnis Spiel"
+  },
+  "numberMemoryDescription": "Merke dir die Zahlenfolge und gib sie korrekt mit der Tastatur ein. Wie viele Ziffern kannst du dir merken?",
+  "@numberMemoryDescription": {
+    "description": "Beschreibung für das Zahlen-Gedächtnis Spiel"
+  },
+  
+  "findDifference": "Finde den Unterschied",
+  "@findDifference": {
+    "description": "Titel für das Finde den Unterschied Spiel"
+  },
+  "findDifferenceDescription": "Finde das Quadrat mit einer anderen Farbe. Wird schwieriger in jeder Runde!",
+  "@findDifferenceDescription": {
+    "description": "Beschreibung für das Finde den Unterschied Spiel"
+  },
+  
+  "rockPaperScissors": "Schere-Stein-Papier",
+  "@rockPaperScissors": {
+    "description": "Titel für das Schere-Stein-Papier Spiel"
+  },
+  "rockPaperScissorsDescription": "Spiele gegen den Computer. Der erste der 5 Punkte erreicht gewinnt.",
+  "@rockPaperScissorsDescription": {
+    "description": "Beschreibung für das Schere-Stein-Papier Spiel"
+  },
+  
+  "twentyOne": "21 (Blackjack)",
+  "@twentyOne": {
+    "description": "Titel für das 21 (Blackjack) Spiel"
+  },
+  "twentyOneDescription": "Besiege den Dealer bis 21! Komme so nah wie möglich ohne zu überschreiten.",
+  "@twentyOneDescription": {
+    "description": "Beschreibung für das 21 (Blackjack) Spiel"
+  },
+  
+  "nowYourTurn": "Jetzt bist du dran!",
+  "@nowYourTurn": {
+    "description": "Nachricht dass der Spieler an der Reihe ist"
+  },
+  "correct": "Richtig!",
+  "@correct": {
+    "description": "Nachricht wenn Antwort richtig ist"
+  },
+  "playing": "Spielt",
+  "@playing": {
+    "description": "Spielt Status Bezeichnung"
+  },
+  "youReachedLevel": "Du hast Level {level} erreicht",
+  "@youReachedLevel": {
+    "description": "Nachricht wenn Spieler ein neues Level erreicht",
+    "placeholders": {
+      "level": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "tapToStartGuessing": "Tippe auf Höher oder Niedriger um mit dem Raten zu beginnen! Die Zahlen sind zwischen 1-50.",
+  "@tapToStartGuessing": {
+    "description": "Anweisung zum Starten des Ratens in Höher oder Niedriger"
+  },
+  "numbersBetween1And50": "Die Zahlen sind zwischen 1-50",
+  "@numbersBetween1And50": {
+    "description": "Information über Zahlenbereich"
+  },
+  
+  "leaderboard": "Bestenliste",
+  "@leaderboard": {
+    "description": "Bestenliste Navigation Bezeichnung"
+  },
+  "noLeaderboardData": "Keine Bestenlisten-Daten",
+  "@noLeaderboardData": {
+    "description": "Nachricht wenn keine Bestenlisten-Daten vorhanden sind"
+  },
+  "playGamesToSeeScores": "Spiele um deine höchsten Punktzahlen hier zu sehen!",
+  "@playGamesToSeeScores": {
+    "description": "Anweisung zu spielen um Punktzahlen zu sehen"
+  },
+  "playGames": "Spielen",
+  "@playGames": {
+    "description": "Spielen Button Text"
+  },
+  "totalGames": "Gesamte Spiele",
+  "@totalGames": {
+    "description": "Gesamte Spiele Bezeichnung"
+  },
+  "highestScore": "Höchste Punktzahl",
+  "@highestScore": {
+    "description": "Höchste Punktzahl Bezeichnung"
+  },
+  "averageScore": "Durchschnittliche Punktzahl",
+  "@averageScore": {
+    "description": "Durchschnittliche Punktzahl Bezeichnung"
+  },
+  "highScore": "Höchste Punktzahl: {score}",
+  "@highScore": {
+    "description": "Höchste Punktzahl Anzeige mit Punktzahlwert",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "lastPlayed": "Zuletzt gespielt: {date}",
+  "@lastPlayed": {
+    "description": "Zuletzt gespielt Datum Anzeige",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "22.03.25"
+      }
+    }
+  },
+  "sortBy": "Sortieren Nach",
+  "@sortBy": {
+    "description": "Sortieren nach Bezeichnung"
+  },
+  "sortByScore": "Nach Punktzahl Sortieren",
+  "@sortByScore": {
+    "description": "Nach Punktzahl sortieren Option"
+  },
+  "sortByLastPlayed": "Nach Zuletzt Gespielt Sortieren",
+  "@sortByLastPlayed": {
+    "description": "Nach zuletzt gespielt sortieren Option"
+  },
+  "shareAchievements": "Erfolge Teilen",
+  "@shareAchievements": {
+    "description": "Erfolge teilen Button Text"
+  },
+  "previewImage": "Vorschau",
+  "@previewImage": {
+    "description": "Vorschau Button Text"
+  },
+  "shareImage": "Bild Teilen",
+  "@shareImage": {
+    "description": "Bild teilen Button Text"
+  },
+  "shareNoData": "Noch keine Daten zum Teilen. Spiele zuerst!",
+  "@shareNoData": {
+    "description": "Nachricht wenn keine Daten zum Teilen verfügbar sind"
+  },
+  "shareError": "Fehler beim Teilen der Erfolge. Versuche es erneut.",
+  "@shareError": {
+    "description": "Fehlermeldung beim Teilen"
+  },
+  
+  "timeUp": "Zeit ist Um",
+  "@timeUp": {
+    "description": "Zeit um Nachricht"
+  },
+  "timeUpMessage": "Deine Zeit ist abgelaufen!",
+  "@timeUpMessage": {
+    "description": "Nachricht wenn Zeit abgelaufen ist"
+  },
+  
+  "finalScore": "Endpunktzahl",
+  "@finalScore": {
+    "description": "Endpunktzahl Bezeichnung"
+  },
+  "youWon": "Du hast Gewonnen!",
+  "@youWon": {
+    "description": "Du hast gewonnen Nachricht"
+  },
+  "congratulationsMessage": "Glückwunsch! Du hast die Herausforderung abgeschlossen!",
+  "@congratulationsMessage": {
+    "description": "Glückwunsch Nachricht für Gewinnen"
+  },
+  "excellentPerformance": "Ausgezeichnete Leistung!",
+  "@excellentPerformance": {
+    "description": "Nachricht für ausgezeichnete Leistung"
+  },
+  "playAgain": "Nochmal Spielen",
+  "@playAgain": {
+    "description": "Nochmal spielen Button Text"
+  },
+  "deleteHighScore": "Höchste Punktzahl Löschen",
+  "@deleteHighScore": {
+    "description": "Höchste Punktzahl löschen Dialog Titel"
+  },
+  "deleteHighScoreMessage": "Bist du sicher, dass du die höchste Punktzahl für dieses Spiel löschen möchtest?",
+  "@deleteHighScoreMessage": {
+    "description": "Höchste Punktzahl löschen Bestätigungsnachricht"
+  },
+  "delete": "Löschen",
+  "@delete": {
+    "description": "Löschen Button Text"
+  },
+  "language": "Sprache",
+  "@language": {
+    "description": "Sprache Einstellungen Titel"
+  },
+  "selectLanguage": "Sprache Auswählen",
+  "@selectLanguage": {
+    "description": "Sprache auswählen Aufforderung"
+  },
+  "languageChangeInfo": "Sprachänderungen werden sofort angewendet. Die App wird neu gestartet, um die neue Sprache zu übernehmen.",
+  "@languageChangeInfo": {
+    "description": "Information über Sprachänderung"
+  },
+  "choosePreferredLanguage": "Wähle deine bevorzugte Sprache",
+  "@choosePreferredLanguage": {
+    "description": "Text für Sprachauswahl Aufforderung"
+  },
+  
+  "sort_by_date": "Nach Datum Sortieren",
+  "@sort_by_date": {
+    "description": "Nach Datum sortieren Option"
+  },
+  
+  "sort_by_game": "Nach Spiel Sortieren",
+  "@sort_by_game": {
+    "description": "Nach Spiel sortieren Option"
+  },
+  
+  "theme": "Design",
+  "@theme": {
+    "description": "Design Einstellungen Titel"
+  },
+  
+  "selectTheme": "Design Auswählen",
+  "@selectTheme": {
+    "description": "Design auswählen Aufforderung"
+  },
+  
+  "lightTheme": "Hell",
+  "@lightTheme": {
+    "description": "Helles Design Option"
+  },
+  
+  "darkTheme": "Dunkel",
+  "@darkTheme": {
+    "description": "Dunkles Design Option"
+  },
+  
+  "systemTheme": "System",
+  "@systemTheme": {
+    "description": "System Design Option"
+  },
+  
+  "lightThemeDescription": "Helles Design für helle Umgebungen",
+  "@lightThemeDescription": {
+    "description": "Helles Design Beschreibung"
+  },
+  
+  "darkThemeDescription": "Dunkles Design für Umgebungen mit wenig Licht",
+  "@darkThemeDescription": {
+    "description": "Dunkles Design Beschreibung"
+  },
+  
+  "systemThemeDescription": "Folgt der Design-Einstellung deines Geräts",
+  "@systemThemeDescription": {
+    "description": "System Design Beschreibung"
+  },
+  
+  "themeChangeInfo": "Design-Änderungen werden sofort in der gesamten App angewendet.",
+  "@themeChangeInfo": {
+    "description": "Information über Design-Änderungen"
+  },
+  "choosePreferredTheme": "Wähle dein bevorzugtes Design",
+  "@choosePreferredTheme": {
+    "description": "Text für Design-Auswahl Aufforderung"
+  },
+  
+  "startGame": "Spiel Starten",
+  "@startGame": {
+    "description": "Spiel starten Button Text"
+  },
+  "restartGame": "Spiel Neustarten",
+  "@restartGame": {
+    "description": "Spiel neustarten Button Text"
+  },
+  "you": "Du",
+  "@you": {
+    "description": "Spieler Bezeichnung"
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Computer Gegner Bezeichnung"
+  },
+  "dealer": "Dealer",
+  "@dealer": {
+    "description": "Dealer Bezeichnung für Kartenspiele"
+  },
+  "youWin": "Du Gewinnst!",
+  "@youWin": {
+    "description": "Gewinnen Nachricht"
+  },
+  "youLose": "Du Verlierst!",
+  "@youLose": {
+    "description": "Verlieren Nachricht"
+  },
+  "tie": "Unentschieden!",
+  "@tie": {
+    "description": "Unentschieden Nachricht"
+  },
+  "total": "Gesamt",
+  "@total": {
+    "description": "Gesamtpunktzahl Bezeichnung"
+  },
+  
+  "red": "Rot",
+  "@red": {
+    "description": "Rote Farbe Name"
+  },
+  "green": "Grün",
+  "@green": {
+    "description": "Grüne Farbe Name"
+  },
+  "blue": "Blau",
+  "@blue": {
+    "description": "Blaue Farbe Name"
+  },
+  "purple": "Lila",
+  "@purple": {
+    "description": "Lila Farbe Name"
+  },
+  "orange": "Orange",
+  "@orange": {
+    "description": "Orange Farbe Name"
+  },
+  "yellow": "Gelb",
+  "@yellow": {
+    "description": "Gelbe Farbe Name"
+  },
+  "pink": "Rosa",
+  "@pink": {
+    "description": "Rosa Farbe Name"
+  },
+  "brown": "Braun",
+  "@brown": {
+    "description": "Braune Farbe Name"
+  },
+  
+  "play": "Spielen",
+  "@play": {
+    "description": "Spielen Button Text"
+  },
+  
+  "appSettings": "App-Einstellungen",
+  "@appSettings": {
+    "description": "App-Einstellungen Titel"
+  },
+  "customizeAppExperience": "Passe deine App-Erfahrung an",
+  "@customizeAppExperience": {
+    "description": "App-Einstellungen Beschreibung"
+  },
+  
+  "settings": "Einstellungen",
+  "@settings": {
+    "description": "Einstellungen Bildschirm Titel"
+  },
+  
+  "hit": "Ziehen",
+  "@hit": {
+    "description": "Ziehen Button Text für 21 Spiel"
+  },
+  "stand": "Stehen",
+  "@stand": {
+    "description": "Stehen Button Text für 21 Spiel"
+  },
+  
+  "reactionTime": "Reaktionszeit",
+  "@reactionTime": {
+    "description": "Titel für das Reaktionszeit Spiel"
+  },
+  "reactionTimeDescription": "Klicke auf die Zahlen von 1 bis 12 in der richtigen Reihenfolge so schnell wie möglich. Deine Zeit wird gemessen (niedriger ist besser).",
+  "@reactionTimeDescription": {
+    "description": "Beschreibung für das Reaktionszeit Spiel"
+  },
+  "wrongSequence": "Falsche Reihenfolge!",
+  "@wrongSequence": {
+    "description": "Falsche Reihenfolge Nachricht für Reaktionszeit Spiel"
+  },
+  "congratulations": "Glückwunsch!",
+  "@congratulations": {
+    "description": "Glückwunsch Nachricht für gewonnene Spiele"
+  },
+  "next": "Nächste",
+  "@next": {
+    "description": "Nächste Bezeichnung"
+  },
+  
+  "numbersSorted": "Sortierte Zahlen",
+  "@numbersSorted": {
+    "description": "Bezeichnung für sortierte Zahlen im Blindes Sortieren Spiel"
+  },
+  "numbersRemembered": "Gemerkte Zahlen",
+  "@numbersRemembered": {
+    "description": "Bezeichnung für gemerkte Zahlen im Zahlen-Gedächtnis Spiel"
+  },
+  "correctGuesses": "Richtige Schätzungen",
+  "@correctGuesses": {
+    "description": "Bezeichnung für richtige Schätzungen im Höher oder Niedriger Spiel"
+  },
+  "yourScore": "Deine Punktzahl",
+  "@yourScore": {
+    "description": "Bezeichnung für Spielerpunktzahl im Schere-Stein-Papier Spiel"
+  },
+  "cpuScore": "CPU Punktzahl",
+  "@cpuScore": {
+    "description": "Bezeichnung für CPU Punktzahl im Schere-Stein-Papier Spiel"
+  },
+  "result": "Ergebnis",
+  "@result": {
+    "description": "Bezeichnung für Ergebnis im 21 Spiel"
+  },
+  "bust": "Überkauft!",
+  "@bust": {
+    "description": "Nachricht wenn Spieler über 21 geht"
+  },
+  "wrongNumber": "Falsche Zahl",
+  "@wrongNumber": {
+    "description": "Nachricht für falsche Zahl im Zahlen-Gedächtnis"
+  },
+  "youSuccessfullySortedAllNumbers": "Du hast alle Zahlen erfolgreich sortiert!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "Erfolgsnachricht für Blindes Sortieren Spiel"
+  },
+  "youRememberedAllNumbers": "Du hast alle Zahlen gemerkt!",
+  "@youRememberedAllNumbers": {
+    "description": "Erfolgsnachricht für Zahlen-Gedächtnis Spiel"
+  },
+  "youGuessedCorrectly": "Du hast richtig geraten!",
+  "@youGuessedCorrectly": {
+    "description": "Erfolgsnachricht für Höher oder Niedriger Spiel"
+  },
+  "youWonTheGame": "Du hast das Spiel gewonnen!",
+  "@youWonTheGame": {
+    "description": "Erfolgsnachricht für Schere-Stein-Papier Spiel"
+  },
+  "youReached21": "Du hast 21 erreicht!",
+  "@youReached21": {
+    "description": "Erfolgsnachricht für 21 Spiel"
+  },
+  "youWentOver21": "Du hast 21 überschritten!",
+  "@youWentOver21": {
+    "description": "Fehlernachricht für 21 Spiel"
+  },
+  "whyYouLost": "Warum du verloren hast",
+  "@whyYouLost": {
+    "description": "Bezeichnung für Verlustgrund Abschnitt"
+  },
+  "sortLeaderboard": "Bestenliste Sortieren",
+  "@sortLeaderboard": {
+    "description": "Titel für Bestenliste sortieren Dialog"
+  },
+  "sortByName": "Nach Name Sortieren",
+  "@sortByName": {
+    "description": "Nach Name sortieren Option"
+  },
+  "sortByDate": "Nach Datum Sortieren",
+  "@sortByDate": {
+    "description": "Nach Datum sortieren Option"
+  },
+  "perfectTime": "Perfekte Zeit!",
+  "@perfectTime": {
+    "description": "Nachricht für perfekte Abschlusszeit"
+  },
+  "goodTime": "Gute Zeit!",
+  "@goodTime": {
+    "description": "Nachricht für gute Abschlusszeit"
+  },
+  "averageTime": "Durchschnittliche Zeit",
+  "@averageTime": {
+    "description": "Nachricht für durchschnittliche Abschlusszeit"
+  },
+  "slowTime": "Langsame Zeit",
+  "@slowTime": {
+    "description": "Nachricht für langsame Abschlusszeit"
+  },
+  "verySlowTime": "Sehr Langsame Zeit",
+  "@verySlowTime": {
+    "description": "Nachricht für sehr langsame Abschlusszeit"
+  },
+  "patternMemory": "Muster-Gedächtnis",
+  "@patternMemory": {
+    "description": "Titel für das Muster-Gedächtnis Spiel"
+  },
+  "patternMemoryDescription": "Merke dir das Muster auf dem Bildschirm und wiederhole es. Das Muster wird mit jedem Level komplexer.",
+  "@patternMemoryDescription": {
+    "description": "Beschreibung für das Muster-Gedächtnis Spiel"
+  },
+  "patternMemoryInstructions": "Merke dir das Muster auf dem Bildschirm und wiederhole es. Das Muster wird mit jedem Level komplexer.",
+  "@patternMemoryInstructions": {
+    "description": "Anweisungen für das Muster-Gedächtnis Spiel"
+  },
+  "wrongPattern": "Falsches Muster",
+  "@wrongPattern": {
+    "description": "Nachricht wenn falsches Muster ausgewählt wurde"
+  },
+  "level": "Level",
+  "@level": {
+    "description": "Level Bezeichnung"
+  },
+  "wrong": "Falsch",
+  "@wrong": {
+    "description": "Falsch Nachricht"
+  },
+  "row": "Zeile",
+  "@row": {
+    "description": "Zeile Bezeichnung für Barrierefreiheit"
+  },
+  "column": "Spalte",
+  "@column": {
+    "description": "Spalte Bezeichnung für Barrierefreiheit"
+  },
+  
+  "continueGame": "Spiel Fortsetzen",
+  "@continueGame": {
+    "description": "Spiel fortsetzen Dialog Titel"
+  },
+  "watchAdToContinue": "Werbung ansehen um fortzufahren",
+  "@watchAdToContinue": {
+    "description": "Werbung ansehen um fortzufahren Button Text"
+  },
+  "adNotAvailable": "Werbung nicht verfügbar",
+  "@adNotAvailable": {
+    "description": "Werbung nicht verfügbar Dialog Titel"
+  },
+  "adNotAvailableMessage": "Derzeit sind keine Werbungen verfügbar. Bitte versuchen Sie es später erneut.",
+  "@adNotAvailableMessage": {
+    "description": "Werbung nicht verfügbar Nachricht"
+  },
+  "adFailed": "Werbung fehlgeschlagen",
+  "@adFailed": {
+    "description": "Werbung fehlgeschlagen Dialog Titel"
+  },
+  "adFailedMessage": "Werbung konnte nicht angezeigt werden. Bitte versuchen Sie es erneut.",
+  "@adFailedMessage": {
+    "description": "Werbung fehlgeschlagen Nachricht"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK Button Text"
+  },
+  "exit": "Beenden",
+  "@exit": {
+    "description": "Beenden Button Text"
+  }
+}

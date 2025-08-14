@@ -83,6 +83,31 @@ class AppLocalizationsTr extends AppLocalizations {
   String get targets => 'Hedefler';
 
   @override
+  String get continueGame => 'Oyunu Devam Ettir';
+
+  @override
+  String get watchAdToContinue => 'Devam Etmek İçin Reklam İzle';
+
+  @override
+  String get adNotAvailable => 'Reklam Mevcut Değil';
+
+  @override
+  String get adNotAvailableMessage =>
+      'Şu anda reklam mevcut değil. Lütfen daha sonra tekrar deneyin.';
+
+  @override
+  String get adFailed => 'Reklam Başarısız';
+
+  @override
+  String get adFailedMessage => 'Reklam gösterilemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get ok => 'Tamam';
+
+  @override
+  String get exit => 'Çıkış';
+
+  @override
   String get andMore => 've daha fazlası...';
 
   @override
@@ -517,4 +542,30 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get verySlowTime => 'Çok Yavaş Süre';
+
+  @override
+  String get patternMemory => 'Desen Hafızası';
+
+  @override
+  String get patternMemoryDescription =>
+      'Ekrandaki deseni ezberle ve tekrarla. Desen her seviyede daha karmaşık hale gelir.';
+
+  @override
+  String get patternMemoryInstructions =>
+      'Ekrandaki deseni ezberle ve tekrarla. Desen her seviyede daha karmaşık hale gelir.';
+
+  @override
+  String get wrongPattern => 'Yanlış Desen';
+
+  @override
+  String get level => 'Seviye';
+
+  @override
+  String get wrong => 'Yanlış';
+
+  @override
+  String get row => 'satır';
+
+  @override
+  String get column => 'sütun';
 }

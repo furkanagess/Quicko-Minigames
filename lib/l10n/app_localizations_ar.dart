@@ -1,0 +1,566 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Arabic (`ar`).
+class AppLocalizationsAr extends AppLocalizations {
+  AppLocalizationsAr([String locale = 'ar']) : super(locale);
+
+  @override
+  String get appName => 'كويكو';
+
+  @override
+  String get blindSort => 'الترتيب الأعمى';
+
+  @override
+  String get blindSortDescription =>
+      'رتب 10 أرقام من 1-50. ستخسر إذا لم يتناسب الرقم الجديد في أي مكان!';
+
+  @override
+  String get nextNumber => 'الرقم التالي';
+
+  @override
+  String get newNumberComing => 'رقم جديد قادم...';
+
+  @override
+  String get start => 'ابدأ';
+
+  @override
+  String get restart => 'إعادة تشغيل';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get games => 'الألعاب';
+
+  @override
+  String get score => 'النقاط';
+
+  @override
+  String get gameOver => 'انتهت اللعبة';
+
+  @override
+  String get tryAgain => 'حاول مرة أخرى';
+
+  @override
+  String get share => 'مشاركة';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get fullscreen => 'ملء الشاشة';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get reset => 'إعادة تعيين';
+
+  @override
+  String get higherLower => 'أعلى أو أقل';
+
+  @override
+  String get higherLowerDescription =>
+      'خمن ما إذا كان الرقم التالي أعلى أم أقل!';
+
+  @override
+  String get higher => 'أعلى';
+
+  @override
+  String get lower => 'أقل';
+
+  @override
+  String get lastNumber => 'الرقم الأخير';
+
+  @override
+  String get completedAllTargets => 'أكملت جميع الأهداف!';
+
+  @override
+  String get targets => 'الأهداف';
+
+  @override
+  String get continueGame => 'استمر في اللعبة';
+
+  @override
+  String get watchAdToContinue => 'شاهد الإعلان للمتابعة';
+
+  @override
+  String get adNotAvailable => 'الإعلان غير متاح';
+
+  @override
+  String get adNotAvailableMessage =>
+      'لا توجد إعلانات متاحة حالياً. يرجى المحاولة مرة أخرى لاحقاً.';
+
+  @override
+  String get adFailed => 'فشل الإعلان';
+
+  @override
+  String get adFailedMessage => 'فشل في عرض الإعلان. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get ok => 'موافق';
+
+  @override
+  String get exit => 'خروج';
+
+  @override
+  String get andMore => 'والمزيد...';
+
+  @override
+  String get missionFailed => 'فشلت المهمة!';
+
+  @override
+  String get greenTargetHit => 'تم إصابة الهدف الأخضر!';
+
+  @override
+  String get youHitAllTargets => 'لقد أصبت جميع الأهداف!';
+
+  @override
+  String get timeRanOut => 'انتهى الوقت!';
+
+  @override
+  String get targetsHit => 'الأهداف المصابة';
+
+  @override
+  String get mistake => 'خطأ';
+
+  @override
+  String get civilianHit => 'تم إصابة مدني';
+
+  @override
+  String get youFoundAllColors => 'لقد وجدت جميع الألوان!';
+
+  @override
+  String get colorsFound => 'الألوان الموجودة';
+
+  @override
+  String get lastMistake => 'الخطأ الأخير';
+
+  @override
+  String get wrongColor => 'لون خاطئ';
+
+  @override
+  String get currentNumber => 'الرقم الحالي';
+
+  @override
+  String get close => 'إغلاق';
+
+  @override
+  String get betterLuckNextTime => 'حظ أوفر في المرة القادمة!';
+
+  @override
+  String get losingNumbers => 'الأرقام التي تسببت في الخسارة';
+
+  @override
+  String get losingNumber => 'الرقم الذي تسبب في الخسارة';
+
+  @override
+  String get colorHunt => 'مطاردة الألوان';
+
+  @override
+  String get colorHuntDescription =>
+      'ابحث عن اللون المستهدف! لون النص قد يخدعك!';
+
+  @override
+  String get target => 'الهدف';
+
+  @override
+  String get time => 'الوقت';
+
+  @override
+  String get wrongColorSelected => 'تم اختيار لون خاطئ';
+
+  @override
+  String get wrongColorSelection => 'اختيار لون خاطئ';
+
+  @override
+  String get favorites => 'المفضلة';
+
+  @override
+  String get loadingFavorites => 'جاري تحميل المفضلة...';
+
+  @override
+  String get noFavoritesYet => 'لا توجد مفضلة بعد';
+
+  @override
+  String get addGamesToFavorites => 'أضف ألعاب إلى المفضلة للوصول السريع';
+
+  @override
+  String get browseGames => 'تصفح الألعاب';
+
+  @override
+  String get aimTrainer => 'مدرب التصويب';
+
+  @override
+  String get aimTrainerDescription =>
+      'حاول إصابة الأهداف الحمراء التي تظهر عشوائياً لمدة 20 ثانية. كل إصابة تساوي نقطة واحدة!';
+
+  @override
+  String get numberMemory => 'ذاكرة الأرقام';
+
+  @override
+  String get numberMemoryDescription =>
+      'احفظ تسلسل الأرقام واكتبها بشكل صحيح باستخدام لوحة المفاتيح. كم رقم يمكنك تذكره؟';
+
+  @override
+  String get findDifference => 'ابحث عن الاختلاف';
+
+  @override
+  String get findDifferenceDescription =>
+      'ابحث عن المربع بلون مختلف. يصبح أصعب في كل جولة!';
+
+  @override
+  String get rockPaperScissors => 'حجر ورق مقص';
+
+  @override
+  String get rockPaperScissorsDescription =>
+      'العب ضد الكمبيوتر. أول من يصل إلى 5 نقاط يفوز.';
+
+  @override
+  String get twentyOne => '21 (بلاك جاك)';
+
+  @override
+  String get twentyOneDescription =>
+      'اهزم الموزع حتى 21! اقترب قدر الإمكان دون تجاوز.';
+
+  @override
+  String get nowYourTurn => 'دورك الآن!';
+
+  @override
+  String get correct => 'صحيح!';
+
+  @override
+  String get playing => 'يلعب';
+
+  @override
+  String youReachedLevel(int level) {
+    return 'لقد وصلت إلى المستوى $level';
+  }
+
+  @override
+  String get tapToStartGuessing =>
+      'اضغط على أعلى أو أقل لبدء التخمين! الأرقام بين 1-50.';
+
+  @override
+  String get numbersBetween1And50 => 'الأرقام بين 1-50';
+
+  @override
+  String get leaderboard => 'قائمة المتصدرين';
+
+  @override
+  String get noLeaderboardData => 'لا توجد بيانات لقائمة المتصدرين';
+
+  @override
+  String get playGamesToSeeScores => 'العب لترى أعلى نقاطك هنا!';
+
+  @override
+  String get playGames => 'العب';
+
+  @override
+  String get totalGames => 'إجمالي الألعاب';
+
+  @override
+  String get highestScore => 'أعلى نقاط';
+
+  @override
+  String get averageScore => 'متوسط النقاط';
+
+  @override
+  String highScore(int score) {
+    return 'أعلى نقاط: $score';
+  }
+
+  @override
+  String lastPlayed(String date) {
+    return 'آخر لعب: $date';
+  }
+
+  @override
+  String get sortBy => 'ترتيب حسب';
+
+  @override
+  String get sortByScore => 'ترتيب حسب النقاط';
+
+  @override
+  String get sortByLastPlayed => 'ترتيب حسب آخر لعب';
+
+  @override
+  String get shareAchievements => 'مشاركة الإنجازات';
+
+  @override
+  String get previewImage => 'معاينة الصورة';
+
+  @override
+  String get shareImage => 'مشاركة الصورة';
+
+  @override
+  String get shareNoData => 'لا توجد بيانات للمشاركة بعد. العب أولاً!';
+
+  @override
+  String get shareError => 'خطأ في مشاركة الإنجازات. حاول مرة أخرى.';
+
+  @override
+  String get timeUp => 'انتهى الوقت';
+
+  @override
+  String get timeUpMessage => 'انتهى وقتك!';
+
+  @override
+  String get finalScore => 'النقاط النهائية';
+
+  @override
+  String get youWon => 'لقد فزت!';
+
+  @override
+  String get congratulationsMessage => 'تهانينا! لقد أكملت التحدي!';
+
+  @override
+  String get excellentPerformance => 'أداء ممتاز!';
+
+  @override
+  String get playAgain => 'العب مرة أخرى';
+
+  @override
+  String get deleteHighScore => 'حذف أعلى نقاط';
+
+  @override
+  String get deleteHighScoreMessage =>
+      'هل أنت متأكد من أنك تريد حذف أعلى نقاط لهذه اللعبة؟';
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get selectLanguage => 'اختر اللغة';
+
+  @override
+  String get languageChangeInfo =>
+      'سيتم تطبيق تغييرات اللغة فوراً. سيتم إعادة تشغيل التطبيق لتطبيق اللغة الجديدة.';
+
+  @override
+  String get choosePreferredLanguage => 'اختر لغتك المفضلة';
+
+  @override
+  String get sort_by_date => 'ترتيب حسب التاريخ';
+
+  @override
+  String get sort_by_game => 'ترتيب حسب اللعبة';
+
+  @override
+  String get theme => 'المظهر';
+
+  @override
+  String get selectTheme => 'اختر المظهر';
+
+  @override
+  String get lightTheme => 'فاتح';
+
+  @override
+  String get darkTheme => 'داكن';
+
+  @override
+  String get systemTheme => 'النظام';
+
+  @override
+  String get lightThemeDescription => 'مظهر فاتح للبيئات المضيئة';
+
+  @override
+  String get darkThemeDescription => 'مظهر داكن للبيئات منخفضة الإضاءة';
+
+  @override
+  String get systemThemeDescription => 'يتبع إعدادات مظهر جهازك';
+
+  @override
+  String get themeChangeInfo =>
+      'سيتم تطبيق تغييرات المظهر فوراً في جميع أنحاء التطبيق.';
+
+  @override
+  String get choosePreferredTheme => 'اختر مظهرك المفضل';
+
+  @override
+  String get startGame => 'ابدأ اللعبة';
+
+  @override
+  String get restartGame => 'إعادة تشغيل اللعبة';
+
+  @override
+  String get you => 'أنت';
+
+  @override
+  String get cpu => 'المعالج';
+
+  @override
+  String get dealer => 'الموزع';
+
+  @override
+  String get youWin => 'لقد فزت!';
+
+  @override
+  String get youLose => 'لقد خسرت!';
+
+  @override
+  String get tie => 'تعادل!';
+
+  @override
+  String get total => 'المجموع';
+
+  @override
+  String get red => 'أحمر';
+
+  @override
+  String get green => 'أخضر';
+
+  @override
+  String get blue => 'أزرق';
+
+  @override
+  String get purple => 'بنفسجي';
+
+  @override
+  String get orange => 'برتقالي';
+
+  @override
+  String get yellow => 'أصفر';
+
+  @override
+  String get pink => 'وردي';
+
+  @override
+  String get brown => 'بني';
+
+  @override
+  String get play => 'العب';
+
+  @override
+  String get appSettings => 'إعدادات التطبيق';
+
+  @override
+  String get customizeAppExperience => 'خصص تجربتك في التطبيق';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get hit => 'اسحب';
+
+  @override
+  String get stand => 'قف';
+
+  @override
+  String get reactionTime => 'وقت رد الفعل';
+
+  @override
+  String get reactionTimeDescription =>
+      'اضغط على الأرقام من 1 إلى 12 بالترتيب الصحيح بأسرع ما يمكن. سيتم قياس وقتك (الأقل أفضل).';
+
+  @override
+  String get wrongSequence => 'تسلسل خاطئ!';
+
+  @override
+  String get congratulations => 'تهانينا!';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get numbersSorted => 'الأرقام المرتبة';
+
+  @override
+  String get numbersRemembered => 'الأرقام المحفوظة';
+
+  @override
+  String get correctGuesses => 'التخمينات الصحيحة';
+
+  @override
+  String get yourScore => 'نقاطك';
+
+  @override
+  String get cpuScore => 'نقاط المعالج';
+
+  @override
+  String get result => 'النتيجة';
+
+  @override
+  String get bust => 'انفجر!';
+
+  @override
+  String get wrongNumber => 'رقم خاطئ';
+
+  @override
+  String get youSuccessfullySortedAllNumbers => 'لقد رتبت جميع الأرقام بنجاح!';
+
+  @override
+  String get youRememberedAllNumbers => 'لقد تذكرت جميع الأرقام!';
+
+  @override
+  String get youGuessedCorrectly => 'لقد خمنت بشكل صحيح!';
+
+  @override
+  String get youWonTheGame => 'لقد فزت باللعبة!';
+
+  @override
+  String get youReached21 => 'لقد وصلت إلى 21!';
+
+  @override
+  String get youWentOver21 => 'لقد تجاوزت 21!';
+
+  @override
+  String get whyYouLost => 'لماذا خسرت';
+
+  @override
+  String get sortLeaderboard => 'ترتيب قائمة المتصدرين';
+
+  @override
+  String get sortByName => 'ترتيب حسب الاسم';
+
+  @override
+  String get sortByDate => 'ترتيب حسب التاريخ';
+
+  @override
+  String get perfectTime => 'وقت مثالي!';
+
+  @override
+  String get goodTime => 'وقت جيد!';
+
+  @override
+  String get averageTime => 'وقت متوسط';
+
+  @override
+  String get slowTime => 'وقت بطيء';
+
+  @override
+  String get verySlowTime => 'وقت بطيء جداً';
+
+  @override
+  String get patternMemory => 'ذاكرة الأنماط';
+
+  @override
+  String get patternMemoryDescription =>
+      'احفظ النمط على الشاشة وكرره. يصبح النمط أكثر تعقيداً في كل مستوى.';
+
+  @override
+  String get patternMemoryInstructions =>
+      'احفظ النمط على الشاشة وكرره. يصبح النمط أكثر تعقيداً في كل مستوى.';
+
+  @override
+  String get wrongPattern => 'نمط خاطئ';
+
+  @override
+  String get level => 'المستوى';
+
+  @override
+  String get wrong => 'خاطئ';
+
+  @override
+  String get row => 'صف';
+
+  @override
+  String get column => 'عمود';
+}

@@ -5,7 +5,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
+import 'app_localizations_az.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_id.dart';
+import 'app_localizations_it.dart';
+import 'app_localizations_pt.dart';
 import 'app_localizations_tr.dart';
 
 // ignore_for_file: type=lint
@@ -96,6 +105,17 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('tr'),
+    Locale('es'),
+    Locale('pt', 'br'),
+    Locale('ar'),
+    Locale('de'),
+    Locale('fr'),
+    Locale('id'),
+    Locale('hi'),
+    Locale('az'),
+    Locale('it'),
+    Locale('pt'),
+    Locale('pt', 'BR'),
   ];
 
   /// The name of the application
@@ -241,6 +261,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Targets'**
   String get targets;
+
+  /// Continue game dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Game'**
+  String get continueGame;
+
+  /// Watch ad to continue button text
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad to Continue'**
+  String get watchAdToContinue;
+
+  /// Ad not available dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Not Available'**
+  String get adNotAvailable;
+
+  /// Ad not available message
+  ///
+  /// In en, this message translates to:
+  /// **'No ads are currently available. Please try again later.'**
+  String get adNotAvailableMessage;
+
+  /// Ad failed dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Failed'**
+  String get adFailed;
+
+  /// Ad failed message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to show ad. Please try again.'**
+  String get adFailedMessage;
+
+  /// OK button text
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// Exit button text
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get exit;
 
   /// Text shown when there are more items to display
   ///
@@ -1069,6 +1137,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Very Slow Time'**
   String get verySlowTime;
+
+  /// Title for the Pattern Memory game
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Memory'**
+  String get patternMemory;
+
+  /// Description for the Pattern Memory game
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.'**
+  String get patternMemoryDescription;
+
+  /// Instructions for the Pattern Memory game
+  ///
+  /// In en, this message translates to:
+  /// **'Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.'**
+  String get patternMemoryInstructions;
+
+  /// Message when wrong pattern is selected
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Pattern'**
+  String get wrongPattern;
+
+  /// Level label
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get level;
+
+  /// Wrong message
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong'**
+  String get wrong;
+
+  /// Row label for accessibility
+  ///
+  /// In en, this message translates to:
+  /// **'row'**
+  String get row;
+
+  /// Column label for accessibility
+  ///
+  /// In en, this message translates to:
+  /// **'column'**
+  String get column;
 }
 
 class _AppLocalizationsDelegate
@@ -1081,18 +1197,59 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'tr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'az',
+    'de',
+    'en',
+    'es',
+    'fr',
+    'hi',
+    'id',
+    'it',
+    'pt',
+    'tr',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return AppLocalizationsPtBr();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'az':
+      return AppLocalizationsAz();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'id':
+      return AppLocalizationsId();
+    case 'it':
+      return AppLocalizationsIt();
+    case 'pt':
+      return AppLocalizationsPt();
     case 'tr':
       return AppLocalizationsTr();
   }

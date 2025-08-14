@@ -1,0 +1,767 @@
+{
+  "@@locale": "az",
+  "appName": "Quicko",
+  "@appName": {
+    "description": "Tətbiqin adı"
+  },
+  
+  "blindSort": "Kor Sıralama",
+  "@blindSort": {
+    "description": "Kor Sıralama oyunu üçün başlıq"
+  },
+  "blindSortDescription": "1-50 arasından 10 rəqəmi sıralayın. Yeni rəqəm heç bir yerdə yerləşmirsə uduzursunuz!",
+  "@blindSortDescription": {
+    "description": "Kor Sıralama oyunu üçün təsvir"
+  },
+  "nextNumber": "Növbəti Rəqəm",
+  "@nextNumber": {
+    "description": "Kor Sıralamada növbəti rəqəm üçün etiket"
+  },
+  "newNumberComing": "Yeni Rəqəm Gəlir...",
+  "@newNumberComing": {
+    "description": "Yeni rəqəm gələcəyi zaman mesaj"
+  },
+  
+  "start": "Başla",
+  "@start": {
+    "description": "Başla düyməsinin mətni"
+  },
+  "restart": "Yenidən Başla",
+  "@restart": {
+    "description": "Yenidən Başla düyməsinin mətni"
+  },
+  "home": "Ana Səhifə",
+  "@home": {
+    "description": "Ana Səhifə naviqasiya etiketi"
+  },
+  "games": "Oyunlar",
+  "@games": {
+    "description": "Oyunlar naviqasiya etiketi"
+  },
+  "score": "Xal",
+  "@score": {
+    "description": "Xal etiketi"
+  },
+  "gameOver": "Oyun Bitdi",
+  "@gameOver": {
+    "description": "Oyun bitdi mesajı"
+  },
+  "tryAgain": "Yenidən Cəhd Et",
+  "@tryAgain": {
+    "description": "Yenidən Cəhd Et düyməsinin mətni"
+  },
+  "share": "Paylaş",
+  "@share": {
+    "description": "Paylaş düyməsinin mətni"
+  },
+  "confirm": "Təsdiqlə",
+  "@confirm": {
+    "description": "Təsdiqlə düyməsinin mətni"
+  },
+  "fullscreen": "Tam Ekran",
+  "@fullscreen": {
+    "description": "Tam Ekran düyməsinin mətni"
+  },
+  "cancel": "Ləğv Et",
+  "@cancel": {
+    "description": "Ləğv Et düyməsinin mətni"
+  },
+  "reset": "Sıfırla",
+  "@reset": {
+    "description": "Sıfırla düyməsinin mətni"
+  },
+  
+  "higherLower": "Yüksək və ya Aşağı",
+  "@higherLower": {
+    "description": "Yüksək və ya Aşağı oyunu üçün başlıq"
+  },
+  "higherLowerDescription": "Növbəti rəqəmin yüksək və ya aşağı olacağını təxmin edin!",
+  "@higherLowerDescription": {
+    "description": "Yüksək və ya Aşağı oyunu üçün təsvir"
+  },
+  "higher": "Yüksək",
+  "@higher": {
+    "description": "Yüksək düyməsinin mətni"
+  },
+  "lower": "Aşağı",
+  "@lower": {
+    "description": "Aşağı düyməsinin mətni"
+  },
+  "lastNumber": "Son Rəqəm",
+  "@lastNumber": {
+    "description": "Son rəqəm etiketi"
+  },
+  "completedAllTargets": "Bütün hədəflər tamamlandı!",
+  "@completedAllTargets": {
+    "description": "Bütün hədəflər tamamlandığında mesaj"
+  },
+  "targets": "Hədəflər",
+  "@targets": {
+    "description": "Hədəflər etiketi"
+  },
+  "andMore": "və daha çox...",
+  "@andMore": {
+    "description": "Daha çox elementlər üçün mətn"
+  },
+  "missionFailed": "Missiya Uğursuz!",
+  "@missionFailed": {
+    "description": "Missiya uğursuzluğu mesajı"
+  },
+  "greenTargetHit": "Yaşıl hədəf vuruldu!",
+  "@greenTargetHit": {
+    "description": "Yaşıl hədəf vuruldu mesajı"
+  },
+  "youHitAllTargets": "Bütün hədəfləri vurdunuz!",
+  "@youHitAllTargets": {
+    "description": "Bütün hədəflər vuruldu mesajı"
+  },
+  "timeRanOut": "Vaxt bitdi!",
+  "@timeRanOut": {
+    "description": "Vaxt bitdi mesajı"
+  },
+  "targetsHit": "Vurulan Hədəflər",
+  "@targetsHit": {
+    "description": "Vurulan hədəflər etiketi"
+  },
+  "mistake": "Xəta",
+  "@mistake": {
+    "description": "Xəta etiketi"
+  },
+  "civilianHit": "Mülki Şəxs Vuruldu",
+  "@civilianHit": {
+    "description": "Mülki şəxs vuruldu mesajı"
+  },
+  "youFoundAllColors": "Bütün rəngləri tapdınız!",
+  "@youFoundAllColors": {
+    "description": "Bütün rənglər tapıldı mesajı"
+  },
+  "colorsFound": "Tapılan Rənglər",
+  "@colorsFound": {
+    "description": "Tapılan rənglər etiketi"
+  },
+  "lastMistake": "Son Xəta",
+  "@lastMistake": {
+    "description": "Son xəta etiketi"
+  },
+  "wrongColor": "Yanlış Rəng",
+  "@wrongColor": {
+    "description": "Yanlış rəng mesajı"
+  },
+  "currentNumber": "Cari Rəqəm",
+  "@currentNumber": {
+    "description": "Cari rəqəm etiketi"
+  },
+  "close": "Bağla",
+  "@close": {
+    "description": "Bağla düyməsinin mətni"
+  },
+  "betterLuckNextTime": "Növbəti dəfə daha yaxşı uğurlar!",
+  "@betterLuckNextTime": {
+    "description": "Təşviq mesajı"
+  },
+  "losingNumbers": "Məğlubiyyətə səbəb olan rəqəmlər",
+  "@losingNumbers": {
+    "description": "Məğlubiyyətə səbəb olan rəqəmlər etiketi"
+  },
+  "losingNumber": "Məğlubiyyətə səbəb olan rəqəm",
+  "@losingNumber": {
+    "description": "Məğlubiyyətə səbəb olan rəqəm etiketi"
+  },
+  
+  "colorHunt": "Rəng Ov",
+  "@colorHunt": {
+    "description": "Rəng Ov oyunu üçün başlıq"
+  },
+  "colorHuntDescription": "Hədəf rəngi tapın! Mətnin rəngi sizi aldada bilər!",
+  "@colorHuntDescription": {
+    "description": "Rəng Ov oyunu üçün təsvir"
+  },
+  "target": "Hədəf",
+  "@target": {
+    "description": "Hədəf etiketi"
+  },
+  "time": "Vaxt",
+  "@time": {
+    "description": "Vaxt etiketi"
+  },
+  "wrongColorSelected": "Yanlış Rəng Seçildi",
+  "@wrongColorSelected": {
+    "description": "Yanlış rəng seçildiyində mesaj"
+  },
+  "wrongColorSelection": "Yanlış Rəng Seçimi",
+  "@wrongColorSelection": {
+    "description": "Yanlış rəng seçimi etiketi"
+  },
+  
+  "favorites": "Sevimlilər",
+  "@favorites": {
+    "description": "Sevimlilər naviqasiya etiketi"
+  },
+  "loadingFavorites": "Sevimlilər yüklənir...",
+  "@loadingFavorites": {
+    "description": "Sevimlilər yüklənəndə mesaj"
+  },
+  "noFavoritesYet": "Hələ Sevimli Yoxdur",
+  "@noFavoritesYet": {
+    "description": "Sevimli olmadığında mesaj"
+  },
+  "addGamesToFavorites": "Sürətli giriş üçün oyunları sevimlilərə əlavə edin",
+  "@addGamesToFavorites": {
+    "description": "Sevimlilərə oyun əlavə etmə təlimatı"
+  },
+  "browseGames": "Oyunları Gəz",
+  "@browseGames": {
+    "description": "Oyunları Gəz düyməsinin mətni"
+  },
+  
+  "aimTrainer": "Nişan Məşqçisi",
+  "@aimTrainer": {
+    "description": "Nişan Məşqçisi oyunu üçün başlıq"
+  },
+  "aimTrainerDescription": "20 saniyə ərzində təsadüfi görünən qırmızı hədəfləri vurmağa çalışın. Hər vuruş 1 xal dəyərindədir!",
+  "@aimTrainerDescription": {
+    "description": "Nişan Məşqçisi oyunu üçün təsvir"
+  },
+  
+  "numberMemory": "Rəqəm Yaddaşı",
+  "@numberMemory": {
+    "description": "Rəqəm Yaddaşı oyunu üçün başlıq"
+  },
+  "numberMemoryDescription": "Rəqəm ardıcıllığını yadda saxlayın və klaviatura istifadə edərək düzgün daxil edin. Neçə rəqəm yadda saxlaya bilərsiniz?",
+  "@numberMemoryDescription": {
+    "description": "Rəqəm Yaddaşı oyunu üçün təsvir"
+  },
+  
+  "findDifference": "Fərqi Tap",
+  "@findDifference": {
+    "description": "Fərqi Tap oyunu üçün başlıq"
+  },
+  "findDifferenceDescription": "Fərqli rəngli kvadratı tapın. Hər raundda daha çətin olur!",
+  "@findDifferenceDescription": {
+    "description": "Fərqi Tap oyunu üçün təsvir"
+  },
+  
+  "rockPaperScissors": "Daş-Kağız-Qayçı",
+  "@rockPaperScissors": {
+    "description": "Daş-Kağız-Qayçı oyunu üçün başlıq"
+  },
+  "rockPaperScissorsDescription": "Kompüterə qarşı oynayın. İlk 5 xal qazanan qalib gəlir.",
+  "@rockPaperScissorsDescription": {
+    "description": "Daş-Kağız-Qayçı oyunu üçün təsvir"
+  },
+  
+  "twentyOne": "21 (Blackjack)",
+  "@twentyOne": {
+    "description": "21 (Blackjack) oyunu üçün başlıq"
+  },
+  "twentyOneDescription": "21-ə qədər dileri məğlub edin! Həddi keçmədən mümkün qədər yaxınlaşın.",
+  "@twentyOneDescription": {
+    "description": "21 (Blackjack) oyunu üçün təsvir"
+  },
+  
+  "nowYourTurn": "İndi sizin növbəniz!",
+  "@nowYourTurn": {
+    "description": "İndi oyunçunun növbəsi olduğu mesajı"
+  },
+  "correct": "Düzgün!",
+  "@correct": {
+    "description": "Cavab düzgün olduğunda mesaj"
+  },
+  "playing": "Oynayır",
+  "@playing": {
+    "description": "Oynayır status etiketi"
+  },
+  "youReachedLevel": "Siz {level} səviyyəsinə çatdınız",
+  "@youReachedLevel": {
+    "description": "Oyunçu yeni səviyyə əldə etdiyində mesaj",
+    "placeholders": {
+      "level": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "tapToStartGuessing": "Təxmin etməyə başlamaq üçün Yüksək və ya Aşağı düyməsinə basın! Rəqəmlər 1-50 arasındadır.",
+  "@tapToStartGuessing": {
+    "description": "Yüksək və ya Aşağıda təxmin etməyə başlama təlimatı"
+  },
+  "numbersBetween1And50": "Rəqəmlər 1-50 arasındadır",
+  "@numbersBetween1And50": {
+    "description": "Rəqəm aralığı haqqında məlumat"
+  },
+  
+  "leaderboard": "Liderlər Cədvəli",
+  "@leaderboard": {
+    "description": "Liderlər Cədvəli naviqasiya etiketi"
+  },
+  "noLeaderboardData": "Liderlər Cədvəli Məlumatı Yoxdur",
+  "@noLeaderboardData": {
+    "description": "Liderlər cədvəli məlumatı olmadığında mesaj"
+  },
+  "playGamesToSeeScores": "Ən yüksək xallarınızı burada görmək üçün oynayın!",
+  "@playGamesToSeeScores": {
+    "description": "Xalları görmək üçün oynama təlimatı"
+  },
+  "playGames": "Oyna",
+  "@playGames": {
+    "description": "Oyna düyməsinin mətni"
+  },
+  "totalGames": "Ümumi Oyunlar",
+  "@totalGames": {
+    "description": "Ümumi oyunlar etiketi"
+  },
+  "highestScore": "Ən Yüksək Xal",
+  "@highestScore": {
+    "description": "Ən yüksək xal etiketi"
+  },
+  "averageScore": "Orta Xal",
+  "@averageScore": {
+    "description": "Orta xal etiketi"
+  },
+  "highScore": "Yüksək Xal : {score}",
+  "@highScore": {
+    "description": "Xal dəyəri ilə yüksək xal göstərmə",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "lastPlayed": "Son Oynanılan : {date}",
+  "@lastPlayed": {
+    "description": "Son oyun tarixini göstərmə",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "22.03.25"
+      }
+    }
+  },
+  "sortBy": "Sırala",
+  "@sortBy": {
+    "description": "Sırala etiketi"
+  },
+  "sortByScore": "Xala görə sırala",
+  "@sortByScore": {
+    "description": "Xala görə sıralama seçimi"
+  },
+  "sortByLastPlayed": "Son oynanılan tarixə görə sırala",
+  "@sortByLastPlayed": {
+    "description": "Son oynanılan tarixə görə sıralama seçimi"
+  },
+  "shareAchievements": "Uğurları Paylaş",
+  "@shareAchievements": {
+    "description": "Uğurları Paylaş düyməsinin mətni"
+  },
+  "previewImage": "Önbaxış",
+  "@previewImage": {
+    "description": "Önbaxış düyməsinin mətni"
+  },
+  "shareImage": "Şəkli Paylaş",
+  "@shareImage": {
+    "description": "Şəkli Paylaş düyməsinin mətni"
+  },
+  "shareNoData": "İndi paylaşmaq üçün məlumat yoxdur. Əvvəlcə oynayın!",
+  "@shareNoData": {
+    "description": "Paylaşmaq üçün məlumat olmadığında mesaj"
+  },
+  "shareError": "Uğurları paylaşarkən xəta. Yenidən cəhd edin.",
+  "@shareError": {
+    "description": "Paylaşarkən xəta mesajı"
+  },
+  
+  "timeUp": "Vaxt Bitdi",
+  "@timeUp": {
+    "description": "Vaxt bitdi mesajı"
+  },
+  "timeUpMessage": "Vaxtınız bitdi!",
+  "@timeUpMessage": {
+    "description": "Vaxt bitdiyində mesaj"
+  },
+  
+  "finalScore": "Yekun Xal",
+  "@finalScore": {
+    "description": "Yekun xal etiketi"
+  },
+  "youWon": "Siz Qazandınız!",
+  "@youWon": {
+    "description": "Qalibiyyət mesajı"
+  },
+  "congratulationsMessage": "Təbrik edirik! Çətinliyi tamamladınız!",
+  "@congratulationsMessage": {
+    "description": "Qalibiyyət üçün təbrik mesajı"
+  },
+  "excellentPerformance": "Əla Performans!",
+  "@excellentPerformance": {
+    "description": "Əla performans üçün mesaj"
+  },
+  "playAgain": "Yenidən Oyna",
+  "@playAgain": {
+    "description": "Yenidən Oyna düyməsinin mətni"
+  },
+  "deleteHighScore": "Yüksək Xalı Sil",
+  "@deleteHighScore": {
+    "description": "Yüksək xalı silmə dialoqu başlığı"
+  },
+  "deleteHighScoreMessage": "Bu oyun üçün yüksək xalı silmək istədiyinizə əminsiniz?",
+  "@deleteHighScoreMessage": {
+    "description": "Yüksək xalı silmə təsdiq mesajı"
+  },
+  "delete": "Sil",
+  "@delete": {
+    "description": "Sil düyməsinin mətni"
+  },
+  "language": "Dil",
+  "@language": {
+    "description": "Dil parametrləri başlığı"
+  },
+  "selectLanguage": "Dil Seç",
+  "@selectLanguage": {
+    "description": "Dil seçimi təklifi"
+  },
+  "languageChangeInfo": "Dil dəyişikliyi dərhal tətbiq olunacaq. Yeni dil tətbiq etmək üçün tətbiq yenidən başladılacaq.",
+  "@languageChangeInfo": {
+    "description": "Dil dəyişikliyi haqqında məlumat"
+  },
+  "choosePreferredLanguage": "Seçdiyiniz dili seçin",
+  "@choosePreferredLanguage": {
+    "description": "Dil seçimi təklifi üçün mətn"
+  },
+  
+  "sort_by_date": "Tarixə görə sırala",
+  "@sort_by_date": {
+    "description": "Tarixə görə sıralama seçimi"
+  },
+  
+  "sort_by_game": "Oyuna görə sırala",
+  "@sort_by_game": {
+    "description": "Oyuna görə sıralama seçimi"
+  },
+  
+  "theme": "Tema",
+  "@theme": {
+    "description": "Tema parametrləri başlığı"
+  },
+  
+  "selectTheme": "Tema Seç",
+  "@selectTheme": {
+    "description": "Tema seçimi təklifi"
+  },
+  
+  "lightTheme": "Açıq",
+  "@lightTheme": {
+    "description": "Açıq tema seçimi"
+  },
+  
+  "darkTheme": "Qaranlıq",
+  "@darkTheme": {
+    "description": "Qaranlıq tema seçimi"
+  },
+  
+  "systemTheme": "Sistem",
+  "@systemTheme": {
+    "description": "Sistem tema seçimi"
+  },
+  
+  "lightThemeDescription": "İşıqlı mühit üçün açıq tema",
+  "@lightThemeDescription": {
+    "description": "Açıq tema təsviri"
+  },
+  
+  "darkThemeDescription": "Az işıqlı mühit üçün qaranlıq tema",
+  "@darkThemeDescription": {
+    "description": "Qaranlıq tema təsviri"
+  },
+  
+  "systemThemeDescription": "Cihazınızın tema parametrlərinə uyğun gəlir",
+  "@systemThemeDescription": {
+    "description": "Sistem tema təsviri"
+  },
+  
+  "themeChangeInfo": "Tema dəyişikliyi dərhal bütün tətbiqdə tətbiq olunacaq.",
+  "@themeChangeInfo": {
+    "description": "Tema dəyişikliyi haqqında məlumat"
+  },
+  "choosePreferredTheme": "Seçdiyiniz temanı seçin",
+  "@choosePreferredTheme": {
+    "description": "Tema seçimi təklifi üçün mətn"
+  },
+  
+  "startGame": "Oyunu Başla",
+  "@startGame": {
+    "description": "Oyunu Başla düyməsinin mətni"
+  },
+  "restartGame": "Oyunu Yenidən Başla",
+  "@restartGame": {
+    "description": "Oyunu Yenidən Başla düyməsinin mətni"
+  },
+  "you": "Siz",
+  "@you": {
+    "description": "Oyunçu etiketi"
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Kompüter rəqibi etiketi"
+  },
+  "dealer": "Diler",
+  "@dealer": {
+    "description": "Kart oyunları üçün diler etiketi"
+  },
+  "youWin": "Siz Qazandınız!",
+  "@youWin": {
+    "description": "Qalibiyyət mesajı"
+  },
+  "youLose": "Siz Uduzdunuz!",
+  "@youLose": {
+    "description": "Məğlubiyyət mesajı"
+  },
+  "tie": "Bərabər!",
+  "@tie": {
+    "description": "Bərabər mesajı"
+  },
+  "total": "Ümumi",
+  "@total": {
+    "description": "Ümumi xal etiketi"
+  },
+  
+  "red": "Qırmızı",
+  "@red": {
+    "description": "Qırmızı rəngin adı"
+  },
+  "green": "Yaşıl",
+  "@green": {
+    "description": "Yaşıl rəngin adı"
+  },
+  "blue": "Mavi",
+  "@blue": {
+    "description": "Mavi rəngin adı"
+  },
+  "purple": "Bənövşəyi",
+  "@purple": {
+    "description": "Bənövşəyi rəngin adı"
+  },
+  "orange": "Narıncı",
+  "@orange": {
+    "description": "Narıncı rəngin adı"
+  },
+  "yellow": "Sarı",
+  "@yellow": {
+    "description": "Sarı rəngin adı"
+  },
+  "pink": "Çəhrayı",
+  "@pink": {
+    "description": "Çəhrayı rəngin adı"
+  },
+  "brown": "Qəhvəyi",
+  "@brown": {
+    "description": "Qəhvəyi rəngin adı"
+  },
+  
+  "play": "Oyna",
+  "@play": {
+    "description": "Oyna düyməsinin mətni"
+  },
+  
+  "appSettings": "Tətbiq Parametrləri",
+  "@appSettings": {
+    "description": "Tətbiq parametrləri başlığı"
+  },
+  "customizeAppExperience": "Tətbiqdə təcrübənizi fərdiləşdirin",
+  "@customizeAppExperience": {
+    "description": "Tətbiq parametrləri təsviri"
+  },
+  
+  "settings": "Parametrlər",
+  "@settings": {
+    "description": "Parametrlər ekranı başlığı"
+  },
+  
+  "hit": "Vur",
+  "@hit": {
+    "description": "21 oyunu üçün Vur düyməsinin mətni"
+  },
+  "stand": "Dayan",
+  "@stand": {
+    "description": "21 oyunu üçün Dayan düyməsinin mətni"
+  },
+  
+  "reactionTime": "Reaksiya Vaxtı",
+  "@reactionTime": {
+    "description": "Reaksiya Vaxtı oyunu üçün başlıq"
+  },
+  "reactionTimeDescription": "1-dən 12-yə qədər rəqəmləri düzgün ardıcıllıqla mümkün qədər tez klikləyin. Vaxtınız ölçüləcək (az olması daha yaxşıdır).",
+  "@reactionTimeDescription": {
+    "description": "Reaksiya Vaxtı oyunu üçün təsvir"
+  },
+  "wrongSequence": "Yanlış Ardıcıllıq!",
+  "@wrongSequence": {
+    "description": "Reaksiya vaxtı oyunu üçün yanlış ardıcıllıq mesajı"
+  },
+  "congratulations": "Təbrik edirik!",
+  "@congratulations": {
+    "description": "Qazanılan oyunlar üçün təbrik mesajı"
+  },
+  "next": "Növbəti",
+  "@next": {
+    "description": "Növbəti etiketi"
+  },
+  
+  "numbersSorted": "Sıralanmış Rəqəmlər",
+  "@numbersSorted": {
+    "description": "Kor Sıralama oyununda sıralanmış rəqəmlər üçün etiket"
+  },
+  "numbersRemembered": "Yadda Saxlanılan Rəqəmlər",
+  "@numbersRemembered": {
+    "description": "Rəqəm Yaddaşı oyununda yadda saxlanılan rəqəmlər üçün etiket"
+  },
+  "correctGuesses": "Düzgün Təxminlər",
+  "@correctGuesses": {
+    "description": "Yüksək və ya Aşağı oyununda düzgün təxminlər üçün etiket"
+  },
+  "yourScore": "Sizin Xalınız",
+  "@yourScore": {
+    "description": "Daş-Kağız-Qayçı oyununda oyunçunun xalı üçün etiket"
+  },
+  "cpuScore": "CPU Xalı",
+  "@cpuScore": {
+    "description": "Daş-Kağız-Qayçı oyununda CPU xalı üçün etiket"
+  },
+  "result": "Nəticə",
+  "@result": {
+    "description": "21 oyununda nəticə üçün etiket"
+  },
+  "bust": "Bust!",
+  "@bust": {
+    "description": "Oyunçu 21-i keçdiyində mesaj"
+  },
+  "wrongNumber": "Yanlış Rəqəm",
+  "@wrongNumber": {
+    "description": "Rəqəm Yaddaşında yanlış rəqəm üçün mesaj"
+  },
+  "youSuccessfullySortedAllNumbers": "Bütün rəqəmləri uğurla sıraladınız!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "Kor Sıralama oyunu üçün uğur mesajı"
+  },
+  "youRememberedAllNumbers": "Bütün rəqəmləri yadda saxladınız!",
+  "@youRememberedAllNumbers": {
+    "description": "Rəqəm Yaddaşı oyunu üçün uğur mesajı"
+  },
+  "youGuessedCorrectly": "Düzgün təxmin etdiniz!",
+  "@youGuessedCorrectly": {
+    "description": "Yüksək və ya Aşağı oyunu üçün uğur mesajı"
+  },
+  "youWonTheGame": "Oyunu qazandınız!",
+  "@youWonTheGame": {
+    "description": "Daş-Kağız-Qayçı oyunu üçün uğur mesajı"
+  },
+  "youReached21": "21-ə çatdınız!",
+  "@youReached21": {
+    "description": "21 oyunu üçün uğur mesajı"
+  },
+  "youWentOver21": "21-i keçdiniz!",
+  "@youWentOver21": {
+    "description": "21 oyunu üçün uğursuzluq mesajı"
+  },
+  "whyYouLost": "Niyə uduzdunuz",
+  "@whyYouLost": {
+    "description": "Uduzma səbəbi bölməsi üçün etiket"
+  },
+  "sortLeaderboard": "Liderlər Cədvəlini Sırala",
+  "@sortLeaderboard": {
+    "description": "Liderlər cədvəlini sıralama dialoqu başlığı"
+  },
+  "sortByName": "Ada görə sırala",
+  "@sortByName": {
+    "description": "Ada görə sıralama seçimi"
+  },
+  "sortByDate": "Tarixə görə sırala",
+  "@sortByDate": {
+    "description": "Tarixə görə sıralama seçimi"
+  },
+  "perfectTime": "Mükəmməl Vaxt!",
+  "@perfectTime": {
+    "description": "Mükəmməl bitirmə vaxtı üçün mesaj"
+  },
+  "goodTime": "Yaxşı Vaxt!",
+  "@goodTime": {
+    "description": "Yaxşı bitirmə vaxtı üçün mesaj"
+  },
+  "averageTime": "Orta Vaxt",
+  "@averageTime": {
+    "description": "Orta bitirmə vaxtı üçün mesaj"
+  },
+  "slowTime": "Yavaş Vaxt",
+  "@slowTime": {
+    "description": "Yavaş bitirmə vaxtı üçün mesaj"
+  },
+  "verySlowTime": "Çox Yavaş Vaxt",
+  "@verySlowTime": {
+    "description": "Çox yavaş bitirmə vaxtı üçün mesaj"
+  },
+  "patternMemory": "Nümunə Yaddaşı",
+  "@patternMemory": {
+    "description": "Nümunə Yaddaşı oyunu üçün başlıq"
+  },
+  "patternMemoryDescription": "Ekrandakı nümunəni yadda saxlayın və təkrar yaradın. Hər səviyyədə nümunə daha mürəkkəb olur.",
+  "@patternMemoryDescription": {
+    "description": "Nümunə Yaddaşı oyunu üçün təsvir"
+  },
+  "patternMemoryInstructions": "Ekrandakı nümunəni yadda saxlayın və təkrar yaradın. Hər səviyyədə nümunə daha mürəkkəb olur.",
+  "@patternMemoryInstructions": {
+    "description": "Nümunə Yaddaşı oyunu üçün təlimat"
+  },
+  "wrongPattern": "Yanlış Nümunə",
+  "@wrongPattern": {
+    "description": "Yanlış nümunə seçildiyində mesaj"
+  },
+  "level": "Səviyyə",
+  "@level": {
+    "description": "Səviyyə etiketi"
+  },
+  "wrong": "Yanlış",
+  "@wrong": {
+    "description": "Yanlış mesaj"
+  },
+  "row": "sətir",
+  "@row": {
+    "description": "Giriş üçün sətir etiketi"
+  },
+  "column": "sütun",
+  "@column": {
+    "description": "Giriş üçün sütun etiketi"
+  },
+  
+  "continueGame": "Oyunu Davam Et",
+  "@continueGame": {
+    "description": "Oyunu davam et dialoqu başlığı"
+  },
+  "watchAdToContinue": "Davam etmək üçün reklamı izlə",
+  "@watchAdToContinue": {
+    "description": "Davam etmək üçün reklam izlə düyməsi mətni"
+  },
+  "adNotAvailable": "Reklam mövcud deyil",
+  "@adNotAvailable": {
+    "description": "Reklam mövcud deyil dialoqu başlığı"
+  },
+  "adNotAvailableMessage": "Hal-hazırda heç bir reklam mövcud deyil. Zəhmət olmasa daha sonra yenidən cəhd edin.",
+  "@adNotAvailableMessage": {
+    "description": "Reklam mövcud deyil mesajı"
+  },
+  "adFailed": "Reklam uğursuz oldu",
+  "@adFailed": {
+    "description": "Reklam uğursuz oldu dialoqu başlığı"
+  },
+  "adFailedMessage": "Reklamı göstərmək mümkün olmadı. Zəhmət olmasa yenidən cəhd edin.",
+  "@adFailedMessage": {
+    "description": "Reklam uğursuz oldu mesajı"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK düyməsi mətni"
+  },
+  "exit": "Çıxış",
+  "@exit": {
+    "description": "Çıxış düyməsi mətni"
+  }
+}

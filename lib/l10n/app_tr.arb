@@ -411,5 +411,70 @@
   "verySlowTime": "Çok Yavaş Süre",
   "@verySlowTime": {
     "description": "Message for very slow completion time"
+  },
+  "patternMemory": "Desen Hafızası",
+  "@patternMemory": {
+    "description": "Title for the Pattern Memory game"
+  },
+  "patternMemoryDescription": "Ekrandaki deseni ezberle ve tekrarla. Desen her seviyede daha karmaşık hale gelir.",
+  "@patternMemoryDescription": {
+    "description": "Description for the Pattern Memory game"
+  },
+  "patternMemoryInstructions": "Ekrandaki deseni ezberle ve tekrarla. Desen her seviyede daha karmaşık hale gelir.",
+  "@patternMemoryInstructions": {
+    "description": "Instructions for the Pattern Memory game"
+  },
+  "wrongPattern": "Yanlış Desen",
+  "@wrongPattern": {
+    "description": "Message when wrong pattern is selected"
+  },
+  "level": "Seviye",
+  "@level": {
+    "description": "Level label"
+  },
+  "wrong": "Yanlış",
+  "@wrong": {
+    "description": "Wrong message"
+  },
+  "row": "satır",
+  "@row": {
+    "description": "Row label for accessibility"
+  },
+  "column": "sütun",
+  "@column": {
+    "description": "Column label for accessibility"
+  },
+  
+  "continueGame": "Oyunu Devam Ettir",
+  "@continueGame": {
+    "description": "Continue game dialog title"
+  },
+  "watchAdToContinue": "Devam Etmek İçin Reklam İzle",
+  "@watchAdToContinue": {
+    "description": "Watch ad to continue button text"
+  },
+  "adNotAvailable": "Reklam Mevcut Değil",
+  "@adNotAvailable": {
+    "description": "Ad not available dialog title"
+  },
+  "adNotAvailableMessage": "Şu anda reklam mevcut değil. Lütfen daha sonra tekrar deneyin.",
+  "@adNotAvailableMessage": {
+    "description": "Ad not available message"
+  },
+  "adFailed": "Reklam Başarısız",
+  "@adFailed": {
+    "description": "Ad failed dialog title"
+  },
+  "adFailedMessage": "Reklam gösterilemedi. Lütfen tekrar deneyin.",
+  "@adFailedMessage": {
+    "description": "Ad failed message"
+  },
+  "ok": "Tamam",
+  "@ok": {
+    "description": "OK button text"
+  },
+  "exit": "Çıkış",
+  "@exit": {
+    "description": "Exit button text"
   }
 }

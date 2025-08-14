@@ -83,6 +83,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get targets => 'Targets';
 
   @override
+  String get continueGame => 'Continue Game';
+
+  @override
+  String get watchAdToContinue => 'Watch Ad to Continue';
+
+  @override
+  String get adNotAvailable => 'Ad Not Available';
+
+  @override
+  String get adNotAvailableMessage =>
+      'No ads are currently available. Please try again later.';
+
+  @override
+  String get adFailed => 'Ad Failed';
+
+  @override
+  String get adFailedMessage => 'Failed to show ad. Please try again.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get exit => 'Exit';
+
+  @override
   String get andMore => 'and more...';
 
   @override
@@ -514,4 +539,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verySlowTime => 'Very Slow Time';
+
+  @override
+  String get patternMemory => 'Pattern Memory';
+
+  @override
+  String get patternMemoryDescription =>
+      'Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.';
+
+  @override
+  String get patternMemoryInstructions =>
+      'Memorize the pattern on the screen and replicate it. The pattern gets more complex with each level.';
+
+  @override
+  String get wrongPattern => 'Wrong Pattern';
+
+  @override
+  String get level => 'Level';
+
+  @override
+  String get wrong => 'Wrong';
+
+  @override
+  String get row => 'row';
+
+  @override
+  String get column => 'column';
 }

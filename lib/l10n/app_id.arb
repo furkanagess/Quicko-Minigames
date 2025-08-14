@@ -1,0 +1,767 @@
+{
+  "@@locale": "id",
+  "appName": "Quicko",
+  "@appName": {
+    "description": "Nama aplikasi"
+  },
+  
+  "blindSort": "Urut Buta",
+  "@blindSort": {
+    "description": "Judul untuk permainan Urut Buta"
+  },
+  "blindSortDescription": "Urutkan 10 angka dari 1-50. Anda kalah jika angka baru tidak bisa dimasukkan ke mana pun!",
+  "@blindSortDescription": {
+    "description": "Deskripsi untuk permainan Urut Buta"
+  },
+  "nextNumber": "Angka Berikutnya",
+  "@nextNumber": {
+    "description": "Label untuk angka berikutnya dalam Urut Buta"
+  },
+  "newNumberComing": "Angka Baru Datang...",
+  "@newNumberComing": {
+    "description": "Pesan ketika angka baru akan muncul"
+  },
+  
+  "start": "Mulai",
+  "@start": {
+    "description": "Teks tombol Mulai"
+  },
+  "restart": "Mulai Ulang",
+  "@restart": {
+    "description": "Teks tombol Mulai Ulang"
+  },
+  "home": "Beranda",
+  "@home": {
+    "description": "Label navigasi Beranda"
+  },
+  "games": "Permainan",
+  "@games": {
+    "description": "Label navigasi Permainan"
+  },
+  "score": "Skor",
+  "@score": {
+    "description": "Label skor"
+  },
+  "gameOver": "Permainan Selesai",
+  "@gameOver": {
+    "description": "Pesan permainan selesai"
+  },
+  "tryAgain": "Coba Lagi",
+  "@tryAgain": {
+    "description": "Teks tombol Coba Lagi"
+  },
+  "share": "Bagikan",
+  "@share": {
+    "description": "Teks tombol Bagikan"
+  },
+  "confirm": "Konfirmasi",
+  "@confirm": {
+    "description": "Teks tombol Konfirmasi"
+  },
+  "fullscreen": "Layar Penuh",
+  "@fullscreen": {
+    "description": "Teks tombol Layar Penuh"
+  },
+  "cancel": "Batal",
+  "@cancel": {
+    "description": "Teks tombol Batal"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Teks tombol Reset"
+  },
+  
+  "higherLower": "Lebih Tinggi atau Lebih Rendah",
+  "@higherLower": {
+    "description": "Judul untuk permainan Lebih Tinggi atau Lebih Rendah"
+  },
+  "higherLowerDescription": "Tebak apakah angka berikutnya akan lebih tinggi atau lebih rendah!",
+  "@higherLowerDescription": {
+    "description": "Deskripsi untuk permainan Lebih Tinggi atau Lebih Rendah"
+  },
+  "higher": "Lebih Tinggi",
+  "@higher": {
+    "description": "Teks tombol Lebih Tinggi"
+  },
+  "lower": "Lebih Rendah",
+  "@lower": {
+    "description": "Teks tombol Lebih Rendah"
+  },
+  "lastNumber": "Angka Terakhir",
+  "@lastNumber": {
+    "description": "Label angka terakhir"
+  },
+  "completedAllTargets": "Semua target selesai!",
+  "@completedAllTargets": {
+    "description": "Pesan ketika semua target selesai"
+  },
+  "targets": "Target",
+  "@targets": {
+    "description": "Label target"
+  },
+  "andMore": "dan lebih...",
+  "@andMore": {
+    "description": "Teks untuk lebih banyak elemen"
+  },
+  "missionFailed": "Misi Gagal!",
+  "@missionFailed": {
+    "description": "Pesan kegagalan misi"
+  },
+  "greenTargetHit": "Target hijau terkena!",
+  "@greenTargetHit": {
+    "description": "Pesan target hijau terkena"
+  },
+  "youHitAllTargets": "Anda telah mengenai semua target!",
+  "@youHitAllTargets": {
+    "description": "Pesan semua target terkena"
+  },
+  "timeRanOut": "Waktu habis!",
+  "@timeRanOut": {
+    "description": "Pesan waktu habis"
+  },
+  "targetsHit": "Target Terkena",
+  "@targetsHit": {
+    "description": "Label target terkena"
+  },
+  "mistake": "Kesalahan",
+  "@mistake": {
+    "description": "Label kesalahan"
+  },
+  "civilianHit": "Warga Sipil Terkena",
+  "@civilianHit": {
+    "description": "Pesan warga sipil terkena"
+  },
+  "youFoundAllColors": "Anda telah menemukan semua warna!",
+  "@youFoundAllColors": {
+    "description": "Pesan semua warna ditemukan"
+  },
+  "colorsFound": "Warna Ditemukan",
+  "@colorsFound": {
+    "description": "Label warna ditemukan"
+  },
+  "lastMistake": "Kesalahan Terakhir",
+  "@lastMistake": {
+    "description": "Label kesalahan terakhir"
+  },
+  "wrongColor": "Warna Salah",
+  "@wrongColor": {
+    "description": "Pesan warna salah"
+  },
+  "currentNumber": "Angka Saat Ini",
+  "@currentNumber": {
+    "description": "Label angka saat ini"
+  },
+  "close": "Tutup",
+  "@close": {
+    "description": "Teks tombol Tutup"
+  },
+  "betterLuckNextTime": "Semoga beruntung lain kali!",
+  "@betterLuckNextTime": {
+    "description": "Pesan dorongan"
+  },
+  "losingNumbers": "Angka yang menyebabkan kekalahan",
+  "@losingNumbers": {
+    "description": "Label angka yang kalah"
+  },
+  "losingNumber": "Angka yang menyebabkan kekalahan",
+  "@losingNumber": {
+    "description": "Label angka yang kalah"
+  },
+  
+  "colorHunt": "Perburuan Warna",
+  "@colorHunt": {
+    "description": "Judul untuk permainan Perburuan Warna"
+  },
+  "colorHuntDescription": "Temukan warna target! Warna teks bisa menipu Anda!",
+  "@colorHuntDescription": {
+    "description": "Deskripsi untuk permainan Perburuan Warna"
+  },
+  "target": "Target",
+  "@target": {
+    "description": "Label target"
+  },
+  "time": "Waktu",
+  "@time": {
+    "description": "Label waktu"
+  },
+  "wrongColorSelected": "Warna Salah Dipilih",
+  "@wrongColorSelected": {
+    "description": "Pesan ketika warna salah dipilih"
+  },
+  "wrongColorSelection": "Pemilihan Warna Salah",
+  "@wrongColorSelection": {
+    "description": "Label pemilihan warna salah"
+  },
+  
+  "favorites": "Favorit",
+  "@favorites": {
+    "description": "Label navigasi Favorit"
+  },
+  "loadingFavorites": "Memuat favorit...",
+  "@loadingFavorites": {
+    "description": "Pesan saat memuat favorit"
+  },
+  "noFavoritesYet": "Belum Ada Favorit",
+  "@noFavoritesYet": {
+    "description": "Pesan ketika belum ada favorit"
+  },
+  "addGamesToFavorites": "Tambahkan permainan ke favorit untuk akses cepat",
+  "@addGamesToFavorites": {
+    "description": "Instruksi untuk menambahkan permainan ke favorit"
+  },
+  "browseGames": "Jelajahi Permainan",
+  "@browseGames": {
+    "description": "Teks tombol Jelajahi permainan"
+  },
+  
+  "aimTrainer": "Pelatih Tembak",
+  "@aimTrainer": {
+    "description": "Judul untuk permainan Pelatih Tembak"
+  },
+  "aimTrainerDescription": "Coba tembak target merah yang muncul secara acak selama 20 detik. Setiap tembakan bernilai 1 poin!",
+  "@aimTrainerDescription": {
+    "description": "Deskripsi untuk permainan Pelatih Tembak"
+  },
+  
+  "numberMemory": "Memori Angka",
+  "@numberMemory": {
+    "description": "Judul untuk permainan Memori Angka"
+  },
+  "numberMemoryDescription": "Hafalkan urutan angka dan masukkan dengan benar menggunakan keyboard. Berapa banyak digit yang bisa Anda ingat?",
+  "@numberMemoryDescription": {
+    "description": "Deskripsi untuk permainan Memori Angka"
+  },
+  
+  "findDifference": "Temukan Perbedaannya",
+  "@findDifference": {
+    "description": "Judul untuk permainan Temukan Perbedaannya"
+  },
+  "findDifferenceDescription": "Temukan kotak dengan warna yang berbeda. Menjadi lebih sulit di setiap ronde!",
+  "@findDifferenceDescription": {
+    "description": "Deskripsi untuk permainan Temukan Perbedaannya"
+  },
+  
+  "rockPaperScissors": "Batu-Gunting-Kertas",
+  "@rockPaperScissors": {
+    "description": "Judul untuk permainan Batu-Gunting-Kertas"
+  },
+  "rockPaperScissorsDescription": "Mainkan melawan komputer. Yang pertama mencapai 5 poin menang.",
+  "@rockPaperScissorsDescription": {
+    "description": "Deskripsi untuk permainan Batu-Gunting-Kertas"
+  },
+  
+  "twentyOne": "21 (Blackjack)",
+  "@twentyOne": {
+    "description": "Judul untuk permainan 21 (Blackjack)"
+  },
+  "twentyOneDescription": "Kalahkan dealer sampai 21! Mendekatlah sebisa mungkin tanpa melewati batas.",
+  "@twentyOneDescription": {
+    "description": "Deskripsi untuk permainan 21 (Blackjack)"
+  },
+  
+  "nowYourTurn": "Sekarang giliran Anda!",
+  "@nowYourTurn": {
+    "description": "Pesan bahwa sekarang giliran pemain"
+  },
+  "correct": "Benar!",
+  "@correct": {
+    "description": "Pesan ketika jawaban benar"
+  },
+  "playing": "Sedang Bermain",
+  "@playing": {
+    "description": "Label status sedang bermain"
+  },
+  "youReachedLevel": "Anda telah mencapai Level {level}",
+  "@youReachedLevel": {
+    "description": "Pesan ketika pemain mencapai level baru",
+    "placeholders": {
+      "level": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "tapToStartGuessing": "Tekan Lebih Tinggi atau Lebih Rendah untuk mulai menebak! Angka antara 1-50.",
+  "@tapToStartGuessing": {
+    "description": "Instruksi untuk mulai menebak dalam Lebih Tinggi atau Lebih Rendah"
+  },
+  "numbersBetween1And50": "Angka antara 1-50",
+  "@numbersBetween1And50": {
+    "description": "Informasi tentang rentang angka"
+  },
+  
+  "leaderboard": "Papan Peringkat",
+  "@leaderboard": {
+    "description": "Label navigasi Papan Peringkat"
+  },
+  "noLeaderboardData": "Tidak Ada Data Papan Peringkat",
+  "@noLeaderboardData": {
+    "description": "Pesan ketika tidak ada data papan peringkat"
+  },
+  "playGamesToSeeScores": "Mainkan permainan untuk melihat skor tertinggi Anda di sini!",
+  "@playGamesToSeeScores": {
+    "description": "Instruksi untuk bermain untuk melihat skor"
+  },
+  "playGames": "Mainkan",
+  "@playGames": {
+    "description": "Teks tombol Mainkan"
+  },
+  "totalGames": "Total Permainan",
+  "@totalGames": {
+    "description": "Label total permainan"
+  },
+  "highestScore": "Skor Tertinggi",
+  "@highestScore": {
+    "description": "Label skor tertinggi"
+  },
+  "averageScore": "Skor Rata-rata",
+  "@averageScore": {
+    "description": "Label skor rata-rata"
+  },
+  "highScore": "Skor Tinggi : {score}",
+  "@highScore": {
+    "description": "Tampilan skor tinggi dengan nilai skor",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "100"
+      }
+    }
+  },
+  "lastPlayed": "Terakhir Dimainkan : {date}",
+  "@lastPlayed": {
+    "description": "Tampilan tanggal permainan terakhir",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "22.03.25"
+      }
+    }
+  },
+  "sortBy": "Urutkan Berdasarkan",
+  "@sortBy": {
+    "description": "Label Urutkan berdasarkan"
+  },
+  "sortByScore": "Urutkan berdasarkan Skor",
+  "@sortByScore": {
+    "description": "Opsi pengurutan berdasarkan skor"
+  },
+  "sortByLastPlayed": "Urutkan berdasarkan Permainan Terakhir",
+  "@sortByLastPlayed": {
+    "description": "Opsi pengurutan berdasarkan permainan terakhir"
+  },
+  "shareAchievements": "Bagikan Prestasi",
+  "@shareAchievements": {
+    "description": "Teks tombol Bagikan prestasi"
+  },
+  "previewImage": "Pratinjau",
+  "@previewImage": {
+    "description": "Teks tombol Pratinjau"
+  },
+  "shareImage": "Bagikan Gambar",
+  "@shareImage": {
+    "description": "Teks tombol Bagikan gambar"
+  },
+  "shareNoData": "Tidak ada data untuk dibagikan saat ini. Mainkan dulu!",
+  "@shareNoData": {
+    "description": "Pesan ketika tidak ada data yang tersedia untuk dibagikan"
+  },
+  "shareError": "Error saat membagikan prestasi. Coba lagi.",
+  "@shareError": {
+    "description": "Pesan error saat berbagi"
+  },
+  
+  "timeUp": "Waktu Habis",
+  "@timeUp": {
+    "description": "Pesan waktu habis"
+  },
+  "timeUpMessage": "Waktu Anda habis!",
+  "@timeUpMessage": {
+    "description": "Pesan ketika waktu habis"
+  },
+  
+  "finalScore": "Skor Akhir",
+  "@finalScore": {
+    "description": "Label skor akhir"
+  },
+  "youWon": "Anda Menang!",
+  "@youWon": {
+    "description": "Pesan kemenangan"
+  },
+  "congratulationsMessage": "Selamat! Anda telah menyelesaikan tantangan!",
+  "@congratulationsMessage": {
+    "description": "Pesan selamat untuk kemenangan"
+  },
+  "excellentPerformance": "Performa Luar Biasa!",
+  "@excellentPerformance": {
+    "description": "Pesan untuk performa luar biasa"
+  },
+  "playAgain": "Main Lagi",
+  "@playAgain": {
+    "description": "Teks tombol Main Lagi"
+  },
+  "deleteHighScore": "Hapus Skor Tinggi",
+  "@deleteHighScore": {
+    "description": "Judul dialog penghapusan skor tinggi"
+  },
+  "deleteHighScoreMessage": "Apakah Anda yakin ingin menghapus skor tinggi untuk permainan ini?",
+  "@deleteHighScoreMessage": {
+    "description": "Pesan konfirmasi penghapusan skor tinggi"
+  },
+  "delete": "Hapus",
+  "@delete": {
+    "description": "Teks tombol Hapus"
+  },
+  "language": "Bahasa",
+  "@language": {
+    "description": "Judul pengaturan bahasa"
+  },
+  "selectLanguage": "Pilih Bahasa",
+  "@selectLanguage": {
+    "description": "Prompt pemilihan bahasa"
+  },
+  "languageChangeInfo": "Perubahan bahasa akan diterapkan segera. Aplikasi akan di-restart untuk menerapkan bahasa baru.",
+  "@languageChangeInfo": {
+    "description": "Informasi tentang perubahan bahasa"
+  },
+  "choosePreferredLanguage": "Pilih bahasa yang Anda inginkan",
+  "@choosePreferredLanguage": {
+    "description": "Teks untuk prompt pemilihan bahasa"
+  },
+  
+  "sort_by_date": "Urutkan berdasarkan Tanggal",
+  "@sort_by_date": {
+    "description": "Opsi pengurutan berdasarkan tanggal"
+  },
+  
+  "sort_by_game": "Urutkan berdasarkan Permainan",
+  "@sort_by_game": {
+    "description": "Opsi pengurutan berdasarkan permainan"
+  },
+  
+  "theme": "Tema",
+  "@theme": {
+    "description": "Judul pengaturan tema"
+  },
+  
+  "selectTheme": "Pilih Tema",
+  "@selectTheme": {
+    "description": "Prompt pemilihan tema"
+  },
+  
+  "lightTheme": "Terang",
+  "@lightTheme": {
+    "description": "Opsi tema terang"
+  },
+  
+  "darkTheme": "Gelap",
+  "@darkTheme": {
+    "description": "Opsi tema gelap"
+  },
+  
+  "systemTheme": "Sistem",
+  "@systemTheme": {
+    "description": "Opsi tema sistem"
+  },
+  
+  "lightThemeDescription": "Tema terang untuk lingkungan yang terang",
+  "@lightThemeDescription": {
+    "description": "Deskripsi tema terang"
+  },
+  
+  "darkThemeDescription": "Tema gelap untuk lingkungan yang kurang terang",
+  "@darkThemeDescription": {
+    "description": "Deskripsi tema gelap"
+  },
+  
+  "systemThemeDescription": "Mengikuti pengaturan tema perangkat Anda",
+  "@systemThemeDescription": {
+    "description": "Deskripsi tema sistem"
+  },
+  
+  "themeChangeInfo": "Perubahan tema akan diterapkan segera di seluruh aplikasi.",
+  "@themeChangeInfo": {
+    "description": "Informasi tentang perubahan tema"
+  },
+  "choosePreferredTheme": "Pilih tema yang Anda inginkan",
+  "@choosePreferredTheme": {
+    "description": "Teks untuk prompt pemilihan tema"
+  },
+  
+  "startGame": "Mulai Permainan",
+  "@startGame": {
+    "description": "Teks tombol Mulai permainan"
+  },
+  "restartGame": "Mulai Ulang Permainan",
+  "@restartGame": {
+    "description": "Teks tombol Mulai ulang permainan"
+  },
+  "you": "Anda",
+  "@you": {
+    "description": "Label pemain"
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Label lawan komputer"
+  },
+  "dealer": "Dealer",
+  "@dealer": {
+    "description": "Label dealer untuk permainan kartu"
+  },
+  "youWin": "Anda Menang!",
+  "@youWin": {
+    "description": "Pesan kemenangan"
+  },
+  "youLose": "Anda Kalah!",
+  "@youLose": {
+    "description": "Pesan kekalahan"
+  },
+  "tie": "Seri!",
+  "@tie": {
+    "description": "Pesan seri"
+  },
+  "total": "Total",
+  "@total": {
+    "description": "Label skor total"
+  },
+  
+  "red": "Merah",
+  "@red": {
+    "description": "Nama warna merah"
+  },
+  "green": "Hijau",
+  "@green": {
+    "description": "Nama warna hijau"
+  },
+  "blue": "Biru",
+  "@blue": {
+    "description": "Nama warna biru"
+  },
+  "purple": "Ungu",
+  "@purple": {
+    "description": "Nama warna ungu"
+  },
+  "orange": "Oranye",
+  "@orange": {
+    "description": "Nama warna oranye"
+  },
+  "yellow": "Kuning",
+  "@yellow": {
+    "description": "Nama warna kuning"
+  },
+  "pink": "Pink",
+  "@pink": {
+    "description": "Nama warna pink"
+  },
+  "brown": "Cokelat",
+  "@brown": {
+    "description": "Nama warna cokelat"
+  },
+  
+  "play": "Main",
+  "@play": {
+    "description": "Teks tombol Main"
+  },
+  
+  "appSettings": "Pengaturan Aplikasi",
+  "@appSettings": {
+    "description": "Judul pengaturan aplikasi"
+  },
+  "customizeAppExperience": "Sesuaikan pengalaman Anda dalam aplikasi",
+  "@customizeAppExperience": {
+    "description": "Deskripsi pengaturan aplikasi"
+  },
+  
+  "settings": "Pengaturan",
+  "@settings": {
+    "description": "Judul layar Pengaturan"
+  },
+  
+  "hit": "Ambil",
+  "@hit": {
+    "description": "Teks tombol Ambil untuk permainan 21"
+  },
+  "stand": "Berhenti",
+  "@stand": {
+    "description": "Teks tombol Berhenti untuk permainan 21"
+  },
+  
+  "reactionTime": "Waktu Reaksi",
+  "@reactionTime": {
+    "description": "Judul untuk permainan Waktu Reaksi"
+  },
+  "reactionTimeDescription": "Klik angka dari 1 hingga 12 dalam urutan yang benar secepat mungkin. Waktu Anda akan diukur (lebih rendah lebih baik).",
+  "@reactionTimeDescription": {
+    "description": "Deskripsi untuk permainan Waktu Reaksi"
+  },
+  "wrongSequence": "Urutan Salah!",
+  "@wrongSequence": {
+    "description": "Pesan urutan salah untuk permainan waktu reaksi"
+  },
+  "congratulations": "Selamat!",
+  "@congratulations": {
+    "description": "Pesan selamat untuk permainan yang dimenangkan"
+  },
+  "next": "Berikutnya",
+  "@next": {
+    "description": "Label Berikutnya"
+  },
+  
+  "numbersSorted": "Angka Diurutkan",
+  "@numbersSorted": {
+    "description": "Label untuk angka yang diurutkan dalam permainan Urut Buta"
+  },
+  "numbersRemembered": "Angka Dihafal",
+  "@numbersRemembered": {
+    "description": "Label untuk angka yang dihafal dalam permainan Memori Angka"
+  },
+  "correctGuesses": "Tebakan Benar",
+  "@correctGuesses": {
+    "description": "Label untuk tebakan benar dalam permainan Lebih Tinggi atau Lebih Rendah"
+  },
+  "yourScore": "Skor Anda",
+  "@yourScore": {
+    "description": "Label untuk skor pemain dalam permainan Batu-Gunting-Kertas"
+  },
+  "cpuScore": "Skor CPU",
+  "@cpuScore": {
+    "description": "Label untuk skor CPU dalam permainan Batu-Gunting-Kertas"
+  },
+  "result": "Hasil",
+  "@result": {
+    "description": "Label untuk hasil dalam permainan 21"
+  },
+  "bust": "Bust!",
+  "@bust": {
+    "description": "Pesan ketika pemain melewati 21"
+  },
+  "wrongNumber": "Angka Salah",
+  "@wrongNumber": {
+    "description": "Pesan untuk angka salah dalam Memori Angka"
+  },
+  "youSuccessfullySortedAllNumbers": "Anda berhasil mengurutkan semua angka!",
+  "@youSuccessfullySortedAllNumbers": {
+    "description": "Pesan sukses untuk permainan Urut Buta"
+  },
+  "youRememberedAllNumbers": "Anda telah menghafal semua angka!",
+  "@youRememberedAllNumbers": {
+    "description": "Pesan sukses untuk permainan Memori Angka"
+  },
+  "youGuessedCorrectly": "Anda menebak dengan benar!",
+  "@youGuessedCorrectly": {
+    "description": "Pesan sukses untuk permainan Lebih Tinggi atau Lebih Rendah"
+  },
+  "youWonTheGame": "Anda memenangkan permainan!",
+  "@youWonTheGame": {
+    "description": "Pesan sukses untuk permainan Batu-Gunting-Kertas"
+  },
+  "youReached21": "Anda mencapai 21!",
+  "@youReached21": {
+    "description": "Pesan sukses untuk permainan 21"
+  },
+  "youWentOver21": "Anda melewati 21!",
+  "@youWentOver21": {
+    "description": "Pesan kegagalan untuk permainan 21"
+  },
+  "whyYouLost": "Mengapa Anda kalah",
+  "@whyYouLost": {
+    "description": "Label untuk bagian alasan kekalahan"
+  },
+  "sortLeaderboard": "Urutkan Papan Peringkat",
+  "@sortLeaderboard": {
+    "description": "Judul dialog pengurutan papan peringkat"
+  },
+  "sortByName": "Urutkan berdasarkan Nama",
+  "@sortByName": {
+    "description": "Opsi pengurutan berdasarkan nama"
+  },
+  "sortByDate": "Urutkan berdasarkan Tanggal",
+  "@sortByDate": {
+    "description": "Opsi pengurutan berdasarkan tanggal"
+  },
+  "perfectTime": "Waktu Sempurna!",
+  "@perfectTime": {
+    "description": "Pesan untuk waktu penyelesaian yang sempurna"
+  },
+  "goodTime": "Waktu Bagus!",
+  "@goodTime": {
+    "description": "Pesan untuk waktu penyelesaian yang bagus"
+  },
+  "averageTime": "Waktu Rata-rata",
+  "@averageTime": {
+    "description": "Pesan untuk waktu penyelesaian rata-rata"
+  },
+  "slowTime": "Waktu Lambat",
+  "@slowTime": {
+    "description": "Pesan untuk waktu penyelesaian lambat"
+  },
+  "verySlowTime": "Waktu Sangat Lambat",
+  "@verySlowTime": {
+    "description": "Pesan untuk waktu penyelesaian sangat lambat"
+  },
+  "patternMemory": "Memori Pola",
+  "@patternMemory": {
+    "description": "Judul untuk permainan Memori Pola"
+  },
+  "patternMemoryDescription": "Hafalkan pola di layar dan reproduksi. Pola menjadi lebih kompleks di setiap level.",
+  "@patternMemoryDescription": {
+    "description": "Deskripsi untuk permainan Memori Pola"
+  },
+  "patternMemoryInstructions": "Hafalkan pola di layar dan reproduksi. Pola menjadi lebih kompleks di setiap level.",
+  "@patternMemoryInstructions": {
+    "description": "Instruksi untuk permainan Memori Pola"
+  },
+  "wrongPattern": "Pola Salah",
+  "@wrongPattern": {
+    "description": "Pesan ketika pola salah dipilih"
+  },
+  "level": "Level",
+  "@level": {
+    "description": "Label level"
+  },
+  "wrong": "Salah",
+  "@wrong": {
+    "description": "Pesan salah"
+  },
+  "row": "baris",
+  "@row": {
+    "description": "Label baris untuk aksesibilitas"
+  },
+  "column": "kolom",
+  "@column": {
+    "description": "Label kolom untuk aksesibilitas"
+  },
+  
+  "continueGame": "Lanjutkan Permainan",
+  "@continueGame": {
+    "description": "Judul dialog lanjutkan permainan"
+  },
+  "watchAdToContinue": "Tonton Iklan untuk Melanjutkan",
+  "@watchAdToContinue": {
+    "description": "Teks tombol tonton iklan untuk melanjutkan"
+  },
+  "adNotAvailable": "Iklan Tidak Tersedia",
+  "@adNotAvailable": {
+    "description": "Judul dialog iklan tidak tersedia"
+  },
+  "adNotAvailableMessage": "Tidak ada iklan yang tersedia saat ini. Silakan coba lagi nanti.",
+  "@adNotAvailableMessage": {
+    "description": "Pesan iklan tidak tersedia"
+  },
+  "adFailed": "Iklan Gagal",
+  "@adFailed": {
+    "description": "Judul dialog iklan gagal"
+  },
+  "adFailedMessage": "Gagal menampilkan iklan. Silakan coba lagi.",
+  "@adFailedMessage": {
+    "description": "Pesan iklan gagal"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Teks tombol OK"
+  },
+  "exit": "Keluar",
+  "@exit": {
+    "description": "Teks tombol keluar"
+  }
+}
