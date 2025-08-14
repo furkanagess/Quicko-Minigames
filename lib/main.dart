@@ -12,7 +12,9 @@ import 'core/providers/language_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/routes/app_router.dart';
 import 'core/utils/global_context.dart';
+import 'core/constants/supported_locales.dart';
 import 'features/favorites/providers/favorites_provider.dart';
+import 'core/services/admob_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,9 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  // Initialize AdMob
+  await AdMobService().initialize();
 
   runApp(const MyApp());
 }
@@ -60,10 +65,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: const [
-              Locale('en'), // English
-              Locale('tr'), // Turkish
-            ],
+            supportedLocales: SupportedLocales.locales,
             locale: languageProvider.currentLocale,
 
             // Theme
@@ -77,11 +79,17 @@ class MyApp extends StatelessWidget {
 
             // Performance
             builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(
-                  context,
-                ).copyWith(textScaler: const TextScaler.linear(1.0)),
-                child: child!,
+              return Directionality(
+                textDirection:
+                    languageProvider.currentLocale.languageCode == 'ar'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
+                child: MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: const TextScaler.linear(1.0)),
+                  child: child!,
+                ),
               );
             },
           );
