@@ -48,7 +48,7 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>GADApplicationIdentifier</key>
-		<string>ca-app-pub-3499593115543692~4966644738</string>
+		<string>$(ADMOB_APP_ID)</string>
 		<key>SKAdNetworkItems</key>
 		<array>
 			<dict>

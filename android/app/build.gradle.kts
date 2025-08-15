@@ -28,6 +28,9 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        
+        // AdMob Configuration
+        buildConfigField("String", "ADMOB_APP_ID", "\"ca-app-pub-3499593115543692~6841713620\"")
     }
 
     buildTypes {
