@@ -306,6 +306,10 @@
   "@playGames": {
     "description": "Texte du bouton Jouer"
   },
+  "swipeToDeleteHint": "Glissez vers la gauche pour supprimer les scores élevés",
+  "@swipeToDeleteHint": {
+    "description": "Texte d'indication pour la fonctionnalité de glissement pour supprimer"
+  },
   "totalGames": "Total des Jeux",
   "@totalGames": {
     "description": "Étiquette du total des jeux"

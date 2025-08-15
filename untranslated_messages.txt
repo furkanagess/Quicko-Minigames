@@ -1,4 +1,109 @@
 {
+  "ar": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "az": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "es": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "fr": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "hi": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "id": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
+  "it": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
+  ],
+
   "pt": [
     "blindSort",
     "blindSortDescription",
@@ -79,6 +184,19 @@
     "noLeaderboardData",
     "playGamesToSeeScores",
     "playGames",
+    "swipeToDeleteHint",
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError",
     "totalGames",
     "highestScore",
     "averageScore",
@@ -177,5 +295,20 @@
     "wrong",
     "row",
     "column"
+  ],
+
+  "pt_BR": [
+    "removeAds",
+    "removeAdsDescription",
+    "monthlySubscription",
+    "subscribeNow",
+    "restorePurchases",
+    "subscriptionActive",
+    "subscriptionExpired",
+    "daysRemaining",
+    "purchaseSuccess",
+    "purchaseError",
+    "restoreSuccess",
+    "restoreError"
   ]
 }

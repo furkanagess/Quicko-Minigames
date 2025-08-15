@@ -306,6 +306,10 @@
   "@playGames": {
     "description": "Play games button text"
   },
+  "swipeToDeleteHint": "Deslize para a esquerda para excluir pontuações altas",
+  "@swipeToDeleteHint": {
+    "description": "Hint text for swipe to delete functionality"
+  },
   "totalGames": "Total de Jogos",
   "@totalGames": {
     "description": "Total games label"

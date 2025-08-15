@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_config.dart';
+import 'in_app_purchase_service.dart';
 
 class AdMobService {
   static final AdMobService _instance = AdMobService._internal();
@@ -21,6 +22,7 @@ class AdMobService {
   bool _isAdLoaded = false;
   bool _isAdLoading = false;
   bool _isBannerAdLoaded = false;
+  final InAppPurchaseService _purchaseService = InAppPurchaseService();
 
   /// Initialize AdMob
   Future<void> initialize() async {
@@ -35,7 +37,9 @@ class AdMobService {
       print('AdMob: Initialized successfully');
       print('AdMob: Using Rewarded Ad ID: $_rewardedAdUnitId');
       print('AdMob: Using Banner Ad ID: $_bannerAdUnitId');
-      print('AdMob: Using Leaderboard Banner Ad ID: $_leaderboardBannerAdUnitId');
+      print(
+        'AdMob: Using Leaderboard Banner Ad ID: $_leaderboardBannerAdUnitId',
+      );
     }
   }
 
@@ -366,6 +370,15 @@ class AdMobService {
 
   /// Check if banner ad is available
   bool get isBannerAdAvailable => _isBannerAdLoaded && _bannerAd != null;
+
+  /// Check if ads should be shown (respects ad-free subscription)
+  bool get shouldShowAds => !_purchaseService.isAdFree;
+
+  /// Check if banner ads should be shown
+  bool get shouldShowBannerAds => shouldShowAds && isBannerAdAvailable;
+
+  /// Check if rewarded ads should be shown
+  bool get shouldShowRewardedAds => shouldShowAds && isAdAvailable;
 
   /// Dispose ad
   void dispose() {

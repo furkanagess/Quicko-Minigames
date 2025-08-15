@@ -53,3 +53,4 @@ app.*.map.json
 # Configuration files with sensitive data
 config/secrets.json
 config/keys.json
+lib/core/config/app_config.dart

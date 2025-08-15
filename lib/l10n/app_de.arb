@@ -306,6 +306,64 @@
   "@playGames": {
     "description": "Spielen Button Text"
   },
+  "swipeToDeleteHint": "Nach links wischen um Höchstpunktzahl zu löschen",
+  "@swipeToDeleteHint": {
+    "description": "Hinweis Text für Wisch-zu-Löschen Funktionalität"
+  },
+  "removeAds": "Werbung Entfernen",
+  "@removeAds": {
+    "description": "Werbung entfernen Abonnement Option"
+  },
+  "removeAdsDescription": "Genießen Sie eine werbefreie Erfahrung mit monatlichem Abonnement",
+  "@removeAdsDescription": {
+    "description": "Beschreibung für Werbung entfernen Abonnement"
+  },
+  "monthlySubscription": "Monatliches Abonnement",
+  "@monthlySubscription": {
+    "description": "Monatliches Abonnement Bezeichnung"
+  },
+  "subscribeNow": "Jetzt Abonnieren",
+  "@subscribeNow": {
+    "description": "Jetzt abonnieren Button Text"
+  },
+  "restorePurchases": "Käufe Wiederherstellen",
+  "@restorePurchases": {
+    "description": "Käufe wiederherstellen Button Text"
+  },
+  "subscriptionActive": "Abonnement Aktiv",
+  "@subscriptionActive": {
+    "description": "Abonnement aktiv Status"
+  },
+  "subscriptionExpired": "Abonnement Abgelaufen",
+  "@subscriptionExpired": {
+    "description": "Abonnement abgelaufen Status"
+  },
+  "daysRemaining": "{days} Tage verbleibend",
+  "@daysRemaining": {
+    "description": "Verbleibende Tage im Abonnement",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Kauf Erfolgreich!",
+  "@purchaseSuccess": {
+    "description": "Kauf Erfolg Nachricht"
+  },
+  "purchaseError": "Kauf Fehlgeschlagen",
+  "@purchaseError": {
+    "description": "Kauf Fehler Nachricht"
+  },
+  "restoreSuccess": "Käufe Wiederhergestellt!",
+  "@restoreSuccess": {
+    "description": "Wiederherstellen Erfolg Nachricht"
+  },
+  "restoreError": "Wiederherstellen Fehlgeschlagen",
+  "@restoreError": {
+    "description": "Wiederherstellen Fehler Nachricht"
+  },
   "totalGames": "Gesamte Spiele",
   "@totalGames": {
     "description": "Gesamte Spiele Bezeichnung"

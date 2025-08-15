@@ -339,6 +339,64 @@
   "@playGames": {
     "description": "Play games button text"
   },
+  "swipeToDeleteHint": "Swipe left to delete high scores",
+  "@swipeToDeleteHint": {
+    "description": "Hint text for swipe to delete functionality"
+  },
+  "removeAds": "Remove Ads",
+  "@removeAds": {
+    "description": "Remove ads subscription option"
+  },
+  "removeAdsDescription": "Enjoy an ad-free experience with monthly subscription",
+  "@removeAdsDescription": {
+    "description": "Description for remove ads subscription"
+  },
+  "monthlySubscription": "Monthly Subscription",
+  "@monthlySubscription": {
+    "description": "Monthly subscription label"
+  },
+  "subscribeNow": "Subscribe Now",
+  "@subscribeNow": {
+    "description": "Subscribe now button text"
+  },
+  "restorePurchases": "Restore Purchases",
+  "@restorePurchases": {
+    "description": "Restore purchases button text"
+  },
+  "subscriptionActive": "Subscription Active",
+  "@subscriptionActive": {
+    "description": "Subscription active status"
+  },
+  "subscriptionExpired": "Subscription Expired",
+  "@subscriptionExpired": {
+    "description": "Subscription expired status"
+  },
+  "daysRemaining": "{days} days remaining",
+  "@daysRemaining": {
+    "description": "Days remaining in subscription",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Purchase Successful!",
+  "@purchaseSuccess": {
+    "description": "Purchase success message"
+  },
+  "purchaseError": "Purchase Failed",
+  "@purchaseError": {
+    "description": "Purchase error message"
+  },
+  "restoreSuccess": "Purchases Restored!",
+  "@restoreSuccess": {
+    "description": "Restore success message"
+  },
+  "restoreError": "Restore Failed",
+  "@restoreError": {
+    "description": "Restore error message"
+  },
   "totalGames": "Total Games",
   "@totalGames": {
     "description": "Total games label"

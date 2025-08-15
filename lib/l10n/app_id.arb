@@ -306,6 +306,10 @@
   "@playGames": {
     "description": "Teks tombol Mainkan"
   },
+  "swipeToDeleteHint": "Geser ke kiri untuk menghapus skor tinggi",
+  "@swipeToDeleteHint": {
+    "description": "Teks petunjuk untuk fungsi geser untuk menghapus"
+  },
   "totalGames": "Total Permainan",
   "@totalGames": {
     "description": "Label total permainan"

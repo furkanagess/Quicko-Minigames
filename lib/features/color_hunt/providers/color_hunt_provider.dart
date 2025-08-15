@@ -268,16 +268,15 @@ class ColorHuntProvider extends ChangeNotifier {
 
     try {
       final savedScore = (saved['score'] as int?) ?? 0;
-      final savedTimeLeft = (saved['timeLeft'] as int?) ?? 0;
 
       debugPrint(
-        'Color Hunt: Continuing game - Score: $savedScore, Time: $savedTimeLeft',
+        'Color Hunt: Continuing game - Score: $savedScore, Restarting timer from beginning',
       );
 
-      // Restore basic game state (score and time)
+      // Restore game state with score but reset timer to initial value (30 seconds)
       _gameState = _gameState.copyWith(
         score: savedScore,
-        timeLeft: savedTimeLeft,
+        timeLeft: 30, // Reset timer to initial value
         status: ColorHuntGameStatus.playing,
         showGameOver: false,
         wrongTapIndex: null,
@@ -288,15 +287,19 @@ class ColorHuntProvider extends ChangeNotifier {
       // Generate a new target as if user never made a mistake
       _generateNewTarget();
 
-      debugPrint('Color Hunt: New target generated, restarting timer...');
+      debugPrint(
+        'Color Hunt: New target generated, restarting timer from beginning...',
+      );
 
-      // Restart the timer with the saved time
+      // Restart the timer with the initial time (30 seconds)
       _startTimer();
 
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
-      debugPrint('Color Hunt: Game continued with new target successfully');
+      debugPrint(
+        'Color Hunt: Game continued with new target and fresh timer successfully',
+      );
       notifyListeners();
       return true;
     } catch (e) {

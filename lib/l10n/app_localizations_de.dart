@@ -264,6 +264,49 @@ class AppLocalizationsDe extends AppLocalizations {
   String get playGames => 'Spielen';
 
   @override
+  String get swipeToDeleteHint =>
+      'Nach links wischen um Höchstpunktzahl zu löschen';
+
+  @override
+  String get removeAds => 'Werbung Entfernen';
+
+  @override
+  String get removeAdsDescription =>
+      'Genießen Sie eine werbefreie Erfahrung mit monatlichem Abonnement';
+
+  @override
+  String get monthlySubscription => 'Monatliches Abonnement';
+
+  @override
+  String get subscribeNow => 'Jetzt Abonnieren';
+
+  @override
+  String get restorePurchases => 'Käufe Wiederherstellen';
+
+  @override
+  String get subscriptionActive => 'Abonnement Aktiv';
+
+  @override
+  String get subscriptionExpired => 'Abonnement Abgelaufen';
+
+  @override
+  String daysRemaining(int days) {
+    return '$days Tage verbleibend';
+  }
+
+  @override
+  String get purchaseSuccess => 'Kauf Erfolgreich!';
+
+  @override
+  String get purchaseError => 'Kauf Fehlgeschlagen';
+
+  @override
+  String get restoreSuccess => 'Käufe Wiederhergestellt!';
+
+  @override
+  String get restoreError => 'Wiederherstellen Fehlgeschlagen';
+
+  @override
   String get totalGames => 'Gesamte Spiele';
 
   @override

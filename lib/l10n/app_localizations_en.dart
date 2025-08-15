@@ -261,6 +261,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playGames => 'Play Games';
 
   @override
+  String get swipeToDeleteHint => 'Swipe left to delete high scores';
+
+  @override
+  String get removeAds => 'Remove Ads';
+
+  @override
+  String get removeAdsDescription =>
+      'Enjoy an ad-free experience with monthly subscription';
+
+  @override
+  String get monthlySubscription => 'Monthly Subscription';
+
+  @override
+  String get subscribeNow => 'Subscribe Now';
+
+  @override
+  String get restorePurchases => 'Restore Purchases';
+
+  @override
+  String get subscriptionActive => 'Subscription Active';
+
+  @override
+  String get subscriptionExpired => 'Subscription Expired';
+
+  @override
+  String daysRemaining(int days) {
+    return '$days days remaining';
+  }
+
+  @override
+  String get purchaseSuccess => 'Purchase Successful!';
+
+  @override
+  String get purchaseError => 'Purchase Failed';
+
+  @override
+  String get restoreSuccess => 'Purchases Restored!';
+
+  @override
+  String get restoreError => 'Restore Failed';
+
+  @override
   String get totalGames => 'Total Games';
 
   @override

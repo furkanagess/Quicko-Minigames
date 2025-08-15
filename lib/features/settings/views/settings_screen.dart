@@ -7,10 +7,12 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/providers/theme_provider.dart';
+import '../../../core/providers/in_app_purchase_provider.dart';
 import '../../../core/constants/app_icons.dart';
 import '../../../core/routes/app_router.dart';
 import 'language_settings_screen.dart';
 import 'theme_settings_screen.dart';
+import 'ad_free_subscription_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -68,32 +70,40 @@ class _SettingsScreenState extends State<SettingsScreen>
         opacity: _fadeAnimation,
         child: SlideTransition(
           position: _slideAnimation,
-          child: Consumer2<LanguageProvider, ThemeProvider>(
-            builder: (context, languageProvider, themeProvider, child) {
-              return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Settings Header
-                      _buildSettingsHeader(context),
-                      const SizedBox(height: AppConstants.largeSpacing),
+          child:
+              Consumer3<LanguageProvider, ThemeProvider, InAppPurchaseProvider>(
+                builder: (
+                  context,
+                  languageProvider,
+                  themeProvider,
+                  purchaseProvider,
+                  child,
+                ) {
+                  return SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Settings Header
+                          _buildSettingsHeader(context),
+                          const SizedBox(height: AppConstants.largeSpacing),
 
-                      // Settings Options
-                      Expanded(
-                        child: _buildSettingsOptions(
-                          context,
-                          languageProvider,
-                          themeProvider,
-                        ),
+                          // Settings Options
+                          Expanded(
+                            child: _buildSettingsOptions(
+                              context,
+                              languageProvider,
+                              themeProvider,
+                              purchaseProvider,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
+                    ),
+                  );
+                },
+              ),
         ),
       ),
     );
@@ -206,6 +216,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     BuildContext context,
     LanguageProvider languageProvider,
     ThemeProvider themeProvider,
+    InAppPurchaseProvider purchaseProvider,
   ) {
     return Column(
       children: [
@@ -231,6 +242,18 @@ class _SettingsScreenState extends State<SettingsScreen>
           icon: Icons.palette_rounded,
           emoji: _getThemeEmoji(themeProvider),
           onTap: () => _navigateToThemeSettings(context),
+        ),
+
+        const SizedBox(height: AppConstants.mediumSpacing),
+
+        // Ad-Free Subscription Option
+        _buildSettingOption(
+          context,
+          title: AppLocalizations.of(context)!.removeAds,
+          subtitle: _getAdFreeStatusDisplay(purchaseProvider),
+          icon: Icons.block_rounded,
+          emoji: purchaseProvider.isSubscriptionActive ? '✅' : '🚫',
+          onTap: () => _navigateToAdFreeSubscription(context),
         ),
       ],
     );
@@ -407,6 +430,14 @@ class _SettingsScreenState extends State<SettingsScreen>
     return themeProvider.getThemeModeEmoji(themeProvider.currentThemeMode);
   }
 
+  String _getAdFreeStatusDisplay(InAppPurchaseProvider purchaseProvider) {
+    if (purchaseProvider.isSubscriptionActive) {
+      return '${purchaseProvider.remainingDays} days remaining';
+    } else {
+      return 'Monthly subscription - \$1';
+    }
+  }
+
   void _navigateToLanguageSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const LanguageSettingsScreen()),
@@ -416,6 +447,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   void _navigateToThemeSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const ThemeSettingsScreen()),
+    );
+  }
+
+  void _navigateToAdFreeSubscription(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const AdFreeSubscriptionScreen()),
     );
   }
 }

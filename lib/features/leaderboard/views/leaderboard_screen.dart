@@ -270,6 +270,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         const LeaderboardBannerAdWidget(),
         const SizedBox(height: AppConstants.mediumSpacing),
 
+        // Swipe hint
+        _buildSwipeHint(),
+
         // Leaderboard list
         Expanded(
           child: ListView.builder(
@@ -899,6 +902,63 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
           ),
         );
       },
+    );
+  }
+
+  Widget _buildSwipeHint() {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppConstants.mediumSpacing,
+        vertical: AppConstants.smallSpacing,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.mediumSpacing,
+        vertical: AppConstants.smallSpacing,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppTheme.darkError.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              Icons.swipe_left_rounded,
+              color: AppTheme.darkError,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: AppConstants.smallSpacing),
+          Expanded(
+            child: Text(
+              AppLocalizations.of(context)!.swipeToDeleteHint,
+              style: TextThemeManager.bodySmall.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

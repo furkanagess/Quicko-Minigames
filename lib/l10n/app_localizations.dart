@@ -598,6 +598,84 @@ abstract class AppLocalizations {
   /// **'Play Games'**
   String get playGames;
 
+  /// Hint text for swipe to delete functionality
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left to delete high scores'**
+  String get swipeToDeleteHint;
+
+  /// Remove ads subscription option
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Ads'**
+  String get removeAds;
+
+  /// Description for remove ads subscription
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy an ad-free experience with monthly subscription'**
+  String get removeAdsDescription;
+
+  /// Monthly subscription label
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Subscription'**
+  String get monthlySubscription;
+
+  /// Subscribe now button text
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe Now'**
+  String get subscribeNow;
+
+  /// Restore purchases button text
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get restorePurchases;
+
+  /// Subscription active status
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Active'**
+  String get subscriptionActive;
+
+  /// Subscription expired status
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Expired'**
+  String get subscriptionExpired;
+
+  /// Days remaining in subscription
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days remaining'**
+  String daysRemaining(int days);
+
+  /// Purchase success message
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Successful!'**
+  String get purchaseSuccess;
+
+  /// Purchase error message
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Failed'**
+  String get purchaseError;
+
+  /// Restore success message
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases Restored!'**
+  String get restoreSuccess;
+
+  /// Restore error message
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Failed'**
+  String get restoreError;
+
   /// Total games label
   ///
   /// In en, this message translates to:

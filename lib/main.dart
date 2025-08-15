@@ -16,6 +16,7 @@ import 'core/utils/global_context.dart';
 import 'core/constants/supported_locales.dart';
 import 'features/favorites/providers/favorites_provider.dart';
 import 'core/services/admob_service.dart';
+import 'core/services/in_app_purchase_service.dart';
 import 'core/config/app_config.dart';
 
 void main() async {
@@ -35,6 +36,9 @@ void main() async {
 
   // Initialize AdMob
   await AdMobService().initialize();
+
+  // Initialize In-App Purchase Service
+  await InAppPurchaseService().initialize();
 
   runApp(const MyApp());
 }

@@ -263,6 +263,48 @@ class AppLocalizationsTr extends AppLocalizations {
   String get playGames => 'Oyun Oyna';
 
   @override
+  String get swipeToDeleteHint => 'Yüksek skorları silmek için sola kaydırın';
+
+  @override
+  String get removeAds => 'Reklamları Kaldır';
+
+  @override
+  String get removeAdsDescription =>
+      'Aylık abonelik ile reklamsız deneyim yaşayın';
+
+  @override
+  String get monthlySubscription => 'Aylık Abonelik';
+
+  @override
+  String get subscribeNow => 'Şimdi Abone Ol';
+
+  @override
+  String get restorePurchases => 'Satın Alımları Geri Yükle';
+
+  @override
+  String get subscriptionActive => 'Abonelik Aktif';
+
+  @override
+  String get subscriptionExpired => 'Abonelik Süresi Doldu';
+
+  @override
+  String daysRemaining(int days) {
+    return '$days gün kaldı';
+  }
+
+  @override
+  String get purchaseSuccess => 'Satın Alma Başarılı!';
+
+  @override
+  String get purchaseError => 'Satın Alma Başarısız';
+
+  @override
+  String get restoreSuccess => 'Satın Alımlar Geri Yüklendi!';
+
+  @override
+  String get restoreError => 'Geri Yükleme Başarısız';
+
+  @override
   String get totalGames => 'Toplam Oyun';
 
   @override

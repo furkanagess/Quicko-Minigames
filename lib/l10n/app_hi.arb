@@ -306,6 +306,10 @@
   "@playGames": {
     "description": "खेलें बटन का टेक्स्ट"
   },
+  "swipeToDeleteHint": "उच्च स्कोर हटाने के लिए बाईं ओर स्वाइप करें",
+  "@swipeToDeleteHint": {
+    "description": "स्वाइप करके हटाने की कार्यक्षमता के लिए संकेत टेक्स्ट"
+  },
   "totalGames": "कुल खेल",
   "@totalGames": {
     "description": "कुल खेल लेबल"

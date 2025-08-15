@@ -297,6 +297,10 @@
   "@playGames": {
     "description": "تسمية زر اللعب"
   },
+  "swipeToDeleteHint": "اسحب لليسار لحذف النقاط العالية",
+  "@swipeToDeleteHint": {
+    "description": "نص تلميح لوظيفة السحب للحذف"
+  },
   "totalGames": "إجمالي الألعاب",
   "@totalGames": {
     "description": "تسمية إجمالي الألعاب"

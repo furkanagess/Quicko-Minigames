@@ -8,6 +8,7 @@ import '../../features/leaderboard/providers/leaderboard_provider.dart';
 // Core
 import 'language_provider.dart';
 import 'theme_provider.dart';
+import 'in_app_purchase_provider.dart';
 
 class AppProviders {
   static List<ChangeNotifierProvider> get providers => [
@@ -19,6 +20,9 @@ class AppProviders {
     ),
     ChangeNotifierProvider<LanguageProvider>(create: (_) => LanguageProvider()),
     ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+    ChangeNotifierProvider<InAppPurchaseProvider>(
+      create: (_) => InAppPurchaseProvider(),
+    ),
   ];
 
   // Helper method to get provider instance

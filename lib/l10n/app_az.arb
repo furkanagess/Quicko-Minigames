@@ -306,6 +306,10 @@
   "@playGames": {
     "description": "Oyna düyməsinin mətni"
   },
+  "swipeToDeleteHint": "Yüksək xalları silmək üçün sola sürüşdürün",
+  "@swipeToDeleteHint": {
+    "description": "Sürüşdürərək silmə funksiyası üçün göstəriş mətni"
+  },
   "totalGames": "Ümumi Oyunlar",
   "@totalGames": {
     "description": "Ümumi oyunlar etiketi"

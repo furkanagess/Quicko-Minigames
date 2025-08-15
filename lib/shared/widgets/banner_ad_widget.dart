@@ -51,6 +51,11 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Don't show anything if user has ad-free subscription
+    if (!_adMobService.shouldShowAds) {
+      return const SizedBox.shrink();
+    }
+
     // Don't show anything while loading or if ad failed to load
     if (_isLoading || !_isAdLoaded) {
       return const SizedBox.shrink();
