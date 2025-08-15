@@ -2,27 +2,19 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../config/app_config.dart';
 
 class AdMobService {
   static final AdMobService _instance = AdMobService._internal();
   factory AdMobService() => _instance;
   AdMobService._internal();
 
-  // Production AdMob IDs
-  static String get _rewardedAdUnitId =>
-      Platform.isAndroid
-          ? 'ca-app-pub-3499593115543692/2111598295' // Android production rewarded ad ID
-          : 'ca-app-pub-3499593115543692/7555496667'; // iOS production rewarded ad ID
+  final AppConfig _config = AppConfig();
 
-  static String get _bannerAdUnitId =>
-      Platform.isAndroid
-          ? 'ca-app-pub-3499593115543692/5725525775' // Android production banner ad ID
-          : 'ca-app-pub-3499593115543692/9584879730'; // iOS production banner ad ID
-
-  static String get _leaderboardBannerAdUnitId =>
-      Platform.isAndroid
-          ? 'ca-app-pub-3499593115543692/8547130233' // Android leaderboard banner ad ID
-          : 'ca-app-pub-3499593115543692/2173293578'; // iOS leaderboard banner ad ID
+  // Get AdMob IDs from configuration
+  String get _rewardedAdUnitId => _config.rewardedAdUnitId;
+  String get _bannerAdUnitId => _config.bannerAdUnitId;
+  String get _leaderboardBannerAdUnitId => _config.leaderboardBannerAdUnitId;
 
   RewardedAd? _rewardedAd;
   BannerAd? _bannerAd;
@@ -34,12 +26,16 @@ class AdMobService {
   Future<void> initialize() async {
     if (kDebugMode) {
       print('AdMob: Initializing...');
+      _config.printConfig();
     }
 
     await MobileAds.instance.initialize();
 
     if (kDebugMode) {
       print('AdMob: Initialized successfully');
+      print('AdMob: Using Rewarded Ad ID: $_rewardedAdUnitId');
+      print('AdMob: Using Banner Ad ID: $_bannerAdUnitId');
+      print('AdMob: Using Leaderboard Banner Ad ID: $_leaderboardBannerAdUnitId');
     }
   }
 

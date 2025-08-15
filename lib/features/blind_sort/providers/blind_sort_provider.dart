@@ -339,7 +339,10 @@ class BlindSortProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _saveGameStateBeforeMove(List<int?> currentSlots, int currentNumber) async {
+  Future<void> _saveGameStateBeforeMove(
+    List<int?> currentSlots,
+    int currentNumber,
+  ) async {
     final state = {
       'slots': currentSlots,
       'currentNumber': currentNumber,
@@ -350,13 +353,17 @@ class BlindSortProvider extends ChangeNotifier {
     await GameStateService().saveGameState('blind_sort', state);
   }
 
-  Future<void> _saveGameStateBeforeNewNumber(List<int?> currentSlots, int newNumber) async {
+  Future<void> _saveGameStateBeforeNewNumber(
+    List<int?> currentSlots,
+    int newNumber,
+  ) async {
     final state = {
       'slots': currentSlots,
       'currentNumber': newNumber,
       'score': _gameState.score,
       'usedNumbers': _usedNumbers.toList(),
-      'lastAction': 'before_new_number', // Indicate this is the state before a new number
+      'lastAction':
+          'before_new_number', // Indicate this is the state before a new number
     };
     await GameStateService().saveGameState('blind_sort', state);
   }
@@ -372,18 +379,18 @@ class BlindSortProvider extends ChangeNotifier {
       final lastAction = saved['lastAction'] as String?;
 
       _usedNumbers = used; // restore used numbers
-      
-      // If the last action was before a new unplayable number, 
+
+      // If the last action was before a new unplayable number,
       // we need to generate a new playable number
       if (lastAction == 'before_new_number' && currentNumber != null) {
         // Remove the unplayable number from used numbers
         _usedNumbers.remove(currentNumber);
-        
+
         // Generate a new playable number
         final newPlayableNumber = _generateUniqueRandomNumber();
         if (newPlayableNumber != -1) {
           _usedNumbers.add(newPlayableNumber);
-          
+
           _gameState = _gameState.copyWith(
             slots: slots,
             currentNumber: newPlayableNumber,
@@ -400,25 +407,105 @@ class BlindSortProvider extends ChangeNotifier {
             showGameOver: true,
           );
         }
-      } else {
+
+        // Clear the saved state after successful restore
+        await clearSavedGameState();
+        notifyListeners();
+        return true;
+      } else if (lastAction == 'before_move' && currentNumber != null) {
         // Normal continue from before a losing move
+        // Remove the losing number from used numbers and advance to next level
+        _usedNumbers.remove(currentNumber);
+
+        // Advance to next level (current score + 1)
+        final nextLevelScore = score + 1;
+
+        // Start number animation to generate a new shuffled number
         _gameState = _gameState.copyWith(
           slots: slots,
-          currentNumber: currentNumber,
+          score: nextLevelScore,
+          status: GameStatus.playing,
+          showGameOver: false,
+        );
+
+        _startNewNumberAnimationAfterContinue(slots, nextLevelScore);
+        return true; // Return early since we're starting animation
+      } else {
+        // Fallback case - should not happen in normal flow
+        _gameState = _gameState.copyWith(
+          slots: slots,
           score: score,
           status: GameStatus.playing,
           showGameOver: false,
         );
+
+        // Start number animation to generate a new shuffled number
+        _startNewNumberAnimationAfterContinue(slots, score);
+        return true; // Return early since we're starting animation
       }
-      
-      // Clear the saved state after successful restore
-      await clearSavedGameState();
-      
-      notifyListeners();
-      return true;
     } catch (_) {
       return false;
     }
+  }
+
+  /// Start new number animation after continuing game (for ad reward)
+  /// This method ensures that the losing number is not used again and advances to next level
+  void _startNewNumberAnimationAfterContinue(
+    List<int?> currentSlots,
+    int currentScore,
+  ) {
+    SoundUtils.playSpinnerSound();
+    _isAnimating = true;
+
+    // Generate a unique random number that's not the losing number
+    _animatedNumber = _generateUniqueRandomNumber();
+    notifyListeners();
+
+    _numberAnimationTimer = Timer.periodic(const Duration(milliseconds: 100), (
+      timer,
+    ) {
+      // During animation, show random numbers that are not the losing number
+      _animatedNumber = _generateUniqueRandomNumber();
+      notifyListeners();
+    });
+
+    // 2 saniye sonra animasyonu durdur ve final sayıyı göster
+    Timer(const Duration(seconds: 2), () async {
+      stopNumberAnimation();
+
+      // Generate final number ensuring it's not the losing number
+      final finalNumber = _generateUniqueRandomNumber();
+
+      if (finalNumber == -1) {
+        // Tüm sayılar kullanılmış, oyunu kazandı olarak işaretle
+        await SoundUtils.stopSpinnerSound();
+        _gameWon(currentScore);
+        return;
+      }
+
+      // Save state before showing the new number (in case it's unplayable)
+      await _saveGameStateBeforeNewNumber(currentSlots, finalNumber);
+
+      // Eğer yeni sayı hiçbir yere yerleştirilemiyorsa oyun biter
+      if (!GameUtils.canPlaceNumberAnywhere(currentSlots, finalNumber)) {
+        await SoundUtils.stopSpinnerSound();
+        _nextNumberUnplayable(finalNumber, currentScore);
+        return;
+      }
+
+      _gameState = _gameState.copyWith(currentNumber: finalNumber);
+      _animatedNumber = finalNumber;
+      _isAnimating = false;
+
+      // Final sayıyı kullanılmış olarak işaretle
+      _usedNumbers.add(finalNumber);
+
+      // Clear the saved state after successful animation completion
+      await clearSavedGameState();
+
+      await SoundUtils.stopSpinnerSound();
+      notifyListeners();
+    });
   }
 
   Future<bool> canContinueGame() async {

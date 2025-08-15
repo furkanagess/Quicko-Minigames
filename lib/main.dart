@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -15,9 +16,16 @@ import 'core/utils/global_context.dart';
 import 'core/constants/supported_locales.dart';
 import 'features/favorites/providers/favorites_provider.dart';
 import 'core/services/admob_service.dart';
+import 'core/config/app_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize configuration
+  final config = AppConfig();
+  if (kDebugMode) {
+    config.printConfig();
+  }
 
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([

@@ -3,11 +3,9 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../shared/widgets/game_slot.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_action_button.dart';
 import '../providers/blind_sort_provider.dart';
 import '../../../shared/models/game_state.dart';
 import '../../../core/constants/app_constants.dart';
-import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 
@@ -306,15 +304,6 @@ class _BlindSortView extends StatelessWidget {
         );
       },
     );
-  }
-
-  Widget _buildDynamicContent(
-    BuildContext context,
-    GameState gameState,
-    BlindSortProvider provider,
-  ) {
-    // Oyun devam ediyor veya bekliyor - boş alan
-    return const SizedBox.shrink();
   }
 
   Widget _buildGameSlots(
