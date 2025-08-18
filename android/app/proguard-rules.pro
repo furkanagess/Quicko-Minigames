@@ -65,3 +65,17 @@
 -keep class io.flutter.view.**  { *; }
 -keep class io.flutter.**  { *; }
 -keep class io.flutter.plugins.**  { *; }
+
+# Flutter deferred components reference Play Core APIs at compile-time even if not used.
+# Suppress warnings about missing Play Core classes when targeting SDK 34.
+-dontwarn com.google.android.play.core.**
+-dontwarn com.google.android.play.core.common.**
+-dontwarn com.google.android.play.core.install.**
+-dontwarn com.google.android.play.core.splitinstall.**
+-dontwarn com.google.android.play.core.tasks.**
+-dontwarn com.google.android.play.core.appupdate.**
+-dontwarn com.google.android.play.core.assetpacks.**
+
+# Keep Flutter deferred components classes to avoid aggressive shrinking issues
+-keep class io.flutter.embedding.engine.deferredcomponents.** { *; }
+-keep class io.flutter.embedding.android.FlutterPlayStoreSplitApplication { *; }

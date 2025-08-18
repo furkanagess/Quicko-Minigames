@@ -1,107 +1,68 @@
 {
   "ar": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "az": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
+  ],
+
+  "de": [
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "es": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "fr": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "hi": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "id": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "it": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "pt": [
@@ -193,10 +154,22 @@
     "subscriptionActive",
     "subscriptionExpired",
     "daysRemaining",
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "importantNotice",
+    "gotIt",
     "purchaseSuccess",
     "purchaseError",
     "restoreSuccess",
     "restoreError",
+    "noBannerAds",
+    "noInterstitialAds",
+    "noRewardedAds",
+    "cleanExperience",
+    "cancelAnytime",
+    "usdPerMonth",
+    "bestValue",
+    "fiftyPercentOff",
     "totalGames",
     "highestScore",
     "averageScore",
@@ -294,21 +267,19 @@
     "level",
     "wrong",
     "row",
-    "column"
+    "column",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ],
 
   "pt_BR": [
-    "removeAds",
-    "removeAdsDescription",
-    "monthlySubscription",
-    "subscribeNow",
-    "restorePurchases",
-    "subscriptionActive",
-    "subscriptionExpired",
-    "daysRemaining",
-    "purchaseSuccess",
-    "purchaseError",
-    "restoreSuccess",
-    "restoreError"
+    "monthlySubscriptionPrice",
+    "uninstallWarning",
+    "gameInProgress",
+    "gameInProgressMessage",
+    "stayInGame",
+    "exitGame"
   ]
 }

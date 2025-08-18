@@ -54,3 +54,4 @@ app.*.map.json
 config/secrets.json
 config/keys.json
 lib/core/config/app_config.dart
+
