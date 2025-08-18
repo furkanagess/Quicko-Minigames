@@ -250,7 +250,7 @@
     "description": "Descrizione per il gioco Carta-Sasso-Forbici"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Ventuno)",
   "@twentyOne": {
     "description": "Titolo per il gioco 21 (Blackjack)"
   },
@@ -309,6 +309,100 @@
   "swipeToDeleteHint": "Scorri verso sinistra per eliminare i punteggi alti",
   "@swipeToDeleteHint": {
     "description": "Testo di suggerimento per la funzionalità di scorrimento per eliminare"
+  },
+  "removeAds": "Rimuovi Pubblicità",
+  "@removeAds": {
+    "description": "Opzione di abbonamento per rimuovere le pubblicità"
+  },
+  "removeAdsDescription": "Goditi un'esperienza senza pubblicità con abbonamento mensile",
+  "@removeAdsDescription": {
+    "description": "Descrizione dell'abbonamento per rimuovere le pubblicità"
+  },
+  "monthlySubscription": "Abbonamento Mensile",
+  "@monthlySubscription": {
+    "description": "Etichetta abbonamento mensile"
+  },
+  "subscribeNow": "Abbonati Ora",
+  "@subscribeNow": {
+    "description": "Testo del pulsante Abbonati ora"
+  },
+  "restorePurchases": "Ripristina Acquisti",
+  "@restorePurchases": {
+    "description": "Testo del pulsante Ripristina acquisti"
+  },
+  "subscriptionActive": "Abbonamento Attivo",
+  "@subscriptionActive": {
+    "description": "Stato abbonamento attivo"
+  },
+  "subscriptionExpired": "Abbonamento Scaduto",
+  "@subscriptionExpired": {
+    "description": "Stato abbonamento scaduto"
+  },
+  "daysRemaining": "{days} giorni rimanenti",
+  "@daysRemaining": {
+    "description": "Giorni rimanenti nell'abbonamento",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Acquisto Riuscito!",
+  "@purchaseSuccess": {
+    "description": "Messaggio di successo acquisto"
+  },
+  "purchaseError": "Acquisto Fallito",
+  "@purchaseError": {
+    "description": "Messaggio di errore acquisto"
+  },
+  "restoreSuccess": "Acquisti Ripristinati!",
+  "@restoreSuccess": {
+    "description": "Messaggio di successo ripristino"
+  },
+  "restoreError": "Ripristino Fallito",
+  "@restoreError": {
+    "description": "Messaggio di errore ripristino"
+  },
+  "noBannerAds": "Nessuna pubblicità banner",
+  "@noBannerAds": {
+    "description": "Descrizione funzione per nessuna pubblicità banner"
+  },
+  "noInterstitialAds": "Nessuna pubblicità interstiziale",
+  "@noInterstitialAds": {
+    "description": "Descrizione funzione per nessuna pubblicità interstiziale"
+  },
+  "noRewardedAds": "Nessuna pubblicità premiata",
+  "@noRewardedAds": {
+    "description": "Descrizione funzione per nessuna pubblicità premiata"
+  },
+  "cleanExperience": "Esperienza pulita e senza distrazioni",
+  "@cleanExperience": {
+    "description": "Descrizione funzione per esperienza pulita"
+  },
+  "cancelAnytime": "Cancella in qualsiasi momento",
+  "@cancelAnytime": {
+    "description": "Descrizione funzione per cancellare in qualsiasi momento"
+  },
+  "usdPerMonth": "USD/mese",
+  "@usdPerMonth": {
+    "description": "Etichetta USD per mese"
+  },
+  "bestValue": "MIGLIOR VALORE",
+  "@bestValue": {
+    "description": "Etichetta miglior valore"
+  },
+  "fiftyPercentOff": "50% DI SCONTO",
+  "@fiftyPercentOff": {
+    "description": "Etichetta 50% di sconto"
+  },
+  "importantNotice": "Avviso Importante",
+  "@importantNotice": {
+    "description": "Titolo avviso importante per avvertimenti"
+  },
+  "gotIt": "Capito",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Giochi Totali",
   "@totalGames": {
@@ -768,4 +862,15 @@
   "@exit": {
     "description": "Testo del pulsante Esci"
   }
+  ,
+  "soundSettings": "Impostazioni audio",
+  "soundSettingsMenuSubtitle": "Suoni dell'app e livello effetti",
+  "appSounds": "Suoni dell'app",
+  "appSoundsDescription": "Attiva/disattiva suoni e regola il livello degli effetti",
+  "sounds": "Suoni",
+  "soundsOn": "Attivo",
+  "soundsOff": "Disattivo",
+  "effectsVolume": "Volume effetti",
+  "soundTest": "Test audio",
+  "playSampleSound": "Riproduci suono di esempio"
 }

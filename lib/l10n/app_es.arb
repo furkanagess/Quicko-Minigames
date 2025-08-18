@@ -250,7 +250,7 @@
     "description": "Description for the Rock-Paper-Scissors game"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Veintiuno)",
   "@twentyOne": {
     "description": "Title for the 21 (Blackjack) game"
   },
@@ -309,6 +309,102 @@
   "swipeToDeleteHint": "Desliza hacia la izquierda para eliminar puntuaciones altas",
   "@swipeToDeleteHint": {
     "description": "Hint text for swipe to delete functionality"
+  },
+  "removeAds": "Eliminar Anuncios",
+  "@removeAds": {
+    "description": "Opción de suscripción para eliminar anuncios"
+  },
+  "removeAdsDescription": "Disfruta de una experiencia sin anuncios con suscripción mensual",
+  "@removeAdsDescription": {
+    "description": "Descripción de la suscripción para eliminar anuncios"
+  },
+  "monthlySubscription": "Suscripción Mensual",
+  "@monthlySubscription": {
+    "description": "Etiqueta de suscripción mensual"
+  },
+  "subscribeNow": "Suscribirse Ahora",
+  "@subscribeNow": {
+    "description": "Texto del botón Suscribirse ahora"
+  },
+  "restorePurchases": "Restaurar Compras",
+  "@restorePurchases": {
+    "description": "Texto del botón Restaurar compras"
+  },
+  "subscriptionActive": "Suscripción Activa",
+  "@subscriptionActive": {
+    "description": "Estado de suscripción activa"
+  },
+  "subscriptionExpired": "Suscripción Expirada",
+  "@subscriptionExpired": {
+    "description": "Estado de suscripción expirada"
+  },
+  "daysRemaining": "{days} días restantes",
+  "monthlySubscriptionPrice": "Suscripción mensual - $2.49",
+  "uninstallWarning": "Importante: La suscripción se almacena localmente. Si desinstalas la aplicación, tu suscripción se perderá y tendrás que comprar de nuevo.",
+  "@daysRemaining": {
+    "description": "Días restantes en la suscripción",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "¡Compra Exitosa!",
+  "@purchaseSuccess": {
+    "description": "Mensaje de éxito de compra"
+  },
+  "purchaseError": "Error en la Compra",
+  "@purchaseError": {
+    "description": "Mensaje de error de compra"
+  },
+  "restoreSuccess": "¡Compras Restauradas!",
+  "@restoreSuccess": {
+    "description": "Mensaje de éxito de restauración"
+  },
+  "restoreError": "Error en la Restauración",
+  "@restoreError": {
+    "description": "Mensaje de error de restauración"
+  },
+  "noBannerAds": "Sin anuncios de banner",
+  "@noBannerAds": {
+    "description": "Descripción de función para sin anuncios de banner"
+  },
+  "noInterstitialAds": "Sin anuncios intersticiales",
+  "@noInterstitialAds": {
+    "description": "Descripción de función para sin anuncios intersticiales"
+  },
+  "noRewardedAds": "Sin anuncios recompensados",
+  "@noRewardedAds": {
+    "description": "Descripción de función para sin anuncios recompensados"
+  },
+  "cleanExperience": "Experiencia limpia y sin distracciones",
+  "@cleanExperience": {
+    "description": "Descripción de función para experiencia limpia"
+  },
+  "cancelAnytime": "Cancela en cualquier momento",
+  "@cancelAnytime": {
+    "description": "Descripción de función para cancelar en cualquier momento"
+  },
+  "usdPerMonth": "USD/mes",
+  "@usdPerMonth": {
+    "description": "Etiqueta USD por mes"
+  },
+  "bestValue": "MEJOR VALOR",
+  "@bestValue": {
+    "description": "Etiqueta mejor valor"
+  },
+  "fiftyPercentOff": "50% DESCUENTO",
+  "@fiftyPercentOff": {
+    "description": "Etiqueta 50% de descuento"
+  },
+  "importantNotice": "Aviso Importante",
+  "@importantNotice": {
+    "description": "Título de aviso importante para advertencias"
+  },
+  "gotIt": "Entendido",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Total de Juegos",
   "@totalGames": {
@@ -768,4 +864,15 @@
   "@exit": {
     "description": "Exit button text"
   }
+  ,
+  "soundSettings": "Ajustes de sonido",
+  "soundSettingsMenuSubtitle": "Sonidos de la app y nivel de efectos",
+  "appSounds": "Sonidos de la aplicación",
+  "appSoundsDescription": "Activar/desactivar sonidos y ajustar el nivel de efectos",
+  "sounds": "Sonidos",
+  "soundsOn": "Activado",
+  "soundsOff": "Desactivado",
+  "effectsVolume": "Volumen de efectos",
+  "soundTest": "Prueba de sonido",
+  "playSampleSound": "Reproducir sonido de muestra"
 }

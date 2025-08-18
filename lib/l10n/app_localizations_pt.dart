@@ -291,6 +291,19 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
+
+  @override
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
+
+  @override
+  String get importantNotice => 'Important Notice';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
   String get purchaseSuccess => 'Purchase Successful!';
 
   @override
@@ -301,6 +314,30 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get restoreError => 'Restore Failed';
+
+  @override
+  String get noBannerAds => 'No banner ads';
+
+  @override
+  String get noInterstitialAds => 'No interstitial ads';
+
+  @override
+  String get noRewardedAds => 'No rewarded ads';
+
+  @override
+  String get cleanExperience => 'Clean, distraction-free experience';
+
+  @override
+  String get cancelAnytime => 'Cancel anytime';
+
+  @override
+  String get usdPerMonth => 'USD/month';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get totalGames => 'Total Games';
@@ -607,6 +644,50 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get column => 'column';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Configurações de som';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'Sons do app e nível de efeitos';
+
+  @override
+  String get appSounds => 'Sons da aplicação';
+
+  @override
+  String get appSoundsDescription =>
+      'Ativar/desativar sons e ajustar o nível dos efeitos';
+
+  @override
+  String get sounds => 'Sons';
+
+  @override
+  String get soundsOn => 'Ativado';
+
+  @override
+  String get soundsOff => 'Desativado';
+
+  @override
+  String get effectsVolume => 'Volume dos efeitos';
+
+  @override
+  String get soundTest => 'Teste de som';
+
+  @override
+  String get playSampleSound => 'Reproduzir som de exemplo';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -827,7 +908,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Jogue contra o computador. O primeiro a chegar a 5 pontos vence.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Vinte e Um)';
 
   @override
   String get twentyOneDescription =>
@@ -870,6 +951,75 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get swipeToDeleteHint =>
       'Deslize para a esquerda para excluir pontuações altas';
+
+  @override
+  String get removeAds => 'Remover Anúncios';
+
+  @override
+  String get removeAdsDescription =>
+      'Desfrute de uma experiência sem anúncios com assinatura mensal';
+
+  @override
+  String get monthlySubscription => 'Assinatura Mensal';
+
+  @override
+  String get subscribeNow => 'Assinar Agora';
+
+  @override
+  String get restorePurchases => 'Restaurar Compras';
+
+  @override
+  String get subscriptionActive => 'Assinatura Ativa';
+
+  @override
+  String get subscriptionExpired => 'Assinatura Expirada';
+
+  @override
+  String daysRemaining(int days) {
+    return '$days dias restantes';
+  }
+
+  @override
+  String get importantNotice => 'Aviso Importante';
+
+  @override
+  String get gotIt => 'Entendi';
+
+  @override
+  String get purchaseSuccess => 'Compra Bem-sucedida!';
+
+  @override
+  String get purchaseError => 'Falha na Compra';
+
+  @override
+  String get restoreSuccess => 'Compras Restauradas!';
+
+  @override
+  String get restoreError => 'Falha na Restauração';
+
+  @override
+  String get noBannerAds => 'Sem anúncios de banner';
+
+  @override
+  String get noInterstitialAds => 'Sem anúncios intersticiais';
+
+  @override
+  String get noRewardedAds => 'Sem anúncios recompensados';
+
+  @override
+  String get cleanExperience => 'Experiência limpa e sem distrações';
+
+  @override
+  String get cancelAnytime => 'Cancele a qualquer momento';
+
+  @override
+  String get usdPerMonth => 'USD/mês';
+
+  @override
+  String get bestValue => 'MELHOR VALOR';
+
+  @override
+  String get fiftyPercentOff => '50% DE DESCONTO';
 
   @override
   String get totalGames => 'Total de Jogos';
@@ -1178,4 +1328,35 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get column => 'coluna';
+
+  @override
+  String get soundSettings => 'Configurações de som';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'Sons do app e nível de efeitos';
+
+  @override
+  String get appSounds => 'Sons do aplicativo';
+
+  @override
+  String get appSoundsDescription =>
+      'Ativar/desativar sons e ajustar o nível dos efeitos';
+
+  @override
+  String get sounds => 'Sons';
+
+  @override
+  String get soundsOn => 'Ativado';
+
+  @override
+  String get soundsOff => 'Desativado';
+
+  @override
+  String get effectsVolume => 'Volume dos efeitos';
+
+  @override
+  String get soundTest => 'Teste de som';
+
+  @override
+  String get playSampleSound => 'Reproduzir som de exemplo';
 }

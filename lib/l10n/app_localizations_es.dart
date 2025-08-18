@@ -223,7 +223,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Juega contra la computadora. El primero en llegar a 5 puntos gana.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Veintiuno)';
 
   @override
   String get twentyOneDescription =>
@@ -268,43 +268,80 @@ class AppLocalizationsEs extends AppLocalizations {
       'Desliza hacia la izquierda para eliminar puntuaciones altas';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'Eliminar Anuncios';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'Disfruta de una experiencia sin anuncios con suscripción mensual';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'Suscripción Mensual';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'Suscribirse Ahora';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'Restaurar Compras';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'Suscripción Activa';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'Suscripción Expirada';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return '$days días restantes';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Suscripción mensual - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Importante: La suscripción se almacena localmente. Si desinstalas la aplicación, tu suscripción se perderá y tendrás que comprar de nuevo.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'Aviso Importante';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'Entendido';
+
+  @override
+  String get purchaseSuccess => '¡Compra Exitosa!';
+
+  @override
+  String get purchaseError => 'Error en la Compra';
+
+  @override
+  String get restoreSuccess => '¡Compras Restauradas!';
+
+  @override
+  String get restoreError => 'Error en la Restauración';
+
+  @override
+  String get noBannerAds => 'Sin anuncios de banner';
+
+  @override
+  String get noInterstitialAds => 'Sin anuncios intersticiales';
+
+  @override
+  String get noRewardedAds => 'Sin anuncios recompensados';
+
+  @override
+  String get cleanExperience => 'Experiencia limpia y sin distracciones';
+
+  @override
+  String get cancelAnytime => 'Cancela en cualquier momento';
+
+  @override
+  String get usdPerMonth => 'USD/mes';
+
+  @override
+  String get bestValue => 'MEJOR VALOR';
+
+  @override
+  String get fiftyPercentOff => '50% DESCUENTO';
 
   @override
   String get totalGames => 'Total de Juegos';
@@ -613,4 +650,49 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get column => 'columna';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Ajustes de sonido';
+
+  @override
+  String get soundSettingsMenuSubtitle =>
+      'Sonidos de la app y nivel de efectos';
+
+  @override
+  String get appSounds => 'Sonidos de la aplicación';
+
+  @override
+  String get appSoundsDescription =>
+      'Activar/desactivar sonidos y ajustar el nivel de efectos';
+
+  @override
+  String get sounds => 'Sonidos';
+
+  @override
+  String get soundsOn => 'Activado';
+
+  @override
+  String get soundsOff => 'Desactivado';
+
+  @override
+  String get effectsVolume => 'Volumen de efectos';
+
+  @override
+  String get soundTest => 'Prueba de sonido';
+
+  @override
+  String get playSampleSound => 'Reproducir sonido de muestra';
 }

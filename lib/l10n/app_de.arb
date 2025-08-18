@@ -250,7 +250,7 @@
     "description": "Beschreibung für das Schere-Stein-Papier Spiel"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Einundzwanzig)",
   "@twentyOne": {
     "description": "Titel für das 21 (Blackjack) Spiel"
   },
@@ -339,6 +339,8 @@
     "description": "Abonnement abgelaufen Status"
   },
   "daysRemaining": "{days} Tage verbleibend",
+  "monthlySubscriptionPrice": "Monatliches Abonnement - $2.49",
+  "uninstallWarning": "Wichtig: Das Abonnement wird lokal gespeichert. Wenn Sie die App deinstallieren, geht Ihr Abonnement verloren und Sie müssen es erneut kaufen.",
   "@daysRemaining": {
     "description": "Verbleibende Tage im Abonnement",
     "placeholders": {
@@ -363,6 +365,46 @@
   "restoreError": "Wiederherstellen Fehlgeschlagen",
   "@restoreError": {
     "description": "Wiederherstellen Fehler Nachricht"
+  },
+  "noBannerAds": "Keine Banner-Werbung",
+  "@noBannerAds": {
+    "description": "Feature Beschreibung für keine Banner-Werbung"
+  },
+  "noInterstitialAds": "Keine Interstitial-Werbung",
+  "@noInterstitialAds": {
+    "description": "Feature Beschreibung für keine Interstitial-Werbung"
+  },
+  "noRewardedAds": "Keine Belohnungs-Werbung",
+  "@noRewardedAds": {
+    "description": "Feature Beschreibung für keine Belohnungs-Werbung"
+  },
+  "cleanExperience": "Saubere, ablenkungsfreie Erfahrung",
+  "@cleanExperience": {
+    "description": "Feature Beschreibung für saubere Erfahrung"
+  },
+  "cancelAnytime": "Jederzeit kündbar",
+  "@cancelAnytime": {
+    "description": "Feature Beschreibung für jederzeit kündbar"
+  },
+  "usdPerMonth": "USD/Monat",
+  "@usdPerMonth": {
+    "description": "USD pro Monat Label"
+  },
+  "bestValue": "BESTER WERT",
+  "@bestValue": {
+    "description": "Bester Wert Label"
+  },
+  "fiftyPercentOff": "50% RABATT",
+  "@fiftyPercentOff": {
+    "description": "50% Rabatt Label"
+  },
+  "importantNotice": "Wichtiger Hinweis",
+  "@importantNotice": {
+    "description": "Wichtiger Hinweis Titel für Warnungen"
+  },
+  "gotIt": "Verstanden",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Gesamte Spiele",
   "@totalGames": {
@@ -822,4 +864,15 @@
   "@exit": {
     "description": "Beenden Button Text"
   }
+  ,
+  "soundSettings": "Toneinstellungen",
+  "soundSettingsMenuSubtitle": "App‑Sounds und Effekt‑Lautstärke",
+  "appSounds": "App‑Sounds",
+  "appSoundsDescription": "Sounds ein/aus und Effektlautstärke anpassen",
+  "sounds": "Sounds",
+  "soundsOn": "An",
+  "soundsOff": "Aus",
+  "effectsVolume": "Effektlautstärke",
+  "soundTest": "Soundtest",
+  "playSampleSound": "Beispielsound abspielen"
 }

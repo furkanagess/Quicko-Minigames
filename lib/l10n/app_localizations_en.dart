@@ -291,6 +291,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
+
+  @override
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
+
+  @override
+  String get importantNotice => 'Important Notice';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
   String get purchaseSuccess => 'Purchase Successful!';
 
   @override
@@ -301,6 +314,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get restoreError => 'Restore Failed';
+
+  @override
+  String get noBannerAds => 'No banner ads';
+
+  @override
+  String get noInterstitialAds => 'No interstitial ads';
+
+  @override
+  String get noRewardedAds => 'No rewarded ads';
+
+  @override
+  String get cleanExperience => 'Clean, distraction-free experience';
+
+  @override
+  String get cancelAnytime => 'Cancel anytime';
+
+  @override
+  String get usdPerMonth => 'USD/month';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get totalGames => 'Total Games';
@@ -607,4 +644,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get column => 'column';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Sound Settings';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'App sounds and effects level';
+
+  @override
+  String get appSounds => 'App Sounds';
+
+  @override
+  String get appSoundsDescription => 'Toggle sounds and adjust effect level';
+
+  @override
+  String get sounds => 'Sounds';
+
+  @override
+  String get soundsOn => 'On';
+
+  @override
+  String get soundsOff => 'Off';
+
+  @override
+  String get effectsVolume => 'Effects Volume';
+
+  @override
+  String get soundTest => 'Sound Test';
+
+  @override
+  String get playSampleSound => 'Play Sample Sound';
 }

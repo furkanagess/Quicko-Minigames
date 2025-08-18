@@ -381,6 +381,22 @@
       }
     }
   },
+  "monthlySubscriptionPrice": "Monthly subscription - $2.49",
+  "@monthlySubscriptionPrice": {
+    "description": "Monthly subscription price display"
+  },
+  "uninstallWarning": "Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you'll need to purchase again.",
+  "@uninstallWarning": {
+    "description": "Warning about subscription loss when app is uninstalled"
+  },
+  "importantNotice": "Important Notice",
+  "@importantNotice": {
+    "description": "Important notice title"
+  },
+  "gotIt": "Got it",
+  "@gotIt": {
+    "description": "Got it button text"
+  },
   "purchaseSuccess": "Purchase Successful!",
   "@purchaseSuccess": {
     "description": "Purchase success message"
@@ -396,6 +412,38 @@
   "restoreError": "Restore Failed",
   "@restoreError": {
     "description": "Restore error message"
+  },
+  "noBannerAds": "No banner ads",
+  "@noBannerAds": {
+    "description": "Feature description for no banner ads"
+  },
+  "noInterstitialAds": "No interstitial ads",
+  "@noInterstitialAds": {
+    "description": "Feature description for no interstitial ads"
+  },
+  "noRewardedAds": "No rewarded ads",
+  "@noRewardedAds": {
+    "description": "Feature description for no rewarded ads"
+  },
+  "cleanExperience": "Clean, distraction-free experience",
+  "@cleanExperience": {
+    "description": "Feature description for clean experience"
+  },
+  "cancelAnytime": "Cancel anytime",
+  "@cancelAnytime": {
+    "description": "Feature description for cancel anytime"
+  },
+  "usdPerMonth": "USD/month",
+  "@usdPerMonth": {
+    "description": "USD per month label"
+  },
+  "bestValue": "BEST VALUE",
+  "@bestValue": {
+    "description": "Best value label"
+  },
+  "fiftyPercentOff": "-50%",
+  "@fiftyPercentOff": {
+    "description": "50% discount label"
   },
   "totalGames": "Total Games",
   "@totalGames": {
@@ -870,5 +918,52 @@
   "brown": "Brown",
   "@brown": {
     "description": "Brown color name"
-  }
+  },
+  
+  "fiftyPercentOff": "50% OFF",
+  "@fiftyPercentOff": {
+    "description": "50% discount text for subscription"
+  },
+  "importantNotice": "Important Notice",
+  "@importantNotice": {
+    "description": "Important notice title for warnings"
+  },
+  
+  "gameInProgress": "Game in Progress",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressMessage": "A game is currently in progress. Are you sure you want to exit? Your progress will be lost.",
+  "@gameInProgressMessage": {
+    "description": "Game in progress confirmation message"
+  },
+  "stayInGame": "Stay in Game",
+  "@stayInGame": {
+    "description": "Stay in game button text"
+  },
+  "exitGame": "Exit Game",
+  "@exitGame": {
+    "description": "Exit game button text"
+  },
+
+  "soundSettings": "Sound Settings",
+  "@soundSettings": { "description": "Sound settings screen title" },
+  "soundSettingsMenuSubtitle": "App sounds and effects level",
+  "@soundSettingsMenuSubtitle": { "description": "Subtitle for sound settings in main settings list" },
+  "appSounds": "App Sounds",
+  "@appSounds": { "description": "Header title for app sounds card" },
+  "appSoundsDescription": "Toggle sounds and adjust effect level",
+  "@appSoundsDescription": { "description": "Description under app sounds header" },
+  "sounds": "Sounds",
+  "@sounds": { "description": "Sounds toggle label" },
+  "soundsOn": "On",
+  "@soundsOn": { "description": "Sounds enabled label" },
+  "soundsOff": "Off",
+  "@soundsOff": { "description": "Sounds disabled label" },
+  "effectsVolume": "Effects Volume",
+  "@effectsVolume": { "description": "Effects volume label" },
+  "soundTest": "Sound Test",
+  "@soundTest": { "description": "Sound test section title" },
+  "playSampleSound": "Play Sample Sound",
+  "@playSampleSound": { "description": "Play sample sound button text" }
 }

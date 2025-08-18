@@ -264,43 +264,80 @@ class AppLocalizationsAr extends AppLocalizations {
   String get swipeToDeleteHint => 'اسحب لليسار لحذف النقاط العالية';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'إزالة الإعلانات';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'استمتع بتجربة خالية من الإعلانات مع اشتراك شهري';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'الاشتراك الشهري';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'اشترك الآن';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'استعادة المشتريات';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'الاشتراك نشط';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'الاشتراك منتهي الصلاحية';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return 'متبقي $days يوم';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'إشعار مهم';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'فهمت';
+
+  @override
+  String get purchaseSuccess => 'تم الشراء بنجاح!';
+
+  @override
+  String get purchaseError => 'فشل الشراء';
+
+  @override
+  String get restoreSuccess => 'تمت استعادة المشتريات!';
+
+  @override
+  String get restoreError => 'فشلت الاستعادة';
+
+  @override
+  String get noBannerAds => 'لا إعلانات بانر';
+
+  @override
+  String get noInterstitialAds => 'لا إعلانات وسيطة';
+
+  @override
+  String get noRewardedAds => 'لا إعلانات مكافأة';
+
+  @override
+  String get cleanExperience => 'تجربة نظيفة وخالية من التشتيت';
+
+  @override
+  String get cancelAnytime => 'إلغاء في أي وقت';
+
+  @override
+  String get usdPerMonth => 'دولار/شهر';
+
+  @override
+  String get bestValue => 'أفضل قيمة';
+
+  @override
+  String get fiftyPercentOff => 'خصم 50%';
 
   @override
   String get totalGames => 'إجمالي الألعاب';
@@ -605,4 +642,48 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get column => 'عمود';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'إعدادات الصوت';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'أصوات التطبيق ومستوى التأثيرات';
+
+  @override
+  String get appSounds => 'أصوات التطبيق';
+
+  @override
+  String get appSoundsDescription =>
+      'قم بتفعيل/إيقاف الأصوات واضبط مستوى التأثيرات';
+
+  @override
+  String get sounds => 'الأصوات';
+
+  @override
+  String get soundsOn => 'مفعّل';
+
+  @override
+  String get soundsOff => 'معطّل';
+
+  @override
+  String get effectsVolume => 'مستوى صوت التأثيرات';
+
+  @override
+  String get soundTest => 'اختبار الصوت';
+
+  @override
+  String get playSampleSound => 'تشغيل صوت تجريبي';
 }

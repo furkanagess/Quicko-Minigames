@@ -79,7 +79,7 @@
   "rockPaperScissors": "Taş-Kağıt-Makas",
   "rockPaperScissorsDescription": "Bilgisayara karşı oyna. 5 puana ilk ulaşan kazanır.",
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Yirmi Bir)",
   "twentyOneDescription": "Krupiyeyi 21'e kadar yenin! Aşmadan mümkün olduğunca yaklaşın.",
   
   "nowYourTurn": "Şimdi sıra sizde!",
@@ -102,10 +102,22 @@
   "subscriptionActive": "Abonelik Aktif",
   "subscriptionExpired": "Abonelik Süresi Doldu",
   "daysRemaining": "{days} gün kaldı",
+  "monthlySubscriptionPrice": "Aylık abonelik - $2.49",
+  "uninstallWarning": "Önemli: Abonelik yerel olarak saklanır. Uygulamayı kaldırırsanız, aboneliğiniz kaybolacak ve tekrar satın almanız gerekecektir.",
+  "importantNotice": "Önemli Uyarı",
+  "gotIt": "Anladım",
   "purchaseSuccess": "Satın Alma Başarılı!",
   "purchaseError": "Satın Alma Başarısız",
   "restoreSuccess": "Satın Alımlar Geri Yüklendi!",
   "restoreError": "Geri Yükleme Başarısız",
+  "noBannerAds": "Banner reklamları yok",
+  "noInterstitialAds": "Geçiş reklamları yok",
+  "noRewardedAds": "Ödüllü reklamlar yok",
+  "cleanExperience": "Temiz, dikkat dağıtmayan deneyim",
+  "cancelAnytime": "İstediğiniz zaman iptal edin",
+  "usdPerMonth": "USD/ay",
+  "bestValue": "EN İYİ DEĞER",
+  "fiftyPercentOff": "%50 İNDİRİM",
   "totalGames": "Toplam Oyun",
   "highestScore": "En Yüksek Skor",
   "averageScore": "Ortalama Skor",
@@ -489,5 +501,33 @@
   "exit": "Çıkış",
   "@exit": {
     "description": "Exit button text"
-  }
+  },
+  
+  "gameInProgress": "Oyun Devam Ediyor",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressMessage": "Bir oyun şu anda devam ediyor. Çıkmak istediğinizden emin misiniz? İlerlemeniz kaybolacak.",
+  "@gameInProgressMessage": {
+    "description": "Game in progress confirmation message"
+  },
+  "stayInGame": "Oyunda Kal",
+  "@stayInGame": {
+    "description": "Stay in game button text"
+  },
+  "exitGame": "Oyundan Çık",
+  "@exitGame": {
+    "description": "Exit game button text"
+  },
+
+  "soundSettings": "Ses Ayarları",
+  "soundSettingsMenuSubtitle": "Uygulama sesleri ve efekt seviyesi",
+  "appSounds": "Uygulama Sesleri",
+  "appSoundsDescription": "Sesleri aç/kapat ve efekt seviyesini ayarla",
+  "sounds": "Sesler",
+  "soundsOn": "Açık",
+  "soundsOff": "Kapalı",
+  "effectsVolume": "Efekt Ses Seviyesi",
+  "soundTest": "Ses Testi",
+  "playSampleSound": "Örnek Sesi Çal"
 }

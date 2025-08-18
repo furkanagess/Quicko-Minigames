@@ -652,6 +652,30 @@ abstract class AppLocalizations {
   /// **'{days} days remaining'**
   String daysRemaining(int days);
 
+  /// Monthly subscription price display
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly subscription - \$2.49'**
+  String get monthlySubscriptionPrice;
+
+  /// Warning about subscription loss when app is uninstalled
+  ///
+  /// In en, this message translates to:
+  /// **'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.'**
+  String get uninstallWarning;
+
+  /// Important notice title for warnings
+  ///
+  /// In en, this message translates to:
+  /// **'Important Notice'**
+  String get importantNotice;
+
+  /// Got it button text
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotIt;
+
   /// Purchase success message
   ///
   /// In en, this message translates to:
@@ -675,6 +699,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restore Failed'**
   String get restoreError;
+
+  /// Feature description for no banner ads
+  ///
+  /// In en, this message translates to:
+  /// **'No banner ads'**
+  String get noBannerAds;
+
+  /// Feature description for no interstitial ads
+  ///
+  /// In en, this message translates to:
+  /// **'No interstitial ads'**
+  String get noInterstitialAds;
+
+  /// Feature description for no rewarded ads
+  ///
+  /// In en, this message translates to:
+  /// **'No rewarded ads'**
+  String get noRewardedAds;
+
+  /// Feature description for clean experience
+  ///
+  /// In en, this message translates to:
+  /// **'Clean, distraction-free experience'**
+  String get cleanExperience;
+
+  /// Feature description for cancel anytime
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime'**
+  String get cancelAnytime;
+
+  /// USD per month label
+  ///
+  /// In en, this message translates to:
+  /// **'USD/month'**
+  String get usdPerMonth;
+
+  /// Best value label
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get bestValue;
+
+  /// 50% discount text for subscription
+  ///
+  /// In en, this message translates to:
+  /// **'50% OFF'**
+  String get fiftyPercentOff;
 
   /// Total games label
   ///
@@ -1263,6 +1335,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'column'**
   String get column;
+
+  /// Game in progress dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Game in Progress'**
+  String get gameInProgress;
+
+  /// Game in progress confirmation message
+  ///
+  /// In en, this message translates to:
+  /// **'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.'**
+  String get gameInProgressMessage;
+
+  /// Stay in game button text
+  ///
+  /// In en, this message translates to:
+  /// **'Stay in Game'**
+  String get stayInGame;
+
+  /// Exit game button text
+  ///
+  /// In en, this message translates to:
+  /// **'Exit Game'**
+  String get exitGame;
+
+  /// Sound settings screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Sound Settings'**
+  String get soundSettings;
+
+  /// Subtitle for sound settings in main settings list
+  ///
+  /// In en, this message translates to:
+  /// **'App sounds and effects level'**
+  String get soundSettingsMenuSubtitle;
+
+  /// Header title for app sounds card
+  ///
+  /// In en, this message translates to:
+  /// **'App Sounds'**
+  String get appSounds;
+
+  /// Description under app sounds header
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle sounds and adjust effect level'**
+  String get appSoundsDescription;
+
+  /// Sounds toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Sounds'**
+  String get sounds;
+
+  /// Sounds enabled label
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get soundsOn;
+
+  /// Sounds disabled label
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get soundsOff;
+
+  /// Effects volume label
+  ///
+  /// In en, this message translates to:
+  /// **'Effects Volume'**
+  String get effectsVolume;
+
+  /// Sound test section title
+  ///
+  /// In en, this message translates to:
+  /// **'Sound Test'**
+  String get soundTest;
+
+  /// Play sample sound button text
+  ///
+  /// In en, this message translates to:
+  /// **'Play Sample Sound'**
+  String get playSampleSound;
 }
 
 class _AppLocalizationsDelegate

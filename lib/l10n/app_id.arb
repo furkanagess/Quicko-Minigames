@@ -250,7 +250,7 @@
     "description": "Deskripsi untuk permainan Batu-Gunting-Kertas"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Dua Puluh Satu)",
   "@twentyOne": {
     "description": "Judul untuk permainan 21 (Blackjack)"
   },
@@ -309,6 +309,100 @@
   "swipeToDeleteHint": "Geser ke kiri untuk menghapus skor tinggi",
   "@swipeToDeleteHint": {
     "description": "Teks petunjuk untuk fungsi geser untuk menghapus"
+  },
+  "removeAds": "Hapus Iklan",
+  "@removeAds": {
+    "description": "Opsi berlangganan untuk menghapus iklan"
+  },
+  "removeAdsDescription": "Nikmati pengalaman bebas iklan dengan berlangganan bulanan",
+  "@removeAdsDescription": {
+    "description": "Deskripsi berlangganan untuk menghapus iklan"
+  },
+  "monthlySubscription": "Berlangganan Bulanan",
+  "@monthlySubscription": {
+    "description": "Label berlangganan bulanan"
+  },
+  "subscribeNow": "Berlangganan Sekarang",
+  "@subscribeNow": {
+    "description": "Teks tombol Berlangganan sekarang"
+  },
+  "restorePurchases": "Pulihkan Pembelian",
+  "@restorePurchases": {
+    "description": "Teks tombol Pulihkan pembelian"
+  },
+  "subscriptionActive": "Berlangganan Aktif",
+  "@subscriptionActive": {
+    "description": "Status berlangganan aktif"
+  },
+  "subscriptionExpired": "Berlangganan Kedaluwarsa",
+  "@subscriptionExpired": {
+    "description": "Status berlangganan kedaluwarsa"
+  },
+  "daysRemaining": "{days} hari tersisa",
+  "@daysRemaining": {
+    "description": "Hari tersisa dalam berlangganan",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Pembelian Berhasil!",
+  "@purchaseSuccess": {
+    "description": "Pesan sukses pembelian"
+  },
+  "purchaseError": "Pembelian Gagal",
+  "@purchaseError": {
+    "description": "Pesan error pembelian"
+  },
+  "restoreSuccess": "Pembelian Dipulihkan!",
+  "@restoreSuccess": {
+    "description": "Pesan sukses pemulihan"
+  },
+  "restoreError": "Pemulihan Gagal",
+  "@restoreError": {
+    "description": "Pesan error pemulihan"
+  },
+  "noBannerAds": "Tidak ada iklan banner",
+  "@noBannerAds": {
+    "description": "Deskripsi fitur untuk tidak ada iklan banner"
+  },
+  "noInterstitialAds": "Tidak ada iklan interstisial",
+  "@noInterstitialAds": {
+    "description": "Deskripsi fitur untuk tidak ada iklan interstisial"
+  },
+  "noRewardedAds": "Tidak ada iklan berhadiah",
+  "@noRewardedAds": {
+    "description": "Deskripsi fitur untuk tidak ada iklan berhadiah"
+  },
+  "cleanExperience": "Pengalaman bersih tanpa gangguan",
+  "@cleanExperience": {
+    "description": "Deskripsi fitur untuk pengalaman bersih"
+  },
+  "cancelAnytime": "Batalkan kapan saja",
+  "@cancelAnytime": {
+    "description": "Deskripsi fitur untuk batalkan kapan saja"
+  },
+  "usdPerMonth": "USD/bulan",
+  "@usdPerMonth": {
+    "description": "Label USD per bulan"
+  },
+  "bestValue": "NILAI TERBAIK",
+  "@bestValue": {
+    "description": "Label nilai terbaik"
+  },
+  "fiftyPercentOff": "50% DISKON",
+  "@fiftyPercentOff": {
+    "description": "Label diskon 50%"
+  },
+  "importantNotice": "Pemberitahuan Penting",
+  "@importantNotice": {
+    "description": "Judul pemberitahuan penting untuk peringatan"
+  },
+  "gotIt": "Mengerti",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Total Permainan",
   "@totalGames": {
@@ -768,4 +862,15 @@
   "@exit": {
     "description": "Teks tombol keluar"
   }
+  ,
+  "soundSettings": "Pengaturan Suara",
+  "soundSettingsMenuSubtitle": "Suara aplikasi dan level efek",
+  "appSounds": "Suara Aplikasi",
+  "appSoundsDescription": "Aktif/nonaktifkan suara dan atur level efek",
+  "sounds": "Suara",
+  "soundsOn": "Aktif",
+  "soundsOff": "Nonaktif",
+  "effectsVolume": "Volume Efek",
+  "soundTest": "Tes Suara",
+  "playSampleSound": "Putar Suara Contoh"
 }

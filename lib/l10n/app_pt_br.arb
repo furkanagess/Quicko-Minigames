@@ -250,7 +250,7 @@
     "description": "Description for the Rock-Paper-Scissors game"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Vinte e Um)",
   "@twentyOne": {
     "description": "Title for the 21 (Blackjack) game"
   },
@@ -309,6 +309,100 @@
   "swipeToDeleteHint": "Deslize para a esquerda para excluir pontuações altas",
   "@swipeToDeleteHint": {
     "description": "Hint text for swipe to delete functionality"
+  },
+  "removeAds": "Remover Anúncios",
+  "@removeAds": {
+    "description": "Opção de assinatura para remover anúncios"
+  },
+  "removeAdsDescription": "Desfrute de uma experiência sem anúncios com assinatura mensal",
+  "@removeAdsDescription": {
+    "description": "Descrição da assinatura para remover anúncios"
+  },
+  "monthlySubscription": "Assinatura Mensal",
+  "@monthlySubscription": {
+    "description": "Rótulo de assinatura mensal"
+  },
+  "subscribeNow": "Assinar Agora",
+  "@subscribeNow": {
+    "description": "Texto do botão Assinar agora"
+  },
+  "restorePurchases": "Restaurar Compras",
+  "@restorePurchases": {
+    "description": "Texto do botão Restaurar compras"
+  },
+  "subscriptionActive": "Assinatura Ativa",
+  "@subscriptionActive": {
+    "description": "Status de assinatura ativa"
+  },
+  "subscriptionExpired": "Assinatura Expirada",
+  "@subscriptionExpired": {
+    "description": "Status de assinatura expirada"
+  },
+  "daysRemaining": "{days} dias restantes",
+  "@daysRemaining": {
+    "description": "Dias restantes na assinatura",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Compra Bem-sucedida!",
+  "@purchaseSuccess": {
+    "description": "Mensagem de sucesso da compra"
+  },
+  "purchaseError": "Falha na Compra",
+  "@purchaseError": {
+    "description": "Mensagem de erro da compra"
+  },
+  "restoreSuccess": "Compras Restauradas!",
+  "@restoreSuccess": {
+    "description": "Mensagem de sucesso da restauração"
+  },
+  "restoreError": "Falha na Restauração",
+  "@restoreError": {
+    "description": "Mensagem de erro da restauração"
+  },
+  "noBannerAds": "Sem anúncios de banner",
+  "@noBannerAds": {
+    "description": "Descrição de recurso para sem anúncios de banner"
+  },
+  "noInterstitialAds": "Sem anúncios intersticiais",
+  "@noInterstitialAds": {
+    "description": "Descrição de recurso para sem anúncios intersticiais"
+  },
+  "noRewardedAds": "Sem anúncios recompensados",
+  "@noRewardedAds": {
+    "description": "Descrição de recurso para sem anúncios recompensados"
+  },
+  "cleanExperience": "Experiência limpa e sem distrações",
+  "@cleanExperience": {
+    "description": "Descrição de recurso para experiência limpa"
+  },
+  "cancelAnytime": "Cancele a qualquer momento",
+  "@cancelAnytime": {
+    "description": "Descrição de recurso para cancelar a qualquer momento"
+  },
+  "usdPerMonth": "USD/mês",
+  "@usdPerMonth": {
+    "description": "Rótulo USD por mês"
+  },
+  "bestValue": "MELHOR VALOR",
+  "@bestValue": {
+    "description": "Rótulo melhor valor"
+  },
+  "fiftyPercentOff": "50% DE DESCONTO",
+  "@fiftyPercentOff": {
+    "description": "Rótulo 50% de desconto"
+  },
+  "importantNotice": "Aviso Importante",
+  "@importantNotice": {
+    "description": "Título de aviso importante para avisos"
+  },
+  "gotIt": "Entendi",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Total de Jogos",
   "@totalGames": {
@@ -768,4 +862,15 @@
   "@exit": {
     "description": "Exit button text"
   }
+  ,
+  "soundSettings": "Configurações de som",
+  "soundSettingsMenuSubtitle": "Sons do app e nível de efeitos",
+  "appSounds": "Sons do aplicativo",
+  "appSoundsDescription": "Ativar/desativar sons e ajustar o nível dos efeitos",
+  "sounds": "Sons",
+  "soundsOn": "Ativado",
+  "soundsOff": "Desativado",
+  "effectsVolume": "Volume dos efeitos",
+  "soundTest": "Teste de som",
+  "playSampleSound": "Reproduzir som de exemplo"
 }

@@ -1,4 +1,15 @@
 {
   "@@locale": "pt",
   "appName": "Quicko"
+  ,
+  "soundSettings": "Configurações de som",
+  "soundSettingsMenuSubtitle": "Sons do app e nível de efeitos",
+  "appSounds": "Sons da aplicação",
+  "appSoundsDescription": "Ativar/desativar sons e ajustar o nível dos efeitos",
+  "sounds": "Sons",
+  "soundsOn": "Ativado",
+  "soundsOff": "Desativado",
+  "effectsVolume": "Volume dos efeitos",
+  "soundTest": "Teste de som",
+  "playSampleSound": "Reproduzir som de exemplo"
 }

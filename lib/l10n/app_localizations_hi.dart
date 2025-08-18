@@ -267,43 +267,80 @@ class AppLocalizationsHi extends AppLocalizations {
   String get swipeToDeleteHint => 'उच्च स्कोर हटाने के लिए बाईं ओर स्वाइप करें';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'विज्ञापन हटाएं';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'मासिक सदस्यता के साथ विज्ञापन-मुक्त अनुभव का आनंद लें';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'मासिक सदस्यता';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'अभी सदस्यता लें';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'खरीदारी पुनर्स्थापित करें';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'सदस्यता सक्रिय';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'सदस्यता समाप्त';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return '$days दिन शेष';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'महत्वपूर्ण सूचना';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'समझ गया';
+
+  @override
+  String get purchaseSuccess => 'खरीदारी सफल!';
+
+  @override
+  String get purchaseError => 'खरीदारी विफल';
+
+  @override
+  String get restoreSuccess => 'खरीदारी पुनर्स्थापित!';
+
+  @override
+  String get restoreError => 'पुनर्स्थापना विफल';
+
+  @override
+  String get noBannerAds => 'कोई बैनर विज्ञापन नहीं';
+
+  @override
+  String get noInterstitialAds => 'कोई इंटरस्टिशियल विज्ञापन नहीं';
+
+  @override
+  String get noRewardedAds => 'कोई पुरस्कृत विज्ञापन नहीं';
+
+  @override
+  String get cleanExperience => 'स्वच्छ, विचलन-मुक्त अनुभव';
+
+  @override
+  String get cancelAnytime => 'कभी भी रद्द करें';
+
+  @override
+  String get usdPerMonth => 'USD/महीना';
+
+  @override
+  String get bestValue => 'सर्वश्रेष्ठ मूल्य';
+
+  @override
+  String get fiftyPercentOff => '50% छूट';
 
   @override
   String get totalGames => 'कुल खेल';
@@ -611,4 +648,48 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get column => 'स्तंभ';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'ध्वनि सेटिंग्स';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'ऐप की ध्वनियाँ और प्रभाव स्तर';
+
+  @override
+  String get appSounds => 'ऐप ध्वनियाँ';
+
+  @override
+  String get appSoundsDescription =>
+      'ध्वनियाँ चालू/बंद करें और प्रभाव स्तर समायोजित करें';
+
+  @override
+  String get sounds => 'ध्वनियाँ';
+
+  @override
+  String get soundsOn => 'चालू';
+
+  @override
+  String get soundsOff => 'बंद';
+
+  @override
+  String get effectsVolume => 'इफेक्ट वॉल्यूम';
+
+  @override
+  String get soundTest => 'ध्वनि परीक्षण';
+
+  @override
+  String get playSampleSound => 'नमूना ध्वनि चलाएँ';
 }

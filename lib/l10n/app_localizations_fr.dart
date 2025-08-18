@@ -223,7 +223,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Jouez contre l\'ordinateur. Le premier à atteindre 5 points gagne.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Vingt-et-Un)';
 
   @override
   String get twentyOneDescription =>
@@ -268,43 +268,80 @@ class AppLocalizationsFr extends AppLocalizations {
       'Glissez vers la gauche pour supprimer les scores élevés';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'Supprimer les Publicités';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'Profitez d\'une expérience sans publicité avec un abonnement mensuel';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'Abonnement Mensuel';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'S\'abonner Maintenant';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'Restaurer les Achats';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'Abonnement Actif';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'Abonnement Expiré';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return '$days jours restants';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Abonnement mensuel - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Important : L\'abonnement est stocké localement. Si vous désinstallez l\'application, votre abonnement sera perdu et vous devrez l\'acheter à nouveau.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'Avis Important';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'Compris';
+
+  @override
+  String get purchaseSuccess => 'Achat Réussi !';
+
+  @override
+  String get purchaseError => 'Échec de l\'Achat';
+
+  @override
+  String get restoreSuccess => 'Achats Restaurés !';
+
+  @override
+  String get restoreError => 'Échec de la Restauration';
+
+  @override
+  String get noBannerAds => 'Pas de publicités de bannière';
+
+  @override
+  String get noInterstitialAds => 'Pas de publicités interstitielles';
+
+  @override
+  String get noRewardedAds => 'Pas de publicités récompensées';
+
+  @override
+  String get cleanExperience => 'Expérience propre et sans distraction';
+
+  @override
+  String get cancelAnytime => 'Annulez à tout moment';
+
+  @override
+  String get usdPerMonth => 'USD/mois';
+
+  @override
+  String get bestValue => 'MEILLEUR RAPPORT';
+
+  @override
+  String get fiftyPercentOff => '50% DE RÉDUCTION';
 
   @override
   String get totalGames => 'Total des Jeux';
@@ -616,4 +653,49 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get column => 'colonne';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Paramètres du son';
+
+  @override
+  String get soundSettingsMenuSubtitle =>
+      'Sons de l\'application et niveau des effets';
+
+  @override
+  String get appSounds => 'Sons de l\'application';
+
+  @override
+  String get appSoundsDescription =>
+      'Activer/désactiver les sons et régler le niveau des effets';
+
+  @override
+  String get sounds => 'Sons';
+
+  @override
+  String get soundsOn => 'Activé';
+
+  @override
+  String get soundsOff => 'Désactivé';
+
+  @override
+  String get effectsVolume => 'Volume des effets';
+
+  @override
+  String get soundTest => 'Test du son';
+
+  @override
+  String get playSampleSound => 'Lire un son d\'exemple';
 }

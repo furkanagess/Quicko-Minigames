@@ -250,7 +250,7 @@
     "description": "Daş-Kağız-Qayçı oyunu üçün təsvir"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (İyirmi Bir)",
   "@twentyOne": {
     "description": "21 (Blackjack) oyunu üçün başlıq"
   },
@@ -309,6 +309,100 @@
   "swipeToDeleteHint": "Yüksək xalları silmək üçün sola sürüşdürün",
   "@swipeToDeleteHint": {
     "description": "Sürüşdürərək silmə funksiyası üçün göstəriş mətni"
+  },
+  "removeAds": "Reklamları Sil",
+  "@removeAds": {
+    "description": "Reklamları silmək üçün abunəlik seçimi"
+  },
+  "removeAdsDescription": "Aylıq abunəlik ilə reklamsız təcrübə yaşayın",
+  "@removeAdsDescription": {
+    "description": "Reklamları silmək üçün abunəlik təsviri"
+  },
+  "monthlySubscription": "Aylıq Abunəlik",
+  "@monthlySubscription": {
+    "description": "Aylıq abunəlik etiketi"
+  },
+  "subscribeNow": "İndi Abunə Ol",
+  "@subscribeNow": {
+    "description": "İndi abunə ol düyməsinin mətni"
+  },
+  "restorePurchases": "Alışları Bərpa Et",
+  "@restorePurchases": {
+    "description": "Alışları bərpa et düyməsinin mətni"
+  },
+  "subscriptionActive": "Abunəlik Aktiv",
+  "@subscriptionActive": {
+    "description": "Abunəlik aktiv statusu"
+  },
+  "subscriptionExpired": "Abunəlik Bitmiş",
+  "@subscriptionExpired": {
+    "description": "Abunəlik bitmiş statusu"
+  },
+  "daysRemaining": "{days} gün qalıb",
+  "@daysRemaining": {
+    "description": "Abunəlikdə qalan günlər",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Alış Uğurlu!",
+  "@purchaseSuccess": {
+    "description": "Alış uğur mesajı"
+  },
+  "purchaseError": "Alış Uğursuz",
+  "@purchaseError": {
+    "description": "Alış xəta mesajı"
+  },
+  "restoreSuccess": "Alışlar Bərpa Edildi!",
+  "@restoreSuccess": {
+    "description": "Bərpa uğur mesajı"
+  },
+  "restoreError": "Bərpa Uğursuz",
+  "@restoreError": {
+    "description": "Bərpa xəta mesajı"
+  },
+  "noBannerAds": "Banner reklamları yoxdur",
+  "@noBannerAds": {
+    "description": "Banner reklamları yoxdur üçün xüsusiyyət təsviri"
+  },
+  "noInterstitialAds": "Ara reklamları yoxdur",
+  "@noInterstitialAds": {
+    "description": "Ara reklamları yoxdur üçün xüsusiyyət təsviri"
+  },
+  "noRewardedAds": "Mükafatlı reklamlar yoxdur",
+  "@noRewardedAds": {
+    "description": "Mükafatlı reklamlar yoxdur üçün xüsusiyyət təsviri"
+  },
+  "cleanExperience": "Təmiz, diqqəti yayındırmayan təcrübə",
+  "@cleanExperience": {
+    "description": "Təmiz təcrübə üçün xüsusiyyət təsviri"
+  },
+  "cancelAnytime": "İstədiyiniz zaman ləğv edin",
+  "@cancelAnytime": {
+    "description": "İstədiyiniz zaman ləğv etmək üçün xüsusiyyət təsviri"
+  },
+  "usdPerMonth": "USD/ay",
+  "@usdPerMonth": {
+    "description": "USD aylıq etiketi"
+  },
+  "bestValue": "ƏN YAXŞI DƏYƏR",
+  "@bestValue": {
+    "description": "Ən yaxşı dəyər etiketi"
+  },
+  "fiftyPercentOff": "50% ENDİRİM",
+  "@fiftyPercentOff": {
+    "description": "50% endirim etiketi"
+  },
+  "importantNotice": "Vacib Bildiriş",
+  "@importantNotice": {
+    "description": "Xəbərdarlıqlar üçün vacib bildiriş başlığı"
+  },
+  "gotIt": "Başa düşdüm",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Ümumi Oyunlar",
   "@totalGames": {
@@ -768,4 +862,15 @@
   "@exit": {
     "description": "Çıxış düyməsi mətni"
   }
+  ,
+  "soundSettings": "Səs Parametrləri",
+  "soundSettingsMenuSubtitle": "Tətbiq səsləri və effekt səviyyəsi",
+  "appSounds": "Tətbiq Səsləri",
+  "appSoundsDescription": "Səsləri aç/bağla və effekt səviyyəsini tənzimlə",
+  "sounds": "Səslər",
+  "soundsOn": "Açıq",
+  "soundsOff": "Bağlı",
+  "effectsVolume": "Effekt Səs Səviyyəsi",
+  "soundTest": "Səs Testi",
+  "playSampleSound": "Nümunə Səsi Çal"
 }

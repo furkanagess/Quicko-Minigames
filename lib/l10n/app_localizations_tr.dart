@@ -222,7 +222,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bilgisayara karşı oyna. 5 puana ilk ulaşan kazanır.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Yirmi Bir)';
 
   @override
   String get twentyOneDescription =>
@@ -293,6 +293,19 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get monthlySubscriptionPrice => 'Aylık abonelik - \$2.49';
+
+  @override
+  String get uninstallWarning =>
+      'Önemli: Abonelik yerel olarak saklanır. Uygulamayı kaldırırsanız, aboneliğiniz kaybolacak ve tekrar satın almanız gerekecektir.';
+
+  @override
+  String get importantNotice => 'Önemli Uyarı';
+
+  @override
+  String get gotIt => 'Anladım';
+
+  @override
   String get purchaseSuccess => 'Satın Alma Başarılı!';
 
   @override
@@ -303,6 +316,30 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get restoreError => 'Geri Yükleme Başarısız';
+
+  @override
+  String get noBannerAds => 'Banner reklamları yok';
+
+  @override
+  String get noInterstitialAds => 'Geçiş reklamları yok';
+
+  @override
+  String get noRewardedAds => 'Ödüllü reklamlar yok';
+
+  @override
+  String get cleanExperience => 'Temiz, dikkat dağıtmayan deneyim';
+
+  @override
+  String get cancelAnytime => 'İstediğiniz zaman iptal edin';
+
+  @override
+  String get usdPerMonth => 'USD/ay';
+
+  @override
+  String get bestValue => 'EN İYİ DEĞER';
+
+  @override
+  String get fiftyPercentOff => '%50 İNDİRİM';
 
   @override
   String get totalGames => 'Toplam Oyun';
@@ -610,4 +647,48 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get column => 'sütun';
+
+  @override
+  String get gameInProgress => 'Oyun Devam Ediyor';
+
+  @override
+  String get gameInProgressMessage =>
+      'Bir oyun şu anda devam ediyor. Çıkmak istediğinizden emin misiniz? İlerlemeniz kaybolacak.';
+
+  @override
+  String get stayInGame => 'Oyunda Kal';
+
+  @override
+  String get exitGame => 'Oyundan Çık';
+
+  @override
+  String get soundSettings => 'Ses Ayarları';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'Uygulama sesleri ve efekt seviyesi';
+
+  @override
+  String get appSounds => 'Uygulama Sesleri';
+
+  @override
+  String get appSoundsDescription =>
+      'Sesleri aç/kapat ve efekt seviyesini ayarla';
+
+  @override
+  String get sounds => 'Sesler';
+
+  @override
+  String get soundsOn => 'Açık';
+
+  @override
+  String get soundsOff => 'Kapalı';
+
+  @override
+  String get effectsVolume => 'Efekt Ses Seviyesi';
+
+  @override
+  String get soundTest => 'Ses Testi';
+
+  @override
+  String get playSampleSound => 'Örnek Sesi Çal';
 }

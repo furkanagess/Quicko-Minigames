@@ -250,7 +250,7 @@
     "description": "Description pour le jeu Pierre-Papier-Ciseaux"
   },
   
-  "twentyOne": "21 (Blackjack)",
+  "twentyOne": "21 (Vingt-et-Un)",
   "@twentyOne": {
     "description": "Titre pour le jeu 21 (Blackjack)"
   },
@@ -309,6 +309,102 @@
   "swipeToDeleteHint": "Glissez vers la gauche pour supprimer les scores élevés",
   "@swipeToDeleteHint": {
     "description": "Texte d'indication pour la fonctionnalité de glissement pour supprimer"
+  },
+  "removeAds": "Supprimer les Publicités",
+  "@removeAds": {
+    "description": "Option d'abonnement pour supprimer les publicités"
+  },
+  "removeAdsDescription": "Profitez d'une expérience sans publicité avec un abonnement mensuel",
+  "@removeAdsDescription": {
+    "description": "Description de l'abonnement pour supprimer les publicités"
+  },
+  "monthlySubscription": "Abonnement Mensuel",
+  "@monthlySubscription": {
+    "description": "Étiquette d'abonnement mensuel"
+  },
+  "subscribeNow": "S'abonner Maintenant",
+  "@subscribeNow": {
+    "description": "Texte du bouton S'abonner maintenant"
+  },
+  "restorePurchases": "Restaurer les Achats",
+  "@restorePurchases": {
+    "description": "Texte du bouton Restaurer les achats"
+  },
+  "subscriptionActive": "Abonnement Actif",
+  "@subscriptionActive": {
+    "description": "Statut d'abonnement actif"
+  },
+  "subscriptionExpired": "Abonnement Expiré",
+  "@subscriptionExpired": {
+    "description": "Statut d'abonnement expiré"
+  },
+  "daysRemaining": "{days} jours restants",
+  "monthlySubscriptionPrice": "Abonnement mensuel - $2.49",
+  "uninstallWarning": "Important : L'abonnement est stocké localement. Si vous désinstallez l'application, votre abonnement sera perdu et vous devrez l'acheter à nouveau.",
+  "@daysRemaining": {
+    "description": "Jours restants dans l'abonnement",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "Achat Réussi !",
+  "@purchaseSuccess": {
+    "description": "Message de succès d'achat"
+  },
+  "purchaseError": "Échec de l'Achat",
+  "@purchaseError": {
+    "description": "Message d'erreur d'achat"
+  },
+  "restoreSuccess": "Achats Restaurés !",
+  "@restoreSuccess": {
+    "description": "Message de succès de restauration"
+  },
+  "restoreError": "Échec de la Restauration",
+  "@restoreError": {
+    "description": "Message d'erreur de restauration"
+  },
+  "noBannerAds": "Pas de publicités de bannière",
+  "@noBannerAds": {
+    "description": "Description de fonctionnalité pour pas de publicités de bannière"
+  },
+  "noInterstitialAds": "Pas de publicités interstitielles",
+  "@noInterstitialAds": {
+    "description": "Description de fonctionnalité pour pas de publicités interstitielles"
+  },
+  "noRewardedAds": "Pas de publicités récompensées",
+  "@noRewardedAds": {
+    "description": "Description de fonctionnalité pour pas de publicités récompensées"
+  },
+  "cleanExperience": "Expérience propre et sans distraction",
+  "@cleanExperience": {
+    "description": "Description de fonctionnalité pour expérience propre"
+  },
+  "cancelAnytime": "Annulez à tout moment",
+  "@cancelAnytime": {
+    "description": "Description de fonctionnalité pour annuler à tout moment"
+  },
+  "usdPerMonth": "USD/mois",
+  "@usdPerMonth": {
+    "description": "Label USD par mois"
+  },
+  "bestValue": "MEILLEUR RAPPORT",
+  "@bestValue": {
+    "description": "Label meilleur rapport"
+  },
+  "fiftyPercentOff": "50% DE RÉDUCTION",
+  "@fiftyPercentOff": {
+    "description": "Label 50% de réduction"
+  },
+  "importantNotice": "Avis Important",
+  "@importantNotice": {
+    "description": "Titre d'avis important pour les avertissements"
+  },
+  "gotIt": "Compris",
+  "@gotIt": {
+    "description": "Got it button text"
   },
   "totalGames": "Total des Jeux",
   "@totalGames": {
@@ -768,4 +864,15 @@
   "@exit": {
     "description": "Texte du bouton Quitter"
   }
+  ,
+  "soundSettings": "Paramètres du son",
+  "soundSettingsMenuSubtitle": "Sons de l'application et niveau des effets",
+  "appSounds": "Sons de l'application",
+  "appSoundsDescription": "Activer/désactiver les sons et régler le niveau des effets",
+  "sounds": "Sons",
+  "soundsOn": "Activé",
+  "soundsOff": "Désactivé",
+  "effectsVolume": "Volume des effets",
+  "soundTest": "Test du son",
+  "playSampleSound": "Lire un son d'exemple"
 }

@@ -223,7 +223,7 @@ class AppLocalizationsAz extends AppLocalizations {
       'Kompüterə qarşı oynayın. İlk 5 xal qazanan qalib gəlir.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (İyirmi Bir)';
 
   @override
   String get twentyOneDescription =>
@@ -267,43 +267,80 @@ class AppLocalizationsAz extends AppLocalizations {
   String get swipeToDeleteHint => 'Yüksək xalları silmək üçün sola sürüşdürün';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'Reklamları Sil';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'Aylıq abunəlik ilə reklamsız təcrübə yaşayın';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'Aylıq Abunəlik';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'İndi Abunə Ol';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'Alışları Bərpa Et';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'Abunəlik Aktiv';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'Abunəlik Bitmiş';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return '$days gün qalıb';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'Vacib Bildiriş';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'Başa düşdüm';
+
+  @override
+  String get purchaseSuccess => 'Alış Uğurlu!';
+
+  @override
+  String get purchaseError => 'Alış Uğursuz';
+
+  @override
+  String get restoreSuccess => 'Alışlar Bərpa Edildi!';
+
+  @override
+  String get restoreError => 'Bərpa Uğursuz';
+
+  @override
+  String get noBannerAds => 'Banner reklamları yoxdur';
+
+  @override
+  String get noInterstitialAds => 'Ara reklamları yoxdur';
+
+  @override
+  String get noRewardedAds => 'Mükafatlı reklamlar yoxdur';
+
+  @override
+  String get cleanExperience => 'Təmiz, diqqəti yayındırmayan təcrübə';
+
+  @override
+  String get cancelAnytime => 'İstədiyiniz zaman ləğv edin';
+
+  @override
+  String get usdPerMonth => 'USD/ay';
+
+  @override
+  String get bestValue => 'ƏN YAXŞI DƏYƏR';
+
+  @override
+  String get fiftyPercentOff => '50% ENDİRİM';
 
   @override
   String get totalGames => 'Ümumi Oyunlar';
@@ -611,4 +648,48 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get column => 'sütun';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Səs Parametrləri';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'Tətbiq səsləri və effekt səviyyəsi';
+
+  @override
+  String get appSounds => 'Tətbiq Səsləri';
+
+  @override
+  String get appSoundsDescription =>
+      'Səsləri aç/bağla və effekt səviyyəsini tənzimlə';
+
+  @override
+  String get sounds => 'Səslər';
+
+  @override
+  String get soundsOn => 'Açıq';
+
+  @override
+  String get soundsOff => 'Bağlı';
+
+  @override
+  String get effectsVolume => 'Effekt Səs Səviyyəsi';
+
+  @override
+  String get soundTest => 'Səs Testi';
+
+  @override
+  String get playSampleSound => 'Nümunə Səsi Çal';
 }

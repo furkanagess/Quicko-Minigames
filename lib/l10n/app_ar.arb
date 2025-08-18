@@ -301,6 +301,100 @@
   "@swipeToDeleteHint": {
     "description": "نص تلميح لوظيفة السحب للحذف"
   },
+  "removeAds": "إزالة الإعلانات",
+  "@removeAds": {
+    "description": "خيار الاشتراك لإزالة الإعلانات"
+  },
+  "removeAdsDescription": "استمتع بتجربة خالية من الإعلانات مع اشتراك شهري",
+  "@removeAdsDescription": {
+    "description": "وصف الاشتراك لإزالة الإعلانات"
+  },
+  "monthlySubscription": "الاشتراك الشهري",
+  "@monthlySubscription": {
+    "description": "تسمية الاشتراك الشهري"
+  },
+  "subscribeNow": "اشترك الآن",
+  "@subscribeNow": {
+    "description": "نص زر الاشتراك الآن"
+  },
+  "restorePurchases": "استعادة المشتريات",
+  "@restorePurchases": {
+    "description": "نص زر استعادة المشتريات"
+  },
+  "subscriptionActive": "الاشتراك نشط",
+  "@subscriptionActive": {
+    "description": "حالة الاشتراك النشط"
+  },
+  "subscriptionExpired": "الاشتراك منتهي الصلاحية",
+  "@subscriptionExpired": {
+    "description": "حالة الاشتراك المنتهي الصلاحية"
+  },
+  "daysRemaining": "متبقي {days} يوم",
+  "@daysRemaining": {
+    "description": "الأيام المتبقية في الاشتراك",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "purchaseSuccess": "تم الشراء بنجاح!",
+  "@purchaseSuccess": {
+    "description": "رسالة نجاح الشراء"
+  },
+  "purchaseError": "فشل الشراء",
+  "@purchaseError": {
+    "description": "رسالة خطأ الشراء"
+  },
+  "restoreSuccess": "تمت استعادة المشتريات!",
+  "@restoreSuccess": {
+    "description": "رسالة نجاح الاستعادة"
+  },
+  "restoreError": "فشلت الاستعادة",
+  "@restoreError": {
+    "description": "رسالة خطأ الاستعادة"
+  },
+  "noBannerAds": "لا إعلانات بانر",
+  "@noBannerAds": {
+    "description": "وصف الميزة لعدم وجود إعلانات بانر"
+  },
+  "noInterstitialAds": "لا إعلانات وسيطة",
+  "@noInterstitialAds": {
+    "description": "وصف الميزة لعدم وجود إعلانات وسيطة"
+  },
+  "noRewardedAds": "لا إعلانات مكافأة",
+  "@noRewardedAds": {
+    "description": "وصف الميزة لعدم وجود إعلانات مكافأة"
+  },
+  "cleanExperience": "تجربة نظيفة وخالية من التشتيت",
+  "@cleanExperience": {
+    "description": "وصف الميزة للتجربة النظيفة"
+  },
+  "cancelAnytime": "إلغاء في أي وقت",
+  "@cancelAnytime": {
+    "description": "وصف الميزة للإلغاء في أي وقت"
+  },
+  "usdPerMonth": "دولار/شهر",
+  "@usdPerMonth": {
+    "description": "تسمية الدولار شهرياً"
+  },
+  "bestValue": "أفضل قيمة",
+  "@bestValue": {
+    "description": "تسمية أفضل قيمة"
+  },
+  "fiftyPercentOff": "خصم 50%",
+  "@fiftyPercentOff": {
+    "description": "تسمية خصم 50%"
+  },
+  "importantNotice": "إشعار مهم",
+  "@importantNotice": {
+    "description": "عنوان الإشعار المهم للتحذيرات"
+  },
+  "gotIt": "فهمت",
+  "@gotIt": {
+    "description": "Got it button text"
+  },
   "totalGames": "إجمالي الألعاب",
   "@totalGames": {
     "description": "تسمية إجمالي الألعاب"
@@ -737,5 +831,15 @@
   "exit": "خروج",
   "@exit": {
     "description": "نص زر الخروج"
-  }
+  },
+  "soundSettings": "إعدادات الصوت",
+  "soundSettingsMenuSubtitle": "أصوات التطبيق ومستوى التأثيرات",
+  "appSounds": "أصوات التطبيق",
+  "appSoundsDescription": "قم بتفعيل/إيقاف الأصوات واضبط مستوى التأثيرات",
+  "sounds": "الأصوات",
+  "soundsOn": "مفعّل",
+  "soundsOff": "معطّل",
+  "effectsVolume": "مستوى صوت التأثيرات",
+  "soundTest": "اختبار الصوت",
+  "playSampleSound": "تشغيل صوت تجريبي"
 }

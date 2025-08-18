@@ -222,7 +222,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Mainkan melawan komputer. Yang pertama mencapai 5 poin menang.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Dua Puluh Satu)';
 
   @override
   String get twentyOneDescription =>
@@ -266,43 +266,80 @@ class AppLocalizationsId extends AppLocalizations {
   String get swipeToDeleteHint => 'Geser ke kiri untuk menghapus skor tinggi';
 
   @override
-  String get removeAds => 'Remove Ads';
+  String get removeAds => 'Hapus Iklan';
 
   @override
   String get removeAdsDescription =>
-      'Enjoy an ad-free experience with monthly subscription';
+      'Nikmati pengalaman bebas iklan dengan berlangganan bulanan';
 
   @override
-  String get monthlySubscription => 'Monthly Subscription';
+  String get monthlySubscription => 'Berlangganan Bulanan';
 
   @override
-  String get subscribeNow => 'Subscribe Now';
+  String get subscribeNow => 'Berlangganan Sekarang';
 
   @override
-  String get restorePurchases => 'Restore Purchases';
+  String get restorePurchases => 'Pulihkan Pembelian';
 
   @override
-  String get subscriptionActive => 'Subscription Active';
+  String get subscriptionActive => 'Berlangganan Aktif';
 
   @override
-  String get subscriptionExpired => 'Subscription Expired';
+  String get subscriptionExpired => 'Berlangganan Kedaluwarsa';
 
   @override
   String daysRemaining(int days) {
-    return '$days days remaining';
+    return '$days hari tersisa';
   }
 
   @override
-  String get purchaseSuccess => 'Purchase Successful!';
+  String get monthlySubscriptionPrice => 'Monthly subscription - \$2.49';
 
   @override
-  String get purchaseError => 'Purchase Failed';
+  String get uninstallWarning =>
+      'Important: Subscription is stored locally. If you uninstall the app, your subscription will be lost and you\'ll need to purchase again.';
 
   @override
-  String get restoreSuccess => 'Purchases Restored!';
+  String get importantNotice => 'Pemberitahuan Penting';
 
   @override
-  String get restoreError => 'Restore Failed';
+  String get gotIt => 'Mengerti';
+
+  @override
+  String get purchaseSuccess => 'Pembelian Berhasil!';
+
+  @override
+  String get purchaseError => 'Pembelian Gagal';
+
+  @override
+  String get restoreSuccess => 'Pembelian Dipulihkan!';
+
+  @override
+  String get restoreError => 'Pemulihan Gagal';
+
+  @override
+  String get noBannerAds => 'Tidak ada iklan banner';
+
+  @override
+  String get noInterstitialAds => 'Tidak ada iklan interstisial';
+
+  @override
+  String get noRewardedAds => 'Tidak ada iklan berhadiah';
+
+  @override
+  String get cleanExperience => 'Pengalaman bersih tanpa gangguan';
+
+  @override
+  String get cancelAnytime => 'Batalkan kapan saja';
+
+  @override
+  String get usdPerMonth => 'USD/bulan';
+
+  @override
+  String get bestValue => 'NILAI TERBAIK';
+
+  @override
+  String get fiftyPercentOff => '50% DISKON';
 
   @override
   String get totalGames => 'Total Permainan';
@@ -614,4 +651,48 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get column => 'kolom';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Pengaturan Suara';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'Suara aplikasi dan level efek';
+
+  @override
+  String get appSounds => 'Suara Aplikasi';
+
+  @override
+  String get appSoundsDescription =>
+      'Aktif/nonaktifkan suara dan atur level efek';
+
+  @override
+  String get sounds => 'Suara';
+
+  @override
+  String get soundsOn => 'Aktif';
+
+  @override
+  String get soundsOff => 'Nonaktif';
+
+  @override
+  String get effectsVolume => 'Volume Efek';
+
+  @override
+  String get soundTest => 'Tes Suara';
+
+  @override
+  String get playSampleSound => 'Putar Suara Contoh';
 }

@@ -223,7 +223,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Spiele gegen den Computer. Der erste der 5 Punkte erreicht gewinnt.';
 
   @override
-  String get twentyOne => '21 (Blackjack)';
+  String get twentyOne => '21 (Einundzwanzig)';
 
   @override
   String get twentyOneDescription =>
@@ -295,6 +295,19 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get monthlySubscriptionPrice => 'Monatliches Abonnement - \$2.49';
+
+  @override
+  String get uninstallWarning =>
+      'Wichtig: Das Abonnement wird lokal gespeichert. Wenn Sie die App deinstallieren, geht Ihr Abonnement verloren und Sie müssen es erneut kaufen.';
+
+  @override
+  String get importantNotice => 'Wichtiger Hinweis';
+
+  @override
+  String get gotIt => 'Verstanden';
+
+  @override
   String get purchaseSuccess => 'Kauf Erfolgreich!';
 
   @override
@@ -305,6 +318,30 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get restoreError => 'Wiederherstellen Fehlgeschlagen';
+
+  @override
+  String get noBannerAds => 'Keine Banner-Werbung';
+
+  @override
+  String get noInterstitialAds => 'Keine Interstitial-Werbung';
+
+  @override
+  String get noRewardedAds => 'Keine Belohnungs-Werbung';
+
+  @override
+  String get cleanExperience => 'Saubere, ablenkungsfreie Erfahrung';
+
+  @override
+  String get cancelAnytime => 'Jederzeit kündbar';
+
+  @override
+  String get usdPerMonth => 'USD/Monat';
+
+  @override
+  String get bestValue => 'BESTER WERT';
+
+  @override
+  String get fiftyPercentOff => '50% RABATT';
 
   @override
   String get totalGames => 'Gesamte Spiele';
@@ -614,4 +651,48 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get column => 'Spalte';
+
+  @override
+  String get gameInProgress => 'Game in Progress';
+
+  @override
+  String get gameInProgressMessage =>
+      'A game is currently in progress. Are you sure you want to exit? Your progress will be lost.';
+
+  @override
+  String get stayInGame => 'Stay in Game';
+
+  @override
+  String get exitGame => 'Exit Game';
+
+  @override
+  String get soundSettings => 'Toneinstellungen';
+
+  @override
+  String get soundSettingsMenuSubtitle => 'App‑Sounds und Effekt‑Lautstärke';
+
+  @override
+  String get appSounds => 'App‑Sounds';
+
+  @override
+  String get appSoundsDescription =>
+      'Sounds ein/aus und Effektlautstärke anpassen';
+
+  @override
+  String get sounds => 'Sounds';
+
+  @override
+  String get soundsOn => 'An';
+
+  @override
+  String get soundsOff => 'Aus';
+
+  @override
+  String get effectsVolume => 'Effektlautstärke';
+
+  @override
+  String get soundTest => 'Soundtest';
+
+  @override
+  String get playSampleSound => 'Beispielsound abspielen';
 }
