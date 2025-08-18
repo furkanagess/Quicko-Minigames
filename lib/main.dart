@@ -18,6 +18,7 @@ import 'features/favorites/providers/favorites_provider.dart';
 import 'core/services/admob_service.dart';
 import 'core/services/in_app_purchase_service.dart';
 import 'core/config/app_config.dart';
+import 'core/services/sound_settings_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,9 @@ void main() async {
 
   // Initialize In-App Purchase Service
   await InAppPurchaseService().initialize();
+
+  // Preload sound settings so they are ready across the app from launch
+  await SoundSettingsService.ensureInitialized();
 
   runApp(const MyApp());
 }

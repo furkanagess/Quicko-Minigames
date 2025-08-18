@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/theme/app_theme.dart';
+
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
 import '../../../core/routes/app_router.dart';
@@ -49,6 +49,117 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     _slideController.forward();
   }
 
+  void _showUninstallWarningBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => _buildUninstallWarningBottomSheet(context),
+    );
+  }
+
+  Widget _buildUninstallWarningBottomSheet(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppConstants.largeSpacing),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Handle bar
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppConstants.largeSpacing),
+
+              // Warning Icon
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.error.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.warning_amber_rounded,
+                    color: Theme.of(context).colorScheme.error,
+                    size: 32,
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppConstants.largeSpacing),
+
+              // Title
+              Text(
+                AppLocalizations.of(context)!.importantNotice,
+                style: TextThemeManager.sectionTitle.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.mediumSpacing),
+
+              // Warning Text
+              Text(
+                AppLocalizations.of(context)!.uninstallWarning,
+                style: TextThemeManager.bodyMedium.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(height: AppConstants.largeSpacing),
+
+              // Close Button
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppConstants.mediumRadius,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.gotIt,
+                    style: TextThemeManager.buttonMedium.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _fadeController.dispose();
@@ -81,6 +192,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                       if (purchaseProvider.isSubscriptionActive)
                         _buildActiveSubscriptionCard(context, purchaseProvider),
 
+                      // Uninstall Warning removed to avoid extra widgets during flow
+
                       // Subscription Options
                       Expanded(
                         child: _buildSubscriptionOptions(
@@ -89,9 +202,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                         ),
                       ),
 
-                      // Error Message
-                      if (purchaseProvider.errorMessage != null)
-                        _buildErrorMessage(context, purchaseProvider),
+                      // Inline error message removed to avoid extra widgets
                     ],
                   ),
                 ),
@@ -138,7 +249,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
   Widget _buildHeader(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.largeSpacing),
+      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -148,7 +259,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppConstants.largeRadius),
         border: Border.all(
           color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
           width: 1,
@@ -161,43 +272,55 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           ),
         ],
       ),
-      child: Column(
+      child: Row(
         children: [
           // Icon
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppTheme.darkSuccess.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
             ),
             child: Icon(
               Icons.block_rounded,
-              color: AppTheme.darkSuccess,
-              size: 32,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
             ),
           ),
-          const SizedBox(height: AppConstants.mediumSpacing),
+          const SizedBox(width: AppConstants.mediumSpacing),
 
-          // Title
-          Text(
-            AppLocalizations.of(context)!.removeAds,
-            style: TextThemeManager.screenTitle.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppConstants.smallSpacing),
+          // Content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Title
+                Text(
+                  AppLocalizations.of(context)!.removeAds,
+                  style: TextThemeManager.sectionTitle.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
 
-          // Description
-          Text(
-            AppLocalizations.of(context)!.removeAdsDescription,
-            style: TextThemeManager.bodyMedium.copyWith(
-              color: Theme.of(
-                context,
-              ).colorScheme.onSurface.withValues(alpha: 0.7),
+                // Description
+                Text(
+                  AppLocalizations.of(context)!.removeAdsDescription,
+                  style: TextThemeManager.bodySmall.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    height: 1.4,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -216,18 +339,20 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppTheme.darkSuccess.withValues(alpha: 0.1),
-            AppTheme.darkSuccess.withValues(alpha: 0.05),
+            Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.1),
+            Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.05),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.darkSuccess.withValues(alpha: 0.2),
+          color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.darkSuccess.withValues(alpha: 0.1),
+            color: Theme.of(
+              context,
+            ).colorScheme.tertiary.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -238,12 +363,14 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppTheme.darkSuccess.withValues(alpha: 0.1),
+              color: Theme.of(
+                context,
+              ).colorScheme.tertiary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
               Icons.check_circle_rounded,
-              color: AppTheme.darkSuccess,
+              color: Theme.of(context).colorScheme.tertiary,
               size: 24,
             ),
           ),
@@ -255,7 +382,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                 Text(
                   AppLocalizations.of(context)!.subscriptionActive,
                   style: TextThemeManager.subtitleMedium.copyWith(
-                    color: AppTheme.darkSuccess,
+                    color: Theme.of(context).colorScheme.tertiary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -308,53 +435,210 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             padding: const EdgeInsets.all(AppConstants.largeSpacing),
             child: Column(
               children: [
-                // Price
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                // Clean and modern pricing display with positioned info button
+                Stack(
                   children: [
-                    Text(
-                      '\$1',
-                      style: TextThemeManager.screenTitle.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 48,
+                    Container(
+                      padding: const EdgeInsets.all(AppConstants.largeSpacing),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.08),
+                            Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.03),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.largeRadius,
+                        ),
+                        border: Border.all(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: 0.2),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.15),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          // Main price display
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Price
+                              Text(
+                                '\$2.49',
+                                style: TextThemeManager.screenTitle.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 48,
+                                  shadows: [
+                                    Shadow(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: 0.2),
+                                      offset: const Offset(0, 1),
+                                      blurRadius: 2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: AppConstants.smallSpacing),
+                              // Per month text
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.usdPerMonth,
+                                    style: TextThemeManager.bodySmall.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.7),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  // Best value badge
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(
+                                        AppConstants.smallRadius,
+                                      ),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withValues(alpha: 0.2),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.bestValue,
+                                      style: TextThemeManager.bodySmall
+                                          .copyWith(
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 10,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: AppConstants.mediumSpacing),
+
+                          // Savings highlight
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withValues(alpha: 0.08),
+                              borderRadius: BorderRadius.circular(
+                                AppConstants.mediumRadius,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.savings_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 16,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  AppLocalizations.of(context)!.fiftyPercentOff,
+                                  style: TextThemeManager.bodyMedium.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'USD',
-                          style: TextThemeManager.bodySmall.copyWith(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
+
+                    // Positioned info button at top-right
+                    Positioned(
+                      top: 0,
+                      right: 6,
+                      child: IconButton(
+                        onPressed:
+                            () => _showUninstallWarningBottomSheet(context),
+                        icon: Icon(
+                          Icons.info_outline_rounded,
+                          color: Colors.white,
+                          size: 20,
                         ),
-                        Text(
-                          '/month',
-                          style: TextThemeManager.bodySmall.copyWith(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
-                        ),
-                      ],
+                        padding: const EdgeInsets.all(4),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: AppConstants.mediumSpacing),
 
                 // Features
-                _buildFeatureItem(context, '🚫 No banner ads'),
-                _buildFeatureItem(context, '🚫 No interstitial ads'),
-                _buildFeatureItem(context, '🚫 No rewarded ads'),
                 _buildFeatureItem(
                   context,
-                  '✨ Clean, distraction-free experience',
+                  AppLocalizations.of(context)!.noBannerAds,
                 ),
-                _buildFeatureItem(context, '🔄 Cancel anytime'),
+                _buildFeatureItem(
+                  context,
+                  AppLocalizations.of(context)!.noInterstitialAds,
+                ),
+                _buildFeatureItem(
+                  context,
+                  AppLocalizations.of(context)!.noRewardedAds,
+                ),
+                _buildFeatureItem(
+                  context,
+                  AppLocalizations.of(context)!.cleanExperience,
+                ),
+                _buildFeatureItem(
+                  context,
+                  AppLocalizations.of(context)!.cancelAnytime,
+                ),
 
                 const SizedBox(height: AppConstants.largeSpacing),
 
@@ -370,9 +654,11 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                             : () => _handleSubscribe(context, purchaseProvider),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
-                      foregroundColor: Colors.white,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.mediumRadius,
+                        ),
                       ),
                       elevation: 4,
                     ),
@@ -392,9 +678,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                                     context,
                                   )!.subscriptionActive
                                   : AppLocalizations.of(context)!.subscribeNow,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                              style: TextThemeManager.buttonLarge.copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
                               ),
                             ),
                   ),
@@ -420,10 +705,10 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
               side: BorderSide(
                 color: Theme.of(
                   context,
-                ).colorScheme.outline.withValues(alpha: 0.3),
+                ).colorScheme.onSurface.withValues(alpha: 0.3),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
               ),
             ),
             child:
@@ -435,9 +720,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                     )
                     : Text(
                       AppLocalizations.of(context)!.restorePurchases,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                      style: TextThemeManager.buttonMedium.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
           ),
@@ -453,7 +737,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         children: [
           Icon(
             Icons.check_circle_rounded,
-            color: AppTheme.darkSuccess,
+            color: Theme.of(context).colorScheme.tertiary,
             size: 20,
           ),
           const SizedBox(width: AppConstants.smallSpacing),
@@ -470,77 +754,21 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     );
   }
 
-  Widget _buildErrorMessage(
-    BuildContext context,
-    InAppPurchaseProvider purchaseProvider,
-  ) {
-    return Container(
-      margin: const EdgeInsets.only(top: AppConstants.mediumSpacing),
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        color: AppTheme.darkError.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppTheme.darkError.withValues(alpha: 0.2),
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.error_outline_rounded,
-            color: AppTheme.darkError,
-            size: 20,
-          ),
-          const SizedBox(width: AppConstants.smallSpacing),
-          Expanded(
-            child: Text(
-              purchaseProvider.errorMessage!,
-              style: TextThemeManager.bodySmall.copyWith(
-                color: AppTheme.darkError,
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () => purchaseProvider.clearError(),
-            icon: Icon(
-              Icons.close_rounded,
-              color: AppTheme.darkError,
-              size: 20,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Removed uninstall warning card and inline error widget to avoid extra overlays during purchase flows
 
   Future<void> _handleSubscribe(
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) async {
-    final success = await purchaseProvider.purchaseAdFreeSubscription();
-
-    if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.purchaseSuccess),
-          backgroundColor: AppTheme.darkSuccess,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
-    } else if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.purchaseError),
-          backgroundColor: AppTheme.darkError,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+    await purchaseProvider.purchaseAdFreeSubscription();
+    // Show a friendly error bottom sheet if purchase failed
+    if (!purchaseProvider.isSubscriptionActive &&
+        purchaseProvider.errorMessage != null &&
+        mounted) {
+      _showPurchaseErrorBottomSheet(
+        context,
+        title: AppLocalizations.of(context)!.purchaseError,
+        description: AppLocalizations.of(context)!.purchaseErrorDescription,
       );
     }
   }
@@ -549,30 +777,127 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) async {
-    final success = await purchaseProvider.restorePurchases();
-
-    if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.restoreSuccess),
-          backgroundColor: AppTheme.darkSuccess,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      );
-    } else if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.restoreError),
-          backgroundColor: AppTheme.darkError,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+    await purchaseProvider.restorePurchases();
+    // Show a friendly error bottom sheet if restore failed
+    if (!purchaseProvider.isSubscriptionActive &&
+        purchaseProvider.errorMessage != null &&
+        mounted) {
+      _showPurchaseErrorBottomSheet(
+        context,
+        title: AppLocalizations.of(context)!.restoreError,
+        description: AppLocalizations.of(context)!.restoreErrorDescription,
       );
     }
   }
+
+  void _showPurchaseErrorBottomSheet(
+    BuildContext context, {
+    required String title,
+    required String description,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(AppConstants.largeSpacing),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Handle bar
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Icon
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.error.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Icon(
+                        Icons.error_outline_rounded,
+                        color: Theme.of(context).colorScheme.error,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Title
+                  Text(
+                    title,
+                    style: TextThemeManager.sectionTitle.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppConstants.mediumSpacing),
+                  // Description
+                  Text(
+                    description,
+                    style: TextThemeManager.bodyMedium.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Close Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.mediumRadius,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.gotIt,
+                        style: TextThemeManager.buttonMedium.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Removed uninstall warning bottom sheet builders
 }

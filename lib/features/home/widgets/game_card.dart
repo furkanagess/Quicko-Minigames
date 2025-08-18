@@ -3,7 +3,7 @@ import '../../../l10n/app_localizations.dart';
 
 class GameCard extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String iconPath;
   final Color color;
   final VoidCallback onTap;
   final String? gameId;
@@ -11,7 +11,7 @@ class GameCard extends StatelessWidget {
   const GameCard({
     super.key,
     required this.title,
-    required this.icon,
+    required this.iconPath,
     required this.color,
     required this.onTap,
     this.gameId,
@@ -87,7 +87,17 @@ class GameCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Icon(icon, size: 34, color: Colors.white),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Center(
+                      child: Image.asset(
+                        iconPath,
+                        width: 34,
+                        height: 34,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 16),

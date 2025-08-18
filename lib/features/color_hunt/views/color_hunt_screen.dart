@@ -54,7 +54,7 @@ class _ColorHuntView extends StatelessWidget {
           onContinueGame: () => provider.continueGame(),
           canContinueGame: () => provider.canContinueGame(),
           onGameResultCleared: () {
-            provider.hideGameOver();
+            provider.cleanupGame();
           },
           onBackToMenu: () {
             provider.hideGameOver();
@@ -67,6 +67,9 @@ class _ColorHuntView extends StatelessWidget {
             provider.resetGame();
           },
           isWaiting: gameState.isWaiting,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

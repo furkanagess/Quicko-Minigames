@@ -874,5 +874,7 @@
   "soundsOff": "Aus",
   "effectsVolume": "Effektlautstärke",
   "soundTest": "Soundtest",
-  "playSampleSound": "Beispielsound abspielen"
+  "playSampleSound": "Beispielsound abspielen",
+  "purchaseErrorDescription": "Dein Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut oder prüfe deine Zahlungsmethode.",
+  "restoreErrorDescription": "Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut."
 }

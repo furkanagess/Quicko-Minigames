@@ -698,4 +698,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get playSampleSound => 'Lire un son d\'exemple';
+
+  @override
+  String get purchaseErrorDescription =>
+      'Votre achat n’a pas pu être finalisé. Veuillez réessayer ou vérifier votre moyen de paiement.';
+
+  @override
+  String get restoreErrorDescription =>
+      'Nous n’avons pas pu restaurer vos achats. Veuillez réessayer.';
 }

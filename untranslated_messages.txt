@@ -14,7 +14,9 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ],
 
   "de": [
@@ -44,7 +46,9 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ],
 
   "id": [
@@ -53,7 +57,9 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ],
 
   "it": [
@@ -62,7 +68,9 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ],
 
   "pt": [
@@ -271,7 +279,9 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ],
 
   "pt_BR": [
@@ -280,6 +290,8 @@
     "gameInProgress",
     "gameInProgressMessage",
     "stayInGame",
-    "exitGame"
+    "exitGame",
+    "purchaseErrorDescription",
+    "restoreErrorDescription"
   ]
 }

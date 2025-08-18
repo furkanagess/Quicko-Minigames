@@ -965,5 +965,9 @@
   "soundTest": "Sound Test",
   "@soundTest": { "description": "Sound test section title" },
   "playSampleSound": "Play Sample Sound",
-  "@playSampleSound": { "description": "Play sample sound button text" }
+  "@playSampleSound": { "description": "Play sample sound button text" },
+  "purchaseErrorDescription": "We couldn't complete your purchase. Please try again or check your payment method.",
+  "@purchaseErrorDescription": {"description": "Detailed message shown when purchase fails"},
+  "restoreErrorDescription": "We couldn't restore your purchases. Please try again.",
+  "@restoreErrorDescription": {"description": "Detailed message shown when restore fails"}
 }

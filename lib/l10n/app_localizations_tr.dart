@@ -691,4 +691,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get playSampleSound => 'Örnek Sesi Çal';
+
+  @override
+  String get purchaseErrorDescription =>
+      'Satın alma tamamlanamadı. Lütfen tekrar deneyin veya ödeme yöntemini kontrol edin.';
+
+  @override
+  String get restoreErrorDescription =>
+      'Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.';
 }

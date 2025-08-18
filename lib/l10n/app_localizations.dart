@@ -1419,6 +1419,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Play Sample Sound'**
   String get playSampleSound;
+
+  /// Detailed message shown when purchase fails
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t complete your purchase. Please try again or check your payment method.'**
+  String get purchaseErrorDescription;
+
+  /// Detailed message shown when restore fails
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t restore your purchases. Please try again.'**
+  String get restoreErrorDescription;
 }
 
 class _AppLocalizationsDelegate

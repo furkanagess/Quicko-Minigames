@@ -116,6 +116,32 @@ class AimTrainerProvider extends ChangeNotifier {
     _civilianTimer = null;
   }
 
+  /// Pause the game (stop timers)
+  void pauseGame() {
+    if (_gameState.isGameActive) {
+      _timer?.cancel();
+      _timer = null;
+      _civilianTimer?.cancel();
+      _civilianTimer = null;
+    }
+  }
+
+  /// Resume the game (restart timers)
+  void resumeGame() {
+    if (_gameState.isGameActive) {
+      _startTimer();
+      _startCivilianTimer();
+    }
+  }
+
+  /// Clean up game state when exiting
+  void cleanupGame() {
+    _stopTimer();
+    _gameState = const AimTrainerGameState();
+    _hasBrokenRecordThisGame = false;
+    notifyListeners();
+  }
+
   /// Generate a new target at a random position
   void _generateNewTarget() {
     if (_gameAreaSize == null) return;

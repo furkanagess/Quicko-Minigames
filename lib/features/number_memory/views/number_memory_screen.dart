@@ -88,6 +88,9 @@ class _NumberMemoryView extends StatelessWidget {
             provider.resetGame();
           },
           isWaiting: !gameState.isGameActive,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

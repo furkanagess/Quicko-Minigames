@@ -67,6 +67,29 @@ class FindDifferenceProvider extends ChangeNotifier {
     });
   }
 
+  /// Pause the game (stop timer)
+  void pauseGame() {
+    if (_gameState.isGameActive) {
+      _timeTimer?.cancel();
+      _timeTimer = null;
+    }
+  }
+
+  /// Resume the game (restart timer)
+  void resumeGame() {
+    if (_gameState.isGameActive) {
+      _startTimer();
+    }
+  }
+
+  /// Clean up game state when exiting
+  void cleanupGame() {
+    _timeTimer?.cancel();
+    _timeTimer = null;
+    _gameState = const FindDifferenceGameState();
+    notifyListeners();
+  }
+
   void _gameOver() {
     _timeTimer?.cancel();
     _gameState = _gameState.copyWith(

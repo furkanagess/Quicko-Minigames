@@ -168,6 +168,30 @@ class ReactionTimeProvider extends ChangeNotifier {
     _gameState = _gameState.copyWith(isTimerRunning: false);
   }
 
+  /// Pause the game (stop timer)
+  void pauseGame() {
+    if (_gameState.isGameActive && _gameState.isTimerRunning) {
+      _timer?.cancel();
+      _timer = null;
+      _gameState = _gameState.copyWith(isTimerRunning: false);
+    }
+  }
+
+  /// Resume the game (restart timer)
+  void resumeGame() {
+    if (_gameState.isGameActive && !_gameState.isTimerRunning) {
+      _startTimer();
+    }
+  }
+
+  /// Clean up game state when exiting
+  void cleanupGame() {
+    _stopTimer();
+    _gameState = const ReactionTimeGameState();
+    _hasBrokenRecordThisGame = false;
+    notifyListeners();
+  }
+
   /// Handle target tap
   void onTargetTap(int targetNumber) async {
     if (!_gameState.isGameActive) return;
@@ -260,15 +284,18 @@ class ReactionTimeProvider extends ChangeNotifier {
               .toList(),
     };
 
-    await gameStateService.saveGameState('reactionTime', state);
-    await gameStateService.saveGameScore('reactionTime', calculateScore());
-    await gameStateService.saveGameLevel('reactionTime', _gameState.nextTarget);
+    await gameStateService.saveGameState('reaction_time', state);
+    await gameStateService.saveGameScore('reaction_time', calculateScore());
+    await gameStateService.saveGameLevel(
+      'reaction_time',
+      _gameState.nextTarget,
+    );
   }
 
   /// Continue game from saved state
   Future<bool> continueGame() async {
     final gameStateService = GameStateService();
-    final savedState = await gameStateService.loadGameState('reactionTime');
+    final savedState = await gameStateService.loadGameState('reaction_time');
 
     if (savedState == null) return false;
 
@@ -305,13 +332,13 @@ class ReactionTimeProvider extends ChangeNotifier {
   /// Check if game can be continued
   Future<bool> canContinueGame() async {
     final gameStateService = GameStateService();
-    return await gameStateService.hasGameState('reactionTime');
+    return await gameStateService.hasGameState('reaction_time');
   }
 
   /// Clear saved game state
   Future<void> clearSavedGameState() async {
     final gameStateService = GameStateService();
-    await gameStateService.clearGameState('reactionTime');
+    await gameStateService.clearGameState('reaction_time');
   }
 
   /// Update high score
@@ -319,7 +346,7 @@ class ReactionTimeProvider extends ChangeNotifier {
     final finalScore = calculateScore();
 
     final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
-      'reactionTime',
+      'reaction_time',
     );
     final previousBestScore = previousEntry?.highScore ?? 0;
 
@@ -328,7 +355,7 @@ class ReactionTimeProvider extends ChangeNotifier {
       SoundUtils.playNewLevelSound();
     }
 
-    await LeaderboardUtils.updateHighScore('reactionTime', finalScore);
+    await LeaderboardUtils.updateHighScore('reaction_time', finalScore);
   }
 
   /// Reset the game

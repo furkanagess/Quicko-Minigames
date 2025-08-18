@@ -74,6 +74,9 @@ class _HigherLowerView extends StatelessWidget {
             provider.resetGame();
           },
           isWaiting: gameState.isWaiting,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

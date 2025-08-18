@@ -72,6 +72,9 @@ class _RpsView extends StatelessWidget {
             provider.reset();
           },
           isWaiting: state.isWaiting,
+          isGameInProgress: !state.isWaiting && !state.showGameOver,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, state, provider),
         );
       },

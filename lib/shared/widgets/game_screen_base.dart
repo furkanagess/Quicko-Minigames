@@ -6,10 +6,12 @@ import '../../core/theme/app_theme.dart';
 import '../../core/routes/app_router.dart';
 import '../../core/theme/text_theme_manager.dart';
 import '../../core/utils/sound_utils.dart';
+import '../../core/utils/global_context.dart';
 import '../../features/favorites/providers/favorites_provider.dart';
 import '../../l10n/app_localizations.dart';
 import 'continue_game_dialog.dart';
 import 'game_action_button.dart';
+import 'game_in_progress_dialog.dart';
 
 class GameScreenBase extends StatefulWidget {
   final String title;
@@ -26,6 +28,9 @@ class GameScreenBase extends StatefulWidget {
   final Future<bool> Function()? onContinueGame;
   final Future<bool> Function()? canContinueGame;
   final VoidCallback? onGameResultCleared;
+  final bool isGameInProgress;
+  final VoidCallback? onPauseGame;
+  final VoidCallback? onResumeGame;
 
   const GameScreenBase({
     super.key,
@@ -43,6 +48,9 @@ class GameScreenBase extends StatefulWidget {
     this.onContinueGame,
     this.canContinueGame,
     this.onGameResultCleared,
+    this.isGameInProgress = false,
+    this.onPauseGame,
+    this.onResumeGame,
   });
 
   @override
@@ -195,7 +203,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
         return localizations.rockPaperScissorsDescription;
       case 'twenty_one_description':
         return localizations.twentyOneDescription;
-      case 'reaction_time_description':
+      case 'reactionTimeDescription':
         return localizations.reactionTimeDescription;
       default:
         return widget.descriptionKey;
@@ -331,7 +339,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
           ],
         ),
         child: IconButton(
-          onPressed: () => AppRouter.pop(context),
+          onPressed: () => _handleBackButtonPress(context),
           icon: const Icon(AppIcons.back, color: Colors.white),
         ),
       ),
@@ -425,6 +433,36 @@ class _GameScreenBaseState extends State<GameScreenBase>
     // This should be implemented based on the specific game
     // For now, return a default value
     return 1;
+  }
+
+  void _handleBackButtonPress(BuildContext context) async {
+    if (widget.isGameInProgress) {
+      // Pause the game when dialog shows
+      widget.onPauseGame?.call();
+
+      // Show game in progress dialog
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder:
+            (context) => GameInProgressDialog(
+              onStayInGame: () {
+                // Resume the game when staying
+                widget.onResumeGame?.call();
+              },
+              onExitGame: () {
+                // Clean up game state first
+                widget.onGameResultCleared?.call();
+
+                // Exit like normal back button (dialog will close automatically)
+                AppRouter.pop(context); // Exit game like normal back button
+              },
+            ),
+      );
+    } else {
+      // No game in progress, exit normally
+      AppRouter.pop(context);
+    }
   }
 
   Widget _buildGameDescription() {

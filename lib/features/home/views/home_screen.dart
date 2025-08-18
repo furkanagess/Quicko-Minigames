@@ -286,9 +286,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               onPressed: () {
                 AppRouter.pushNamed(context, AppRouter.leaderboard);
               },
-              icon: Icon(
-                AppIcons.trophy,
-                color: Theme.of(context).colorScheme.onSurface,
+              icon: Image.asset(
+                'assets/icon/winner.png',
+                width: 24,
+                height: 24,
               ),
             ),
           ),
@@ -312,9 +313,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               onPressed: () {
                 AppRouter.pushNamed(context, AppRouter.settings);
               },
-              icon: Icon(
-                AppIcons.settings,
-                color: Theme.of(context).colorScheme.onSurface,
+              icon: Image.asset(
+                'assets/icon/settings.png',
+                width: 24,
+                height: 24,
               ),
             ),
           ),
@@ -348,7 +350,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 opacity: _fadeAnimation.value,
                 child: GameCard(
                   title: game.getTitle(context),
-                  icon: GamesConfig.getGameIcon(game.icon),
+                  iconPath: GamesConfig.getGameIconPath(game.icon),
                   color: GamesConfig.getGameColor(game.id),
                   gameId: game.id,
                   onTap: () {

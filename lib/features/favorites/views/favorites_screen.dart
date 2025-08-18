@@ -244,7 +244,11 @@ class _FavoritesScreenState extends State<FavoritesScreen>
               ),
               child: ElevatedButton.icon(
                 onPressed: () => AppRouter.pop(context),
-                icon: const Icon(Icons.games_rounded),
+                icon: Image.asset(
+                  'assets/icon/joystick.png',
+                  width: 24,
+                  height: 24,
+                ),
                 label: Text(
                   AppLocalizations.of(context)!.browseGames,
                   style: const TextStyle(
@@ -355,10 +359,16 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                       ),
                     ],
                   ),
-                  child: Icon(
-                    GamesConfig.getGameIcon(game.icon),
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 32,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Center(
+                      child: Image.asset(
+                        GamesConfig.getGameIconPath(game.icon),
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),

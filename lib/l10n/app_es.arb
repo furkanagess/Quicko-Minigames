@@ -874,5 +874,7 @@
   "soundsOff": "Desactivado",
   "effectsVolume": "Volumen de efectos",
   "soundTest": "Prueba de sonido",
-  "playSampleSound": "Reproducir sonido de muestra"
+  "playSampleSound": "Reproducir sonido de muestra",
+  "purchaseErrorDescription": "No pudimos completar tu compra. Inténtalo de nuevo o verifica tu método de pago.",
+  "restoreErrorDescription": "No pudimos restaurar tus compras. Inténtalo de nuevo."
 }

@@ -13,7 +13,11 @@ class InAppPurchaseProvider extends ChangeNotifier {
   bool get isAdFree => _purchaseService.isAdFree;
   bool get isSubscriptionActive => _purchaseService.isSubscriptionActive();
   DateTime? get subscriptionExpiry => _purchaseService.subscriptionExpiry;
+  DateTime? get subscriptionStart => _purchaseService.subscriptionStart;
+  DateTime? get lastPaymentDate => _purchaseService.lastPaymentDate;
   int get remainingDays => _purchaseService.getRemainingDays();
+  bool get isPaymentDueSoon => _purchaseService.isPaymentDueSoon;
+  int get subscriptionDuration => _purchaseService.getSubscriptionDuration();
   String get subscriptionStatusText =>
       _purchaseService.getSubscriptionStatusText();
   String? get errorMessage => _errorMessage;

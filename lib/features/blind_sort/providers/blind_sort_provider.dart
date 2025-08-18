@@ -116,6 +116,25 @@ class BlindSortProvider extends ChangeNotifier {
     _numberAnimationTimer = null;
   }
 
+  /// Pause the game (no timer to pause for this game)
+  void pauseGame() {
+    // This game doesn't have a timer, so nothing to pause
+  }
+
+  /// Resume the game (no timer to resume for this game)
+  void resumeGame() {
+    // This game doesn't have a timer, so nothing to resume
+  }
+
+  /// Clean up game state when exiting
+  void cleanupGame() {
+    stopNumberAnimation();
+    _gameState = GameState();
+    _usedNumbers.clear();
+    _hasBrokenRecordThisGame = false;
+    notifyListeners();
+  }
+
   /// Oyunu sıfırla
   void resetGame() {
     _gameState = GameState();

@@ -79,6 +79,29 @@ class ColorHuntProvider extends ChangeNotifier {
     _timer = null;
   }
 
+  /// Pause the game (stop timer)
+  void pauseGame() {
+    if (_gameState.isGameActive) {
+      _timer?.cancel();
+      _timer = null;
+    }
+  }
+
+  /// Resume the game (restart timer)
+  void resumeGame() {
+    if (_gameState.isGameActive) {
+      _startTimer();
+    }
+  }
+
+  /// Clean up game state when exiting
+  void cleanupGame() {
+    _stopTimer();
+    _gameState = const ColorHuntGameState();
+    _hasBrokenRecordThisGame = false;
+    notifyListeners();
+  }
+
   /// Yeni hedef oluştur
   void _generateNewTarget() {
     final colorKeys = _colorMap.keys.toList();

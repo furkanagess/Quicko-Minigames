@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/models/game_model.dart';
 import '../theme/app_theme.dart';
-import 'app_icons.dart';
+import '../utils/game_icon_utils.dart';
 
 class GamesConfig {
   // Tüm oyunların merkezi konfigürasyonu
@@ -13,7 +13,7 @@ class GamesConfig {
       titleKey: 'rock_paper_scissors',
       descriptionKey: 'rock_paper_scissors_description',
       route: '/rps',
-      icon: 'hand',
+      icon: 'rock-paper-scissors',
       category: 'Reflex',
       order: 0,
     ),
@@ -22,7 +22,7 @@ class GamesConfig {
       titleKey: 'higher_lower',
       descriptionKey: 'higher_lower_description',
       route: '/higher-lower',
-      icon: 'trending_up',
+      icon: 'thermostat',
       category: 'Numbers',
       order: 1,
     ),
@@ -31,7 +31,7 @@ class GamesConfig {
       titleKey: 'color_hunt',
       descriptionKey: 'color_hunt_description',
       route: '/color-hunt',
-      icon: 'palette',
+      icon: 'color-palette',
       category: 'Vision',
       order: 2,
     ),
@@ -42,7 +42,7 @@ class GamesConfig {
       titleKey: 'find_difference',
       descriptionKey: 'find_difference_description',
       route: '/find-difference',
-      icon: 'difference',
+      icon: 'color-circle',
       category: 'Vision',
       order: 3,
     ),
@@ -51,7 +51,7 @@ class GamesConfig {
       titleKey: 'blind_sort',
       descriptionKey: 'blind_sort_description',
       route: '/blind-sort',
-      icon: 'sort',
+      icon: 'order',
       category: 'Logic',
       order: 4,
     ),
@@ -60,7 +60,7 @@ class GamesConfig {
       titleKey: 'aim_trainer',
       descriptionKey: 'aim_trainer_description',
       route: '/aim-trainer',
-      icon: 'gps_fixed',
+      icon: 'target',
       category: 'Reflex',
       order: 5,
     ),
@@ -71,7 +71,7 @@ class GamesConfig {
       titleKey: 'number_memory',
       descriptionKey: 'number_memory_description',
       route: '/number-memory',
-      icon: 'memory',
+      icon: 'lottery',
       category: 'Memory',
       order: 6,
     ),
@@ -80,7 +80,7 @@ class GamesConfig {
       titleKey: 'reactionTime',
       descriptionKey: 'reactionTimeDescription',
       route: '/reaction-time',
-      icon: 'timer',
+      icon: 'quick-response',
       category: 'Reflex',
       order: 7,
     ),
@@ -89,7 +89,7 @@ class GamesConfig {
       titleKey: 'patternMemory',
       descriptionKey: 'patternMemoryDescription',
       route: '/pattern-memory',
-      icon: 'grid_view',
+      icon: 'pattern',
       category: 'Memory',
       order: 8,
     ),
@@ -98,7 +98,7 @@ class GamesConfig {
       titleKey: 'twenty_one',
       descriptionKey: 'twenty_one_description',
       route: '/twenty-one',
-      icon: 'casino',
+      icon: 'blackjack',
       category: 'Cards',
       order: 9,
     ),
@@ -122,20 +122,6 @@ class GamesConfig {
     'twenty_one': AppTheme.goldYellow, // gold - casino style
   };
 
-  // Icon mapping
-  static const Map<String, IconData> gameIcons = {
-    'sort': AppIcons.sort,
-    'trending_up': AppIcons.trending,
-    'palette': AppIcons.palette,
-    'gps_fixed': AppIcons.gpsFixed,
-    'memory': AppIcons.memory,
-    'difference': AppIcons.gridOn,
-    'hand': AppIcons.hand,
-    'casino': Icons.casino,
-    'timer': AppIcons.timer, // Use AppIcons.timer for consistency
-    'grid_view': Icons.grid_view,
-  };
-
   /// Belirli bir oyunu ID'ye göre bul
   static GameModel? getGameById(String gameId) {
     try {
@@ -151,8 +137,8 @@ class GamesConfig {
   }
 
   /// Oyunun icon'unu al
-  static IconData getGameIcon(String iconName) {
-    return gameIcons[iconName] ?? Icons.games_rounded;
+  static String getGameIconPath(String iconName) {
+    return GameIconUtils.getIconPath(iconName);
   }
 
   /// Tüm oyun ID'lerini al

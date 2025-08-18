@@ -68,6 +68,7 @@ class _BlindSortView extends StatelessWidget {
             provider.hideGameOver();
             Navigator.of(context).pop();
           },
+          onGameResultCleared: () => provider.cleanupGame(),
           onStartGame: () {
             provider.startGame();
             provider.startNumberAnimation();
@@ -76,6 +77,9 @@ class _BlindSortView extends StatelessWidget {
             provider.resetGame();
           },
           isWaiting: gameState.isWaiting,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

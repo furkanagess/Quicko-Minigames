@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/theme/app_theme.dart';
+
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/providers/theme_provider.dart';
@@ -13,6 +13,7 @@ import '../../../core/routes/app_router.dart';
 import 'language_settings_screen.dart';
 import 'theme_settings_screen.dart';
 import 'ad_free_subscription_screen.dart';
+import 'sound_settings_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -177,10 +178,10 @@ class _SettingsScreenState extends State<SettingsScreen>
               ).colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
-              Icons.settings_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 24,
+            child: Image.asset(
+              'assets/icon/settings.png',
+              width: 24,
+              height: 24,
             ),
           ),
           const SizedBox(width: AppConstants.mediumSpacing),
@@ -242,6 +243,18 @@ class _SettingsScreenState extends State<SettingsScreen>
           icon: Icons.palette_rounded,
           emoji: _getThemeEmoji(themeProvider),
           onTap: () => _navigateToThemeSettings(context),
+        ),
+
+        const SizedBox(height: AppConstants.mediumSpacing),
+
+        // Sound Settings Option
+        _buildSettingOption(
+          context,
+          title: AppLocalizations.of(context)!.soundSettings,
+          subtitle: AppLocalizations.of(context)!.soundSettingsMenuSubtitle,
+          icon: Icons.volume_up_rounded,
+          emoji: '🔊',
+          onTap: () => _navigateToSoundSettings(context),
         ),
 
         const SizedBox(height: AppConstants.mediumSpacing),
@@ -432,9 +445,11 @@ class _SettingsScreenState extends State<SettingsScreen>
 
   String _getAdFreeStatusDisplay(InAppPurchaseProvider purchaseProvider) {
     if (purchaseProvider.isSubscriptionActive) {
-      return '${purchaseProvider.remainingDays} days remaining';
+      return AppLocalizations.of(
+        context,
+      )!.daysRemaining(purchaseProvider.remainingDays);
     } else {
-      return 'Monthly subscription - \$1';
+      return AppLocalizations.of(context)!.monthlySubscriptionPrice;
     }
   }
 
@@ -453,6 +468,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   void _navigateToAdFreeSubscription(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const AdFreeSubscriptionScreen()),
+    );
+  }
+
+  void _navigateToSoundSettings(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const SoundSettingsScreen()),
     );
   }
 }

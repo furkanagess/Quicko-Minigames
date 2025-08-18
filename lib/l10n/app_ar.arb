@@ -841,5 +841,7 @@
   "soundsOff": "معطّل",
   "effectsVolume": "مستوى صوت التأثيرات",
   "soundTest": "اختبار الصوت",
-  "playSampleSound": "تشغيل صوت تجريبي"
+  "playSampleSound": "تشغيل صوت تجريبي",
+  "purchaseErrorDescription": "تعذر إكمال عملية الشراء. يرجى المحاولة مرة أخرى أو التحقق من طريقة الدفع.",
+  "restoreErrorDescription": "تعذر استعادة مشترياتك. يرجى المحاولة مرة أخرى."
 }

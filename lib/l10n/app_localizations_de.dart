@@ -695,4 +695,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get playSampleSound => 'Beispielsound abspielen';
+
+  @override
+  String get purchaseErrorDescription =>
+      'Dein Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut oder prüfe deine Zahlungsmethode.';
+
+  @override
+  String get restoreErrorDescription =>
+      'Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.';
 }

@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import '../services/sound_settings_service.dart';
 
 class SoundUtils {
   static AudioPlayer? _audioPlayer;
@@ -16,10 +17,12 @@ class SoundUtils {
   /// Oyun başlama sesi çal
   static Future<void> playGameStartSound() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/game_start.mp3'));
-      await _audioPlayer?.setVolume(0.7);
+      await _audioPlayer?.setVolume(_effectiveVolume(0.7));
     } catch (e) {
       print('Oyun başlama sesi çalınırken hata: $e');
     }
@@ -28,10 +31,12 @@ class SoundUtils {
   /// Laser sesi çal (hedef vurulduğunda)
   static Future<void> playLaserSound() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/laser_sound.mp3'));
-      await _audioPlayer?.setVolume(0.7);
+      await _audioPlayer?.setVolume(_effectiveVolume(0.7));
     } catch (e) {
       print('Laser sesi çalınırken hata: $e');
     }
@@ -40,10 +45,14 @@ class SoundUtils {
   /// Rüzgar sesi çal (hedef yer değiştirdiğinde)
   static Future<void> playWindSound() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/wind_sound.mp3'));
-      await _audioPlayer?.setVolume(0.5); // Rüzgar sesi biraz daha düşük
+      await _audioPlayer?.setVolume(
+        _effectiveVolume(0.5),
+      ); // Rüzgar sesi biraz daha düşük
     } catch (e) {
       print('Rüzgar sesi çalınırken hata: $e');
     }
@@ -52,10 +61,12 @@ class SoundUtils {
   /// Oyun bitiş sesi çal (alert dialog için)
   static Future<void> playGameOverSound() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/game_over_sound.mp3'));
-      await _audioPlayer?.setVolume(0.7);
+      await _audioPlayer?.setVolume(_effectiveVolume(0.7));
     } catch (e) {
       print('Oyun bitiş sesi çalınırken hata: $e');
     }
@@ -64,10 +75,12 @@ class SoundUtils {
   /// Kazanma (You Won) sesi çal
   static Future<void> playWinnerSound() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/winner_sound.mp3'));
-      await _audioPlayer?.setVolume(0.8);
+      await _audioPlayer?.setVolume(_effectiveVolume(0.8));
     } catch (e) {
       print('Winner sesi çalınırken hata: $e');
     }
@@ -76,10 +89,12 @@ class SoundUtils {
   /// Oyun bitiş sesi çal (eski versiyon - geriye uyumluluk için)
   static Future<void> playGameOverSoundLegacy() async {
     if (!_isInitialized) await initialize();
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
 
     try {
       await _audioPlayer?.play(AssetSource('sounds/game_over.mp3'));
-      await _audioPlayer?.setVolume(0.7);
+      await _audioPlayer?.setVolume(_effectiveVolume(0.7));
     } catch (e) {
       print('Oyun bitiş sesi çalınırken hata: $e');
     }
@@ -87,11 +102,13 @@ class SoundUtils {
 
   /// Doğru renk seçildiğinde blink sesi çal (Color Hunt)
   static Future<void> playBlinkSound() async {
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
     // Her çağrıda yeni bir player oluştur ki sesler üst üste binebilsin
     final player = AudioPlayer();
     try {
       await player.play(AssetSource('sounds/blink_sound.mp3'));
-      await player.setVolume(0.7);
+      await player.setVolume(_effectiveVolume(0.7));
       // Ses bitince player'ı dispose et
       player.onPlayerComplete.listen((_) {
         player.dispose();
@@ -104,11 +121,13 @@ class SoundUtils {
 
   /// Geri sayım sesi çal (son 3 saniye, üst üste çalabilir)
   static Future<void> playCountDownSound() async {
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
     // Her çağrıda yeni bir player oluştur ki sesler üst üste binebilsin
     final player = AudioPlayer();
     try {
       await player.play(AssetSource('sounds/count_down_sound.mp3'));
-      await player.setVolume(0.6);
+      await player.setVolume(_effectiveVolume(0.6));
       player.onPlayerComplete.listen((_) {
         player.dispose();
       });
@@ -120,11 +139,13 @@ class SoundUtils {
 
   /// Spinner sesi çal (animasyon boyunca döngüde)
   static Future<void> playSpinnerSound() async {
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
     _spinnerPlayer ??= AudioPlayer();
     try {
       await _spinnerPlayer!.setReleaseMode(ReleaseMode.loop);
       await _spinnerPlayer!.play(AssetSource('sounds/spinner_sound.mp3'));
-      await _spinnerPlayer!.setVolume(0.5);
+      await _spinnerPlayer!.setVolume(_effectiveVolume(0.5));
     } catch (e) {
       print('Spinner sesi çalınırken hata: $e');
     }
@@ -143,10 +164,12 @@ class SoundUtils {
 
   /// Blind Sort'ta sayı yerleştirildiğinde tap sesi çal
   static Future<void> playTapSound() async {
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
     final player = AudioPlayer();
     try {
       await player.play(AssetSource('sounds/tap_sound.mp3'));
-      await player.setVolume(0.7);
+      await player.setVolume(_effectiveVolume(0.7));
       player.onPlayerComplete.listen((_) {
         player.dispose();
       });
@@ -158,10 +181,12 @@ class SoundUtils {
 
   /// Yeni rekor kırıldığında seviye atlama sesi çal
   static Future<void> playNewLevelSound() async {
+    await SoundSettingsService.ensureInitialized();
+    if (!SoundSettingsService.isSoundEnabled) return;
     final player = AudioPlayer();
     try {
       await player.play(AssetSource('sounds/new_level_sound.mp3'));
-      await player.setVolume(0.8);
+      await player.setVolume(_effectiveVolume(0.8));
       player.onPlayerComplete.listen((_) {
         player.dispose();
       });
@@ -183,4 +208,9 @@ class SoundUtils {
 
   /// Ses durumunu kontrol et
   static PlayerState? get playerState => _audioPlayer?.state;
+
+  static double _effectiveVolume(double baseVolume) {
+    final v = (baseVolume * SoundSettingsService.effectsVolume).clamp(0.0, 1.0);
+    return v.toDouble();
+  }
 }

@@ -236,7 +236,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               ),
               child: ElevatedButton.icon(
                 onPressed: () => AppRouter.pop(context),
-                icon: const Icon(Icons.games_rounded),
+                icon: Image.asset(
+                  'assets/icon/joystick.png',
+                  width: 24,
+                  height: 24,
+                ),
                 label: Text(
                   AppLocalizations.of(context)!.playGames,
                   style: const TextStyle(
@@ -335,7 +339,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             child: _buildStatItem(
               AppLocalizations.of(context)!.totalGames,
               leaderboardProvider.totalEntries.toString(),
-              Icons.games_rounded,
+              'joystick',
               AppTheme.darkSuccess,
             ),
           ),
@@ -343,7 +347,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             child: _buildStatItem(
               AppLocalizations.of(context)!.highestScore,
               leaderboardProvider.highestScore.toString(),
-              Icons.emoji_events_rounded,
+              'winner',
               AppTheme.darkWarning,
             ),
           ),
@@ -351,7 +355,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
             child: _buildStatItem(
               AppLocalizations.of(context)!.averageScore,
               leaderboardProvider.averageScore.toStringAsFixed(1),
-              Icons.analytics_rounded,
+              'average',
               AppTheme.darkPrimary,
             ),
           ),
@@ -363,7 +367,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   Widget _buildStatItem(
     String label,
     String value,
-    IconData icon,
+    String iconPath,
     Color color,
   ) {
     return Column(
@@ -372,12 +376,28 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       children: [
         // Icon Container
         Container(
-          padding: const EdgeInsets.all(12),
+          width: 56,
+          height: 56,
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
+            color: color.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: color.withValues(alpha: 0.15), width: 1),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-          child: Icon(icon, color: color, size: 24),
+          child: Center(
+            child: Image.asset(
+              GamesConfig.getGameIconPath(iconPath),
+              width: 28,
+              height: 28,
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
         const SizedBox(height: AppConstants.smallSpacing),
 
@@ -560,12 +580,18 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                             ),
                           ],
                         ),
-                        child: Icon(
-                          gameConfig != null
-                              ? GamesConfig.getGameIcon(gameConfig.icon)
-                              : Icons.games_rounded,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 30,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Center(
+                            child: Image.asset(
+                              gameConfig != null
+                                  ? GamesConfig.getGameIconPath(gameConfig.icon)
+                                  : 'assets/icon/quicko.png',
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -984,7 +1010,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         return localizations.rockPaperScissors;
       case 'twenty_one':
         return localizations.twentyOne;
-      case 'reactionTime':
+      case 'reaction_time':
         return localizations.reactionTime;
       default:
         return gameId;

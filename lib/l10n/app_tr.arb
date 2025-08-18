@@ -529,5 +529,7 @@
   "soundsOff": "Kapalı",
   "effectsVolume": "Efekt Ses Seviyesi",
   "soundTest": "Ses Testi",
-  "playSampleSound": "Örnek Sesi Çal"
+  "playSampleSound": "Örnek Sesi Çal",
+  "purchaseErrorDescription": "Satın alma tamamlanamadı. Lütfen tekrar deneyin veya ödeme yöntemini kontrol edin.",
+  "restoreErrorDescription": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin."
 }

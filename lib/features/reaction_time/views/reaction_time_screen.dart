@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/continue_game_dialog.dart';
 import '../models/reaction_time_game_state.dart';
 import '../providers/reaction_time_provider.dart';
 import '../../../core/constants/app_constants.dart';
@@ -60,7 +58,7 @@ class _ReactionTimeView extends StatelessWidget {
 
         return GameScreenBase(
           title: 'reaction_time',
-          descriptionKey: 'reaction_time_description',
+          descriptionKey: 'reactionTimeDescription',
           gameId: 'reaction_time',
           gameResult: gameResult,
           onTryAgain: () {
@@ -84,6 +82,10 @@ class _ReactionTimeView extends StatelessWidget {
             return await provider.canContinueGame();
           },
           isWaiting: gameState.isWaiting,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
+          onGameResultCleared: () => provider.cleanupGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },
@@ -219,7 +221,7 @@ class _ReactionTimeView extends StatelessWidget {
                       provider,
                     ),
                   );
-                }).toList(),
+                }),
             ],
           ),
         );

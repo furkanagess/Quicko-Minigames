@@ -686,4 +686,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get playSampleSound => 'تشغيل صوت تجريبي';
+
+  @override
+  String get purchaseErrorDescription =>
+      'تعذر إكمال عملية الشراء. يرجى المحاولة مرة أخرى أو التحقق من طريقة الدفع.';
+
+  @override
+  String get restoreErrorDescription =>
+      'تعذر استعادة مشترياتك. يرجى المحاولة مرة أخرى.';
 }

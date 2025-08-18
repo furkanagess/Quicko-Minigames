@@ -191,6 +191,9 @@ class _FindDifferenceView extends StatelessWidget {
             provider.hideContinueDialog();
             provider.resetGame();
           },
+          onGameResultCleared: () {
+            provider.cleanupGame();
+          },
           onContinueGame: () => provider.continueGame(),
           canContinueGame: () => provider.canContinueGame(),
           onBackToMenu: () {
@@ -205,6 +208,9 @@ class _FindDifferenceView extends StatelessWidget {
             provider.resetGame();
           },
           isWaiting: gameState.isWaiting,
+          isGameInProgress: gameState.isGameActive,
+          onPauseGame: () => provider.pauseGame(),
+          onResumeGame: () => provider.resumeGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

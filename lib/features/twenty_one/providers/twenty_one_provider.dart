@@ -293,4 +293,14 @@ class TwentyOneProvider extends ChangeNotifier {
   Future<void> clearSavedGameState() async {
     await GameStateService().clearGameState('twenty_one');
   }
+
+  /// Pause the game (no timer to pause for this game)
+  void pauseGame() {
+    // This game doesn't have a timer, so nothing to pause
+  }
+
+  /// Resume the game (no timer to resume for this game)
+  void resumeGame() {
+    // This game doesn't have a timer, so nothing to resume
+  }
 }
