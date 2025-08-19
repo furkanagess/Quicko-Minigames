@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757849925338",
+    "project_id": "quicko-62558",
+    "storage_bucket": "quicko-62558.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757849925338:android:f9ff4c43fa0eb09077a7e3",
+        "android_client_info": {
+          "package_name": "com.furkanages.quicko_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6-wnsY41dy6hRW7TR8EGWWTbH0-P8bLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

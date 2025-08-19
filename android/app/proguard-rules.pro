@@ -79,3 +79,9 @@
 # Keep Flutter deferred components classes to avoid aggressive shrinking issues
 -keep class io.flutter.embedding.engine.deferredcomponents.** { *; }
 -keep class io.flutter.embedding.android.FlutterPlayStoreSplitApplication { *; }
+
+# Google Play Games Services v2 keep rules
+-keep class com.google.android.gms.games.** { *; }
+-keep class com.google.android.gms.common.api.** { *; }
+-keep class com.google.android.gms.tasks.** { *; }
+-dontwarn com.google.android.gms.**
