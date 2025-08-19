@@ -123,6 +123,22 @@ class _ColorHuntView extends StatelessWidget {
         return AppLocalizations.of(context)!.pink;
       case 'brown':
         return AppLocalizations.of(context)!.brown;
+      case 'cyan':
+        return AppLocalizations.of(context)!.cyan;
+      case 'lime':
+        return AppLocalizations.of(context)!.lime;
+      case 'magenta':
+        return AppLocalizations.of(context)!.magenta;
+      case 'teal':
+        return AppLocalizations.of(context)!.teal;
+      case 'indigo':
+        return AppLocalizations.of(context)!.indigo;
+      case 'amber':
+        return AppLocalizations.of(context)!.amber;
+      case 'deep_purple':
+        return AppLocalizations.of(context)!.deep_purple;
+      case 'light_blue':
+        return AppLocalizations.of(context)!.light_blue;
       default:
         return colorKey;
     }
@@ -185,6 +201,14 @@ class _ColorHuntView extends StatelessWidget {
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
           width: 1,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 8,
+            spreadRadius: 0,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -196,13 +220,12 @@ class _ColorHuntView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppConstants.smallSpacing),
-          Text(
-            _getLocalizedColorName(context, gameState.targetColorKey),
-            style: TextThemeManager.gameNumber.copyWith(
-              fontSize: 32,
-              color: gameState.textColor,
-              fontWeight: FontWeight.bold,
+          _AnimatedTargetText(
+            colorName: _getLocalizedColorName(
+              context,
+              gameState.targetColorKey,
             ),
+            textColor: gameState.textColor,
           ),
         ],
       ),
@@ -214,21 +237,37 @@ class _ColorHuntView extends StatelessWidget {
     ColorHuntGameState gameState,
     ColorHuntProvider provider,
   ) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 400),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(4, (index) {
-          return _buildColorBox(
-            context,
-            gameState.availableColors[index],
-            index,
-            gameState.wrongTapIndex == index,
-            gameState.isGameActive,
-            () => provider.onColorTap(index),
-          );
-        }),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Calculate box size based on available width
+        final availableWidth = constraints.maxWidth;
+        final boxSize =
+            (availableWidth - 60) / 4; // 60px for spacing (15px * 4)
+        final finalBoxSize = boxSize.clamp(70.0, 90.0); // Min 70px, max 90px
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(4, (index) {
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                child: _buildColorBox(
+                  context,
+                  gameState.availableColors[index],
+                  index,
+                  gameState.wrongTapIndex == index,
+                  gameState.isGameActive,
+                  () => provider.onColorTap(index),
+                  boxSize: finalBoxSize,
+                ),
+              );
+            }),
+          ),
+        );
+      },
     );
   }
 
@@ -238,8 +277,9 @@ class _ColorHuntView extends StatelessWidget {
     int index,
     bool isWrong,
     bool isActive,
-    VoidCallback? onTap,
-  ) {
+    VoidCallback? onTap, {
+    double boxSize = 100,
+  }) {
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 150),
       tween: Tween(begin: 1.0, end: onTap != null ? 1.0 : 0.6),
@@ -247,30 +287,44 @@ class _ColorHuntView extends StatelessWidget {
         return Transform.scale(
           scale: value,
           child: Container(
-            width: 80,
-            height: 80,
+            width: boxSize,
+            height: boxSize,
             decoration: BoxDecoration(
               color: color, // Always use the original color
               borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
               boxShadow: [
                 BoxShadow(
                   color: color.withValues(
-                    alpha: 0.4,
+                    alpha: 0.6, // Increased shadow opacity
                   ), // Use original color for shadow
-                  blurRadius: 8,
+                  blurRadius: 12, // Increased blur radius
+                  spreadRadius: 2, // Added spread radius
+                  offset: const Offset(0, 4), // Increased offset
+                ),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 4,
                   spreadRadius: 0,
                   offset: const Offset(0, 2),
                 ),
               ],
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.2),
+                width: 2,
+              ),
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
                 borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-                splashColor: Colors.white.withValues(alpha: 0.3),
-                highlightColor: Colors.white.withValues(alpha: 0.1),
-                child: _AnimatedColorBoxContent(color: color, onTap: onTap),
+                splashColor: Colors.white.withValues(alpha: 0.4),
+                highlightColor: Colors.white.withValues(alpha: 0.2),
+                child: _AnimatedColorBoxContent(
+                  color: color,
+                  onTap: onTap,
+                  boxSize: boxSize,
+                ),
               ),
             ),
           ),
@@ -335,8 +389,13 @@ class _InfoPill extends StatelessWidget {
 class _AnimatedColorBoxContent extends StatefulWidget {
   final Color color;
   final VoidCallback? onTap;
+  final double boxSize;
 
-  const _AnimatedColorBoxContent({required this.color, required this.onTap});
+  const _AnimatedColorBoxContent({
+    required this.color,
+    required this.onTap,
+    this.boxSize = 100,
+  });
 
   @override
   State<_AnimatedColorBoxContent> createState() =>
@@ -402,8 +461,8 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
                 borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
               ),
               child: Container(
-                width: 80,
-                height: 80,
+                width: widget.boxSize,
+                height: widget.boxSize,
                 decoration: BoxDecoration(
                   color: widget.color, // Always use the original color
                   borderRadius: BorderRadius.circular(
@@ -415,6 +474,83 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
           );
         },
       ),
+    );
+  }
+}
+
+class _AnimatedTargetText extends StatefulWidget {
+  final String colorName;
+  final Color textColor;
+
+  const _AnimatedTargetText({required this.colorName, required this.textColor});
+
+  @override
+  State<_AnimatedTargetText> createState() => _AnimatedTargetTextState();
+}
+
+class _AnimatedTargetTextState extends State<_AnimatedTargetText>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _pulseAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _pulseAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _controller.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _pulseAnimation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _pulseAnimation.value,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.mediumSpacing,
+              vertical: AppConstants.smallSpacing,
+            ),
+            decoration: BoxDecoration(
+              color: widget.textColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.smallRadius),
+              border: Border.all(
+                color: widget.textColor.withValues(alpha: 0.3),
+                width: 1,
+              ),
+            ),
+            child: Text(
+              widget.colorName,
+              style: TextThemeManager.gameNumber.copyWith(
+                fontSize: 36,
+                color: widget.textColor,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    offset: const Offset(1, 1),
+                    blurRadius: 2,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -371,10 +371,12 @@ class _GameScreenBaseState extends State<GameScreenBase>
     if (widget.canContinueGame != null && widget.onContinueGame != null) {
       final canContinue = await widget.canContinueGame!();
 
-      if (canContinue && context.mounted) {
-        debugPrint('GameScreenBase: Showing continue game dialog');
+      if (context.mounted) {
+        debugPrint(
+          'GameScreenBase: Showing continue game dialog (canContinue=$canContinue)',
+        );
 
-        // Show continue game dialog
+        // Show continue game dialog always; button visibility handled inside
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -383,42 +385,28 @@ class _GameScreenBaseState extends State<GameScreenBase>
                 gameId: widget.gameId,
                 gameTitle: _getLocalizedTitle(context),
                 currentScore: widget.gameResult?.score ?? 0,
-                currentLevel: _getCurrentLevel(),
                 onContinue: () async {
                   debugPrint('GameScreenBase: User chose to continue game');
-
-                  // User watched ad successfully, continue from lost score
                   final success = await widget.onContinueGame!();
                   if (success) {
                     debugPrint('GameScreenBase: Continue game successful');
-
-                    // Clear the game result to hide the game over screen
-                    // and show the continued game state
-                    // Don't call onTryAgain as it would reset the game
-                    // The game state is already restored by continueGame()
-                    widget.onGameResultCleared?.call();
+                    // Don't call onGameResultCleared when continue is successful
+                    // because the game should continue from where it left off
                   } else {
                     debugPrint('GameScreenBase: Continue game failed');
                   }
                 },
                 onRestart: () {
                   debugPrint('GameScreenBase: User chose to restart game');
-                  // User chose to restart instead of watching ad
                   widget.onTryAgain?.call();
                 },
                 onExit: () {
                   debugPrint('GameScreenBase: User chose to exit game');
-                  // User chose to exit
                   widget.onBackToMenu?.call();
                 },
+                canOneTimeContinue: canContinue,
               ),
         );
-      } else {
-        debugPrint(
-          'GameScreenBase: No saved state or context not mounted, using normal try again',
-        );
-        // No saved state, use normal try again
-        widget.onTryAgain?.call();
       }
     } else {
       debugPrint(
@@ -427,12 +415,6 @@ class _GameScreenBaseState extends State<GameScreenBase>
       // No continue game support, use normal try again
       widget.onTryAgain?.call();
     }
-  }
-
-  int _getCurrentLevel() {
-    // This should be implemented based on the specific game
-    // For now, return a default value
-    return 1;
   }
 
   void _handleBackButtonPress(BuildContext context) async {

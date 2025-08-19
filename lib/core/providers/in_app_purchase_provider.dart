@@ -113,6 +113,40 @@ class InAppPurchaseProvider extends ChangeNotifier {
     }
   }
 
+  /// Cancel subscription
+  Future<bool> cancelSubscription() async {
+    if (!_isInitialized) {
+      _errorMessage = 'Purchase service not initialized';
+      notifyListeners();
+      return false;
+    }
+
+    _isLoading = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      final success = await _purchaseService.cancelSubscription();
+
+      if (success) {
+        _errorMessage = null;
+      } else {
+        _errorMessage = 'Failed to cancel subscription';
+      }
+
+      return success;
+    } catch (e) {
+      _errorMessage = 'Cancel subscription error: $e';
+      if (kDebugMode) {
+        print('InAppPurchaseProvider: Cancel subscription error: $e');
+      }
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   /// Clear error message
   void clearError() {
     _errorMessage = null;

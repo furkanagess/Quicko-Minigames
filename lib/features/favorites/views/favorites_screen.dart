@@ -8,9 +8,10 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/routes/app_router.dart';
 import '../../../core/constants/app_icons.dart';
-import '../../../core/providers/app_providers.dart';
 import '../../../shared/models/game_model.dart';
 import '../providers/favorites_provider.dart';
+import '../../../shared/widgets/inline_banner_ad_widget.dart';
+import '../../../core/mixins/screen_animation_mixin.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -20,80 +21,39 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.05),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _fadeController.forward();
-    _slideController.forward();
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    super.dispose();
-  }
+    with TickerProviderStateMixin, ScreenAnimationMixin {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: Consumer<FavoritesProvider>(
-            builder: (context, favoritesProvider, child) {
-              // Load favorites if not already loaded
-              if (!favoritesProvider.isLoading &&
-                  favoritesProvider.favorites.isEmpty) {
-                print('FavoritesScreen: Triggering favorites load...');
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  favoritesProvider.loadFavorites();
-                });
-              }
+      body: buildAnimatedBody(
+        child: Consumer<FavoritesProvider>(
+          builder: (context, favoritesProvider, child) {
+            // Load favorites if not already loaded
+            if (!favoritesProvider.isLoading &&
+                favoritesProvider.favorites.isEmpty) {
+              print('FavoritesScreen: Triggering favorites load...');
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                favoritesProvider.loadFavorites();
+              });
+            }
 
-              print(
-                'FavoritesScreen: isLoading: ${favoritesProvider.isLoading}, hasFavorites: ${favoritesProvider.hasFavorites}, favoritesCount: ${favoritesProvider.favoritesCount}',
-              );
+            print(
+              'FavoritesScreen: isLoading: ${favoritesProvider.isLoading}, hasFavorites: ${favoritesProvider.hasFavorites}, favoritesCount: ${favoritesProvider.favoritesCount}',
+            );
 
-              if (favoritesProvider.isLoading) {
-                return _buildLoadingState();
-              }
+            if (favoritesProvider.isLoading) {
+              return _buildLoadingState();
+            }
 
-              if (!favoritesProvider.hasFavorites) {
-                return _buildEmptyState();
-              }
+            if (!favoritesProvider.hasFavorites) {
+              return _buildEmptyState();
+            }
 
-              return _buildFavoritesList(favoritesProvider);
-            },
-          ),
+            return _buildFavoritesList(favoritesProvider);
+          },
         ),
       ),
     );
@@ -279,24 +239,40 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             .where((game) => game != null)
             .toList();
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      itemCount: favoriteGames.length,
-      itemBuilder: (context, index) {
-        final game = favoriteGames[index]!;
-        return AnimatedBuilder(
-          animation: _fadeController,
+    final List<Widget> children = [];
+    for (int i = 0; i < favoriteGames.length; i++) {
+      final game = favoriteGames[i]!;
+      children.add(
+        AnimatedBuilder(
+          animation: fadeController,
           builder: (context, child) {
             return Transform.translate(
-              offset: Offset(0, 10 * (1 - _fadeAnimation.value)),
+              offset: Offset(0, 10 * (1 - fadeAnimation.value)),
               child: Opacity(
-                opacity: _fadeAnimation.value,
+                opacity: fadeAnimation.value,
                 child: _buildFavoriteCard(context, game),
               ),
             );
           },
+        ),
+      );
+
+      // Insert a banner after every 3 favorites, except after the last item
+      final isThird = (i + 1) % 3 == 0;
+      final isLast = i == favoriteGames.length - 1;
+      if (isThird && !isLast) {
+        // Use custom spacing to match the 16px gap between favorite cards
+        children.add(
+          const InlineBannerAdWidget(
+            verticalPadding: 8.0, // Reduced padding to match card spacing
+          ),
         );
-      },
+      }
+    }
+
+    return ListView(
+      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+      children: children,
     );
   }
 
@@ -414,8 +390,10 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   ),
                   child: IconButton(
                     onPressed: () {
-                      final favoritesProvider =
-                          AppProviders.getProvider<FavoritesProvider>(context);
+                      final favoritesProvider = Provider.of<FavoritesProvider>(
+                        context,
+                        listen: false,
+                      );
                       favoritesProvider.toggleFavorite(game.id);
                     },
                     icon: const Icon(

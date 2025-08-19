@@ -10,7 +10,7 @@ class InAppPurchaseService {
   factory InAppPurchaseService() => _instance;
   InAppPurchaseService._internal();
 
-  static const String _adFreeSubscriptionId = 'ad_free_monthly_249';
+  static const String _adFreeSubscriptionId = 'one_time_payment';
   static const String _isAdFreeKey = 'is_ad_free';
   static const String _subscriptionExpiryKey = 'subscription_expiry';
   static const String _subscriptionStartKey = 'subscription_start';
@@ -184,24 +184,19 @@ class InAppPurchaseService {
     if (purchaseDetails.productID == _adFreeSubscriptionId) {
       final now = DateTime.now();
 
-      // If this is the first purchase, set the start date
-      if (!_isAdFree) {
-        _subscriptionStart = now;
-      }
-
       _isAdFree = true;
       _lastPaymentDate = now;
+      _subscriptionStart = now;
 
-      // Set subscription expiry to 30 days from now
-      _subscriptionExpiry = now.add(const Duration(days: 30));
+      // For one-time payment, no expiry date (lifetime)
+      _subscriptionExpiry = null;
 
       await _saveSubscriptionStatus();
 
       if (kDebugMode) {
-        print('InAppPurchase: Ad-free subscription activated');
-        print('InAppPurchase: Started on: $_subscriptionStart');
-        print('InAppPurchase: Last payment: $_lastPaymentDate');
-        print('InAppPurchase: Expires on: $_subscriptionExpiry');
+        print('InAppPurchase: Lifetime ad-free access activated');
+        print('InAppPurchase: Purchased on: $_lastPaymentDate');
+        print('InAppPurchase: No expiry date (lifetime access)');
       }
     }
   }
@@ -245,7 +240,7 @@ class InAppPurchaseService {
         productDetails: productDetails,
       );
 
-      // Start purchase
+      // Start purchase (one-time payment)
       final bool success = await _inAppPurchase.buyNonConsumable(
         purchaseParam: purchaseParam,
       );
@@ -280,24 +275,49 @@ class InAppPurchaseService {
     }
   }
 
-  /// Check if subscription is active
+  /// Cancel subscription (clear ad-free status)
+  Future<bool> cancelSubscription() async {
+    try {
+      if (kDebugMode) {
+        print('InAppPurchase: Canceling subscription');
+      }
+
+      // Clear ad-free status
+      _isAdFree = false;
+      _subscriptionExpiry = null;
+      _subscriptionStart = null;
+      _lastPaymentDate = null;
+
+      // Save the updated status
+      await _saveSubscriptionStatus();
+
+      if (kDebugMode) {
+        print('InAppPurchase: Subscription canceled successfully');
+      }
+
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print('InAppPurchase: Error canceling subscription: $e');
+      }
+      return false;
+    }
+  }
+
+  /// Check if subscription is active (for lifetime access, always true if purchased)
   bool isSubscriptionActive() {
-    if (!_isAdFree) return false;
-    if (_subscriptionExpiry == null) return false;
-    return _subscriptionExpiry!.isAfter(DateTime.now());
+    return _isAdFree;
   }
 
-  /// Get remaining subscription days
+  /// Get remaining subscription days (for lifetime access, returns -1)
   int getRemainingDays() {
-    if (!isSubscriptionActive()) return 0;
-    return _subscriptionExpiry!.difference(DateTime.now()).inDays;
+    if (!_isAdFree) return 0;
+    return -1; // -1 indicates lifetime access
   }
 
-  /// Check if it's time for next payment (within 7 days of expiry)
+  /// Check if it's time for next payment (not applicable for lifetime access)
   bool get isPaymentDueSoon {
-    if (!isSubscriptionActive()) return false;
-    final daysUntilExpiry = getRemainingDays();
-    return daysUntilExpiry <= 7;
+    return false; // No payment due for lifetime access
   }
 
   /// Get subscription duration in days
@@ -308,10 +328,8 @@ class InAppPurchaseService {
 
   /// Get subscription status text
   String getSubscriptionStatusText() {
-    if (!_isAdFree) return 'Not subscribed';
-    if (!isSubscriptionActive()) return 'Expired';
-    final days = getRemainingDays();
-    return '$days days remaining';
+    if (!_isAdFree) return 'Not purchased';
+    return 'Lifetime access';
   }
 
   /// Dispose the service

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
 import '../models/color_hunt_game_state.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
 import '../../../core/services/game_state_service.dart';
@@ -12,35 +11,54 @@ class ColorHuntProvider extends ChangeNotifier {
   Timer? _timer;
   final Random _random = Random();
   bool _hasBrokenRecordThisGame = false;
+  bool _hasUsedContinue = false;
 
   ColorHuntGameState get gameState => _gameState;
 
-  // Color keys and their corresponding colors
+  // Enhanced color keys with more distinct and easily differentiable colors
   final Map<String, Color> _colorMap = {
-    'red': AppTheme.darkError,
-    'green': Colors.green,
-    'blue': Colors.blue,
-    'purple': Colors.purple,
-    'orange': Colors.orange,
-    'yellow': Colors.yellow,
-    'pink': Colors.pink,
-    'brown': Colors.brown,
+    'red': const Color(0xFFE53E3E), // Bright red
+    'green': const Color(0xFF38A169), // Bright green
+    'blue': const Color(0xFF3182CE), // Bright blue
+    'purple': const Color(0xFF805AD5), // Bright purple
+    'orange': const Color(0xFFFF6B35), // Vibrant orange
+    'yellow': const Color(0xFFFFD700), // Gold yellow
+    'pink': const Color(0xFFE91E63), // Hot pink
+    'brown': const Color(0xFF8B4513), // Saddle brown
+    'cyan': const Color(0xFF00BCD4), // Bright cyan
+    'lime': const Color(0xFF4CAF50), // Material green
+    'magenta': const Color(0xFF9C27B0), // Purple magenta
+    'teal': const Color(0xFF009688), // Material teal
+    'indigo': const Color(0xFF3F51B5), // Indigo
+    'amber': const Color(0xFFFF9800), // Material amber
+    'deep_purple': const Color(0xFF673AB7), // Deep purple
+    'light_blue': const Color(0xFF03A9F4), // Light blue
   };
 
+  // Enhanced available colors list with more distinct options
   final List<Color> _availableColors = [
-    AppTheme.darkError,
-    Colors.green,
-    Colors.blue,
-    Colors.purple,
-    Colors.orange,
-    Colors.yellow,
-    Colors.pink,
-    Colors.brown,
+    const Color(0xFFE53E3E), // Bright red
+    const Color(0xFF38A169), // Bright green
+    const Color(0xFF3182CE), // Bright blue
+    const Color(0xFF805AD5), // Bright purple
+    const Color(0xFFFF6B35), // Vibrant orange
+    const Color(0xFFFFD700), // Gold yellow
+    const Color(0xFFE91E63), // Hot pink
+    const Color(0xFF8B4513), // Saddle brown
+    const Color(0xFF00BCD4), // Bright cyan
+    const Color(0xFF4CAF50), // Material green
+    const Color(0xFF9C27B0), // Purple magenta
+    const Color(0xFF009688), // Material teal
+    const Color(0xFF3F51B5), // Indigo
+    const Color(0xFFFF9800), // Material amber
+    const Color(0xFF673AB7), // Deep purple
+    const Color(0xFF03A9F4), // Light blue
   ];
 
   /// Oyunu başlat
   void startGame() {
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     _gameState = _gameState.copyWith(
       score: 0,
       timeLeft: 30,
@@ -112,11 +130,20 @@ class ColorHuntProvider extends ChangeNotifier {
       'Color Hunt: Generating new target - Key: $targetColorKey, Color: $targetColor',
     );
 
-    // Misleading text color (different from target color)
+    // Create more interesting text color combinations
+    // Sometimes use the same color as target (creates confusion), sometimes different
     Color textColor;
-    do {
-      textColor = _availableColors[_random.nextInt(_availableColors.length)];
-    } while (textColor == targetColor);
+    final useSameColor = _random.nextBool(); // 50% chance to use same color
+
+    if (useSameColor) {
+      // Use the same color as target (creates visual confusion)
+      textColor = targetColor;
+    } else {
+      // Use a different color (traditional approach)
+      do {
+        textColor = _availableColors[_random.nextInt(_availableColors.length)];
+      } while (textColor == targetColor);
+    }
 
     // Ensure target color is always in the available options
     final availableColorsForDisplay = <Color>[];
@@ -124,21 +151,57 @@ class ColorHuntProvider extends ChangeNotifier {
     // First, add the target color
     availableColorsForDisplay.add(targetColor);
 
-    // Then add 3 other random colors (excluding target color)
+    // Then add 3 other distinct colors (excluding target color and similar colors)
     final otherColors =
         _availableColors.where((color) => color != targetColor).toList();
     otherColors.shuffle();
 
-    // Add 3 random colors from the remaining colors
+    // Add 3 distinct colors, avoiding colors that are too similar
     for (int i = 0; i < 3 && i < otherColors.length; i++) {
-      availableColorsForDisplay.add(otherColors[i]);
+      final candidateColor = otherColors[i];
+
+      // Check if this color is too similar to any already selected color
+      bool isTooSimilar = false;
+      for (final selectedColor in availableColorsForDisplay) {
+        if (_isColorTooSimilar(candidateColor, selectedColor)) {
+          isTooSimilar = true;
+          break;
+        }
+      }
+
+      if (!isTooSimilar) {
+        availableColorsForDisplay.add(candidateColor);
+      } else {
+        // Try to find a more distinct color
+        for (int j = i + 1; j < otherColors.length; j++) {
+          final alternativeColor = otherColors[j];
+          bool isAlternativeTooSimilar = false;
+
+          for (final selectedColor in availableColorsForDisplay) {
+            if (_isColorTooSimilar(alternativeColor, selectedColor)) {
+              isAlternativeTooSimilar = true;
+              break;
+            }
+          }
+
+          if (!isAlternativeTooSimilar) {
+            availableColorsForDisplay.add(alternativeColor);
+            break;
+          }
+        }
+
+        // If we still don't have enough colors, just add the original
+        if (availableColorsForDisplay.length < 4) {
+          availableColorsForDisplay.add(candidateColor);
+        }
+      }
     }
 
     // Shuffle the final list to randomize positions
     availableColorsForDisplay.shuffle();
 
     debugPrint(
-      'Color Hunt: New target generated - Available colors: $availableColorsForDisplay, Text color: $textColor',
+      'Color Hunt: New target generated - Available colors: $availableColorsForDisplay, Text color: $textColor, Same color: $useSameColor',
     );
 
     _gameState = _gameState.copyWith(
@@ -147,6 +210,27 @@ class ColorHuntProvider extends ChangeNotifier {
       textColor: textColor,
       availableColors: availableColorsForDisplay,
     );
+  }
+
+  /// Check if two colors are too similar to each other
+  bool _isColorTooSimilar(Color color1, Color color2) {
+    // Convert colors to HSV for better similarity comparison
+    final hsv1 = HSVColor.fromColor(color1);
+    final hsv2 = HSVColor.fromColor(color2);
+
+    // Calculate hue difference (considering circular nature of hue)
+    double hueDiff = (hsv1.hue - hsv2.hue).abs();
+    if (hueDiff > 180) hueDiff = 360 - hueDiff;
+
+    // Calculate saturation and value differences
+    final satDiff = (hsv1.saturation - hsv2.saturation).abs();
+    final valDiff = (hsv1.value - hsv2.value).abs();
+
+    // Colors are too similar if:
+    // - Hue difference is less than 30 degrees AND
+    // - Saturation difference is less than 0.3 AND
+    // - Value difference is less than 0.3
+    return hueDiff < 30 && satDiff < 0.3 && valDiff < 0.3;
   }
 
   /// Renk kutusuna tıklandığında
@@ -264,6 +348,7 @@ class ColorHuntProvider extends ChangeNotifier {
     _stopTimer();
     _gameState = const ColorHuntGameState();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -291,15 +376,16 @@ class ColorHuntProvider extends ChangeNotifier {
 
     try {
       final savedScore = (saved['score'] as int?) ?? 0;
+      final savedTimeLeft = (saved['timeLeft'] as int?) ?? 30;
 
       debugPrint(
-        'Color Hunt: Continuing game - Score: $savedScore, Restarting timer from beginning',
+        'Color Hunt: Continuing game - Score: $savedScore, Time: $savedTimeLeft',
       );
 
-      // Restore game state with score but reset timer to initial value (30 seconds)
+      // Restore game state with both score and time from where user left off
       _gameState = _gameState.copyWith(
         score: savedScore,
-        timeLeft: 30, // Reset timer to initial value
+        timeLeft: savedTimeLeft, // Restore the actual time left
         status: ColorHuntGameStatus.playing,
         showGameOver: false,
         wrongTapIndex: null,
@@ -311,17 +397,20 @@ class ColorHuntProvider extends ChangeNotifier {
       _generateNewTarget();
 
       debugPrint(
-        'Color Hunt: New target generated, restarting timer from beginning...',
+        'Color Hunt: New target generated, restarting timer with saved time: $savedTimeLeft...',
       );
 
-      // Restart the timer with the initial time (30 seconds)
+      // Restart the timer with the saved time (not reset to 30)
       _startTimer();
 
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       debugPrint(
-        'Color Hunt: Game continued with new target and fresh timer successfully',
+        'Color Hunt: Game continued with new target and restored time successfully',
       );
       notifyListeners();
       return true;
@@ -332,8 +421,11 @@ class ColorHuntProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     final hasState = await GameStateService().hasGameState('color_hunt');
-    debugPrint('Color Hunt: canContinueGame check - Has state: $hasState');
+    debugPrint(
+      'Color Hunt: canContinueGame check - Has state: $hasState, hasUsedContinue: $_hasUsedContinue',
+    );
     return hasState;
   }
 

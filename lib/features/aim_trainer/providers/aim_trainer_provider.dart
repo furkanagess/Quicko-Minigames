@@ -13,6 +13,7 @@ class AimTrainerProvider extends ChangeNotifier {
   final Random _random = Random();
   Size? _gameAreaSize;
   bool _hasBrokenRecordThisGame = false;
+  bool _hasUsedContinue = false;
 
   AimTrainerGameState get gameState => _gameState;
 
@@ -27,6 +28,7 @@ class AimTrainerProvider extends ChangeNotifier {
   /// Start the game
   void startGame() async {
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     _gameState = _gameState.copyWith(
       score: 0,
       timeLeft: 20,
@@ -237,11 +239,13 @@ class AimTrainerProvider extends ChangeNotifier {
     _stopTimer();
     _gameState = const AimTrainerGameState();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
   Future<void> _saveGameState() async {
     final state = {'score': _gameState.score, 'timeLeft': _gameState.timeLeft};
+    print('AimTrainer: _saveGameState - saving state: $state');
     await GameStateService().saveGameState('aim_trainer', state);
     await GameStateService().saveGameScore('aim_trainer', _gameState.score);
   }
@@ -250,9 +254,17 @@ class AimTrainerProvider extends ChangeNotifier {
     final saved = await GameStateService().loadGameState('aim_trainer');
     if (saved == null) return false;
     try {
+      final restoredScore = (saved['score'] as int?) ?? 0;
+      final restoredTimeLeft = (saved['timeLeft'] as int?) ?? 0;
+      final resumedTimeLeft = restoredTimeLeft + 10; // +10s bonus on continue
+
+      print(
+        'AimTrainer: continueGame - restoredScore: $restoredScore, restoredTimeLeft: $restoredTimeLeft, resumedTimeLeft: $resumedTimeLeft',
+      );
+
       _gameState = _gameState.copyWith(
-        score: (saved['score'] as int?) ?? 0,
-        timeLeft: (saved['timeLeft'] as int?) ?? 0,
+        score: restoredScore,
+        timeLeft: resumedTimeLeft,
         status: AimTrainerGameStatus.playing,
         showGameOver: false,
       );
@@ -262,15 +274,27 @@ class AimTrainerProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
+      print(
+        'AimTrainer: continueGame - game resumed with score: ${_gameState.score}, timeLeft: ${_gameState.timeLeft}',
+      );
       notifyListeners();
       return true;
-    } catch (_) {
+    } catch (e) {
+      print('AimTrainer: continueGame - error: $e');
       return false;
     }
   }
 
   Future<bool> canContinueGame() async {
-    return await GameStateService().hasGameState('aim_trainer');
+    if (_hasUsedContinue) return false;
+    final hasState = await GameStateService().hasGameState('aim_trainer');
+    print(
+      'AimTrainer: canContinueGame - hasState: $hasState, hasUsedContinue: $_hasUsedContinue',
+    );
+    return hasState;
   }
 
   Future<void> clearSavedGameState() async {

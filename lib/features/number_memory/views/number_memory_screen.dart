@@ -76,6 +76,10 @@ class _NumberMemoryView extends StatelessWidget {
           },
           onContinueGame: () => provider.continueGame(),
           canContinueGame: () => provider.canContinueGame(),
+          onGameResultCleared: () {
+            provider.hideGameOver();
+            provider.hideContinueDialog();
+          },
           onBackToMenu: () {
             provider.hideGameOver();
             provider.hideContinueDialog();

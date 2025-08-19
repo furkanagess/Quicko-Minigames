@@ -62,6 +62,7 @@ class _RpsView extends StatelessWidget {
           },
           onContinueGame: () => provider.continueGame(),
           canContinueGame: () => provider.canContinueGame(),
+          onGameResultCleared: () => provider.hideGameOver(),
           onBackToMenu: () {
             Navigator.of(context).pop();
           },

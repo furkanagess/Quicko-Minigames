@@ -126,7 +126,7 @@ class SoundUtils {
     // Her çağrıda yeni bir player oluştur ki sesler üst üste binebilsin
     final player = AudioPlayer();
     try {
-      await player.play(AssetSource('sounds/count_down_sound.mp3'));
+      await player.play(AssetSource('sounds/three_seconds_timer.mp3'));
       await player.setVolume(_effectiveVolume(0.6));
       player.onPlayerComplete.listen((_) {
         player.dispose();

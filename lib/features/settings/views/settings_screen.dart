@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../l10n/app_localizations.dart';
-
-import '../../../core/constants/app_constants.dart';
-
-import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/providers/language_provider.dart';
-import '../../../core/providers/theme_provider.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
+import '../../../core/providers/language_provider.dart';
+import '../../../core/providers/test_mode_provider.dart';
+import '../../../core/providers/theme_provider.dart';
+import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/constants/app_icons.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/routes/app_router.dart';
+import 'sound_settings_screen.dart';
+import 'ad_free_subscription_screen.dart';
 import 'language_settings_screen.dart';
 import 'theme_settings_screen.dart';
-import 'ad_free_subscription_screen.dart';
-import 'sound_settings_screen.dart';
+import 'feedback_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -28,6 +29,15 @@ class _SettingsScreenState extends State<SettingsScreen>
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+  // Getter for testing ad-free status (combines real and test mode)
+  bool _isAdFreeForTesting(
+    InAppPurchaseProvider purchaseProvider,
+    TestModeProvider testModeProvider,
+  ) {
+    return purchaseProvider.isSubscriptionActive ||
+        testModeProvider.testAdFreeMode;
+  }
 
   @override
   void initState() {
@@ -83,23 +93,21 @@ class _SettingsScreenState extends State<SettingsScreen>
                   return SafeArea(
                     child: Padding(
                       padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Settings Header
-                          _buildSettingsHeader(context),
-                          const SizedBox(height: AppConstants.largeSpacing),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Settings Header
 
-                          // Settings Options
-                          Expanded(
-                            child: _buildSettingsOptions(
+                            // Settings Options
+                            _buildSettingsOptions(
                               context,
                               languageProvider,
                               themeProvider,
                               purchaseProvider,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -219,56 +227,133 @@ class _SettingsScreenState extends State<SettingsScreen>
     ThemeProvider themeProvider,
     InAppPurchaseProvider purchaseProvider,
   ) {
-    return Column(
-      children: [
-        // Language Setting Option
-        _buildSettingOption(
-          context,
-          title: AppLocalizations.of(context)!.language,
-          subtitle: _getLanguageDisplayName(
-            languageProvider.currentLocale.languageCode,
-          ),
-          icon: Icons.language_rounded,
-          emoji: _getLanguageEmoji(languageProvider.currentLocale.languageCode),
-          onTap: () => _navigateToLanguageSettings(context),
-        ),
+    return Consumer<TestModeProvider>(
+      builder: (context, testModeProvider, child) {
+        return Column(
+          children: [
+            // Language Setting Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.language,
+              subtitle: _getLanguageDisplayName(
+                languageProvider.currentLocale.languageCode,
+              ),
+              icon: Icons.language_rounded,
+              emoji: _getLanguageEmoji(
+                languageProvider.currentLocale.languageCode,
+              ),
+              onTap: () => _navigateToLanguageSettings(context),
+            ),
 
-        const SizedBox(height: AppConstants.mediumSpacing),
+            const SizedBox(height: AppConstants.mediumSpacing),
 
-        // Theme Setting Option
-        _buildSettingOption(
-          context,
-          title: AppLocalizations.of(context)!.theme,
-          subtitle: _getCurrentThemeDisplay(themeProvider),
-          icon: Icons.palette_rounded,
-          emoji: _getThemeEmoji(themeProvider),
-          onTap: () => _navigateToThemeSettings(context),
-        ),
+            // Theme Setting Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.theme,
+              subtitle: _getCurrentThemeDisplay(themeProvider),
+              icon: Icons.palette_rounded,
+              emoji: _getThemeEmoji(themeProvider),
+              onTap: () => _navigateToThemeSettings(context),
+            ),
 
-        const SizedBox(height: AppConstants.mediumSpacing),
+            const SizedBox(height: AppConstants.mediumSpacing),
 
-        // Sound Settings Option
-        _buildSettingOption(
-          context,
-          title: AppLocalizations.of(context)!.soundSettings,
-          subtitle: AppLocalizations.of(context)!.soundSettingsMenuSubtitle,
-          icon: Icons.volume_up_rounded,
-          emoji: '🔊',
-          onTap: () => _navigateToSoundSettings(context),
-        ),
+            // Sound Settings Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.soundSettings,
+              subtitle: AppLocalizations.of(context)!.soundSettingsMenuSubtitle,
+              icon: Icons.volume_up_rounded,
+              emoji: '🔊',
+              onTap: () => _navigateToSoundSettings(context),
+            ),
 
-        const SizedBox(height: AppConstants.mediumSpacing),
+            const SizedBox(height: AppConstants.mediumSpacing),
 
-        // Ad-Free Subscription Option
-        _buildSettingOption(
-          context,
-          title: AppLocalizations.of(context)!.removeAds,
-          subtitle: _getAdFreeStatusDisplay(purchaseProvider),
-          icon: Icons.block_rounded,
-          emoji: purchaseProvider.isSubscriptionActive ? '✅' : '🚫',
-          onTap: () => _navigateToAdFreeSubscription(context),
-        ),
-      ],
+            // Ad-Free Subscription Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.removeAds,
+              subtitle: _getAdFreeStatusDisplay(purchaseProvider),
+              icon: Icons.block_rounded,
+              emoji:
+                  _isAdFreeForTesting(purchaseProvider, testModeProvider)
+                      ? '✅'
+                      : '🚫',
+              onTap: () => _navigateToAdFreeSubscription(context),
+            ),
+
+            const SizedBox(height: AppConstants.mediumSpacing),
+
+            // Feedback Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.feedbackAndSuggestions,
+              subtitle:
+                  AppLocalizations.of(context)!.feedbackAndSuggestionsSubtitle,
+              icon: Icons.feedback_rounded,
+              emoji: '💬',
+              onTap: () => _navigateToFeedback(context),
+            ),
+
+            const SizedBox(height: AppConstants.largeSpacing),
+
+            // Test Section Header
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.mediumSpacing,
+                vertical: AppConstants.smallSpacing,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(
+                  context,
+                ).colorScheme.secondary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.secondary.withValues(alpha: 0.2),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.science_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Test Mode',
+                    style: TextThemeManager.bodySmall.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: AppConstants.mediumSpacing),
+
+            // Test Ad-Free Experience
+            _buildTestOption(
+              context,
+              title: 'Test Ad-Free Experience',
+              subtitle: 'Toggle to test ad-free user experience',
+              icon: Icons.toggle_on_rounded,
+              emoji: '🧪',
+              isEnabled: testModeProvider.testAdFreeMode,
+              onToggle:
+                  (value) =>
+                      _toggleTestAdFree(context, value, testModeProvider),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -445,11 +530,9 @@ class _SettingsScreenState extends State<SettingsScreen>
 
   String _getAdFreeStatusDisplay(InAppPurchaseProvider purchaseProvider) {
     if (purchaseProvider.isSubscriptionActive) {
-      return AppLocalizations.of(
-        context,
-      )!.daysRemaining(purchaseProvider.remainingDays);
+      return AppLocalizations.of(context)!.lifetimeAccess;
     } else {
-      return AppLocalizations.of(context)!.monthlySubscriptionPrice;
+      return AppLocalizations.of(context)!.subscriptionPrice;
     }
   }
 
@@ -474,6 +557,134 @@ class _SettingsScreenState extends State<SettingsScreen>
   void _navigateToSoundSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SoundSettingsScreen()),
+    );
+  }
+
+  void _navigateToFeedback(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => const FeedbackScreen()));
+  }
+
+  Widget _buildTestOption(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required String emoji,
+    required bool isEnabled,
+    required Function(bool) onToggle,
+  }) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => onToggle(!isEnabled),
+          borderRadius: BorderRadius.circular(20),
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            child: Row(
+              children: [
+                // Icon Container
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.2),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(emoji, style: const TextStyle(fontSize: 24)),
+                ),
+                const SizedBox(width: AppConstants.mediumSpacing),
+
+                // Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextThemeManager.subtitleMedium.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: TextThemeManager.bodySmall.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Toggle Switch
+                Switch(
+                  value: isEnabled,
+                  onChanged: (value) => onToggle(value),
+                  activeColor: Theme.of(context).colorScheme.primary,
+                  inactiveThumbColor: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.3),
+                  inactiveTrackColor: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.1),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _toggleTestAdFree(
+    BuildContext context,
+    bool value,
+    TestModeProvider testModeProvider,
+  ) {
+    testModeProvider.setTestAdFreeMode(value);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value
+              ? '🧪 Test Mode: Ad-Free experience enabled! You can now test ad-free features.'
+              : '🧪 Test Mode: Ad-Free experience disabled! You can now test normal user experience.',
+        ),
+        duration: const Duration(seconds: 3),
+        backgroundColor:
+            value
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
+      ),
     );
   }
 }

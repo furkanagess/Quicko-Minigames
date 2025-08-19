@@ -11,6 +11,7 @@ class HigherLowerProvider extends ChangeNotifier {
   Timer? _animationTimer;
   final Random _random = Random();
   bool _hasBrokenRecordThisGame = false;
+  bool _hasUsedContinue = false;
 
   HigherLowerGameState get gameState => _gameState;
 
@@ -24,6 +25,7 @@ class HigherLowerProvider extends ChangeNotifier {
     // Önce animasyonu durdur (eğer çalışıyorsa)
     stopNumberAnimation();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
 
     _gameState = _gameState.copyWith(
       currentNumber: 0,
@@ -88,6 +90,7 @@ class HigherLowerProvider extends ChangeNotifier {
   void resetGame() {
     _gameState = const HigherLowerGameState();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -258,6 +261,9 @@ class HigherLowerProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       notifyListeners();
       return true;
     } catch (_) {
@@ -266,6 +272,7 @@ class HigherLowerProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('higher_lower');
   }
 

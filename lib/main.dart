@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:quicko_app/core/config/app_initializer.dart';
 import 'l10n/app_localizations.dart';
 
-import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
-import 'core/theme/text_theme_manager.dart';
 import 'core/providers/app_providers.dart';
 import 'core/providers/language_provider.dart';
 import 'core/providers/theme_provider.dart';
@@ -15,34 +13,24 @@ import 'core/routes/app_router.dart';
 import 'core/utils/global_context.dart';
 import 'core/constants/supported_locales.dart';
 import 'features/favorites/providers/favorites_provider.dart';
-import 'core/services/admob_service.dart';
-import 'core/services/in_app_purchase_service.dart';
-import 'core/config/app_config.dart';
-import 'core/services/sound_settings_service.dart';
+import 'features/leaderboard/providers/leaderboard_provider.dart';
+// Removed: handled by AppInitializer
+import 'core/routes/navigation_observer.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize configuration
-  final config = AppConfig();
+  // Enable performance optimizations
   if (kDebugMode) {
-    config.printConfig();
+    debugPrintRebuildDirtyWidgets = false;
+    debugPrint = (String? message, {int? wrapWidth}) {
+      if (message != null &&
+          !message.contains('ImageReader') &&
+          !message.contains('FrameEvents')) {
+        print(message);
+      }
+    };
   }
 
-  // Set preferred orientations
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
-  // Initialize AdMob
-  await AdMobService().initialize();
-
-  // Initialize In-App Purchase Service
-  await InAppPurchaseService().initialize();
-
-  // Preload sound settings so they are ready across the app from launch
-  await SoundSettingsService.ensureInitialized();
+  await AppInitializer.initialize();
 
   runApp(const MyApp());
 }
@@ -52,8 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: AppProviders.providers,
+    return AppProviders(
       child: Consumer2<LanguageProvider, ThemeProvider>(
         builder: (context, languageProvider, themeProvider, child) {
           // Debug: Check saved values when app starts
@@ -92,6 +79,7 @@ class MyApp extends StatelessWidget {
             // Routes
             initialRoute: AppRouter.home,
             onGenerateRoute: AppRouter.generateRoute,
+            navigatorObservers: [AppNavigationObserver()],
 
             // Performance
             builder: (context, child) {

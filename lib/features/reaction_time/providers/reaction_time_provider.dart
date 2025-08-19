@@ -9,6 +9,7 @@ import '../../../core/services/game_state_service.dart';
 class ReactionTimeProvider extends ChangeNotifier {
   ReactionTimeGameState _gameState = const ReactionTimeGameState();
   Timer? _timer;
+  bool _hasUsedContinue = false;
   final Random _random = Random();
   Size? _gameAreaSize;
   bool _hasBrokenRecordThisGame = false;
@@ -75,6 +76,7 @@ class ReactionTimeProvider extends ChangeNotifier {
   /// Start the game
   void startGame() async {
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     _gameState = _gameState.copyWith(
       nextTarget: 1,
       elapsedTime: 0.0,
@@ -320,6 +322,9 @@ class ReactionTimeProvider extends ChangeNotifier {
         isTimerRunning: true,
       );
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       _startTimer();
       notifyListeners();
       return true;
@@ -331,6 +336,7 @@ class ReactionTimeProvider extends ChangeNotifier {
 
   /// Check if game can be continued
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     final gameStateService = GameStateService();
     return await gameStateService.hasGameState('reaction_time');
   }
@@ -363,6 +369,7 @@ class ReactionTimeProvider extends ChangeNotifier {
     _stopTimer();
     _gameState = const ReactionTimeGameState();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     _generateTargetPositions();
     notifyListeners();
   }

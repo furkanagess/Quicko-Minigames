@@ -17,6 +17,7 @@ import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
 import '../../features/settings/views/settings_screen.dart';
 import '../../features/settings/views/ad_free_subscription_screen.dart';
+import '../../features/settings/views/feedback_screen.dart';
 
 class AppRouter {
   static const String home = '/';
@@ -34,6 +35,7 @@ class AppRouter {
   static const String leaderboard = '/leaderboard';
   static const String settings = '/settings';
   static const String adFreeSubscription = '/ad-free-subscription';
+  static const String feedback = '/feedback';
 
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -84,6 +86,9 @@ class AppRouter {
           routeSettings,
           const AdFreeSubscriptionScreen(),
         );
+
+      case feedback:
+        return _buildModernRoute(routeSettings, const FeedbackScreen());
 
       default:
         return _buildModernRoute(

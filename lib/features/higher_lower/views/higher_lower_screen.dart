@@ -63,6 +63,7 @@ class _HigherLowerView extends StatelessWidget {
           },
           onContinueGame: () => provider.continueGame(),
           canContinueGame: () => provider.canContinueGame(),
+          onGameResultCleared: () => provider.hideGameOver(),
           onBackToMenu: () {
             provider.hideGameOver();
             Navigator.of(context).pop();

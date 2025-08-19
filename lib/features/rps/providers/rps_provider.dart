@@ -11,10 +11,12 @@ class RpsProvider extends ChangeNotifier {
   final Random _rng = Random();
   Timer? _cpuAnimTimer;
   RpsGameState _state = const RpsGameState();
+  bool _hasUsedContinue = false;
 
   RpsGameState get state => _state;
 
   void start() {
+    _hasUsedContinue = false;
     _state = _state.copyWith(isWaiting: false);
     notifyListeners();
   }
@@ -22,6 +24,7 @@ class RpsProvider extends ChangeNotifier {
   void reset() {
     _cpuAnimTimer?.cancel();
     _state = const RpsGameState();
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -142,6 +145,9 @@ class RpsProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       notifyListeners();
       return true;
     } catch (_) {
@@ -150,11 +156,18 @@ class RpsProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('rps');
   }
 
   Future<void> clearSavedGameState() async {
     await GameStateService().clearGameState('rps');
+  }
+
+  /// Hide game over flag
+  void hideGameOver() {
+    _state = _state.copyWith(showGameOver: false);
+    notifyListeners();
   }
 
   /// Pause the game (no timer to pause for this game)

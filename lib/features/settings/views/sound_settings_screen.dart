@@ -37,7 +37,7 @@ class SoundSettingsScreen extends StatelessWidget {
                         soundProvider.soundEnabled
                             ? CrossFadeState.showSecond
                             : CrossFadeState.showFirst,
-                    firstChild: const SizedBox.shrink(),
+                    firstChild: _buildSoundsDisabledMessage(context),
                     secondChild: Column(
                       children: [
                         _buildEffectsVolume(context, soundProvider),
@@ -331,6 +331,69 @@ class SoundSettingsScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(AppConstants.mediumSpacing),
         child: child,
+      ),
+    );
+  }
+
+  Widget _buildSoundsDisabledMessage(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppConstants.largeSpacing),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Theme.of(
+                  context,
+                ).colorScheme.error.withValues(alpha: 0.2),
+                width: 1,
+              ),
+            ),
+            child: Icon(
+              Icons.volume_off_rounded,
+              color: Theme.of(context).colorScheme.error,
+              size: 32,
+            ),
+          ),
+          const SizedBox(height: AppConstants.mediumSpacing),
+          Text(
+            AppLocalizations.of(context)!.soundsOff,
+            style: TextThemeManager.subtitleMedium.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppConstants.smallSpacing),
+          Text(
+            AppLocalizations.of(context)!.appSoundsDescription,
+            style: TextThemeManager.bodySmall.copyWith(
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

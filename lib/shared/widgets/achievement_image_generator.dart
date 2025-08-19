@@ -22,37 +22,34 @@ class AchievementImageGenerator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Screenshot(
-      controller: ScreenshotController(),
-      child: Container(
-        width: 400,
-        height: showTopGames ? 700 : 260,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppTheme.darkBackground,
-              AppTheme.darkBackground.withValues(alpha: 0.95),
-            ],
+    return Container(
+      width: 400,
+      height: showTopGames ? 700 : 260,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppTheme.darkBackground,
+            AppTheme.darkBackground.withValues(alpha: 0.95),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+            spreadRadius: 0,
           ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
-              blurRadius: 20,
-              offset: const Offset(0, 10),
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            _buildHeader(),
-            _buildStatistics(),
-            if (showTopGames) ...[_buildTopGames(), _buildFooter()],
-          ],
-        ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _buildHeader(),
+          _buildStatistics(),
+          if (showTopGames) ...[_buildTopGames(), _buildFooter()],
+        ],
       ),
     );
   }

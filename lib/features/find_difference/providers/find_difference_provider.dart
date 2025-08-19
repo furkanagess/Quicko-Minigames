@@ -14,10 +14,12 @@ class FindDifferenceProvider extends ChangeNotifier {
   final Random _random = Random();
   FindDifferenceGameState _gameState = const FindDifferenceGameState();
   Timer? _timeTimer;
+  bool _hasUsedContinue = false;
 
   FindDifferenceGameState get gameState => _gameState;
 
   void startGame() {
+    _hasUsedContinue = false;
     _gameState = const FindDifferenceGameState(
       status: FindDifferenceStatus.playing,
       mistakesLeft: 3, // Start with 3 mistakes allowed
@@ -31,6 +33,7 @@ class FindDifferenceProvider extends ChangeNotifier {
   void resetGame() {
     _timeTimer?.cancel();
     _gameState = const FindDifferenceGameState();
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -180,7 +183,7 @@ class FindDifferenceProvider extends ChangeNotifier {
     final total = grid * grid;
     final oddIndex = _random.nextInt(total);
 
-    // Rotate base color across app theme accents to avoid monotony
+    // Completely random color selection from a diverse palette
     final basePalette = <HSVColor>[
       HSVColor.fromColor(const Color(0xFF64DD17)), // vivid green
       HSVColor.fromColor(AppTheme.darkPrimary), // purple
@@ -188,8 +191,16 @@ class FindDifferenceProvider extends ChangeNotifier {
       HSVColor.fromColor(AppTheme.darkWarning), // yellow
       HSVColor.fromColor(AppTheme.darkError), // soft red
       HSVColor.fromColor(AppTheme.darkSecondary), // soft purple
+      HSVColor.fromColor(const Color(0xFF2196F3)), // blue
+      HSVColor.fromColor(const Color(0xFFFF9800)), // orange
+      HSVColor.fromColor(const Color(0xFF9C27B0)), // deep purple
+      HSVColor.fromColor(const Color(0xFF00BCD4)), // cyan
+      HSVColor.fromColor(const Color(0xFF795548)), // brown
+      HSVColor.fromColor(const Color(0xFF607D8B)), // blue grey
     ];
-    final baseHSV = basePalette[_gameState.level % basePalette.length];
+
+    // Randomly select base color instead of using level-based rotation
+    final baseHSV = basePalette[_random.nextInt(basePalette.length)];
     final delta = _deltaForLevel(_gameState.level);
     final bool darker = _random.nextBool();
     final double baseV = baseHSV.value;
@@ -325,16 +336,17 @@ class FindDifferenceProvider extends ChangeNotifier {
     final saved = await GameStateService().loadGameState('find_difference');
     if (saved == null) return false;
     try {
-      // When continuing after watching ad, give full time and lives
-      // but keep the current score and advance to next level
+      // When continuing after watching ad, restore time from where user left off
+      // but keep the current score, advance to next level, and give full 3 lives
       final currentScore = (saved['score'] as int?) ?? 0;
       final currentLevel = (saved['level'] as int?) ?? 1;
+      final savedTimeLeft = (saved['timeLeft'] as int?) ?? 30;
 
       _gameState = _gameState.copyWith(
         level: currentLevel + 1, // Continue from next level
         score: currentScore, // Keep current score
-        timeLeft: 30, // Full 30 seconds
-        mistakesLeft: 3, // Full 3 lives
+        timeLeft: savedTimeLeft, // Restore actual time left
+        mistakesLeft: 3, // Give full 3 lives on continue
         status: FindDifferenceStatus.playing,
         showGameOver: false,
         showTimeUp: false,
@@ -348,6 +360,9 @@ class FindDifferenceProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       notifyListeners();
       return true;
     } catch (_) {
@@ -356,6 +371,7 @@ class FindDifferenceProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('find_difference');
   }
 

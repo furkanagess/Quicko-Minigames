@@ -13,6 +13,7 @@ class BlindSortProvider extends ChangeNotifier {
   bool _isAnimating = false;
   Set<int> _usedNumbers = {}; // Kullanılmış sayıları takip etmek için
   bool _hasBrokenRecordThisGame = false;
+  bool _hasUsedContinue = false;
 
   GameState get gameState => _gameState;
   int get animatedNumber => _animatedNumber;
@@ -41,6 +42,7 @@ class BlindSortProvider extends ChangeNotifier {
     // Önce animasyonu durdur (eğer çalışıyorsa)
     stopNumberAnimation();
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
 
     // Kullanılmış sayıları sıfırla
     _usedNumbers.clear();
@@ -140,6 +142,7 @@ class BlindSortProvider extends ChangeNotifier {
     _gameState = GameState();
     _usedNumbers.clear(); // Kullanılmış sayıları da sıfırla
     _hasBrokenRecordThisGame = false;
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -429,6 +432,10 @@ class BlindSortProvider extends ChangeNotifier {
 
         // Clear the saved state after successful restore
         await clearSavedGameState();
+
+        // Mark that continue has been used
+        _hasUsedContinue = true;
+
         notifyListeners();
         return true;
       } else if (lastAction == 'before_move' && currentNumber != null) {
@@ -528,6 +535,7 @@ class BlindSortProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('blind_sort');
   }
 

@@ -79,7 +79,9 @@ class _AimTrainerView extends StatelessWidget {
           isGameInProgress: gameState.isGameActive,
           onPauseGame: () => provider.pauseGame(),
           onResumeGame: () => provider.resumeGame(),
-          onGameResultCleared: () => provider.cleanupGame(),
+          onGameResultCleared: () => provider.hideGameOver(),
+          onContinueGame: () => provider.continueGame(),
+          canContinueGame: () => provider.canContinueGame(),
           child: _buildGameContent(context, gameState, provider),
         );
       },

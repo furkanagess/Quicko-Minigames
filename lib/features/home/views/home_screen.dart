@@ -11,6 +11,9 @@ import '../../../core/constants/app_icons.dart';
 import '../widgets/game_card.dart';
 import '../../favorites/providers/favorites_provider.dart';
 import '../../../shared/widgets/banner_ad_widget.dart';
+import '../../../shared/widgets/inline_banner_ad_widget.dart';
+import '../../../shared/widgets/rating_bottom_sheet.dart';
+import '../../../core/mixins/screen_animation_mixin.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,70 +22,24 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.05),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _fadeController.forward();
-    _slideController.forward();
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    super.dispose();
-  }
-
+class _HomeScreenState extends State<HomeScreen>
+    with TickerProviderStateMixin, ScreenAnimationMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-              child: Column(
-                children: [
-                  // Header
-                  _buildHeader(context),
-                  const SizedBox(height: AppConstants.largeSpacing),
-
-                  // Banner Ad
-                  const BannerAdWidget(),
-                  const SizedBox(height: AppConstants.mediumSpacing),
-
-                  // Games Grid
-                  Expanded(child: _buildGamesGrid(context)),
-                ],
-              ),
+      body: buildAnimatedBody(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            child: Column(
+              children: [
+                // Header
+                _buildHeader(context),
+                const SizedBox(height: AppConstants.mediumSpacing),
+                // Games Grid with inline ads
+                Expanded(child: _buildGamesGridWithInlineAds(context)),
+              ],
             ),
           ),
         ),
@@ -117,13 +74,50 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       child: Row(
         children: [
-          // App Title
+          // App Title with Star Icon
           Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.appName,
-              style: TextThemeManager.appTitlePrimary(context),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.appName,
+                    style: TextThemeManager.appTitlePrimary(context),
+                  ),
+                ),
+                const SizedBox(width: AppConstants.smallSpacing),
+                // Star Icon for Rating
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 12,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: _showRatingBottomSheet,
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        child: Icon(
+                          Icons.star_rounded,
+                          size: 24,
+                          color: Colors.amber,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(width: AppConstants.smallSpacing),
 
           // Favorites Button
           Consumer<FavoritesProvider>(
@@ -325,43 +319,125 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildGamesGrid(BuildContext context) {
-    // Group by category and sort by order
+  void _showRatingBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => const RatingBottomSheet(),
+    );
+  }
+
+  Widget _buildGamesGridWithInlineAds(BuildContext context) {
+    // Sort games by order
     final games = List.of(GamesConfig.allGames)
       ..sort((a, b) => a.order.compareTo(b.order));
 
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 0.75,
-      ),
-      padding: EdgeInsets.zero,
-      itemCount: games.length,
-      itemBuilder: (context, index) {
-        final game = games[index];
-        return AnimatedBuilder(
-          animation: _fadeController,
-          builder: (context, child) {
-            return Transform.translate(
-              offset: Offset(0, 10 * (1 - _fadeAnimation.value)),
-              child: Opacity(
-                opacity: _fadeAnimation.value,
-                child: GameCard(
-                  title: game.getTitle(context),
-                  iconPath: GamesConfig.getGameIconPath(game.icon),
-                  color: GamesConfig.getGameColor(game.id),
-                  gameId: game.id,
-                  onTap: () {
-                    AppRouter.pushNamed(context, game.route);
-                  },
-                ),
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: EdgeInsets.zero,
+          sliver: SliverList(
+            delegate: SliverChildListDelegate([
+              // Banner Ad at the top of the scrollable content
+              Padding(
+                padding: const EdgeInsets.only(top: 24.0, bottom: 8),
+                child: const BannerAdWidget(),
               ),
+
+              // The grid wrapped as a sliver list of sections
+              _GamesGridWithAdsSection(
+                games: games,
+                gamesPerAd: 6, // 3 rows
+                gamesPerRow: 2,
+                fadeAnimation: fadeAnimation,
+                fadeController: fadeController,
+              ),
+            ]),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GamesGridWithAdsSection extends StatelessWidget {
+  final List<dynamic> games; // Using dynamic to avoid importing GameModel here
+  final int gamesPerAd;
+  final int gamesPerRow;
+  final Animation<double> fadeAnimation;
+  final AnimationController fadeController;
+
+  const _GamesGridWithAdsSection({
+    required this.games,
+    required this.gamesPerAd,
+    required this.gamesPerRow,
+    required this.fadeAnimation,
+    required this.fadeController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> sections = [];
+    int processed = 0;
+
+    while (processed < games.length) {
+      final remaining = games.length - processed;
+      final take = remaining >= gamesPerAd ? gamesPerAd : remaining;
+      final int chunkStart = processed;
+
+      // Add grid chunk
+      sections.add(
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.75,
+          ),
+          padding: EdgeInsets.zero,
+          itemCount: take,
+          itemBuilder: (context, idx) {
+            final game = games[chunkStart + idx];
+            return AnimatedBuilder(
+              animation: fadeController,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(0, 10 * (1 - fadeAnimation.value)),
+                  child: Opacity(
+                    opacity: fadeAnimation.value,
+                    child: GameCard(
+                      title: game.getTitle(context),
+                      iconPath: GamesConfig.getGameIconPath(game.icon),
+                      color: GamesConfig.getGameColor(game.id),
+                      gameId: game.id,
+                      onTap: () {
+                        AppRouter.pushNamed(context, game.route);
+                      },
+                    ),
+                  ),
+                );
+              },
             );
           },
+        ),
+      );
+
+      processed += take;
+
+      // Insert inline ad after each chunk, except after the last chunk if exact fit
+      if (processed < games.length) {
+        // Use custom spacing to match the 16px mainAxisSpacing between grid rows
+        sections.add(
+          const InlineBannerAdWidget(
+            verticalPadding: 8.0, // Reduced padding to match grid spacing
+          ),
         );
-      },
-    );
+      }
+    }
+
+    return Column(children: sections);
   }
 }

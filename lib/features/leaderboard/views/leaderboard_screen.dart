@@ -7,10 +7,11 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/routes/app_router.dart';
-import '../../../core/providers/app_providers.dart';
 import '../../../shared/models/leaderboard_entry.dart';
 import '../../../shared/widgets/leaderboard_banner_ad_widget.dart';
+import '../../../shared/widgets/inline_banner_ad_widget.dart';
 import '../providers/leaderboard_provider.dart';
+import '../../../core/mixins/screen_animation_mixin.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({super.key});
@@ -20,46 +21,13 @@ class LeaderboardScreen extends StatefulWidget {
 }
 
 class _LeaderboardScreenState extends State<LeaderboardScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-
+    with TickerProviderStateMixin, ScreenAnimationMixin {
   @override
   void initState() {
     super.initState();
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.05),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _fadeController.forward();
-    _slideController.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LeaderboardProvider>().loadLeaderboard();
     });
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    super.dispose();
   }
 
   @override
@@ -67,23 +35,19 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: Consumer<LeaderboardProvider>(
-            builder: (context, leaderboardProvider, child) {
-              if (leaderboardProvider.isLoading) {
-                return _buildLoadingState();
-              }
+      body: buildAnimatedBody(
+        child: Consumer<LeaderboardProvider>(
+          builder: (context, leaderboardProvider, child) {
+            if (leaderboardProvider.isLoading) {
+              return _buildLoadingState();
+            }
 
-              if (!leaderboardProvider.hasEntries) {
-                return _buildEmptyState();
-              }
+            if (!leaderboardProvider.hasEntries) {
+              return _buildEmptyState();
+            }
 
-              return _buildLeaderboardContent(leaderboardProvider);
-            },
-          ),
+            return _buildLeaderboardContent(leaderboardProvider);
+          },
         ),
       ),
     );
@@ -265,44 +229,51 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
   Widget _buildLeaderboardContent(LeaderboardProvider leaderboardProvider) {
-    return Column(
-      children: [
-        // Statistics
-        _buildStatistics(leaderboardProvider),
+    final totalEntries = leaderboardProvider.entries.length;
+    const int groupSize = 3;
+    final int numberOfInlineBanners = totalEntries ~/ groupSize; // after each 3
 
-        // Banner Ad
-        const LeaderboardBannerAdWidget(),
-        const SizedBox(height: AppConstants.mediumSpacing),
+    // Items: 0 stats, 1 banner, 2 swipe hint, then groups of 3 entries + 1 banner
+    final int totalListItems = 3 + totalEntries + numberOfInlineBanners;
 
-        // Swipe hint
-        _buildSwipeHint(),
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      itemCount: totalListItems,
+      itemBuilder: (context, index) {
+        if (index == 0) return _buildStatistics(leaderboardProvider);
+        if (index == 1) return const LeaderboardBannerAdWidget();
+        if (index == 2) return _buildSwipeHint();
 
-        // Leaderboard list
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.mediumSpacing,
-              vertical: AppConstants.smallSpacing,
+        final int afterHeaderIndex = index - 3;
+        // Pattern length: 4 (3 entries + 1 banner)
+        if ((afterHeaderIndex + 1) % 4 == 0) {
+          // Inline banner after each 3 entries; use custom spacing to match card spacing
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: const InlineBannerAdWidget(
+              verticalPadding: 8.0, // Reduced padding to match card spacing
             ),
-            itemCount: leaderboardProvider.entries.length,
-            itemBuilder: (context, index) {
-              final entry = leaderboardProvider.entries[index];
-              return AnimatedBuilder(
-                animation: _fadeController,
-                builder: (context, child) {
-                  return Transform.translate(
-                    offset: Offset(0, 10 * (1 - _fadeAnimation.value)),
-                    child: Opacity(
-                      opacity: _fadeAnimation.value,
-                      child: _buildLeaderboardCard(entry, index + 1),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
+          );
+        }
+
+        // Compute entry index by subtracting banners before this position
+        final int bannersBefore = afterHeaderIndex ~/ 4;
+        final int entryIndex = afterHeaderIndex - bannersBefore;
+        final entry = leaderboardProvider.entries[entryIndex];
+
+        return AnimatedBuilder(
+          animation: fadeController,
+          builder: (context, child) {
+            return Transform.translate(
+              offset: Offset(0, 10 * (1 - fadeAnimation.value)),
+              child: Opacity(
+                opacity: fadeAnimation.value,
+                child: _buildLeaderboardCard(entry, entryIndex + 1),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -437,8 +408,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
   Widget _buildLeaderboardCard(LeaderboardEntry entry, int rank) {
     final gameConfig = GamesConfig.getGameById(entry.gameId);
-    final leaderboardProvider = AppProviders.getProvider<LeaderboardProvider>(
+    final leaderboardProvider = Provider.of<LeaderboardProvider>(
       context,
+      listen: false,
     );
 
     return Dismissible(
@@ -477,7 +449,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.symmetric(
+          horizontal: AppConstants.mediumSpacing,
+          vertical: 8,
+        ),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
@@ -1017,3 +992,5 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
     }
   }
 }
+
+// (No sliver header; using a simple ListView for a standard scroll experience.)

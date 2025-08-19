@@ -11,6 +11,7 @@ class PatternMemoryProvider extends ChangeNotifier {
   Timer? _showTimer;
   Timer? _successTimer;
   bool _hasBrokenRecordThisGame = false;
+  bool _hasUsedContinue = false;
 
   PatternMemoryGameState get gameState => _gameState;
 
@@ -23,6 +24,7 @@ class PatternMemoryProvider extends ChangeNotifier {
 
   void startGame() {
     _hasBrokenRecordThisGame = false; // Reset record breaking flag
+    _hasUsedContinue = false;
 
     _gameState = _gameState.copyWith(
       level: 1,
@@ -220,6 +222,7 @@ class PatternMemoryProvider extends ChangeNotifier {
     _showTimer?.cancel();
     _successTimer?.cancel();
     _gameState = const PatternMemoryGameState();
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -249,6 +252,9 @@ class PatternMemoryProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       notifyListeners();
       return true;
     } catch (_) {
@@ -257,6 +263,7 @@ class PatternMemoryProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('pattern_memory');
   }
 

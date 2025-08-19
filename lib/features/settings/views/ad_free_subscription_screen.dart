@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
-
+import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
+import '../../../core/providers/test_mode_provider.dart';
 import '../../../core/routes/app_router.dart';
 
 class AdFreeSubscriptionScreen extends StatefulWidget {
@@ -39,7 +40,6 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
       begin: 0.0,
       end: 1.0,
     ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
-
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.05),
       end: Offset.zero,
@@ -49,116 +49,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     _slideController.forward();
   }
 
-  void _showUninstallWarningBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (context) => _buildUninstallWarningBottomSheet(context),
-    );
-  }
-
-  Widget _buildUninstallWarningBottomSheet(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(AppConstants.largeSpacing),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Handle bar
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppConstants.largeSpacing),
-
-              // Warning Icon
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.error.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    Icons.warning_amber_rounded,
-                    color: Theme.of(context).colorScheme.error,
-                    size: 32,
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppConstants.largeSpacing),
-
-              // Title
-              Text(
-                AppLocalizations.of(context)!.importantNotice,
-                style: TextThemeManager.sectionTitle.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppConstants.mediumSpacing),
-
-              // Warning Text
-              Text(
-                AppLocalizations.of(context)!.uninstallWarning,
-                style: TextThemeManager.bodyMedium.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: AppConstants.largeSpacing),
-
-              // Close Button
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.error,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        AppConstants.mediumRadius,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.gotIt,
-                    style: TextThemeManager.buttonMedium.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Removed uninstall bottom sheet helpers for cleaner layout
 
   @override
   void dispose() {
@@ -176,33 +67,131 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         opacity: _fadeAnimation,
         child: SlideTransition(
           position: _slideAnimation,
-          child: Consumer<InAppPurchaseProvider>(
-            builder: (context, purchaseProvider, child) {
+          child: Consumer2<InAppPurchaseProvider, TestModeProvider>(
+            builder: (context, purchaseProvider, testModeProvider, child) {
+              final isAdFree =
+                  purchaseProvider.isSubscriptionActive ||
+                  testModeProvider.testAdFreeMode;
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(AppConstants.mediumSpacing),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header
-                      _buildHeader(context),
+                      _buildHeader(context, isAdFree),
                       const SizedBox(height: AppConstants.largeSpacing),
-
-                      // Subscription Status
-                      if (purchaseProvider.isSubscriptionActive)
-                        _buildActiveSubscriptionCard(context, purchaseProvider),
-
-                      // Uninstall Warning removed to avoid extra widgets during flow
-
-                      // Subscription Options
                       Expanded(
-                        child: _buildSubscriptionOptions(
+                        child: _buildMainContent(
                           context,
                           purchaseProvider,
+                          isAdFree,
                         ),
                       ),
-
-                      // Inline error message removed to avoid extra widgets
+                      // Fixed cancel subscription button at bottom for ad-free users
+                      if (isAdFree) ...[
+                        const SizedBox(height: AppConstants.largeSpacing),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed:
+                                purchaseProvider.isLoading
+                                    ? null
+                                    : () => _handleCancelSubscription(
+                                      context,
+                                      purchaseProvider,
+                                    ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppTheme.darkError,
+                              foregroundColor: Colors.white,
+                              elevation: 0,
+                              shadowColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppConstants.mediumRadius,
+                                ),
+                              ),
+                            ),
+                            child:
+                                purchaseProvider.isLoading
+                                    ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                    : Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.cancelSubscription,
+                                      style: TextThemeManager.buttonLarge
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
+                          ),
+                        ),
+                      ] else ...[
+                        // Fixed Buy Now button at bottom for non-ad-free users
+                        const SizedBox(height: AppConstants.largeSpacing),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed:
+                                purchaseProvider.isLoading ||
+                                        purchaseProvider.isSubscriptionActive
+                                    ? null
+                                    : () => _handleSubscribe(
+                                      context,
+                                      purchaseProvider,
+                                    ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              elevation: 4,
+                              shadowColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppConstants.mediumRadius,
+                                ),
+                              ),
+                            ),
+                            child:
+                                purchaseProvider.isLoading
+                                    ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                    : Text(
+                                      purchaseProvider.isSubscriptionActive
+                                          ? AppLocalizations.of(
+                                            context,
+                                          )!.subscriptionActive
+                                          : AppLocalizations.of(
+                                            context,
+                                          )!.buyNow,
+                                      style: TextThemeManager.buttonLarge
+                                          .copyWith(
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.onPrimary,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -246,7 +235,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, bool isAdFree) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppConstants.mediumSpacing),
@@ -274,7 +263,6 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
       ),
       child: Row(
         children: [
-          // Icon
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -284,32 +272,35 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
               borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
             ),
             child: Icon(
-              Icons.block_rounded,
+              isAdFree
+                  ? Icons.check_circle_rounded
+                  : Icons.workspace_premium_rounded,
               color: Theme.of(context).colorScheme.primary,
               size: 24,
             ),
           ),
           const SizedBox(width: AppConstants.mediumSpacing),
-
-          // Content
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Title
                 Text(
-                  AppLocalizations.of(context)!.removeAds,
+                  isAdFree
+                      ? AppLocalizations.of(context)!.cancelSubscription
+                      : AppLocalizations.of(context)!.removeAds,
                   style: TextThemeManager.sectionTitle.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
-
-                // Description
                 Text(
-                  AppLocalizations.of(context)!.removeAdsDescription,
+                  isAdFree
+                      ? AppLocalizations.of(
+                        context,
+                      )!.cancelSubscriptionDescription
+                      : AppLocalizations.of(context)!.removeAdsDescription,
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
                       context,
@@ -324,6 +315,56 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMainContent(
+    BuildContext context,
+    InAppPurchaseProvider purchaseProvider,
+    bool isAdFree,
+  ) {
+    return Column(
+      children: [
+        if (isAdFree) ...[
+          _buildActiveSubscriptionCard(context, purchaseProvider),
+          const SizedBox(height: AppConstants.largeSpacing),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Theme.of(
+                  context,
+                ).colorScheme.error.withValues(alpha: 0.2),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.warning_rounded,
+                  color: Theme.of(context).colorScheme.error,
+                  size: 20,
+                ),
+                const SizedBox(width: AppConstants.smallSpacing),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.cancelSubscriptionWarning,
+                    style: TextThemeManager.bodySmall.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ] else ...[
+          _buildPurchaseContent(context, purchaseProvider),
+        ],
+      ],
     );
   }
 
@@ -380,7 +421,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.subscriptionActive,
+                  AppLocalizations.of(context)!.lifetimeAccess,
                   style: TextThemeManager.subtitleMedium.copyWith(
                     color: Theme.of(context).colorScheme.tertiary,
                     fontWeight: FontWeight.bold,
@@ -388,9 +429,11 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  AppLocalizations.of(
-                    context,
-                  )!.daysRemaining(purchaseProvider.remainingDays),
+                  AppLocalizations.of(context)!.purchasedOn(
+                    purchaseProvider.lastPaymentDate != null
+                        ? '${purchaseProvider.lastPaymentDate!.day}/${purchaseProvider.lastPaymentDate!.month}/${purchaseProvider.lastPaymentDate!.year}'
+                        : '',
+                  ),
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
                       context,
@@ -405,13 +448,13 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     );
   }
 
-  Widget _buildSubscriptionOptions(
+  Widget _buildPurchaseContent(
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) {
     return Column(
       children: [
-        // Monthly Subscription Card
+        // Lifetime Purchase Card
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -435,7 +478,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             padding: const EdgeInsets.all(AppConstants.largeSpacing),
             child: Column(
               children: [
-                // Clean and modern pricing display with positioned info button
+                // Clean and modern pricing display
                 Stack(
                   children: [
                     Container(
@@ -478,70 +521,107 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                         ],
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           // Main price display
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Text(
+                            AppLocalizations.of(context)!.subscriptionPrice,
+                            textAlign: TextAlign.center,
+                            style: TextThemeManager.screenTitle.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 48,
+                              shadows: [
+                                Shadow(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withValues(alpha: 0.2),
+                                  offset: const Offset(0, 1),
+                                  blurRadius: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: AppConstants.smallSpacing),
+                          // Badges row
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 8,
+                            runSpacing: 8,
                             children: [
-                              // Price
-                              Text(
-                                '\$2.49',
-                                style: TextThemeManager.screenTitle.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 48,
-                                  shadows: [
-                                    Shadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withValues(alpha: 0.2),
-                                      offset: const Offset(0, 1),
-                                      blurRadius: 2,
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(
+                                    AppConstants.smallRadius,
+                                  ),
+                                  border: Border.all(
+                                    color: Theme.of(context).colorScheme.primary
+                                        .withValues(alpha: 0.2),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.payments_rounded,
+                                      size: 14,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.oneTimePayment,
+                                      style: TextThemeManager.bodySmall
+                                          .copyWith(
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: AppConstants.smallSpacing),
-                              // Per month text
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.usdPerMonth,
-                                    style: TextThemeManager.bodySmall.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withValues(alpha: 0.7),
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(
+                                    AppConstants.smallRadius,
                                   ),
-                                  const SizedBox(height: 2),
-                                  // Best value badge
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 2,
+                                  border: Border.all(
+                                    color: Theme.of(context).colorScheme.primary
+                                        .withValues(alpha: 0.2),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star_rounded,
+                                      size: 14,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                     ),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(
-                                        AppConstants.smallRadius,
-                                      ),
-                                      border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .withValues(alpha: 0.2),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Text(
+                                    const SizedBox(width: 6),
+                                    Text(
                                       AppLocalizations.of(context)!.bestValue,
                                       style: TextThemeManager.bodySmall
                                           .copyWith(
@@ -550,18 +630,17 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                                                   context,
                                                 ).colorScheme.primary,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 10,
                                           ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
 
                           const SizedBox(height: AppConstants.mediumSpacing),
 
-                          // Savings highlight
+                          // Lifetime access highlight
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16,
@@ -579,13 +658,13 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.savings_rounded,
+                                  Icons.all_inclusive_rounded,
                                   color: Theme.of(context).colorScheme.primary,
                                   size: 16,
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  AppLocalizations.of(context)!.fiftyPercentOff,
+                                  AppLocalizations.of(context)!.lifetimeAccess,
                                   style: TextThemeManager.bodyMedium.copyWith(
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -599,21 +678,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                       ),
                     ),
 
-                    // Positioned info button at top-right
-                    Positioned(
-                      top: 0,
-                      right: 6,
-                      child: IconButton(
-                        onPressed:
-                            () => _showUninstallWarningBottomSheet(context),
-                        icon: Icon(
-                          Icons.info_outline_rounded,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                      ),
-                    ),
+                    // Removed extra info icon for a cleaner layout
                   ],
                 ),
                 const SizedBox(height: AppConstants.mediumSpacing),
@@ -637,93 +702,10 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                 ),
                 _buildFeatureItem(
                   context,
-                  AppLocalizations.of(context)!.cancelAnytime,
-                ),
-
-                const SizedBox(height: AppConstants.largeSpacing),
-
-                // Subscribe Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed:
-                        purchaseProvider.isLoading ||
-                                purchaseProvider.isSubscriptionActive
-                            ? null
-                            : () => _handleSubscribe(context, purchaseProvider),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.mediumRadius,
-                        ),
-                      ),
-                      elevation: 4,
-                    ),
-                    child:
-                        purchaseProvider.isLoading
-                            ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
-                            : Text(
-                              purchaseProvider.isSubscriptionActive
-                                  ? AppLocalizations.of(
-                                    context,
-                                  )!.subscriptionActive
-                                  : AppLocalizations.of(context)!.subscribeNow,
-                              style: TextThemeManager.buttonLarge.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                            ),
-                  ),
+                  AppLocalizations.of(context)!.lifetimeAccess,
                 ),
               ],
             ),
-          ),
-        ),
-
-        const SizedBox(height: AppConstants.largeSpacing),
-
-        // Restore Purchases Button
-        SizedBox(
-          width: double.infinity,
-          height: 48,
-          child: OutlinedButton(
-            onPressed:
-                purchaseProvider.isLoading
-                    ? null
-                    : () => _handleRestorePurchases(context, purchaseProvider),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
-              side: BorderSide(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.3),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-              ),
-            ),
-            child:
-                purchaseProvider.isLoading
-                    ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                    : Text(
-                      AppLocalizations.of(context)!.restorePurchases,
-                      style: TextThemeManager.buttonMedium.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
           ),
         ),
       ],
@@ -773,19 +755,19 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     }
   }
 
-  Future<void> _handleRestorePurchases(
+  void _handleCancelSubscription(
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) async {
-    await purchaseProvider.restorePurchases();
-    // Show a friendly error bottom sheet if restore failed
+    await purchaseProvider.cancelSubscription();
     if (!purchaseProvider.isSubscriptionActive &&
         purchaseProvider.errorMessage != null &&
         mounted) {
       _showPurchaseErrorBottomSheet(
         context,
-        title: AppLocalizations.of(context)!.restoreError,
-        description: AppLocalizations.of(context)!.restoreErrorDescription,
+        title: AppLocalizations.of(context)!.cancelSubscriptionError,
+        description:
+            AppLocalizations.of(context)!.cancelSubscriptionErrorDescription,
       );
     }
   }

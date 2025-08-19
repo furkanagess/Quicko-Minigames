@@ -13,10 +13,12 @@ class TwentyOneProvider extends ChangeNotifier {
   List<Card> _deck = [];
   TwentyOneGameState _gameState = const TwentyOneGameState();
   Timer? _dealerTimer;
+  bool _hasUsedContinue = false;
 
   TwentyOneGameState get gameState => _gameState;
 
   void startGame() {
+    _hasUsedContinue = false;
     _initializeDeck();
     _dealInitialCards();
     _gameState = _gameState.copyWith(
@@ -32,6 +34,7 @@ class TwentyOneProvider extends ChangeNotifier {
   void resetGame() {
     _dealerTimer?.cancel();
     _gameState = const TwentyOneGameState();
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -279,6 +282,9 @@ class TwentyOneProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       notifyListeners();
       return true;
     } catch (_) {
@@ -287,6 +293,7 @@ class TwentyOneProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     return await GameStateService().hasGameState('twenty_one');
   }
 

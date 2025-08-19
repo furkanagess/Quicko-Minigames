@@ -12,6 +12,7 @@ class NumberMemoryProvider extends ChangeNotifier {
   NumberMemoryGameState _gameState = const NumberMemoryGameState();
   Timer? _sequenceTimer;
   Timer? _correctMessageTimer;
+  bool _hasUsedContinue = false;
 
   NumberMemoryGameState get gameState => _gameState;
 
@@ -23,6 +24,7 @@ class NumberMemoryProvider extends ChangeNotifier {
   }
 
   void startGame() {
+    _hasUsedContinue = false;
     _gameState = _gameState.copyWith(level: 1, score: 0, isGameActive: true);
     _generateNewSequence();
     notifyListeners();
@@ -179,6 +181,7 @@ class NumberMemoryProvider extends ChangeNotifier {
     _correctMessageTimer?.cancel();
 
     _gameState = const NumberMemoryGameState();
+    _hasUsedContinue = false;
     notifyListeners();
   }
 
@@ -220,6 +223,9 @@ class NumberMemoryProvider extends ChangeNotifier {
       // Clear the saved state after successful restore
       await clearSavedGameState();
 
+      // Mark that continue has been used
+      _hasUsedContinue = true;
+
       // Set the new level and score first
       _gameState = _gameState.copyWith(
         level: currentLevel + 1, // Continue from next level
@@ -248,9 +254,12 @@ class NumberMemoryProvider extends ChangeNotifier {
   }
 
   Future<bool> canContinueGame() async {
+    if (_hasUsedContinue) return false;
     final canContinue = await GameStateService().hasGameState('number_memory');
     if (kDebugMode) {
-      print('NumberMemory: Can continue game: $canContinue');
+      print(
+        'NumberMemory: Can continue game: $canContinue, hasUsedContinue: $_hasUsedContinue',
+      );
     }
     return canContinue;
   }

@@ -286,7 +286,7 @@ Widget _buildScoreDisplay(
 ) {
   return Column(
     children: [
-      // Score and Level
+      // Score
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -308,20 +308,6 @@ Widget _buildScoreDisplay(
             const SizedBox(width: 6),
             Text(
               '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-              style: TextThemeManager.subtitleMedium.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Icon(
-              Icons.star,
-              color: Theme.of(context).colorScheme.primary,
-              size: 18,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              'Level: ${gameState.level}',
               style: TextThemeManager.subtitleMedium.copyWith(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,

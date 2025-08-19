@@ -28,7 +28,7 @@ class AppConfig {
 
   static const String _androidBannerAdId = String.fromEnvironment(
     'ANDROID_BANNER_AD_ID',
-    defaultValue: 'ca-app-pub-3499593115543692/5725525775',
+    defaultValue: 'ca-app-pub-3499593115543692/8026942404',
   );
 
   static const String _androidLeaderboardBannerAdId = String.fromEnvironment(
@@ -48,12 +48,22 @@ class AppConfig {
 
   static const String _iosBannerAdId = String.fromEnvironment(
     'IOS_BANNER_AD_ID',
-    defaultValue: 'ca-app-pub-3499593115543692/9584879730',
+    defaultValue: 'ca-app-pub-3499593115543692/9340024074',
   );
 
   static const String _iosLeaderboardBannerAdId = String.fromEnvironment(
     'IOS_LEADERBOARD_BANNER_AD_ID',
     defaultValue: 'ca-app-pub-3499593115543692/2173293578',
+  );
+
+  static const String _androidInterstitialAdId = String.fromEnvironment(
+    'ANDROID_INTERSTITIAL_AD_ID',
+    defaultValue: 'ca-app-pub-3499593115543692/3193434033',
+  );
+
+  static const String _iosInterstitialAdId = String.fromEnvironment(
+    'IOS_INTERSTITIAL_AD_ID',
+    defaultValue: 'ca-app-pub-3499593115543692/1880352367',
   );
 
   // Test AdMob IDs
@@ -96,6 +106,16 @@ class AppConfig {
   static const String _testIosLeaderboardBannerAdId = String.fromEnvironment(
     'TEST_IOS_LEADERBOARD_BANNER_AD_ID',
     defaultValue: 'ca-app-pub-3940256099942544/2934735716',
+  );
+
+  static const String _testAndroidInterstitialAdId = String.fromEnvironment(
+    'TEST_ANDROID_INTERSTITIAL_AD_ID',
+    defaultValue: 'ca-app-pub-3940256099942544/1033173712',
+  );
+
+  static const String _testIosInterstitialAdId = String.fromEnvironment(
+    'TEST_IOS_INTERSTITIAL_AD_ID',
+    defaultValue: 'ca-app-pub-3940256099942544/4411468910',
   );
 
   /// Get current environment
@@ -154,6 +174,18 @@ class AppConfig {
     throw UnsupportedError('Platform not supported for AdMob');
   }
 
+  /// Get Interstitial Ad Unit ID based on platform and environment
+  String get interstitialAdUnitId {
+    if (Platform.isAndroid) {
+      return isProduction
+          ? _androidInterstitialAdId
+          : _testAndroidInterstitialAdId;
+    } else if (Platform.isIOS) {
+      return isProduction ? _iosInterstitialAdId : _testIosInterstitialAdId;
+    }
+    throw UnsupportedError('Platform not supported for AdMob');
+  }
+
   /// Get all AdMob configuration for debugging
   Map<String, dynamic> get adMobConfig {
     return {
@@ -165,6 +197,7 @@ class AppConfig {
       'rewardedAdUnitId': rewardedAdUnitId,
       'bannerAdUnitId': bannerAdUnitId,
       'leaderboardBannerAdUnitId': leaderboardBannerAdUnitId,
+      'interstitialAdUnitId': interstitialAdUnitId,
     };
   }
 
@@ -180,6 +213,7 @@ class AppConfig {
       print('Rewarded Ad Unit ID: $rewardedAdUnitId');
       print('Banner Ad Unit ID: $bannerAdUnitId');
       print('Leaderboard Banner Ad Unit ID: $leaderboardBannerAdUnitId');
+      print('Interstitial Ad Unit ID: $interstitialAdUnitId');
       print('========================');
     }
   }
