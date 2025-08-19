@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "Yüksək və ya Aşağı oyunu üçün başlıq"
   },
-  "higherLowerDescription": "Növbəti rəqəmin yüksək və ya aşağı olacağını təxmin edin!",
+  "higherLowerDescription": "Növbəti rəqəmin yüksək və ya aşağı olacağını təxmin edin! Rəqəmlər 1-50 arasındadır.",
   "@higherLowerDescription": {
     "description": "Yüksək və ya Aşağı oyunu üçün təsvir"
   },
@@ -271,16 +271,7 @@
   "@playing": {
     "description": "Oynayır status etiketi"
   },
-  "youReachedLevel": "Siz {level} səviyyəsinə çatdınız",
-  "@youReachedLevel": {
-    "description": "Oyunçu yeni səviyyə əldə etdiyində mesaj",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "Təxmin etməyə başlamaq üçün Yüksək və ya Aşağı düyməsinə basın! Rəqəmlər 1-50 arasındadır.",
   "@tapToStartGuessing": {
     "description": "Yüksək və ya Aşağıda təxmin etməyə başlama təlimatı"
@@ -314,7 +305,7 @@
   "@removeAds": {
     "description": "Reklamları silmək üçün abunəlik seçimi"
   },
-  "removeAdsDescription": "Aylıq abunəlik ilə reklamsız təcrübə yaşayın",
+  "removeAdsDescription": "Bir dəfəlik ödəniş ilə reklamsız təcrübə yaşayın",
   "@removeAdsDescription": {
     "description": "Reklamları silmək üçün abunəlik təsviri"
   },
@@ -322,7 +313,7 @@
   "@monthlySubscription": {
     "description": "Aylıq abunəlik etiketi"
   },
-  "subscribeNow": "İndi Abunə Ol",
+  "buyNow": "İndi Al",
   "@subscribeNow": {
     "description": "İndi abunə ol düyməsinin mətni"
   },
@@ -338,7 +329,7 @@
   "@subscriptionExpired": {
     "description": "Abunəlik bitmiş statusu"
   },
-  "daysRemaining": "{days} gün qalıb",
+  "purchasedOn": "Alınma tarixi: {date}",
   "@daysRemaining": {
     "description": "Abunəlikdə qalan günlər",
     "placeholders": {
@@ -381,10 +372,15 @@
     "description": "Təmiz təcrübə üçün xüsusiyyət təsviri"
   },
   "cancelAnytime": "İstədiyiniz zaman ləğv edin",
+  "cancelSubscriptionWarning": "Abunəliyinizi ləğv etmək reklamsz girişi silinəcək və yenidən reklamlar görəcəksiniz.",
   "@cancelAnytime": {
     "description": "İstədiyiniz zaman ləğv etmək üçün xüsusiyyət təsviri"
   },
-  "usdPerMonth": "USD/ay",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "Bir dəfəlik ödəniş",
   "@usdPerMonth": {
     "description": "USD aylıq etiketi"
   },
@@ -392,7 +388,7 @@
   "@bestValue": {
     "description": "Ən yaxşı dəyər etiketi"
   },
-  "fiftyPercentOff": "50% ENDİRİM",
+  "lifetimeAccess": "ÖMÜR BOYU GİRİŞ",
   "@fiftyPercentOff": {
     "description": "50% endirim etiketi"
   },
@@ -483,6 +479,18 @@
     "description": "Yekun xal etiketi"
   },
   "youWon": "Siz Qazandınız!",
+  "rateQuicko": "Quicko-nu Qiymətləndir",
+  "rateQuickoDescription": "Geri bildiriminiz bizə təkmilləşməyə və daha çox istifadəçiyə çatmağa kömək edir!",
+  "howWouldYouRate": "Quicko-nu necə qiymətləndirərsiniz?",
+  "rateOnStore": "Mağazada Qiymətləndir",
+  "openingStore": "Mağaza Açılır...",
+  "ratingPoor": "Pis",
+  "ratingFair": "Orta",
+  "ratingGood": "Yaxşı",
+  "ratingVeryGood": "Çox Yaxşı",
+  "ratingExcellent": "Əla!",
+  "thankYouForRating": "Quicko-nu qiymətləndirdiyiniz üçün təşəkkür edirik!",
+  "couldNotOpenStore": "Mağaza açıla bilmədi. Zəhmət olmasa yenidən cəhd edin.",
   "@youWon": {
     "description": "Qalibiyyət mesajı"
   },
@@ -655,6 +663,38 @@
   "@brown": {
     "description": "Qəhvəyi rəngin adı"
   },
+  "cyan": "Mavi Yaşıl",
+  "@cyan": {
+    "description": "Mavi yaşıl rəngin adı"
+  },
+  "lime": "Laym",
+  "@lime": {
+    "description": "Laym rəngin adı"
+  },
+  "magenta": "Maqenta",
+  "@magenta": {
+    "description": "Maqenta rəngin adı"
+  },
+  "teal": "Türkuaz",
+  "@teal": {
+    "description": "Türkuaz rəngin adı"
+  },
+  "indigo": "İndiqo",
+  "@indigo": {
+    "description": "İndiqo rəngin adı"
+  },
+  "amber": "Kəhrəba",
+  "@amber": {
+    "description": "Kəhrəba rəngin adı"
+  },
+  "deep_purple": "Tünd Bənövşəyi",
+  "@deep_purple": {
+    "description": "Tünd bənövşəyi rəngin adı"
+  },
+  "light_blue": "Açıq Mavi",
+  "@light_blue": {
+    "description": "Açıq mavi rəngin adı"
+  },
   
   "play": "Oyna",
   "@play": {
@@ -813,10 +853,7 @@
   "@wrongPattern": {
     "description": "Yanlış nümunə seçildiyində mesaj"
   },
-  "level": "Səviyyə",
-  "@level": {
-    "description": "Səviyyə etiketi"
-  },
+
   "wrong": "Yanlış",
   "@wrong": {
     "description": "Yanlış mesaj"
@@ -836,7 +873,19 @@
   },
   "watchAdToContinue": "Davam etmək üçün reklamı izlə",
   "@watchAdToContinue": {
-    "description": "Davam etmək üçün reklam izlə düyməsi mətni"
+    "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "1 Dəfə Davam Et",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Abunəliyi Ləğv Et",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Reklamsız abunəliyinizi ləğv edin və reklamlara qayıdın",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "Reklam mövcud deyil",
   "@adNotAvailable": {
@@ -861,16 +910,36 @@
   "exit": "Çıxış",
   "@exit": {
     "description": "Çıxış düyməsi mətni"
-  }
-  ,
-  "soundSettings": "Səs Parametrləri",
-  "soundSettingsMenuSubtitle": "Tətbiq səsləri və effekt səviyyəsi",
-  "appSounds": "Tətbiq Səsləri",
-  "appSoundsDescription": "Səsləri aç/bağla və effekt səviyyəsini tənzimlə",
-  "sounds": "Səslər",
-  "soundsOn": "Açıq",
-  "soundsOff": "Bağlı",
-  "effectsVolume": "Effekt Səs Səviyyəsi",
-  "soundTest": "Səs Testi",
-  "playSampleSound": "Nümunə Səsi Çal"
+  },
+
+  "purchaseErrorDescription": "Alış-verişinizi tamamlaya bilmədik. Zəhmət olmasa yenidən cəhd edin və ya ödəniş metodunuzu yoxlayın.",
+  "restoreErrorDescription": "Alış-verişlərinizi bərpa edə bilmədik. Zəhmət olmasa yenidən cəhd edin.",
+
+  "feedback": "Rəy",
+  "feedbackAndSuggestions": "Rəy və Təkliflər",
+  "feedbackAndSuggestionsSubtitle": "Fikirlərinizi bölüşün və inkişafımıza kömək edin",
+  "directContact": "Birbaşa Əlaqə",
+  "directContactDescription": "Əgər rəy forması işləmirsə, birbaşa bu ünvandan bizimlə əlaqə saxlaya bilərsiniz:",
+  "sendFeedback": "Rəy Göndər",
+  "sending": "Göndərilir...",
+  "feedbackSentSuccess": "✅ Rəy uğurla göndərildi! Təşəkkür edirik.",
+  "feedbackSentError": "❌ {errorMessage}. Zəhmət olmasa yenidən cəhd edin və ya yuxarıdakı birbaşa email seçimindən istifadə edin.",
+  "feedbackCategoryBug": "Xəta Hesabatı",
+  "feedbackCategoryFeature": "Funksiya Tələbi",
+  "feedbackCategoryImprovement": "Təkmilləşdirmə Təklifi",
+  "feedbackCategoryGeneral": "Ümumi Rəy",
+  "feedbackCategory": "Kateqoriya",
+  "feedbackTitle": "Başlıq",
+  "feedbackTitleHint": "Rəyinizin qısa təsviri",
+  "feedbackDescription": "Təsvir",
+  "feedbackDescriptionHint": "Zəhmət olmasa rəyiniz haqqında ətraflı məlumat verin...",
+  "feedbackEmail": "Email (İstəyə bağlı)",
+  "feedbackEmailHint": "sizin.email@nümunə.az",
+  "feedbackEmailDescription": "Lazım olduqda rəyinizlə bağlı sizinlə əlaqə saxlamaq üçün istifadə edəcəyik.",
+  "feedbackFrom": "{title} - Rəy",
+  "emailLaunchError": "Email tətbiqi açıla bilmədi. Zəhmət olmasa əl ilə yenidən cəhd edin.",
+  "invalidFeedbackData": "Yanlış rəy məlumatları",
+  "failedToSendFeedback": "Rəy göndərilə bilmədi. Zəhmət olmasa yenidən cəhd edin.",
+  "errorSendingFeedback": "Rəy göndərmə xətası: {error}",
+  "maybeLater": "Bəlkə də sonra"
 }

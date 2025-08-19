@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "Title for the Higher or Lower game"
   },
-  "higherLowerDescription": "Guess if the next number will be higher or lower!",
+  "higherLowerDescription": "Guess if the next number will be higher or lower! Numbers are between 1-50.",
   "@higherLowerDescription": {
     "description": "Description for the Higher or Lower game"
   },
@@ -107,6 +107,26 @@
   "watchAdToContinue": "Watch Ad to Continue",
   "@watchAdToContinue": {
     "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "1-Time Continue",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Cancel Subscription",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Cancel your ad-free subscription and return to ads",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
+  },
+  "cancelSubscriptionError": "Cancel Subscription Error",
+  "@cancelSubscriptionError": {
+    "description": "Title for cancel subscription error"
+  },
+  "cancelSubscriptionErrorDescription": "Failed to cancel your subscription. Please try again or contact support.",
+  "@cancelSubscriptionErrorDescription": {
+    "description": "Description for cancel subscription error"
   },
   "adNotAvailable": "Ad Not Available",
   "@adNotAvailable": {
@@ -304,16 +324,7 @@
   "@playing": {
     "description": "Playing status label"
   },
-  "youReachedLevel": "You reached Level {level}",
-  "@youReachedLevel": {
-    "description": "Message when player reaches a new level",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "Tap Higher or Lower to start guessing! Numbers are between 1-50.",
   "@tapToStartGuessing": {
     "description": "Instruction to start guessing in Higher or Lower"
@@ -347,7 +358,7 @@
   "@removeAds": {
     "description": "Remove ads subscription option"
   },
-  "removeAdsDescription": "Enjoy an ad-free experience with monthly subscription",
+  "removeAdsDescription": "Enjoy an ad-free experience with one-time payment",
   "@removeAdsDescription": {
     "description": "Description for remove ads subscription"
   },
@@ -355,7 +366,7 @@
   "@monthlySubscription": {
     "description": "Monthly subscription label"
   },
-  "subscribeNow": "Subscribe Now",
+  "buyNow": "Buy Now",
   "@subscribeNow": {
     "description": "Subscribe now button text"
   },
@@ -371,7 +382,7 @@
   "@subscriptionExpired": {
     "description": "Subscription expired status"
   },
-  "daysRemaining": "{days} days remaining",
+  "purchasedOn": "Purchased on: {date}",
   "@daysRemaining": {
     "description": "Days remaining in subscription",
     "placeholders": {
@@ -433,17 +444,25 @@
   "@cancelAnytime": {
     "description": "Feature description for cancel anytime"
   },
-  "usdPerMonth": "USD/month",
-  "@usdPerMonth": {
-    "description": "USD per month label"
+  "cancelSubscriptionWarning": "Canceling your subscription will remove ad-free access and you will see ads again.",
+  "@cancelSubscriptionWarning": {
+    "description": "Warning message when canceling subscription"
+  },
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "One-time payment price display"
+  },
+  "oneTimePayment": "One-time payment",
+  "@oneTimePayment": {
+    "description": "One-time payment label"
   },
   "bestValue": "BEST VALUE",
   "@bestValue": {
     "description": "Best value label"
   },
-  "fiftyPercentOff": "-50%",
-  "@fiftyPercentOff": {
-    "description": "50% discount label"
+  "lifetimeAccess": "LIFETIME ACCESS",
+  "@lifetimeAccess": {
+    "description": "Lifetime access label"
   },
   "totalGames": "Total Games",
   "@totalGames": {
@@ -528,6 +547,54 @@
     "description": "Message indicating time ran out"
   },
   "youWon": "You Won!",
+  "rateQuicko": "Rate Quicko",
+  "@rateQuicko": {
+    "description": "Title for rating bottom sheet"
+  },
+  "rateQuickoDescription": "Your feedback helps us improve and reach more users!",
+  "@rateQuickoDescription": {
+    "description": "Description text for rating bottom sheet"
+  },
+  "howWouldYouRate": "How would you rate Quicko?",
+  "@howWouldYouRate": {
+    "description": "Question text for rating"
+  },
+  "rateOnStore": "Rate on Store",
+  "@rateOnStore": {
+    "description": "Button text to rate on store"
+  },
+  "openingStore": "Opening Store...",
+  "@openingStore": {
+    "description": "Loading text when opening store"
+  },
+  "ratingPoor": "Poor",
+  "@ratingPoor": {
+    "description": "Rating text for 1 star"
+  },
+  "ratingFair": "Fair",
+  "@ratingFair": {
+    "description": "Rating text for 2 stars"
+  },
+  "ratingGood": "Good",
+  "@ratingGood": {
+    "description": "Rating text for 3 stars"
+  },
+  "ratingVeryGood": "Very Good",
+  "@ratingVeryGood": {
+    "description": "Rating text for 4 stars"
+  },
+  "ratingExcellent": "Excellent!",
+  "@ratingExcellent": {
+    "description": "Rating text for 5 stars"
+  },
+  "thankYouForRating": "Thank you for rating Quicko!",
+  "@thankYouForRating": {
+    "description": "Success message after rating"
+  },
+  "couldNotOpenStore": "Could not open store. Please try again.",
+  "@couldNotOpenStore": {
+    "description": "Error message when store cannot be opened"
+  },
   "@youWon": {
     "description": "You won message"
   },
@@ -700,6 +767,38 @@
   "@brown": {
     "description": "Brown color name"
   },
+  "cyan": "Cyan",
+  "@cyan": {
+    "description": "Cyan color name"
+  },
+  "lime": "Lime",
+  "@lime": {
+    "description": "Lime color name"
+  },
+  "magenta": "Magenta",
+  "@magenta": {
+    "description": "Magenta color name"
+  },
+  "teal": "Teal",
+  "@teal": {
+    "description": "Teal color name"
+  },
+  "indigo": "Indigo",
+  "@indigo": {
+    "description": "Indigo color name"
+  },
+  "amber": "Amber",
+  "@amber": {
+    "description": "Amber color name"
+  },
+  "deep_purple": "Deep Purple",
+  "@deep_purple": {
+    "description": "Deep purple color name"
+  },
+  "light_blue": "Light Blue",
+  "@light_blue": {
+    "description": "Light blue color name"
+  },
   
   "play": "Play",
   "@play": {
@@ -870,10 +969,7 @@
   "@wrongPattern": {
     "description": "Message when wrong pattern is selected"
   },
-  "level": "Level",
-  "@level": {
-    "description": "Level label"
-  },
+
   "wrong": "Wrong",
   "@wrong": {
     "description": "Wrong message"
@@ -969,5 +1065,132 @@
   "purchaseErrorDescription": "We couldn't complete your purchase. Please try again or check your payment method.",
   "@purchaseErrorDescription": {"description": "Detailed message shown when purchase fails"},
   "restoreErrorDescription": "We couldn't restore your purchases. Please try again.",
-  "@restoreErrorDescription": {"description": "Detailed message shown when restore fails"}
+  "@restoreErrorDescription": {"description": "Detailed message shown when restore fails"},
+
+  "feedback": "Feedback",
+  "@feedback": {
+    "description": "Feedback screen title"
+  },
+  "feedbackAndSuggestions": "Feedback & Suggestions",
+  "@feedbackAndSuggestions": {
+    "description": "Feedback and suggestions menu item title"
+  },
+  "feedbackAndSuggestionsSubtitle": "Share your thoughts and help us improve",
+  "@feedbackAndSuggestionsSubtitle": {
+    "description": "Feedback and suggestions menu item subtitle"
+  },
+  "directContact": "Direct Contact",
+  "@directContact": {
+    "description": "Direct contact section title"
+  },
+  "directContactDescription": "If the feedback form doesn't work, you can contact us directly at:",
+  "@directContactDescription": {
+    "description": "Description for direct contact section"
+  },
+  "sendFeedback": "Send Feedback",
+  "@sendFeedback": {
+    "description": "Send feedback button text"
+  },
+  "sending": "Sending...",
+  "@sending": {
+    "description": "Sending feedback loading text"
+  },
+  "feedbackSentSuccess": "✅ Feedback sent successfully! Thank you for your input.",
+  "@feedbackSentSuccess": {
+    "description": "Success message when feedback is sent"
+  },
+  "feedbackSentError": "❌ {errorMessage}. Please try again or use the direct email option above.",
+  "@feedbackSentError": {
+    "description": "Error message when feedback sending fails",
+    "placeholders": {
+      "errorMessage": {
+        "type": "String",
+        "example": "Error sending feedback"
+      }
+    }
+  },
+  "feedbackCategoryBug": "Bug Report",
+  "@feedbackCategoryBug": {
+    "description": "Bug report category"
+  },
+  "feedbackCategoryFeature": "Feature Request",
+  "@feedbackCategoryFeature": {
+    "description": "Feature request category"
+  },
+  "feedbackCategoryImprovement": "Improvement Suggestion",
+  "@feedbackCategoryImprovement": {
+    "description": "Improvement suggestion category"
+  },
+  "feedbackCategoryGeneral": "General Feedback",
+  "@feedbackCategoryGeneral": {
+    "description": "General feedback category"
+  },
+  "feedbackCategory": "Category",
+  "@feedbackCategory": {
+    "description": "Feedback category field label"
+  },
+  "feedbackTitle": "Title",
+  "@feedbackTitle": {
+    "description": "Feedback title field label"
+  },
+  "feedbackTitleHint": "Brief description of your feedback",
+  "@feedbackTitleHint": {
+    "description": "Hint text for feedback title field"
+  },
+  "feedbackDescription": "Description",
+  "@feedbackDescription": {
+    "description": "Feedback description field label"
+  },
+  "feedbackDescriptionHint": "Please provide detailed information about your feedback...",
+  "@feedbackDescriptionHint": {
+    "description": "Hint text for feedback description field"
+  },
+  "feedbackEmail": "Email (Optional)",
+  "@feedbackEmail": {
+    "description": "Feedback email field label"
+  },
+  "feedbackEmailHint": "your.email@example.com",
+  "@feedbackEmailHint": {
+    "description": "Hint text for feedback email field"
+  },
+  "feedbackEmailDescription": "We'll use this to follow up on your feedback if needed.",
+  "@feedbackEmailDescription": {
+    "description": "Description for feedback email field"
+  },
+  "feedbackFrom": "Feedback from {title}",
+  "@feedbackFrom": {
+    "description": "Email subject prefix for feedback",
+    "placeholders": {
+      "title": {
+        "type": "String",
+        "example": "Bug Report"
+      }
+    }
+  },
+  "emailLaunchError": "Could not launch email app. Please try again manually.",
+  "@emailLaunchError": {
+    "description": "Error message when email app cannot be launched"
+  },
+  "invalidFeedbackData": "Invalid feedback data",
+  "@invalidFeedbackData": {
+    "description": "Error message for invalid feedback data"
+  },
+  "failedToSendFeedback": "Failed to send feedback. Please try again.",
+  "@failedToSendFeedback": {
+    "description": "Error message when feedback sending fails"
+  },
+  "errorSendingFeedback": "Error sending feedback: {error}",
+  "@errorSendingFeedback": {
+    "description": "Detailed error message for feedback sending",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "maybeLater": "Maybe Later",
+  "@maybeLater": {
+    "description": "Maybe later button text"
+  }
 }

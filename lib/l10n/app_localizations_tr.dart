@@ -65,7 +65,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get higherLowerDescription =>
-      'Sonraki sayının yüksek mi yoksa düşük mü olacağını tahmin edin!';
+      'Sonraki sayının yüksek mi yoksa düşük mü olacağını tahmin edin! Sayılar 1-50 arasındadır.';
 
   @override
   String get higher => 'Yüksek';
@@ -87,6 +87,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get watchAdToContinue => 'Devam Etmek İçin Reklam İzle';
+
+  @override
+  String get oneTimeContinue => '1 Kerelik Devam Et';
+
+  @override
+  String get cancelSubscription => 'Aboneliği İptal Et';
+
+  @override
+  String get cancelSubscriptionDescription =>
+      'Reklamsız aboneliğinizi iptal edin ve reklamlara geri dönün';
+
+  @override
+  String get cancelSubscriptionError => 'Abonelik İptal Hatası';
+
+  @override
+  String get cancelSubscriptionErrorDescription =>
+      'Aboneliğinizi iptal edemedik. Lütfen tekrar deneyin veya destek ile iletişime geçin.';
 
   @override
   String get adNotAvailable => 'Reklam Mevcut Değil';
@@ -238,11 +255,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get playing => 'Oynanıyor';
 
   @override
-  String youReachedLevel(int level) {
-    return 'Seviye $level\'e ulaştınız';
-  }
-
-  @override
   String get tapToStartGuessing =>
       'Tahmin etmeye başlamak için Yüksek veya Düşük\'e dokunun! Sayılar 1-50 arasındadır.';
 
@@ -270,13 +282,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get removeAdsDescription =>
-      'Aylık abonelik ile reklamsız deneyim yaşayın';
+      'Tek seferlik ödeme ile reklamsız deneyim yaşayın';
 
   @override
   String get monthlySubscription => 'Aylık Abonelik';
 
   @override
-  String get subscribeNow => 'Şimdi Abone Ol';
+  String get buyNow => 'Şimdi Satın Al';
 
   @override
   String get restorePurchases => 'Satın Alımları Geri Yükle';
@@ -288,8 +300,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get subscriptionExpired => 'Abonelik Süresi Doldu';
 
   @override
-  String daysRemaining(int days) {
-    return '$days gün kaldı';
+  String purchasedOn(Object date) {
+    return 'Satın alınma tarihi: $date';
   }
 
   @override
@@ -333,13 +345,20 @@ class AppLocalizationsTr extends AppLocalizations {
   String get cancelAnytime => 'İstediğiniz zaman iptal edin';
 
   @override
-  String get usdPerMonth => 'USD/ay';
+  String get cancelSubscriptionWarning =>
+      'Aboneliğinizi iptal etmek reklamsız erişimi kaldıracak ve tekrar reklamları görmeye başlayacaksınız.';
+
+  @override
+  String get subscriptionPrice => '99 TL';
+
+  @override
+  String get oneTimePayment => 'Tek seferlik ödeme';
 
   @override
   String get bestValue => 'EN İYİ DEĞER';
 
   @override
-  String get fiftyPercentOff => '%50 İNDİRİM';
+  String get lifetimeAccess => 'ÖMÜR BOYU ERİŞİM';
 
   @override
   String get totalGames => 'Toplam Oyun';
@@ -397,6 +416,44 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get youWon => 'Kazandınız!';
+
+  @override
+  String get rateQuicko => 'Quicko\'yu Değerlendir';
+
+  @override
+  String get rateQuickoDescription =>
+      'Geri bildiriminiz bize gelişmemize ve daha fazla kullanıcıya ulaşmamıza yardımcı olur!';
+
+  @override
+  String get howWouldYouRate => 'Quicko\'yu nasıl değerlendirirsiniz?';
+
+  @override
+  String get rateOnStore => 'Mağazada Değerlendir';
+
+  @override
+  String get openingStore => 'Mağaza Açılıyor...';
+
+  @override
+  String get ratingPoor => 'Kötü';
+
+  @override
+  String get ratingFair => 'Orta';
+
+  @override
+  String get ratingGood => 'İyi';
+
+  @override
+  String get ratingVeryGood => 'Çok İyi';
+
+  @override
+  String get ratingExcellent => 'Mükemmel!';
+
+  @override
+  String get thankYouForRating =>
+      'Quicko\'yu değerlendirdiğiniz için teşekkürler!';
+
+  @override
+  String get couldNotOpenStore => 'Mağaza açılamadı. Lütfen tekrar deneyin.';
 
   @override
   String get congratulationsMessage => 'Tebrikler! Görevi tamamladınız!';
@@ -519,6 +576,30 @@ class AppLocalizationsTr extends AppLocalizations {
   String get brown => 'Kahverengi';
 
   @override
+  String get cyan => 'Camgöbeği';
+
+  @override
+  String get lime => 'Limon Yeşili';
+
+  @override
+  String get magenta => 'Eflatun';
+
+  @override
+  String get teal => 'Teal';
+
+  @override
+  String get indigo => 'Çivit Mavisi';
+
+  @override
+  String get amber => 'Kehribar';
+
+  @override
+  String get deep_purple => 'Koyu Mor';
+
+  @override
+  String get light_blue => 'Açık Mavi';
+
+  @override
   String get play => 'Oyna';
 
   @override
@@ -637,9 +718,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wrongPattern => 'Yanlış Desen';
 
   @override
-  String get level => 'Seviye';
-
-  @override
   String get wrong => 'Yanlış';
 
   @override
@@ -647,6 +725,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get column => 'sütun';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get gameInProgress => 'Oyun Devam Ediyor';
@@ -699,4 +780,98 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get restoreErrorDescription =>
       'Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get feedback => 'Geri Bildirim';
+
+  @override
+  String get feedbackAndSuggestions => 'Geri Bildirim & Öneriler';
+
+  @override
+  String get feedbackAndSuggestionsSubtitle =>
+      'Düşüncelerinizi paylaşın ve gelişmemize yardımcı olun';
+
+  @override
+  String get directContact => 'Doğrudan İletişim';
+
+  @override
+  String get directContactDescription =>
+      'Geri bildirim formu çalışmazsa, doğrudan şu adresten bize ulaşabilirsiniz:';
+
+  @override
+  String get sendFeedback => 'Geri Bildirim Gönder';
+
+  @override
+  String get sending => 'Gönderiliyor...';
+
+  @override
+  String get feedbackSentSuccess =>
+      '✅ Geri bildirim başarıyla gönderildi! Görüşleriniz için teşekkürler.';
+
+  @override
+  String feedbackSentError(String errorMessage) {
+    return '❌ $errorMessage. Lütfen tekrar deneyin veya yukarıdaki doğrudan e-posta seçeneğini kullanın.';
+  }
+
+  @override
+  String get feedbackCategoryBug => 'Hata Bildirimi';
+
+  @override
+  String get feedbackCategoryFeature => 'Özellik İsteği';
+
+  @override
+  String get feedbackCategoryImprovement => 'İyileştirme Önerisi';
+
+  @override
+  String get feedbackCategoryGeneral => 'Genel Geri Bildirim';
+
+  @override
+  String get feedbackCategory => 'Kategori';
+
+  @override
+  String get feedbackTitle => 'Başlık';
+
+  @override
+  String get feedbackTitleHint => 'Geri bildiriminizin kısa açıklaması';
+
+  @override
+  String get feedbackDescription => 'Açıklama';
+
+  @override
+  String get feedbackDescriptionHint =>
+      'Lütfen geri bildiriminiz hakkında detaylı bilgi verin...';
+
+  @override
+  String get feedbackEmail => 'E-posta (İsteğe Bağlı)';
+
+  @override
+  String get feedbackEmailHint => 'ornek@email.com';
+
+  @override
+  String get feedbackEmailDescription =>
+      'Gerekirse geri bildiriminizle ilgili size ulaşmak için kullanacağız.';
+
+  @override
+  String feedbackFrom(String title) {
+    return '$title - Geri Bildirim';
+  }
+
+  @override
+  String get emailLaunchError =>
+      'E-posta uygulaması açılamadı. Lütfen manuel olarak tekrar deneyin.';
+
+  @override
+  String get invalidFeedbackData => 'Geçersiz geri bildirim verisi';
+
+  @override
+  String get failedToSendFeedback =>
+      'Geri bildirim gönderilemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String errorSendingFeedback(String error) {
+    return 'Geri bildirim gönderme hatası: $error';
+  }
+
+  @override
+  String get maybeLater => 'Belki Daha Sonra';
 }

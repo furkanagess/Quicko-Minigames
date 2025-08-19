@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "Judul untuk permainan Lebih Tinggi atau Lebih Rendah"
   },
-  "higherLowerDescription": "Tebak apakah angka berikutnya akan lebih tinggi atau lebih rendah!",
+  "higherLowerDescription": "Tebak apakah angka berikutnya akan lebih tinggi atau lebih rendah! Angka antara 1-50.",
   "@higherLowerDescription": {
     "description": "Deskripsi untuk permainan Lebih Tinggi atau Lebih Rendah"
   },
@@ -271,16 +271,7 @@
   "@playing": {
     "description": "Label status sedang bermain"
   },
-  "youReachedLevel": "Anda telah mencapai Level {level}",
-  "@youReachedLevel": {
-    "description": "Pesan ketika pemain mencapai level baru",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "Tekan Lebih Tinggi atau Lebih Rendah untuk mulai menebak! Angka antara 1-50.",
   "@tapToStartGuessing": {
     "description": "Instruksi untuk mulai menebak dalam Lebih Tinggi atau Lebih Rendah"
@@ -314,7 +305,7 @@
   "@removeAds": {
     "description": "Opsi berlangganan untuk menghapus iklan"
   },
-  "removeAdsDescription": "Nikmati pengalaman bebas iklan dengan berlangganan bulanan",
+  "removeAdsDescription": "Nikmati pengalaman bebas iklan dengan pembayaran sekali",
   "@removeAdsDescription": {
     "description": "Deskripsi berlangganan untuk menghapus iklan"
   },
@@ -322,7 +313,7 @@
   "@monthlySubscription": {
     "description": "Label berlangganan bulanan"
   },
-  "subscribeNow": "Berlangganan Sekarang",
+  "buyNow": "Beli Sekarang",
   "@subscribeNow": {
     "description": "Teks tombol Berlangganan sekarang"
   },
@@ -338,7 +329,7 @@
   "@subscriptionExpired": {
     "description": "Status berlangganan kedaluwarsa"
   },
-  "daysRemaining": "{days} hari tersisa",
+  "purchasedOn": "Dibeli pada: {date}",
   "@daysRemaining": {
     "description": "Hari tersisa dalam berlangganan",
     "placeholders": {
@@ -381,10 +372,15 @@
     "description": "Deskripsi fitur untuk pengalaman bersih"
   },
   "cancelAnytime": "Batalkan kapan saja",
+  "cancelSubscriptionWarning": "Membatalkan langganan Anda akan menghapus akses bebas iklan dan Anda akan melihat iklan lagi.",
   "@cancelAnytime": {
     "description": "Deskripsi fitur untuk batalkan kapan saja"
   },
-  "usdPerMonth": "USD/bulan",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "Pembayaran sekali",
   "@usdPerMonth": {
     "description": "Label USD per bulan"
   },
@@ -392,7 +388,7 @@
   "@bestValue": {
     "description": "Label nilai terbaik"
   },
-  "fiftyPercentOff": "50% DISKON",
+  "lifetimeAccess": "AKSES SEUMUR HIDUP",
   "@fiftyPercentOff": {
     "description": "Label diskon 50%"
   },
@@ -483,6 +479,18 @@
     "description": "Label skor akhir"
   },
   "youWon": "Anda Menang!",
+  "rateQuicko": "Nilai Quicko",
+  "rateQuickoDescription": "Umpan balik Anda membantu kami berkembang dan menjangkau lebih banyak pengguna!",
+  "howWouldYouRate": "Bagaimana Anda menilai Quicko?",
+  "rateOnStore": "Nilai di Toko",
+  "openingStore": "Membuka Toko...",
+  "ratingPoor": "Buruk",
+  "ratingFair": "Cukup",
+  "ratingGood": "Baik",
+  "ratingVeryGood": "Sangat Baik",
+  "ratingExcellent": "Luar Biasa!",
+  "thankYouForRating": "Terima kasih telah menilai Quicko!",
+  "couldNotOpenStore": "Tidak dapat membuka toko. Silakan coba lagi.",
   "@youWon": {
     "description": "Pesan kemenangan"
   },
@@ -655,6 +663,38 @@
   "@brown": {
     "description": "Nama warna cokelat"
   },
+  "cyan": "Sian",
+  "@cyan": {
+    "description": "Nama warna sian"
+  },
+  "lime": "Lime",
+  "@lime": {
+    "description": "Nama warna lime"
+  },
+  "magenta": "Magenta",
+  "@magenta": {
+    "description": "Nama warna magenta"
+  },
+  "teal": "Teal",
+  "@teal": {
+    "description": "Nama warna teal"
+  },
+  "indigo": "Indigo",
+  "@indigo": {
+    "description": "Nama warna indigo"
+  },
+  "amber": "Amber",
+  "@amber": {
+    "description": "Nama warna amber"
+  },
+  "deep_purple": "Ungu Gelap",
+  "@deep_purple": {
+    "description": "Nama warna ungu gelap"
+  },
+  "light_blue": "Biru Muda",
+  "@light_blue": {
+    "description": "Nama warna biru muda"
+  },
   
   "play": "Main",
   "@play": {
@@ -813,10 +853,7 @@
   "@wrongPattern": {
     "description": "Pesan ketika pola salah dipilih"
   },
-  "level": "Level",
-  "@level": {
-    "description": "Label level"
-  },
+
   "wrong": "Salah",
   "@wrong": {
     "description": "Pesan salah"
@@ -836,7 +873,19 @@
   },
   "watchAdToContinue": "Tonton Iklan untuk Melanjutkan",
   "@watchAdToContinue": {
-    "description": "Teks tombol tonton iklan untuk melanjutkan"
+    "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "Lanjutkan 1 Kali",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Batalkan Langganan",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Batalkan langganan bebas iklan Anda dan kembali ke iklan",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "Iklan Tidak Tersedia",
   "@adNotAvailable": {
@@ -861,8 +910,7 @@
   "exit": "Keluar",
   "@exit": {
     "description": "Teks tombol keluar"
-  }
-  ,
+  },
   "soundSettings": "Pengaturan Suara",
   "soundSettingsMenuSubtitle": "Suara aplikasi dan level efek",
   "appSounds": "Suara Aplikasi",
@@ -872,5 +920,35 @@
   "soundsOff": "Nonaktif",
   "effectsVolume": "Volume Efek",
   "soundTest": "Tes Suara",
-  "playSampleSound": "Putar Suara Contoh"
+  "playSampleSound": "Putar Suara Contoh",
+  "purchaseErrorDescription": "Kami tidak dapat menyelesaikan pembelian Anda. Silakan coba lagi atau periksa metode pembayaran Anda.",
+  "restoreErrorDescription": "Kami tidak dapat memulihkan pembelian Anda. Silakan coba lagi.",
+
+  "feedback": "Umpan Balik",
+  "feedbackAndSuggestions": "Umpan Balik & Saran",
+  "feedbackAndSuggestionsSubtitle": "Bagikan pemikiran Anda dan bantu kami berkembang",
+  "directContact": "Kontak Langsung",
+  "directContactDescription": "Jika formulir umpan balik tidak berfungsi, Anda dapat menghubungi kami langsung di:",
+  "sendFeedback": "Kirim Umpan Balik",
+  "sending": "Mengirim...",
+  "feedbackSentSuccess": "✅ Umpan balik berhasil dikirim! Terima kasih atas kontribusi Anda.",
+  "feedbackSentError": "❌ {errorMessage}. Silakan coba lagi atau gunakan opsi email langsung di atas.",
+  "feedbackCategoryBug": "Laporan Bug",
+  "feedbackCategoryFeature": "Permintaan Fitur",
+  "feedbackCategoryImprovement": "Saran Perbaikan",
+  "feedbackCategoryGeneral": "Umpan Balik Umum",
+  "feedbackCategory": "Kategori",
+  "feedbackTitle": "Judul",
+  "feedbackTitleHint": "Deskripsi singkat umpan balik Anda",
+  "feedbackDescription": "Deskripsi",
+  "feedbackDescriptionHint": "Silakan berikan informasi detail tentang umpan balik Anda...",
+  "feedbackEmail": "Email (Opsional)",
+  "feedbackEmailHint": "email.anda@contoh.com",
+  "feedbackEmailDescription": "Kami akan menggunakannya untuk menghubungi Anda tentang umpan balik Anda jika diperlukan.",
+  "feedbackFrom": "Umpan Balik dari {title}",
+  "emailLaunchError": "Tidak dapat membuka aplikasi email. Silakan coba lagi secara manual.",
+  "invalidFeedbackData": "Data umpan balik tidak valid",
+  "failedToSendFeedback": "Gagal mengirim umpan balik. Silakan coba lagi.",
+  "errorSendingFeedback": "Error mengirim umpan balik: {error}",
+  "maybeLater": "Mungkin nanti"
 }

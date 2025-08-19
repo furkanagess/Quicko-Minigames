@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "Titel für das Höher oder Niedriger Spiel"
   },
-  "higherLowerDescription": "Rate, ob die nächste Zahl höher oder niedriger sein wird!",
+  "higherLowerDescription": "Rate, ob die nächste Zahl höher oder niedriger sein wird! Die Zahlen sind zwischen 1-50.",
   "@higherLowerDescription": {
     "description": "Beschreibung für das Höher oder Niedriger Spiel"
   },
@@ -271,16 +271,7 @@
   "@playing": {
     "description": "Spielt Status Bezeichnung"
   },
-  "youReachedLevel": "Du hast Level {level} erreicht",
-  "@youReachedLevel": {
-    "description": "Nachricht wenn Spieler ein neues Level erreicht",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "Tippe auf Höher oder Niedriger um mit dem Raten zu beginnen! Die Zahlen sind zwischen 1-50.",
   "@tapToStartGuessing": {
     "description": "Anweisung zum Starten des Ratens in Höher oder Niedriger"
@@ -314,7 +305,7 @@
   "@removeAds": {
     "description": "Werbung entfernen Abonnement Option"
   },
-  "removeAdsDescription": "Genießen Sie eine werbefreie Erfahrung mit monatlichem Abonnement",
+  "removeAdsDescription": "Genießen Sie eine werbefreie Erfahrung mit einmaliger Zahlung",
   "@removeAdsDescription": {
     "description": "Beschreibung für Werbung entfernen Abonnement"
   },
@@ -322,7 +313,7 @@
   "@monthlySubscription": {
     "description": "Monatliches Abonnement Bezeichnung"
   },
-  "subscribeNow": "Jetzt Abonnieren",
+  "buyNow": "Jetzt Kaufen",
   "@subscribeNow": {
     "description": "Jetzt abonnieren Button Text"
   },
@@ -338,7 +329,7 @@
   "@subscriptionExpired": {
     "description": "Abonnement abgelaufen Status"
   },
-  "daysRemaining": "{days} Tage verbleibend",
+  "purchasedOn": "Gekauft am: {date}",
   "monthlySubscriptionPrice": "Monatliches Abonnement - $2.49",
   "uninstallWarning": "Wichtig: Das Abonnement wird lokal gespeichert. Wenn Sie die App deinstallieren, geht Ihr Abonnement verloren und Sie müssen es erneut kaufen.",
   "@daysRemaining": {
@@ -383,10 +374,15 @@
     "description": "Feature Beschreibung für saubere Erfahrung"
   },
   "cancelAnytime": "Jederzeit kündbar",
+  "cancelSubscriptionWarning": "Wenn Sie Ihr Abonnement kündigen, wird der werbefreie Zugang entfernt und Sie sehen wieder Werbung.",
   "@cancelAnytime": {
     "description": "Feature Beschreibung für jederzeit kündbar"
   },
-  "usdPerMonth": "USD/Monat",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "Einmalzahlung",
   "@usdPerMonth": {
     "description": "USD pro Monat Label"
   },
@@ -394,7 +390,7 @@
   "@bestValue": {
     "description": "Bester Wert Label"
   },
-  "fiftyPercentOff": "50% RABATT",
+  "lifetimeAccess": "LEBENSLANGER ZUGANG",
   "@fiftyPercentOff": {
     "description": "50% Rabatt Label"
   },
@@ -485,6 +481,18 @@
     "description": "Endpunktzahl Bezeichnung"
   },
   "youWon": "Du hast Gewonnen!",
+  "rateQuicko": "Quicko bewerten",
+  "rateQuickoDescription": "Ihr Feedback hilft uns, uns zu verbessern und mehr Benutzer zu erreichen!",
+  "howWouldYouRate": "Wie würden Sie Quicko bewerten?",
+  "rateOnStore": "Im Store bewerten",
+  "openingStore": "Store wird geöffnet...",
+  "ratingPoor": "Schlecht",
+  "ratingFair": "Ausreichend",
+  "ratingGood": "Gut",
+  "ratingVeryGood": "Sehr gut",
+  "ratingExcellent": "Ausgezeichnet!",
+  "thankYouForRating": "Vielen Dank für Ihre Bewertung von Quicko!",
+  "couldNotOpenStore": "Store konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.",
   "@youWon": {
     "description": "Du hast gewonnen Nachricht"
   },
@@ -657,6 +665,38 @@
   "@brown": {
     "description": "Braune Farbe Name"
   },
+  "cyan": "Cyan",
+  "@cyan": {
+    "description": "Cyan Farbe Name"
+  },
+  "lime": "Limettengrün",
+  "@lime": {
+    "description": "Limettengrün Farbe Name"
+  },
+  "magenta": "Magenta",
+  "@magenta": {
+    "description": "Magenta Farbe Name"
+  },
+  "teal": "Petrol",
+  "@teal": {
+    "description": "Petrol Farbe Name"
+  },
+  "indigo": "Indigo",
+  "@indigo": {
+    "description": "Indigo Farbe Name"
+  },
+  "amber": "Bernstein",
+  "@amber": {
+    "description": "Bernstein Farbe Name"
+  },
+  "deep_purple": "Dunkelviolett",
+  "@deep_purple": {
+    "description": "Dunkelviolett Farbe Name"
+  },
+  "light_blue": "Hellblau",
+  "@light_blue": {
+    "description": "Hellblau Farbe Name"
+  },
   
   "play": "Spielen",
   "@play": {
@@ -815,10 +855,7 @@
   "@wrongPattern": {
     "description": "Nachricht wenn falsches Muster ausgewählt wurde"
   },
-  "level": "Level",
-  "@level": {
-    "description": "Level Bezeichnung"
-  },
+
   "wrong": "Falsch",
   "@wrong": {
     "description": "Falsch Nachricht"
@@ -839,6 +876,18 @@
   "watchAdToContinue": "Werbung ansehen um fortzufahren",
   "@watchAdToContinue": {
     "description": "Werbung ansehen um fortzufahren Button Text"
+  },
+  "oneTimeContinue": "1 Mal Weiter",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Abonnement Kündigen",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Kündigen Sie Ihr werbefreies Abonnement und kehren Sie zu Werbung zurück",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "Werbung nicht verfügbar",
   "@adNotAvailable": {
@@ -876,5 +925,33 @@
   "soundTest": "Soundtest",
   "playSampleSound": "Beispielsound abspielen",
   "purchaseErrorDescription": "Dein Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut oder prüfe deine Zahlungsmethode.",
-  "restoreErrorDescription": "Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut."
+  "restoreErrorDescription": "Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.",
+
+  "feedback": "Feedback",
+  "feedbackAndSuggestions": "Feedback & Vorschläge",
+  "feedbackAndSuggestionsSubtitle": "Teilen Sie Ihre Gedanken mit und helfen Sie uns zu verbessern",
+  "directContact": "Direkter Kontakt",
+  "directContactDescription": "Falls das Feedback-Formular nicht funktioniert, können Sie uns direkt kontaktieren unter:",
+  "sendFeedback": "Feedback senden",
+  "sending": "Wird gesendet...",
+  "feedbackSentSuccess": "✅ Feedback erfolgreich gesendet! Vielen Dank für Ihr Feedback.",
+  "feedbackSentError": "❌ {errorMessage}. Bitte versuchen Sie es erneut oder nutzen Sie die direkte E-Mail-Option oben.",
+  "feedbackCategoryBug": "Fehlerbericht",
+  "feedbackCategoryFeature": "Feature-Anfrage",
+  "feedbackCategoryImprovement": "Verbesserungsvorschlag",
+  "feedbackCategoryGeneral": "Allgemeines Feedback",
+  "feedbackCategory": "Kategorie",
+  "feedbackTitle": "Titel",
+  "feedbackTitleHint": "Kurze Beschreibung Ihres Feedbacks",
+  "feedbackDescription": "Beschreibung",
+  "feedbackDescriptionHint": "Bitte geben Sie detaillierte Informationen zu Ihrem Feedback...",
+  "feedbackEmail": "E-Mail (Optional)",
+  "feedbackEmailHint": "ihre.email@beispiel.com",
+  "feedbackEmailDescription": "Wir verwenden dies, um bei Bedarf auf Ihr Feedback zu antworten.",
+  "feedbackFrom": "Feedback von {title}",
+  "emailLaunchError": "E-Mail-App konnte nicht geöffnet werden. Bitte versuchen Sie es manuell erneut.",
+  "invalidFeedbackData": "Ungültige Feedback-Daten",
+  "failedToSendFeedback": "Feedback konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+  "errorSendingFeedback": "Fehler beim Senden des Feedbacks: {error}",
+  "maybeLater": "Vielleicht später"
 }

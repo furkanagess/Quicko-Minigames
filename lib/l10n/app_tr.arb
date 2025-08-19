@@ -21,7 +21,7 @@
   "reset": "Sıfırla",
   
   "higherLower": "Yüksek mi Düşük mü",
-  "higherLowerDescription": "Sonraki sayının yüksek mi yoksa düşük mü olacağını tahmin edin!",
+  "higherLowerDescription": "Sonraki sayının yüksek mi yoksa düşük mü olacağını tahmin edin! Sayılar 1-50 arasındadır.",
   "higher": "Yüksek",
   "lower": "Düşük",
   "lastNumber": "Son Sayı",
@@ -85,7 +85,7 @@
   "nowYourTurn": "Şimdi sıra sizde!",
   "correct": "Doğru!",
   "playing": "Oynanıyor",
-  "youReachedLevel": "Seviye {level}'e ulaştınız",
+
   "tapToStartGuessing": "Tahmin etmeye başlamak için Yüksek veya Düşük'e dokunun! Sayılar 1-50 arasındadır.",
   "numbersBetween1And50": "Sayılar 1-50 arasındadır",
   
@@ -95,13 +95,13 @@
   "playGames": "Oyun Oyna",
   "swipeToDeleteHint": "Yüksek skorları silmek için sola kaydırın",
   "removeAds": "Reklamları Kaldır",
-  "removeAdsDescription": "Aylık abonelik ile reklamsız deneyim yaşayın",
+  "removeAdsDescription": "Tek seferlik ödeme ile reklamsız deneyim yaşayın",
   "monthlySubscription": "Aylık Abonelik",
-  "subscribeNow": "Şimdi Abone Ol",
+  "buyNow": "Şimdi Satın Al",
   "restorePurchases": "Satın Alımları Geri Yükle",
   "subscriptionActive": "Abonelik Aktif",
   "subscriptionExpired": "Abonelik Süresi Doldu",
-  "daysRemaining": "{days} gün kaldı",
+  "purchasedOn": "Satın alınma tarihi: {date}",
   "monthlySubscriptionPrice": "Aylık abonelik - $2.49",
   "uninstallWarning": "Önemli: Abonelik yerel olarak saklanır. Uygulamayı kaldırırsanız, aboneliğiniz kaybolacak ve tekrar satın almanız gerekecektir.",
   "importantNotice": "Önemli Uyarı",
@@ -115,9 +115,17 @@
   "noRewardedAds": "Ödüllü reklamlar yok",
   "cleanExperience": "Temiz, dikkat dağıtmayan deneyim",
   "cancelAnytime": "İstediğiniz zaman iptal edin",
-  "usdPerMonth": "USD/ay",
+  "cancelSubscriptionWarning": "Aboneliğinizi iptal etmek reklamsız erişimi kaldıracak ve tekrar reklamları görmeye başlayacaksınız.",
+  "subscriptionPrice": "99 TL",
+  "@subscriptionPrice": {
+    "description": "One-time payment price display"
+  },
+  "oneTimePayment": "Tek seferlik ödeme",
+  "@oneTimePayment": {
+    "description": "One-time payment label"
+  },
   "bestValue": "EN İYİ DEĞER",
-  "fiftyPercentOff": "%50 İNDİRİM",
+  "lifetimeAccess": "ÖMÜR BOYU ERİŞİM",
   "totalGames": "Toplam Oyun",
   "highestScore": "En Yüksek Skor",
   "averageScore": "Ortalama Skor",
@@ -138,6 +146,18 @@
   "finalScore": "Final Skor",
   "timeRanOut": "Süre bitti!",
   "youWon": "Kazandınız!",
+  "rateQuicko": "Quicko'yu Değerlendir",
+  "rateQuickoDescription": "Geri bildiriminiz bize gelişmemize ve daha fazla kullanıcıya ulaşmamıza yardımcı olur!",
+  "howWouldYouRate": "Quicko'yu nasıl değerlendirirsiniz?",
+  "rateOnStore": "Mağazada Değerlendir",
+  "openingStore": "Mağaza Açılıyor...",
+  "ratingPoor": "Kötü",
+  "ratingFair": "Orta",
+  "ratingGood": "İyi",
+  "ratingVeryGood": "Çok İyi",
+  "ratingExcellent": "Mükemmel!",
+  "thankYouForRating": "Quicko'yu değerlendirdiğiniz için teşekkürler!",
+  "couldNotOpenStore": "Mağaza açılamadı. Lütfen tekrar deneyin.",
   "congratulationsMessage": "Tebrikler! Görevi tamamladınız!",
   "excellentPerformance": "Mükemmel performans!",
   "playAgain": "Tekrar Oyna",
@@ -282,6 +302,38 @@
   "brown": "Kahverengi",
   "@brown": {
     "description": "Brown color name"
+  },
+  "cyan": "Camgöbeği",
+  "@cyan": {
+    "description": "Cyan color name"
+  },
+  "lime": "Limon Yeşili",
+  "@lime": {
+    "description": "Lime color name"
+  },
+  "magenta": "Eflatun",
+  "@magenta": {
+    "description": "Magenta color name"
+  },
+  "teal": "Teal",
+  "@teal": {
+    "description": "Teal color name"
+  },
+  "indigo": "Çivit Mavisi",
+  "@indigo": {
+    "description": "Indigo color name"
+  },
+  "amber": "Kehribar",
+  "@amber": {
+    "description": "Amber color name"
+  },
+  "deep_purple": "Koyu Mor",
+  "@deep_purple": {
+    "description": "Deep purple color name"
+  },
+  "light_blue": "Açık Mavi",
+  "@light_blue": {
+    "description": "Light blue color name"
   },
   
   "play": "Oyna",
@@ -453,10 +505,7 @@
   "@wrongPattern": {
     "description": "Message when wrong pattern is selected"
   },
-  "level": "Seviye",
-  "@level": {
-    "description": "Level label"
-  },
+
   "wrong": "Yanlış",
   "@wrong": {
     "description": "Wrong message"
@@ -477,6 +526,26 @@
   "watchAdToContinue": "Devam Etmek İçin Reklam İzle",
   "@watchAdToContinue": {
     "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "1 Kerelik Devam Et",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Aboneliği İptal Et",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Reklamsız aboneliğinizi iptal edin ve reklamlara geri dönün",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
+  },
+  "cancelSubscriptionError": "Abonelik İptal Hatası",
+  "@cancelSubscriptionError": {
+    "description": "Title for cancel subscription error"
+  },
+  "cancelSubscriptionErrorDescription": "Aboneliğinizi iptal edemedik. Lütfen tekrar deneyin veya destek ile iletişime geçin.",
+  "@cancelSubscriptionErrorDescription": {
+    "description": "Description for cancel subscription error"
   },
   "adNotAvailable": "Reklam Mevcut Değil",
   "@adNotAvailable": {
@@ -531,5 +600,33 @@
   "soundTest": "Ses Testi",
   "playSampleSound": "Örnek Sesi Çal",
   "purchaseErrorDescription": "Satın alma tamamlanamadı. Lütfen tekrar deneyin veya ödeme yöntemini kontrol edin.",
-  "restoreErrorDescription": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin."
+  "restoreErrorDescription": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.",
+
+  "feedback": "Geri Bildirim",
+  "feedbackAndSuggestions": "Geri Bildirim & Öneriler",
+  "feedbackAndSuggestionsSubtitle": "Düşüncelerinizi paylaşın ve gelişmemize yardımcı olun",
+  "directContact": "Doğrudan İletişim",
+  "directContactDescription": "Geri bildirim formu çalışmazsa, doğrudan şu adresten bize ulaşabilirsiniz:",
+  "sendFeedback": "Geri Bildirim Gönder",
+  "sending": "Gönderiliyor...",
+  "feedbackSentSuccess": "✅ Geri bildirim başarıyla gönderildi! Görüşleriniz için teşekkürler.",
+  "feedbackSentError": "❌ {errorMessage}. Lütfen tekrar deneyin veya yukarıdaki doğrudan e-posta seçeneğini kullanın.",
+  "feedbackCategoryBug": "Hata Bildirimi",
+  "feedbackCategoryFeature": "Özellik İsteği",
+  "feedbackCategoryImprovement": "İyileştirme Önerisi",
+  "feedbackCategoryGeneral": "Genel Geri Bildirim",
+  "feedbackCategory": "Kategori",
+  "feedbackTitle": "Başlık",
+  "feedbackTitleHint": "Geri bildiriminizin kısa açıklaması",
+  "feedbackDescription": "Açıklama",
+  "feedbackDescriptionHint": "Lütfen geri bildiriminiz hakkında detaylı bilgi verin...",
+  "feedbackEmail": "E-posta (İsteğe Bağlı)",
+  "feedbackEmailHint": "ornek@email.com",
+  "feedbackEmailDescription": "Gerekirse geri bildiriminizle ilgili size ulaşmak için kullanacağız.",
+  "feedbackFrom": "{title} - Geri Bildirim",
+  "emailLaunchError": "E-posta uygulaması açılamadı. Lütfen manuel olarak tekrar deneyin.",
+  "invalidFeedbackData": "Geçersiz geri bildirim verisi",
+  "failedToSendFeedback": "Geri bildirim gönderilemedi. Lütfen tekrar deneyin.",
+  "errorSendingFeedback": "Geri bildirim gönderme hatası: {error}",
+  "maybeLater": "Belki Daha Sonra"
 }

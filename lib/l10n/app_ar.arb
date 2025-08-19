@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "عنوان لعبة أعلى أو أقل"
   },
-  "higherLowerDescription": "خمن ما إذا كان الرقم التالي أعلى أم أقل!",
+  "higherLowerDescription": "خمن ما إذا كان الرقم التالي أعلى أم أقل! الأرقام بين 1-50.",
   "@higherLowerDescription": {
     "description": "وصف لعبة أعلى أو أقل"
   },
@@ -263,16 +263,7 @@
   "@playing": {
     "description": "تسمية حالة اللعب"
   },
-  "youReachedLevel": "لقد وصلت إلى المستوى {level}",
-  "@youReachedLevel": {
-    "description": "رسالة الوصول لمستوى معين",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "اضغط على أعلى أو أقل لبدء التخمين! الأرقام بين 1-50.",
   "@tapToStartGuessing": {
     "description": "تعليمات بدء التخمين"
@@ -305,7 +296,7 @@
   "@removeAds": {
     "description": "خيار الاشتراك لإزالة الإعلانات"
   },
-  "removeAdsDescription": "استمتع بتجربة خالية من الإعلانات مع اشتراك شهري",
+  "removeAdsDescription": "استمتع بتجربة خالية من الإعلانات مع دفعة واحدة",
   "@removeAdsDescription": {
     "description": "وصف الاشتراك لإزالة الإعلانات"
   },
@@ -313,7 +304,7 @@
   "@monthlySubscription": {
     "description": "تسمية الاشتراك الشهري"
   },
-  "subscribeNow": "اشترك الآن",
+  "buyNow": "اشتر الآن",
   "@subscribeNow": {
     "description": "نص زر الاشتراك الآن"
   },
@@ -329,7 +320,7 @@
   "@subscriptionExpired": {
     "description": "حالة الاشتراك المنتهي الصلاحية"
   },
-  "daysRemaining": "متبقي {days} يوم",
+  "purchasedOn": "تم الشراء في: {date}",
   "@daysRemaining": {
     "description": "الأيام المتبقية في الاشتراك",
     "placeholders": {
@@ -372,10 +363,15 @@
     "description": "وصف الميزة للتجربة النظيفة"
   },
   "cancelAnytime": "إلغاء في أي وقت",
+  "cancelSubscriptionWarning": "إلغاء اشتراكك سيزيل الوصول بدون إعلانات وسترى الإعلانات مرة أخرى.",
   "@cancelAnytime": {
     "description": "وصف الميزة للإلغاء في أي وقت"
   },
-  "usdPerMonth": "دولار/شهر",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "دفعة واحدة",
   "@usdPerMonth": {
     "description": "تسمية الدولار شهرياً"
   },
@@ -383,7 +379,7 @@
   "@bestValue": {
     "description": "تسمية أفضل قيمة"
   },
-  "fiftyPercentOff": "خصم 50%",
+  "lifetimeAccess": "وصول مدى الحياة",
   "@fiftyPercentOff": {
     "description": "تسمية خصم 50%"
   },
@@ -472,6 +468,18 @@
     "description": "تسمية النقاط النهائية"
   },
   "youWon": "لقد فزت!",
+  "rateQuicko": "قيّم Quicko",
+  "rateQuickoDescription": "ملاحظاتك تساعدنا على التحسن والوصول إلى المزيد من المستخدمين!",
+  "howWouldYouRate": "كيف تقيّم Quicko؟",
+  "rateOnStore": "قيّم في المتجر",
+  "openingStore": "جاري فتح المتجر...",
+  "ratingPoor": "سيء",
+  "ratingFair": "مقبول",
+  "ratingGood": "جيد",
+  "ratingVeryGood": "جيد جداً",
+  "ratingExcellent": "ممتاز!",
+  "thankYouForRating": "شكراً لك على تقييم Quicko!",
+  "couldNotOpenStore": "لا يمكن فتح المتجر. يرجى المحاولة مرة أخرى.",
   "@youWon": {
     "description": "رسالة الفوز"
   },
@@ -631,6 +639,38 @@
   "@brown": {
     "description": "اسم اللون البني"
   },
+  "cyan": "سماوي",
+  "@cyan": {
+    "description": "اسم اللون السماوي"
+  },
+  "lime": "ليموني",
+  "@lime": {
+    "description": "اسم اللون الليموني"
+  },
+  "magenta": "أرجواني",
+  "@magenta": {
+    "description": "اسم اللون الأرجواني"
+  },
+  "teal": "فيروزي",
+  "@teal": {
+    "description": "اسم اللون الفيروزي"
+  },
+  "indigo": "نيلي",
+  "@indigo": {
+    "description": "اسم اللون النيلي"
+  },
+  "amber": "كهرماني",
+  "@amber": {
+    "description": "اسم اللون الكهرماني"
+  },
+  "deep_purple": "بنفسجي داكن",
+  "@deep_purple": {
+    "description": "اسم اللون البنفسجي الداكن"
+  },
+  "light_blue": "أزرق فاتح",
+  "@light_blue": {
+    "description": "اسم اللون الأزرق الفاتح"
+  },
   "play": "العب",
   "@play": {
     "description": "نص زر اللعب"
@@ -783,10 +823,7 @@
   "@wrongPattern": {
     "description": "رسالة النمط الخاطئ"
   },
-  "level": "المستوى",
-  "@level": {
-    "description": "تسمية المستوى"
-  },
+
   "wrong": "خاطئ",
   "@wrong": {
     "description": "رسالة الخطأ"
@@ -806,7 +843,19 @@
   },
   "watchAdToContinue": "شاهد الإعلان للمتابعة",
   "@watchAdToContinue": {
-    "description": "نص زر شاهد الإعلان للمتابعة"
+    "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "استمر مرة واحدة",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "إلغاء الاشتراك",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "ألغِ اشتراكك الخالي من الإعلانات وعد إلى الإعلانات",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "الإعلان غير متاح",
   "@adNotAvailable": {
@@ -842,6 +891,34 @@
   "effectsVolume": "مستوى صوت التأثيرات",
   "soundTest": "اختبار الصوت",
   "playSampleSound": "تشغيل صوت تجريبي",
-  "purchaseErrorDescription": "تعذر إكمال عملية الشراء. يرجى المحاولة مرة أخرى أو التحقق من طريقة الدفع.",
-  "restoreErrorDescription": "تعذر استعادة مشترياتك. يرجى المحاولة مرة أخرى."
+  "purchaseErrorDescription": "لم نتمكن من إكمال عملية الشراء. يرجى المحاولة مرة أخرى أو التحقق من طريقة الدفع.",
+  "restoreErrorDescription": "لم نتمكن من استعادة مشترياتك. يرجى المحاولة مرة أخرى.",
+
+  "feedback": "التعليقات",
+  "feedbackAndSuggestions": "التعليقات والاقتراحات",
+  "feedbackAndSuggestionsSubtitle": "شارك أفكارك وساعدنا في التحسن",
+  "directContact": "التواصل المباشر",
+  "directContactDescription": "إذا لم يعمل نموذج التعليقات، يمكنك التواصل معنا مباشرة على:",
+  "sendFeedback": "إرسال التعليقات",
+  "sending": "جاري الإرسال...",
+  "feedbackSentSuccess": "✅ تم إرسال التعليقات بنجاح! شكراً لمساهمتك.",
+  "feedbackSentError": "❌ {errorMessage}. يرجى المحاولة مرة أخرى أو استخدام خيار البريد الإلكتروني المباشر أعلاه.",
+  "feedbackCategoryBug": "تقرير خطأ",
+  "feedbackCategoryFeature": "طلب ميزة",
+  "feedbackCategoryImprovement": "اقتراح تحسين",
+  "feedbackCategoryGeneral": "تعليقات عامة",
+  "feedbackCategory": "الفئة",
+  "feedbackTitle": "العنوان",
+  "feedbackTitleHint": "وصف مختصر لتعليقاتك",
+  "feedbackDescription": "الوصف",
+  "feedbackDescriptionHint": "يرجى تقديم معلومات مفصلة حول تعليقاتك...",
+  "feedbackEmail": "البريد الإلكتروني (اختياري)",
+  "feedbackEmailHint": "بريدك.الإلكتروني@مثال.com",
+  "feedbackEmailDescription": "سنستخدمه للتواصل معك بخصوص تعليقاتك إذا لزم الأمر.",
+  "feedbackFrom": "تعليقات من {title}",
+  "emailLaunchError": "تعذر فتح تطبيق البريد الإلكتروني. يرجى المحاولة يدوياً.",
+  "invalidFeedbackData": "بيانات التعليقات غير صالحة",
+  "failedToSendFeedback": "تعذر إرسال التعليقات. يرجى المحاولة مرة أخرى.",
+  "errorSendingFeedback": "خطأ في إرسال التعليقات: {error}",
+  "maybeLater": "ربما لاحقاً"
 }

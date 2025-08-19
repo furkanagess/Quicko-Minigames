@@ -65,7 +65,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get higherLowerDescription =>
-      'Tebak apakah angka berikutnya akan lebih tinggi atau lebih rendah!';
+      'Tebak apakah angka berikutnya akan lebih tinggi atau lebih rendah! Angka antara 1-50.';
 
   @override
   String get higher => 'Lebih Tinggi';
@@ -87,6 +87,23 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get watchAdToContinue => 'Tonton Iklan untuk Melanjutkan';
+
+  @override
+  String get oneTimeContinue => 'Lanjutkan 1 Kali';
+
+  @override
+  String get cancelSubscription => 'Batalkan Langganan';
+
+  @override
+  String get cancelSubscriptionDescription =>
+      'Batalkan langganan bebas iklan Anda dan kembali ke iklan';
+
+  @override
+  String get cancelSubscriptionError => 'Cancel Subscription Error';
+
+  @override
+  String get cancelSubscriptionErrorDescription =>
+      'Failed to cancel your subscription. Please try again or contact support.';
 
   @override
   String get adNotAvailable => 'Iklan Tidak Tersedia';
@@ -238,11 +255,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get playing => 'Sedang Bermain';
 
   @override
-  String youReachedLevel(int level) {
-    return 'Anda telah mencapai Level $level';
-  }
-
-  @override
   String get tapToStartGuessing =>
       'Tekan Lebih Tinggi atau Lebih Rendah untuk mulai menebak! Angka antara 1-50.';
 
@@ -270,13 +282,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get removeAdsDescription =>
-      'Nikmati pengalaman bebas iklan dengan berlangganan bulanan';
+      'Nikmati pengalaman bebas iklan dengan pembayaran sekali';
 
   @override
   String get monthlySubscription => 'Berlangganan Bulanan';
 
   @override
-  String get subscribeNow => 'Berlangganan Sekarang';
+  String get buyNow => 'Beli Sekarang';
 
   @override
   String get restorePurchases => 'Pulihkan Pembelian';
@@ -288,8 +300,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get subscriptionExpired => 'Berlangganan Kedaluwarsa';
 
   @override
-  String daysRemaining(int days) {
-    return '$days hari tersisa';
+  String purchasedOn(Object date) {
+    return 'Dibeli pada: $date';
   }
 
   @override
@@ -333,13 +345,20 @@ class AppLocalizationsId extends AppLocalizations {
   String get cancelAnytime => 'Batalkan kapan saja';
 
   @override
-  String get usdPerMonth => 'USD/bulan';
+  String get cancelSubscriptionWarning =>
+      'Membatalkan langganan Anda akan menghapus akses bebas iklan dan Anda akan melihat iklan lagi.';
+
+  @override
+  String get subscriptionPrice => '\$2.99';
+
+  @override
+  String get oneTimePayment => 'Pembayaran sekali';
 
   @override
   String get bestValue => 'NILAI TERBAIK';
 
   @override
-  String get fiftyPercentOff => '50% DISKON';
+  String get lifetimeAccess => 'AKSES SEUMUR HIDUP';
 
   @override
   String get totalGames => 'Total Permainan';
@@ -396,6 +415,44 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get youWon => 'Anda Menang!';
+
+  @override
+  String get rateQuicko => 'Nilai Quicko';
+
+  @override
+  String get rateQuickoDescription =>
+      'Umpan balik Anda membantu kami berkembang dan menjangkau lebih banyak pengguna!';
+
+  @override
+  String get howWouldYouRate => 'Bagaimana Anda menilai Quicko?';
+
+  @override
+  String get rateOnStore => 'Nilai di Toko';
+
+  @override
+  String get openingStore => 'Membuka Toko...';
+
+  @override
+  String get ratingPoor => 'Buruk';
+
+  @override
+  String get ratingFair => 'Cukup';
+
+  @override
+  String get ratingGood => 'Baik';
+
+  @override
+  String get ratingVeryGood => 'Sangat Baik';
+
+  @override
+  String get ratingExcellent => 'Luar Biasa!';
+
+  @override
+  String get thankYouForRating => 'Terima kasih telah menilai Quicko!';
+
+  @override
+  String get couldNotOpenStore =>
+      'Tidak dapat membuka toko. Silakan coba lagi.';
 
   @override
   String get congratulationsMessage =>
@@ -522,6 +579,30 @@ class AppLocalizationsId extends AppLocalizations {
   String get brown => 'Cokelat';
 
   @override
+  String get cyan => 'Sian';
+
+  @override
+  String get lime => 'Lime';
+
+  @override
+  String get magenta => 'Magenta';
+
+  @override
+  String get teal => 'Teal';
+
+  @override
+  String get indigo => 'Indigo';
+
+  @override
+  String get amber => 'Amber';
+
+  @override
+  String get deep_purple => 'Ungu Gelap';
+
+  @override
+  String get light_blue => 'Biru Muda';
+
+  @override
   String get play => 'Main';
 
   @override
@@ -641,9 +722,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get wrongPattern => 'Pola Salah';
 
   @override
-  String get level => 'Level';
-
-  @override
   String get wrong => 'Salah';
 
   @override
@@ -651,6 +729,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get column => 'kolom';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get gameInProgress => 'Game in Progress';
@@ -698,9 +779,103 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get purchaseErrorDescription =>
-      'We couldn\'t complete your purchase. Please try again or check your payment method.';
+      'Kami tidak dapat menyelesaikan pembelian Anda. Silakan coba lagi atau periksa metode pembayaran Anda.';
 
   @override
   String get restoreErrorDescription =>
-      'We couldn\'t restore your purchases. Please try again.';
+      'Kami tidak dapat memulihkan pembelian Anda. Silakan coba lagi.';
+
+  @override
+  String get feedback => 'Umpan Balik';
+
+  @override
+  String get feedbackAndSuggestions => 'Umpan Balik & Saran';
+
+  @override
+  String get feedbackAndSuggestionsSubtitle =>
+      'Bagikan pemikiran Anda dan bantu kami berkembang';
+
+  @override
+  String get directContact => 'Kontak Langsung';
+
+  @override
+  String get directContactDescription =>
+      'Jika formulir umpan balik tidak berfungsi, Anda dapat menghubungi kami langsung di:';
+
+  @override
+  String get sendFeedback => 'Kirim Umpan Balik';
+
+  @override
+  String get sending => 'Mengirim...';
+
+  @override
+  String get feedbackSentSuccess =>
+      '✅ Umpan balik berhasil dikirim! Terima kasih atas kontribusi Anda.';
+
+  @override
+  String feedbackSentError(String errorMessage) {
+    return '❌ $errorMessage. Silakan coba lagi atau gunakan opsi email langsung di atas.';
+  }
+
+  @override
+  String get feedbackCategoryBug => 'Laporan Bug';
+
+  @override
+  String get feedbackCategoryFeature => 'Permintaan Fitur';
+
+  @override
+  String get feedbackCategoryImprovement => 'Saran Perbaikan';
+
+  @override
+  String get feedbackCategoryGeneral => 'Umpan Balik Umum';
+
+  @override
+  String get feedbackCategory => 'Kategori';
+
+  @override
+  String get feedbackTitle => 'Judul';
+
+  @override
+  String get feedbackTitleHint => 'Deskripsi singkat umpan balik Anda';
+
+  @override
+  String get feedbackDescription => 'Deskripsi';
+
+  @override
+  String get feedbackDescriptionHint =>
+      'Silakan berikan informasi detail tentang umpan balik Anda...';
+
+  @override
+  String get feedbackEmail => 'Email (Opsional)';
+
+  @override
+  String get feedbackEmailHint => 'email.anda@contoh.com';
+
+  @override
+  String get feedbackEmailDescription =>
+      'Kami akan menggunakannya untuk menghubungi Anda tentang umpan balik Anda jika diperlukan.';
+
+  @override
+  String feedbackFrom(String title) {
+    return 'Umpan Balik dari $title';
+  }
+
+  @override
+  String get emailLaunchError =>
+      'Tidak dapat membuka aplikasi email. Silakan coba lagi secara manual.';
+
+  @override
+  String get invalidFeedbackData => 'Data umpan balik tidak valid';
+
+  @override
+  String get failedToSendFeedback =>
+      'Gagal mengirim umpan balik. Silakan coba lagi.';
+
+  @override
+  String errorSendingFeedback(String error) {
+    return 'Error mengirim umpan balik: $error';
+  }
+
+  @override
+  String get maybeLater => 'Mungkin nanti';
 }

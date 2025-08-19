@@ -65,7 +65,7 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get higherLowerDescription =>
-      'Növbəti rəqəmin yüksək və ya aşağı olacağını təxmin edin!';
+      'Növbəti rəqəmin yüksək və ya aşağı olacağını təxmin edin! Rəqəmlər 1-50 arasındadır.';
 
   @override
   String get higher => 'Yüksək';
@@ -87,6 +87,23 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get watchAdToContinue => 'Davam etmək üçün reklamı izlə';
+
+  @override
+  String get oneTimeContinue => '1 Dəfə Davam Et';
+
+  @override
+  String get cancelSubscription => 'Abunəliyi Ləğv Et';
+
+  @override
+  String get cancelSubscriptionDescription =>
+      'Reklamsız abunəliyinizi ləğv edin və reklamlara qayıdın';
+
+  @override
+  String get cancelSubscriptionError => 'Cancel Subscription Error';
+
+  @override
+  String get cancelSubscriptionErrorDescription =>
+      'Failed to cancel your subscription. Please try again or contact support.';
 
   @override
   String get adNotAvailable => 'Reklam mövcud deyil';
@@ -239,11 +256,6 @@ class AppLocalizationsAz extends AppLocalizations {
   String get playing => 'Oynayır';
 
   @override
-  String youReachedLevel(int level) {
-    return 'Siz $level səviyyəsinə çatdınız';
-  }
-
-  @override
   String get tapToStartGuessing =>
       'Təxmin etməyə başlamaq üçün Yüksək və ya Aşağı düyməsinə basın! Rəqəmlər 1-50 arasındadır.';
 
@@ -271,13 +283,13 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get removeAdsDescription =>
-      'Aylıq abunəlik ilə reklamsız təcrübə yaşayın';
+      'Bir dəfəlik ödəniş ilə reklamsız təcrübə yaşayın';
 
   @override
   String get monthlySubscription => 'Aylıq Abunəlik';
 
   @override
-  String get subscribeNow => 'İndi Abunə Ol';
+  String get buyNow => 'İndi Al';
 
   @override
   String get restorePurchases => 'Alışları Bərpa Et';
@@ -289,8 +301,8 @@ class AppLocalizationsAz extends AppLocalizations {
   String get subscriptionExpired => 'Abunəlik Bitmiş';
 
   @override
-  String daysRemaining(int days) {
-    return '$days gün qalıb';
+  String purchasedOn(Object date) {
+    return 'Alınma tarixi: $date';
   }
 
   @override
@@ -334,13 +346,20 @@ class AppLocalizationsAz extends AppLocalizations {
   String get cancelAnytime => 'İstədiyiniz zaman ləğv edin';
 
   @override
-  String get usdPerMonth => 'USD/ay';
+  String get cancelSubscriptionWarning =>
+      'Abunəliyinizi ləğv etmək reklamsz girişi silinəcək və yenidən reklamlar görəcəksiniz.';
+
+  @override
+  String get subscriptionPrice => '\$2.99';
+
+  @override
+  String get oneTimePayment => 'Bir dəfəlik ödəniş';
 
   @override
   String get bestValue => 'ƏN YAXŞI DƏYƏR';
 
   @override
-  String get fiftyPercentOff => '50% ENDİRİM';
+  String get lifetimeAccess => 'ÖMÜR BOYU GİRİŞ';
 
   @override
   String get totalGames => 'Ümumi Oyunlar';
@@ -397,6 +416,45 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get youWon => 'Siz Qazandınız!';
+
+  @override
+  String get rateQuicko => 'Quicko-nu Qiymətləndir';
+
+  @override
+  String get rateQuickoDescription =>
+      'Geri bildiriminiz bizə təkmilləşməyə və daha çox istifadəçiyə çatmağa kömək edir!';
+
+  @override
+  String get howWouldYouRate => 'Quicko-nu necə qiymətləndirərsiniz?';
+
+  @override
+  String get rateOnStore => 'Mağazada Qiymətləndir';
+
+  @override
+  String get openingStore => 'Mağaza Açılır...';
+
+  @override
+  String get ratingPoor => 'Pis';
+
+  @override
+  String get ratingFair => 'Orta';
+
+  @override
+  String get ratingGood => 'Yaxşı';
+
+  @override
+  String get ratingVeryGood => 'Çox Yaxşı';
+
+  @override
+  String get ratingExcellent => 'Əla!';
+
+  @override
+  String get thankYouForRating =>
+      'Quicko-nu qiymətləndirdiyiniz üçün təşəkkür edirik!';
+
+  @override
+  String get couldNotOpenStore =>
+      'Mağaza açıla bilmədi. Zəhmət olmasa yenidən cəhd edin.';
 
   @override
   String get congratulationsMessage => 'Təbrik edirik! Çətinliyi tamamladınız!';
@@ -520,6 +578,30 @@ class AppLocalizationsAz extends AppLocalizations {
   String get brown => 'Qəhvəyi';
 
   @override
+  String get cyan => 'Mavi Yaşıl';
+
+  @override
+  String get lime => 'Laym';
+
+  @override
+  String get magenta => 'Maqenta';
+
+  @override
+  String get teal => 'Türkuaz';
+
+  @override
+  String get indigo => 'İndiqo';
+
+  @override
+  String get amber => 'Kəhrəba';
+
+  @override
+  String get deep_purple => 'Tünd Bənövşəyi';
+
+  @override
+  String get light_blue => 'Açıq Mavi';
+
+  @override
   String get play => 'Oyna';
 
   @override
@@ -638,9 +720,6 @@ class AppLocalizationsAz extends AppLocalizations {
   String get wrongPattern => 'Yanlış Nümunə';
 
   @override
-  String get level => 'Səviyyə';
-
-  @override
   String get wrong => 'Yanlış';
 
   @override
@@ -648,6 +727,9 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get column => 'sütun';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get gameInProgress => 'Game in Progress';
@@ -663,41 +745,133 @@ class AppLocalizationsAz extends AppLocalizations {
   String get exitGame => 'Exit Game';
 
   @override
-  String get soundSettings => 'Səs Parametrləri';
+  String get soundSettings => 'Sound Settings';
 
   @override
-  String get soundSettingsMenuSubtitle => 'Tətbiq səsləri və effekt səviyyəsi';
+  String get soundSettingsMenuSubtitle => 'App sounds and effects level';
 
   @override
-  String get appSounds => 'Tətbiq Səsləri';
+  String get appSounds => 'App Sounds';
 
   @override
-  String get appSoundsDescription =>
-      'Səsləri aç/bağla və effekt səviyyəsini tənzimlə';
+  String get appSoundsDescription => 'Toggle sounds and adjust effect level';
 
   @override
-  String get sounds => 'Səslər';
+  String get sounds => 'Sounds';
 
   @override
-  String get soundsOn => 'Açıq';
+  String get soundsOn => 'On';
 
   @override
-  String get soundsOff => 'Bağlı';
+  String get soundsOff => 'Off';
 
   @override
-  String get effectsVolume => 'Effekt Səs Səviyyəsi';
+  String get effectsVolume => 'Effects Volume';
 
   @override
-  String get soundTest => 'Səs Testi';
+  String get soundTest => 'Sound Test';
 
   @override
-  String get playSampleSound => 'Nümunə Səsi Çal';
+  String get playSampleSound => 'Play Sample Sound';
 
   @override
   String get purchaseErrorDescription =>
-      'We couldn\'t complete your purchase. Please try again or check your payment method.';
+      'Alış-verişinizi tamamlaya bilmədik. Zəhmət olmasa yenidən cəhd edin və ya ödəniş metodunuzu yoxlayın.';
 
   @override
   String get restoreErrorDescription =>
-      'We couldn\'t restore your purchases. Please try again.';
+      'Alış-verişlərinizi bərpa edə bilmədik. Zəhmət olmasa yenidən cəhd edin.';
+
+  @override
+  String get feedback => 'Rəy';
+
+  @override
+  String get feedbackAndSuggestions => 'Rəy və Təkliflər';
+
+  @override
+  String get feedbackAndSuggestionsSubtitle =>
+      'Fikirlərinizi bölüşün və inkişafımıza kömək edin';
+
+  @override
+  String get directContact => 'Birbaşa Əlaqə';
+
+  @override
+  String get directContactDescription =>
+      'Əgər rəy forması işləmirsə, birbaşa bu ünvandan bizimlə əlaqə saxlaya bilərsiniz:';
+
+  @override
+  String get sendFeedback => 'Rəy Göndər';
+
+  @override
+  String get sending => 'Göndərilir...';
+
+  @override
+  String get feedbackSentSuccess => '✅ Rəy uğurla göndərildi! Təşəkkür edirik.';
+
+  @override
+  String feedbackSentError(String errorMessage) {
+    return '❌ $errorMessage. Zəhmət olmasa yenidən cəhd edin və ya yuxarıdakı birbaşa email seçimindən istifadə edin.';
+  }
+
+  @override
+  String get feedbackCategoryBug => 'Xəta Hesabatı';
+
+  @override
+  String get feedbackCategoryFeature => 'Funksiya Tələbi';
+
+  @override
+  String get feedbackCategoryImprovement => 'Təkmilləşdirmə Təklifi';
+
+  @override
+  String get feedbackCategoryGeneral => 'Ümumi Rəy';
+
+  @override
+  String get feedbackCategory => 'Kateqoriya';
+
+  @override
+  String get feedbackTitle => 'Başlıq';
+
+  @override
+  String get feedbackTitleHint => 'Rəyinizin qısa təsviri';
+
+  @override
+  String get feedbackDescription => 'Təsvir';
+
+  @override
+  String get feedbackDescriptionHint =>
+      'Zəhmət olmasa rəyiniz haqqında ətraflı məlumat verin...';
+
+  @override
+  String get feedbackEmail => 'Email (İstəyə bağlı)';
+
+  @override
+  String get feedbackEmailHint => 'sizin.email@nümunə.az';
+
+  @override
+  String get feedbackEmailDescription =>
+      'Lazım olduqda rəyinizlə bağlı sizinlə əlaqə saxlamaq üçün istifadə edəcəyik.';
+
+  @override
+  String feedbackFrom(String title) {
+    return '$title - Rəy';
+  }
+
+  @override
+  String get emailLaunchError =>
+      'Email tətbiqi açıla bilmədi. Zəhmət olmasa əl ilə yenidən cəhd edin.';
+
+  @override
+  String get invalidFeedbackData => 'Yanlış rəy məlumatları';
+
+  @override
+  String get failedToSendFeedback =>
+      'Rəy göndərilə bilmədi. Zəhmət olmasa yenidən cəhd edin.';
+
+  @override
+  String errorSendingFeedback(String error) {
+    return 'Rəy göndərmə xətası: $error';
+  }
+
+  @override
+  String get maybeLater => 'Bəlkə də sonra';
 }

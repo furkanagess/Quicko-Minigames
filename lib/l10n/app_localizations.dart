@@ -229,7 +229,7 @@ abstract class AppLocalizations {
   /// Description for the Higher or Lower game
   ///
   /// In en, this message translates to:
-  /// **'Guess if the next number will be higher or lower!'**
+  /// **'Guess if the next number will be higher or lower! Numbers are between 1-50.'**
   String get higherLowerDescription;
 
   /// Higher button text
@@ -273,6 +273,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch Ad to Continue'**
   String get watchAdToContinue;
+
+  /// Button text for ad-free users to continue game once
+  ///
+  /// In en, this message translates to:
+  /// **'1-Time Continue'**
+  String get oneTimeContinue;
+
+  /// Title for cancel subscription screen
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription'**
+  String get cancelSubscription;
+
+  /// Description for cancel subscription screen
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel your ad-free subscription and return to ads'**
+  String get cancelSubscriptionDescription;
+
+  /// Title for cancel subscription error
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Subscription Error'**
+  String get cancelSubscriptionError;
+
+  /// Description for cancel subscription error
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to cancel your subscription. Please try again or contact support.'**
+  String get cancelSubscriptionErrorDescription;
 
   /// Ad not available dialog title
   ///
@@ -556,12 +586,6 @@ abstract class AppLocalizations {
   /// **'Playing'**
   String get playing;
 
-  /// Message when player reaches a new level
-  ///
-  /// In en, this message translates to:
-  /// **'You reached Level {level}'**
-  String youReachedLevel(int level);
-
   /// Instruction to start guessing in Higher or Lower
   ///
   /// In en, this message translates to:
@@ -613,7 +637,7 @@ abstract class AppLocalizations {
   /// Description for remove ads subscription
   ///
   /// In en, this message translates to:
-  /// **'Enjoy an ad-free experience with monthly subscription'**
+  /// **'Enjoy an ad-free experience with one-time payment'**
   String get removeAdsDescription;
 
   /// Monthly subscription label
@@ -622,11 +646,11 @@ abstract class AppLocalizations {
   /// **'Monthly Subscription'**
   String get monthlySubscription;
 
-  /// Subscribe now button text
+  /// No description provided for @buyNow.
   ///
   /// In en, this message translates to:
-  /// **'Subscribe Now'**
-  String get subscribeNow;
+  /// **'Buy Now'**
+  String get buyNow;
 
   /// Restore purchases button text
   ///
@@ -646,11 +670,11 @@ abstract class AppLocalizations {
   /// **'Subscription Expired'**
   String get subscriptionExpired;
 
-  /// Days remaining in subscription
+  /// No description provided for @purchasedOn.
   ///
   /// In en, this message translates to:
-  /// **'{days} days remaining'**
-  String daysRemaining(int days);
+  /// **'Purchased on: {date}'**
+  String purchasedOn(Object date);
 
   /// Monthly subscription price display
   ///
@@ -730,11 +754,23 @@ abstract class AppLocalizations {
   /// **'Cancel anytime'**
   String get cancelAnytime;
 
-  /// USD per month label
+  /// Warning message when canceling subscription
   ///
   /// In en, this message translates to:
-  /// **'USD/month'**
-  String get usdPerMonth;
+  /// **'Canceling your subscription will remove ad-free access and you will see ads again.'**
+  String get cancelSubscriptionWarning;
+
+  /// One-time payment price display
+  ///
+  /// In en, this message translates to:
+  /// **'\$2.99'**
+  String get subscriptionPrice;
+
+  /// One-time payment label
+  ///
+  /// In en, this message translates to:
+  /// **'One-time payment'**
+  String get oneTimePayment;
 
   /// Best value label
   ///
@@ -742,11 +778,11 @@ abstract class AppLocalizations {
   /// **'BEST VALUE'**
   String get bestValue;
 
-  /// 50% discount text for subscription
+  /// Lifetime access label
   ///
   /// In en, this message translates to:
-  /// **'50% OFF'**
-  String get fiftyPercentOff;
+  /// **'LIFETIME ACCESS'**
+  String get lifetimeAccess;
 
   /// Total games label
   ///
@@ -849,6 +885,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You Won!'**
   String get youWon;
+
+  /// Title for rating bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Rate Quicko'**
+  String get rateQuicko;
+
+  /// Description text for rating bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback helps us improve and reach more users!'**
+  String get rateQuickoDescription;
+
+  /// Question text for rating
+  ///
+  /// In en, this message translates to:
+  /// **'How would you rate Quicko?'**
+  String get howWouldYouRate;
+
+  /// Button text to rate on store
+  ///
+  /// In en, this message translates to:
+  /// **'Rate on Store'**
+  String get rateOnStore;
+
+  /// Loading text when opening store
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Store...'**
+  String get openingStore;
+
+  /// Rating text for 1 star
+  ///
+  /// In en, this message translates to:
+  /// **'Poor'**
+  String get ratingPoor;
+
+  /// Rating text for 2 stars
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get ratingFair;
+
+  /// Rating text for 3 stars
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get ratingGood;
+
+  /// Rating text for 4 stars
+  ///
+  /// In en, this message translates to:
+  /// **'Very Good'**
+  String get ratingVeryGood;
+
+  /// Rating text for 5 stars
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent!'**
+  String get ratingExcellent;
+
+  /// Success message after rating
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for rating Quicko!'**
+  String get thankYouForRating;
+
+  /// Error message when store cannot be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open store. Please try again.'**
+  String get couldNotOpenStore;
 
   /// Congratulations message for winning
   ///
@@ -1084,6 +1192,54 @@ abstract class AppLocalizations {
   /// **'Brown'**
   String get brown;
 
+  /// Cyan color name
+  ///
+  /// In en, this message translates to:
+  /// **'Cyan'**
+  String get cyan;
+
+  /// Lime color name
+  ///
+  /// In en, this message translates to:
+  /// **'Lime'**
+  String get lime;
+
+  /// Magenta color name
+  ///
+  /// In en, this message translates to:
+  /// **'Magenta'**
+  String get magenta;
+
+  /// Teal color name
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get teal;
+
+  /// Indigo color name
+  ///
+  /// In en, this message translates to:
+  /// **'Indigo'**
+  String get indigo;
+
+  /// Amber color name
+  ///
+  /// In en, this message translates to:
+  /// **'Amber'**
+  String get amber;
+
+  /// Deep purple color name
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Purple'**
+  String get deep_purple;
+
+  /// Light blue color name
+  ///
+  /// In en, this message translates to:
+  /// **'Light Blue'**
+  String get light_blue;
+
   /// Play button text
   ///
   /// In en, this message translates to:
@@ -1312,12 +1468,6 @@ abstract class AppLocalizations {
   /// **'Wrong Pattern'**
   String get wrongPattern;
 
-  /// Level label
-  ///
-  /// In en, this message translates to:
-  /// **'Level'**
-  String get level;
-
   /// Wrong message
   ///
   /// In en, this message translates to:
@@ -1335,6 +1485,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'column'**
   String get column;
+
+  /// 50% discount text for subscription
+  ///
+  /// In en, this message translates to:
+  /// **'50% OFF'**
+  String get fiftyPercentOff;
 
   /// Game in progress dialog title
   ///
@@ -1431,6 +1587,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We couldn\'t restore your purchases. Please try again.'**
   String get restoreErrorDescription;
+
+  /// Feedback screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// Feedback and suggestions menu item title
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback & Suggestions'**
+  String get feedbackAndSuggestions;
+
+  /// Feedback and suggestions menu item subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Share your thoughts and help us improve'**
+  String get feedbackAndSuggestionsSubtitle;
+
+  /// Direct contact section title
+  ///
+  /// In en, this message translates to:
+  /// **'Direct Contact'**
+  String get directContact;
+
+  /// Description for direct contact section
+  ///
+  /// In en, this message translates to:
+  /// **'If the feedback form doesn\'t work, you can contact us directly at:'**
+  String get directContactDescription;
+
+  /// Send feedback button text
+  ///
+  /// In en, this message translates to:
+  /// **'Send Feedback'**
+  String get sendFeedback;
+
+  /// Sending feedback loading text
+  ///
+  /// In en, this message translates to:
+  /// **'Sending...'**
+  String get sending;
+
+  /// Success message when feedback is sent
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Feedback sent successfully! Thank you for your input.'**
+  String get feedbackSentSuccess;
+
+  /// Error message when feedback sending fails
+  ///
+  /// In en, this message translates to:
+  /// **'❌ {errorMessage}. Please try again or use the direct email option above.'**
+  String feedbackSentError(String errorMessage);
+
+  /// Bug report category
+  ///
+  /// In en, this message translates to:
+  /// **'Bug Report'**
+  String get feedbackCategoryBug;
+
+  /// Feature request category
+  ///
+  /// In en, this message translates to:
+  /// **'Feature Request'**
+  String get feedbackCategoryFeature;
+
+  /// Improvement suggestion category
+  ///
+  /// In en, this message translates to:
+  /// **'Improvement Suggestion'**
+  String get feedbackCategoryImprovement;
+
+  /// General feedback category
+  ///
+  /// In en, this message translates to:
+  /// **'General Feedback'**
+  String get feedbackCategoryGeneral;
+
+  /// Feedback category field label
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get feedbackCategory;
+
+  /// Feedback title field label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get feedbackTitle;
+
+  /// Hint text for feedback title field
+  ///
+  /// In en, this message translates to:
+  /// **'Brief description of your feedback'**
+  String get feedbackTitleHint;
+
+  /// Feedback description field label
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get feedbackDescription;
+
+  /// Hint text for feedback description field
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide detailed information about your feedback...'**
+  String get feedbackDescriptionHint;
+
+  /// Feedback email field label
+  ///
+  /// In en, this message translates to:
+  /// **'Email (Optional)'**
+  String get feedbackEmail;
+
+  /// Hint text for feedback email field
+  ///
+  /// In en, this message translates to:
+  /// **'your.email@example.com'**
+  String get feedbackEmailHint;
+
+  /// Description for feedback email field
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll use this to follow up on your feedback if needed.'**
+  String get feedbackEmailDescription;
+
+  /// Email subject prefix for feedback
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback from {title}'**
+  String feedbackFrom(String title);
+
+  /// Error message when email app cannot be launched
+  ///
+  /// In en, this message translates to:
+  /// **'Could not launch email app. Please try again manually.'**
+  String get emailLaunchError;
+
+  /// Error message for invalid feedback data
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid feedback data'**
+  String get invalidFeedbackData;
+
+  /// Error message when feedback sending fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send feedback. Please try again.'**
+  String get failedToSendFeedback;
+
+  /// Detailed error message for feedback sending
+  ///
+  /// In en, this message translates to:
+  /// **'Error sending feedback: {error}'**
+  String errorSendingFeedback(String error);
+
+  /// Maybe later button text
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe Later'**
+  String get maybeLater;
 }
 
 class _AppLocalizationsDelegate

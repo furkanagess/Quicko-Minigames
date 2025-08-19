@@ -65,7 +65,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get higherLowerDescription =>
-      'अनुमान लगाएं कि अगली संख्या उच्च होगी या निम्न!';
+      'अनुमान लगाएं कि अगली संख्या उच्च होगी या निम्न! संख्याएं 1-50 के बीच हैं।';
 
   @override
   String get higher => 'उच्च';
@@ -87,6 +87,23 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get watchAdToContinue => 'जारी रखने के लिए विज्ञापन देखें';
+
+  @override
+  String get oneTimeContinue => '1 बार जारी रखें';
+
+  @override
+  String get cancelSubscription => 'सदस्यता रद्द करें';
+
+  @override
+  String get cancelSubscriptionDescription =>
+      'अपनी विज्ञापन-मुक्त सदस्यता रद्द करें और विज्ञापनों पर वापस जाएं';
+
+  @override
+  String get cancelSubscriptionError => 'Cancel Subscription Error';
+
+  @override
+  String get cancelSubscriptionErrorDescription =>
+      'Failed to cancel your subscription. Please try again or contact support.';
 
   @override
   String get adNotAvailable => 'विज्ञापन उपलब्ध नहीं';
@@ -239,11 +256,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get playing => 'खेल रहे हैं';
 
   @override
-  String youReachedLevel(int level) {
-    return 'आपने स्तर $level तक पहुंच गए हैं';
-  }
-
-  @override
   String get tapToStartGuessing =>
       'अनुमान लगाना शुरू करने के लिए उच्च या निम्न दबाएं! संख्याएं 1-50 के बीच हैं।';
 
@@ -271,13 +283,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get removeAdsDescription =>
-      'मासिक सदस्यता के साथ विज्ञापन-मुक्त अनुभव का आनंद लें';
+      'एक बार के भुगतान के साथ विज्ञापन-मुक्त अनुभव का आनंद लें';
 
   @override
   String get monthlySubscription => 'मासिक सदस्यता';
 
   @override
-  String get subscribeNow => 'अभी सदस्यता लें';
+  String get buyNow => 'अभी खरीदें';
 
   @override
   String get restorePurchases => 'खरीदारी पुनर्स्थापित करें';
@@ -289,8 +301,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get subscriptionExpired => 'सदस्यता समाप्त';
 
   @override
-  String daysRemaining(int days) {
-    return '$days दिन शेष';
+  String purchasedOn(Object date) {
+    return 'खरीदा गया: $date';
   }
 
   @override
@@ -334,13 +346,20 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cancelAnytime => 'कभी भी रद्द करें';
 
   @override
-  String get usdPerMonth => 'USD/महीना';
+  String get cancelSubscriptionWarning =>
+      'आपकी सब्सक्रिप्शन रद्द करने से विज्ञापन-मुक्त पहुंच हट जाएगी और आप फिर से विज्ञापन देखेंगे।';
+
+  @override
+  String get subscriptionPrice => '\$2.99';
+
+  @override
+  String get oneTimePayment => 'एक बार का भुगतान';
 
   @override
   String get bestValue => 'सर्वश्रेष्ठ मूल्य';
 
   @override
-  String get fiftyPercentOff => '50% छूट';
+  String get lifetimeAccess => 'आजीवन पहुंच';
 
   @override
   String get totalGames => 'कुल खेल';
@@ -397,6 +416,43 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get youWon => 'आप जीत गए!';
+
+  @override
+  String get rateQuicko => 'Quicko को रेट करें';
+
+  @override
+  String get rateQuickoDescription =>
+      'आपकी प्रतिक्रिया हमें बेहतर बनने और अधिक उपयोगकर्ताओं तक पहुंचने में मदद करती है!';
+
+  @override
+  String get howWouldYouRate => 'आप Quicko को कैसे रेट करेंगे?';
+
+  @override
+  String get rateOnStore => 'स्टोर में रेट करें';
+
+  @override
+  String get openingStore => 'स्टोर खोल रहा है...';
+
+  @override
+  String get ratingPoor => 'खराब';
+
+  @override
+  String get ratingFair => 'ठीक';
+
+  @override
+  String get ratingGood => 'अच्छा';
+
+  @override
+  String get ratingVeryGood => 'बहुत अच्छा';
+
+  @override
+  String get ratingExcellent => 'उत्कृष्ट!';
+
+  @override
+  String get thankYouForRating => 'Quicko को रेट करने के लिए धन्यवाद!';
+
+  @override
+  String get couldNotOpenStore => 'स्टोर नहीं खोल सके। कृपया पुनः प्रयास करें।';
 
   @override
   String get congratulationsMessage => 'बधाई हो! आपने चुनौती पूरी कर ली है!';
@@ -520,6 +576,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get brown => 'भूरा';
 
   @override
+  String get cyan => 'सायन';
+
+  @override
+  String get lime => 'नींबू हरा';
+
+  @override
+  String get magenta => 'मैजेंटा';
+
+  @override
+  String get teal => 'टील';
+
+  @override
+  String get indigo => 'नील';
+
+  @override
+  String get amber => 'अम्बर';
+
+  @override
+  String get deep_purple => 'गहरा बैंगनी';
+
+  @override
+  String get light_blue => 'हल्का नीला';
+
+  @override
   String get play => 'खेलें';
 
   @override
@@ -638,9 +718,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wrongPattern => 'गलत पैटर्न';
 
   @override
-  String get level => 'स्तर';
-
-  @override
   String get wrong => 'गलत';
 
   @override
@@ -648,6 +725,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get column => 'स्तंभ';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get gameInProgress => 'Game in Progress';
@@ -663,41 +743,134 @@ class AppLocalizationsHi extends AppLocalizations {
   String get exitGame => 'Exit Game';
 
   @override
-  String get soundSettings => 'ध्वनि सेटिंग्स';
+  String get soundSettings => 'Sound Settings';
 
   @override
-  String get soundSettingsMenuSubtitle => 'ऐप की ध्वनियाँ और प्रभाव स्तर';
+  String get soundSettingsMenuSubtitle => 'App sounds and effects level';
 
   @override
-  String get appSounds => 'ऐप ध्वनियाँ';
+  String get appSounds => 'App Sounds';
 
   @override
-  String get appSoundsDescription =>
-      'ध्वनियाँ चालू/बंद करें और प्रभाव स्तर समायोजित करें';
+  String get appSoundsDescription => 'Toggle sounds and adjust effect level';
 
   @override
-  String get sounds => 'ध्वनियाँ';
+  String get sounds => 'Sounds';
 
   @override
-  String get soundsOn => 'चालू';
+  String get soundsOn => 'On';
 
   @override
-  String get soundsOff => 'बंद';
+  String get soundsOff => 'Off';
 
   @override
-  String get effectsVolume => 'इफेक्ट वॉल्यूम';
+  String get effectsVolume => 'Effects Volume';
 
   @override
-  String get soundTest => 'ध्वनि परीक्षण';
+  String get soundTest => 'Sound Test';
 
   @override
-  String get playSampleSound => 'नमूना ध्वनि चलाएँ';
+  String get playSampleSound => 'Play Sample Sound';
 
   @override
   String get purchaseErrorDescription =>
-      'We couldn\'t complete your purchase. Please try again or check your payment method.';
+      'हम आपकी खरीद पूरी नहीं कर सके। कृपया पुनः प्रयास करें या अपने भुगतान विधि की जांच करें।';
 
   @override
   String get restoreErrorDescription =>
-      'We couldn\'t restore your purchases. Please try again.';
+      'हम आपकी खरीद को पुनर्स्थापित नहीं कर सके। कृपया पुनः प्रयास करें।';
+
+  @override
+  String get feedback => 'प्रतिक्रिया';
+
+  @override
+  String get feedbackAndSuggestions => 'प्रतिक्रिया और सुझाव';
+
+  @override
+  String get feedbackAndSuggestionsSubtitle =>
+      'अपने विचार साझा करें और हमें बेहतर बनाने में मदद करें';
+
+  @override
+  String get directContact => 'सीधा संपर्क';
+
+  @override
+  String get directContactDescription =>
+      'यदि प्रतिक्रिया फॉर्म काम नहीं करता, तो आप हमसे सीधे संपर्क कर सकते हैं:';
+
+  @override
+  String get sendFeedback => 'प्रतिक्रिया भेजें';
+
+  @override
+  String get sending => 'भेज रहा है...';
+
+  @override
+  String get feedbackSentSuccess =>
+      '✅ प्रतिक्रिया सफलतापूर्वक भेजी गई! आपके योगदान के लिए धन्यवाद।';
+
+  @override
+  String feedbackSentError(String errorMessage) {
+    return '❌ $errorMessage. कृपया पुनः प्रयास करें या ऊपर दिए गए सीधे ईमेल विकल्प का उपयोग करें।';
+  }
+
+  @override
+  String get feedbackCategoryBug => 'बग रिपोर्ट';
+
+  @override
+  String get feedbackCategoryFeature => 'सुविधा अनुरोध';
+
+  @override
+  String get feedbackCategoryImprovement => 'सुधार सुझाव';
+
+  @override
+  String get feedbackCategoryGeneral => 'सामान्य प्रतिक्रिया';
+
+  @override
+  String get feedbackCategory => 'श्रेणी';
+
+  @override
+  String get feedbackTitle => 'शीर्षक';
+
+  @override
+  String get feedbackTitleHint => 'आपकी प्रतिक्रिया का संक्षिप्त विवरण';
+
+  @override
+  String get feedbackDescription => 'विवरण';
+
+  @override
+  String get feedbackDescriptionHint =>
+      'कृपया अपनी प्रतिक्रिया के बारे में विस्तृत जानकारी प्रदान करें...';
+
+  @override
+  String get feedbackEmail => 'ईमेल (वैकल्पिक)';
+
+  @override
+  String get feedbackEmailHint => 'आपका.ईमेल@उदाहरण.com';
+
+  @override
+  String get feedbackEmailDescription =>
+      'यदि आवश्यक हो तो हम आपकी प्रतिक्रिया के बारे में आपसे संपर्क करने के लिए इसका उपयोग करेंगे।';
+
+  @override
+  String feedbackFrom(String title) {
+    return '$title से प्रतिक्रिया';
+  }
+
+  @override
+  String get emailLaunchError =>
+      'ईमेल ऐप नहीं खोल सके। कृपया मैन्युअल रूप से पुनः प्रयास करें।';
+
+  @override
+  String get invalidFeedbackData => 'अमान्य प्रतिक्रिया डेटा';
+
+  @override
+  String get failedToSendFeedback =>
+      'प्रतिक्रिया भेजने में विफल। कृपया पुनः प्रयास करें।';
+
+  @override
+  String errorSendingFeedback(String error) {
+    return 'प्रतिक्रिया भेजने में त्रुटि: $error';
+  }
+
+  @override
+  String get maybeLater => 'शायद बाद में';
 }

@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "Title for the Higher or Lower game"
   },
-  "higherLowerDescription": "¡Adivina si el siguiente número será mayor o menor!",
+  "higherLowerDescription": "¡Adivina si el siguiente número será mayor o menor! Los números están entre 1-50.",
   "@higherLowerDescription": {
     "description": "Description for the Higher or Lower game"
   },
@@ -271,16 +271,7 @@
   "@playing": {
     "description": "Playing status label"
   },
-  "youReachedLevel": "Llegaste al Nivel {level}",
-  "@youReachedLevel": {
-    "description": "Message when player reaches a new level",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "¡Toca Mayor o Menor para comenzar a adivinar! Los números están entre 1-50.",
   "@tapToStartGuessing": {
     "description": "Instruction to start guessing in Higher or Lower"
@@ -314,7 +305,7 @@
   "@removeAds": {
     "description": "Opción de suscripción para eliminar anuncios"
   },
-  "removeAdsDescription": "Disfruta de una experiencia sin anuncios con suscripción mensual",
+  "removeAdsDescription": "Disfruta de una experiencia sin anuncios con pago único",
   "@removeAdsDescription": {
     "description": "Descripción de la suscripción para eliminar anuncios"
   },
@@ -322,7 +313,7 @@
   "@monthlySubscription": {
     "description": "Etiqueta de suscripción mensual"
   },
-  "subscribeNow": "Suscribirse Ahora",
+  "buyNow": "Comprar Ahora",
   "@subscribeNow": {
     "description": "Texto del botón Suscribirse ahora"
   },
@@ -338,7 +329,7 @@
   "@subscriptionExpired": {
     "description": "Estado de suscripción expirada"
   },
-  "daysRemaining": "{days} días restantes",
+  "purchasedOn": "Comprado el: {date}",
   "monthlySubscriptionPrice": "Suscripción mensual - $2.49",
   "uninstallWarning": "Importante: La suscripción se almacena localmente. Si desinstalas la aplicación, tu suscripción se perderá y tendrás que comprar de nuevo.",
   "@daysRemaining": {
@@ -383,10 +374,15 @@
     "description": "Descripción de función para experiencia limpia"
   },
   "cancelAnytime": "Cancela en cualquier momento",
+  "cancelSubscriptionWarning": "Cancelar su suscripción eliminará el acceso sin anuncios y volverá a ver anuncios.",
   "@cancelAnytime": {
     "description": "Descripción de función para cancelar en cualquier momento"
   },
-  "usdPerMonth": "USD/mes",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "Pago único",
   "@usdPerMonth": {
     "description": "Etiqueta USD por mes"
   },
@@ -394,7 +390,7 @@
   "@bestValue": {
     "description": "Etiqueta mejor valor"
   },
-  "fiftyPercentOff": "50% DESCUENTO",
+  "lifetimeAccess": "ACCESO DE POR VIDA",
   "@fiftyPercentOff": {
     "description": "Etiqueta 50% de descuento"
   },
@@ -485,6 +481,18 @@
     "description": "Final score label"
   },
   "youWon": "¡Ganaste!",
+  "rateQuicko": "Calificar Quicko",
+  "rateQuickoDescription": "¡Tu opinión nos ayuda a mejorar y llegar a más usuarios!",
+  "howWouldYouRate": "¿Cómo calificarías Quicko?",
+  "rateOnStore": "Calificar en la Tienda",
+  "openingStore": "Abriendo Tienda...",
+  "ratingPoor": "Malo",
+  "ratingFair": "Regular",
+  "ratingGood": "Bueno",
+  "ratingVeryGood": "Muy Bueno",
+  "ratingExcellent": "¡Excelente!",
+  "thankYouForRating": "¡Gracias por calificar Quicko!",
+  "couldNotOpenStore": "No se pudo abrir la tienda. Por favor, inténtalo de nuevo.",
   "@youWon": {
     "description": "You won message"
   },
@@ -657,6 +665,38 @@
   "@brown": {
     "description": "Brown color name"
   },
+  "cyan": "Cian",
+  "@cyan": {
+    "description": "Cyan color name"
+  },
+  "lime": "Lima",
+  "@lime": {
+    "description": "Lime color name"
+  },
+  "magenta": "Magenta",
+  "@magenta": {
+    "description": "Magenta color name"
+  },
+  "teal": "Verde Azulado",
+  "@teal": {
+    "description": "Teal color name"
+  },
+  "indigo": "Índigo",
+  "@indigo": {
+    "description": "Indigo color name"
+  },
+  "amber": "Ámbar",
+  "@amber": {
+    "description": "Amber color name"
+  },
+  "deep_purple": "Morado Oscuro",
+  "@deep_purple": {
+    "description": "Deep purple color name"
+  },
+  "light_blue": "Azul Claro",
+  "@light_blue": {
+    "description": "Light blue color name"
+  },
   
   "play": "Jugar",
   "@play": {
@@ -815,10 +855,7 @@
   "@wrongPattern": {
     "description": "Message when wrong pattern is selected"
   },
-  "level": "Nivel",
-  "@level": {
-    "description": "Level label"
-  },
+
   "wrong": "Incorrecto",
   "@wrong": {
     "description": "Wrong message"
@@ -839,6 +876,18 @@
   "watchAdToContinue": "Ver anuncio para continuar",
   "@watchAdToContinue": {
     "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "Continuar 1 Vez",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "Cancelar Suscripción",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "Cancela tu suscripción sin anuncios y vuelve a los anuncios",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "Anuncio no disponible",
   "@adNotAvailable": {
@@ -876,5 +925,33 @@
   "soundTest": "Prueba de sonido",
   "playSampleSound": "Reproducir sonido de muestra",
   "purchaseErrorDescription": "No pudimos completar tu compra. Inténtalo de nuevo o verifica tu método de pago.",
-  "restoreErrorDescription": "No pudimos restaurar tus compras. Inténtalo de nuevo."
+  "restoreErrorDescription": "No pudimos restaurar tus compras. Inténtalo de nuevo.",
+
+  "feedback": "Comentarios",
+  "feedbackAndSuggestions": "Comentarios y Sugerencias",
+  "feedbackAndSuggestionsSubtitle": "Comparte tus ideas y ayúdanos a mejorar",
+  "directContact": "Contacto Directo",
+  "directContactDescription": "Si el formulario de comentarios no funciona, puedes contactarnos directamente en:",
+  "sendFeedback": "Enviar Comentarios",
+  "sending": "Enviando...",
+  "feedbackSentSuccess": "✅ ¡Comentarios enviados exitosamente! Gracias por tu opinión.",
+  "feedbackSentError": "❌ {errorMessage}. Por favor, inténtalo de nuevo o usa la opción de email directo arriba.",
+  "feedbackCategoryBug": "Reporte de Error",
+  "feedbackCategoryFeature": "Solicitud de Función",
+  "feedbackCategoryImprovement": "Sugerencia de Mejora",
+  "feedbackCategoryGeneral": "Comentarios Generales",
+  "feedbackCategory": "Categoría",
+  "feedbackTitle": "Título",
+  "feedbackTitleHint": "Breve descripción de tus comentarios",
+  "feedbackDescription": "Descripción",
+  "feedbackDescriptionHint": "Por favor, proporciona información detallada sobre tus comentarios...",
+  "feedbackEmail": "Email (Opcional)",
+  "feedbackEmailHint": "tu.email@ejemplo.com",
+  "feedbackEmailDescription": "Lo usaremos para hacer seguimiento de tus comentarios si es necesario.",
+  "feedbackFrom": "Comentarios de {title}",
+  "emailLaunchError": "No se pudo abrir la aplicación de email. Por favor, inténtalo manualmente.",
+  "invalidFeedbackData": "Datos de comentarios inválidos",
+  "failedToSendFeedback": "No se pudieron enviar los comentarios. Por favor, inténtalo de nuevo.",
+  "errorSendingFeedback": "Error al enviar comentarios: {error}",
+  "maybeLater": "Quizás más tarde"
 }

@@ -75,7 +75,7 @@
   "@higherLower": {
     "description": "उच्च या निम्न खेल के लिए शीर्षक"
   },
-  "higherLowerDescription": "अनुमान लगाएं कि अगली संख्या उच्च होगी या निम्न!",
+  "higherLowerDescription": "अनुमान लगाएं कि अगली संख्या उच्च होगी या निम्न! संख्याएं 1-50 के बीच हैं।",
   "@higherLowerDescription": {
     "description": "उच्च या निम्न खेल के लिए विवरण"
   },
@@ -271,16 +271,7 @@
   "@playing": {
     "description": "खेल रहे हैं स्थिति लेबल"
   },
-  "youReachedLevel": "आपने स्तर {level} तक पहुंच गए हैं",
-  "@youReachedLevel": {
-    "description": "जब खिलाड़ी नया स्तर प्राप्त करता है तो संदेश",
-    "placeholders": {
-      "level": {
-        "type": "int",
-        "example": "5"
-      }
-    }
-  },
+
   "tapToStartGuessing": "अनुमान लगाना शुरू करने के लिए उच्च या निम्न दबाएं! संख्याएं 1-50 के बीच हैं।",
   "@tapToStartGuessing": {
     "description": "उच्च या निम्न में अनुमान लगाना शुरू करने का निर्देश"
@@ -314,7 +305,7 @@
   "@removeAds": {
     "description": "विज्ञापन हटाने के लिए सदस्यता विकल्प"
   },
-  "removeAdsDescription": "मासिक सदस्यता के साथ विज्ञापन-मुक्त अनुभव का आनंद लें",
+  "removeAdsDescription": "एक बार के भुगतान के साथ विज्ञापन-मुक्त अनुभव का आनंद लें",
   "@removeAdsDescription": {
     "description": "विज्ञापन हटाने के लिए सदस्यता का विवरण"
   },
@@ -322,7 +313,7 @@
   "@monthlySubscription": {
     "description": "मासिक सदस्यता लेबल"
   },
-  "subscribeNow": "अभी सदस्यता लें",
+  "buyNow": "अभी खरीदें",
   "@subscribeNow": {
     "description": "अभी सदस्यता लें बटन का टेक्स्ट"
   },
@@ -338,7 +329,7 @@
   "@subscriptionExpired": {
     "description": "सदस्यता समाप्त स्थिति"
   },
-  "daysRemaining": "{days} दिन शेष",
+  "purchasedOn": "खरीदा गया: {date}",
   "@daysRemaining": {
     "description": "सदस्यता में शेष दिन",
     "placeholders": {
@@ -381,10 +372,15 @@
     "description": "स्वच्छ अनुभव के लिए सुविधा विवरण"
   },
   "cancelAnytime": "कभी भी रद्द करें",
+  "cancelSubscriptionWarning": "आपकी सब्सक्रिप्शन रद्द करने से विज्ञापन-मुक्त पहुंच हट जाएगी और आप फिर से विज्ञापन देखेंगे।",
   "@cancelAnytime": {
     "description": "कभी भी रद्द करने के लिए सुविधा विवरण"
   },
-  "usdPerMonth": "USD/महीना",
+  "subscriptionPrice": "$2.99",
+  "@subscriptionPrice": {
+    "description": "Subscription price display"
+  },
+  "oneTimePayment": "एक बार का भुगतान",
   "@usdPerMonth": {
     "description": "USD प्रति महीना लेबल"
   },
@@ -392,7 +388,7 @@
   "@bestValue": {
     "description": "सर्वश्रेष्ठ मूल्य लेबल"
   },
-  "fiftyPercentOff": "50% छूट",
+  "lifetimeAccess": "आजीवन पहुंच",
   "@fiftyPercentOff": {
     "description": "50% छूट लेबल"
   },
@@ -483,6 +479,18 @@
     "description": "अंतिम स्कोर लेबल"
   },
   "youWon": "आप जीत गए!",
+  "rateQuicko": "Quicko को रेट करें",
+  "rateQuickoDescription": "आपकी प्रतिक्रिया हमें बेहतर बनने और अधिक उपयोगकर्ताओं तक पहुंचने में मदद करती है!",
+  "howWouldYouRate": "आप Quicko को कैसे रेट करेंगे?",
+  "rateOnStore": "स्टोर में रेट करें",
+  "openingStore": "स्टोर खोल रहा है...",
+  "ratingPoor": "खराब",
+  "ratingFair": "ठीक",
+  "ratingGood": "अच्छा",
+  "ratingVeryGood": "बहुत अच्छा",
+  "ratingExcellent": "उत्कृष्ट!",
+  "thankYouForRating": "Quicko को रेट करने के लिए धन्यवाद!",
+  "couldNotOpenStore": "स्टोर नहीं खोल सके। कृपया पुनः प्रयास करें।",
   "@youWon": {
     "description": "जीत संदेश"
   },
@@ -655,6 +663,38 @@
   "@brown": {
     "description": "भूरा रंग का नाम"
   },
+  "cyan": "सायन",
+  "@cyan": {
+    "description": "सायन रंग का नाम"
+  },
+  "lime": "नींबू हरा",
+  "@lime": {
+    "description": "नींबू हरा रंग का नाम"
+  },
+  "magenta": "मैजेंटा",
+  "@magenta": {
+    "description": "मैजेंटा रंग का नाम"
+  },
+  "teal": "टील",
+  "@teal": {
+    "description": "टील रंग का नाम"
+  },
+  "indigo": "नील",
+  "@indigo": {
+    "description": "नील रंग का नाम"
+  },
+  "amber": "अम्बर",
+  "@amber": {
+    "description": "अम्बर रंग का नाम"
+  },
+  "deep_purple": "गहरा बैंगनी",
+  "@deep_purple": {
+    "description": "गहरा बैंगनी रंग का नाम"
+  },
+  "light_blue": "हल्का नीला",
+  "@light_blue": {
+    "description": "हल्का नीला रंग का नाम"
+  },
   
   "play": "खेलें",
   "@play": {
@@ -813,10 +853,7 @@
   "@wrongPattern": {
     "description": "जब गलत पैटर्न चुना जाता है तो संदेश"
   },
-  "level": "स्तर",
-  "@level": {
-    "description": "स्तर लेबल"
-  },
+
   "wrong": "गलत",
   "@wrong": {
     "description": "गलत संदेश"
@@ -836,7 +873,19 @@
   },
   "watchAdToContinue": "जारी रखने के लिए विज्ञापन देखें",
   "@watchAdToContinue": {
-    "description": "जारी रखने के लिए विज्ञापन देखने के बटन का पाठ"
+    "description": "Watch ad to continue button text"
+  },
+  "oneTimeContinue": "1 बार जारी रखें",
+  "@oneTimeContinue": {
+    "description": "Button text for ad-free users to continue game once"
+  },
+  "cancelSubscription": "सदस्यता रद्द करें",
+  "@cancelSubscription": {
+    "description": "Title for cancel subscription screen"
+  },
+  "cancelSubscriptionDescription": "अपनी विज्ञापन-मुक्त सदस्यता रद्द करें और विज्ञापनों पर वापस जाएं",
+  "@cancelSubscriptionDescription": {
+    "description": "Description for cancel subscription screen"
   },
   "adNotAvailable": "विज्ञापन उपलब्ध नहीं",
   "@adNotAvailable": {
@@ -861,16 +910,35 @@
   "exit": "बाहर निकलें",
   "@exit": {
     "description": "बाहर निकलने के बटन का पाठ"
-  }
-  ,
-  "soundSettings": "ध्वनि सेटिंग्स",
-  "soundSettingsMenuSubtitle": "ऐप की ध्वनियाँ और प्रभाव स्तर",
-  "appSounds": "ऐप ध्वनियाँ",
-  "appSoundsDescription": "ध्वनियाँ चालू/बंद करें और प्रभाव स्तर समायोजित करें",
-  "sounds": "ध्वनियाँ",
-  "soundsOn": "चालू",
-  "soundsOff": "बंद",
-  "effectsVolume": "इफेक्ट वॉल्यूम",
-  "soundTest": "ध्वनि परीक्षण",
-  "playSampleSound": "नमूना ध्वनि चलाएँ"
+  },
+  "purchaseErrorDescription": "हम आपकी खरीद पूरी नहीं कर सके। कृपया पुनः प्रयास करें या अपने भुगतान विधि की जांच करें।",
+  "restoreErrorDescription": "हम आपकी खरीद को पुनर्स्थापित नहीं कर सके। कृपया पुनः प्रयास करें।",
+
+  "feedback": "प्रतिक्रिया",
+  "feedbackAndSuggestions": "प्रतिक्रिया और सुझाव",
+  "feedbackAndSuggestionsSubtitle": "अपने विचार साझा करें और हमें बेहतर बनाने में मदद करें",
+  "directContact": "सीधा संपर्क",
+  "directContactDescription": "यदि प्रतिक्रिया फॉर्म काम नहीं करता, तो आप हमसे सीधे संपर्क कर सकते हैं:",
+  "sendFeedback": "प्रतिक्रिया भेजें",
+  "sending": "भेज रहा है...",
+  "feedbackSentSuccess": "✅ प्रतिक्रिया सफलतापूर्वक भेजी गई! आपके योगदान के लिए धन्यवाद।",
+  "feedbackSentError": "❌ {errorMessage}. कृपया पुनः प्रयास करें या ऊपर दिए गए सीधे ईमेल विकल्प का उपयोग करें।",
+  "feedbackCategoryBug": "बग रिपोर्ट",
+  "feedbackCategoryFeature": "सुविधा अनुरोध",
+  "feedbackCategoryImprovement": "सुधार सुझाव",
+  "feedbackCategoryGeneral": "सामान्य प्रतिक्रिया",
+  "feedbackCategory": "श्रेणी",
+  "feedbackTitle": "शीर्षक",
+  "feedbackTitleHint": "आपकी प्रतिक्रिया का संक्षिप्त विवरण",
+  "feedbackDescription": "विवरण",
+  "feedbackDescriptionHint": "कृपया अपनी प्रतिक्रिया के बारे में विस्तृत जानकारी प्रदान करें...",
+  "feedbackEmail": "ईमेल (वैकल्पिक)",
+  "feedbackEmailHint": "आपका.ईमेल@उदाहरण.com",
+  "feedbackEmailDescription": "यदि आवश्यक हो तो हम आपकी प्रतिक्रिया के बारे में आपसे संपर्क करने के लिए इसका उपयोग करेंगे।",
+  "feedbackFrom": "{title} से प्रतिक्रिया",
+  "emailLaunchError": "ईमेल ऐप नहीं खोल सके। कृपया मैन्युअल रूप से पुनः प्रयास करें।",
+  "invalidFeedbackData": "अमान्य प्रतिक्रिया डेटा",
+  "failedToSendFeedback": "प्रतिक्रिया भेजने में विफल। कृपया पुनः प्रयास करें।",
+  "errorSendingFeedback": "प्रतिक्रिया भेजने में त्रुटि: {error}",
+  "maybeLater": "शायद बाद में"
 }

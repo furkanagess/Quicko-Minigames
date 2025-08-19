@@ -65,7 +65,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get higherLowerDescription =>
-      'Rate, ob die nächste Zahl höher oder niedriger sein wird!';
+      'Rate, ob die nächste Zahl höher oder niedriger sein wird! Die Zahlen sind zwischen 1-50.';
 
   @override
   String get higher => 'Höher';
@@ -87,6 +87,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get watchAdToContinue => 'Werbung ansehen um fortzufahren';
+
+  @override
+  String get oneTimeContinue => '1 Mal Weiter';
+
+  @override
+  String get cancelSubscription => 'Abonnement Kündigen';
+
+  @override
+  String get cancelSubscriptionDescription =>
+      'Kündigen Sie Ihr werbefreies Abonnement und kehren Sie zu Werbung zurück';
+
+  @override
+  String get cancelSubscriptionError => 'Cancel Subscription Error';
+
+  @override
+  String get cancelSubscriptionErrorDescription =>
+      'Failed to cancel your subscription. Please try again or contact support.';
 
   @override
   String get adNotAvailable => 'Werbung nicht verfügbar';
@@ -239,11 +256,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get playing => 'Spielt';
 
   @override
-  String youReachedLevel(int level) {
-    return 'Du hast Level $level erreicht';
-  }
-
-  @override
   String get tapToStartGuessing =>
       'Tippe auf Höher oder Niedriger um mit dem Raten zu beginnen! Die Zahlen sind zwischen 1-50.';
 
@@ -272,13 +284,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get removeAdsDescription =>
-      'Genießen Sie eine werbefreie Erfahrung mit monatlichem Abonnement';
+      'Genießen Sie eine werbefreie Erfahrung mit einmaliger Zahlung';
 
   @override
   String get monthlySubscription => 'Monatliches Abonnement';
 
   @override
-  String get subscribeNow => 'Jetzt Abonnieren';
+  String get buyNow => 'Jetzt Kaufen';
 
   @override
   String get restorePurchases => 'Käufe Wiederherstellen';
@@ -290,8 +302,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get subscriptionExpired => 'Abonnement Abgelaufen';
 
   @override
-  String daysRemaining(int days) {
-    return '$days Tage verbleibend';
+  String purchasedOn(Object date) {
+    return 'Gekauft am: $date';
   }
 
   @override
@@ -335,13 +347,20 @@ class AppLocalizationsDe extends AppLocalizations {
   String get cancelAnytime => 'Jederzeit kündbar';
 
   @override
-  String get usdPerMonth => 'USD/Monat';
+  String get cancelSubscriptionWarning =>
+      'Wenn Sie Ihr Abonnement kündigen, wird der werbefreie Zugang entfernt und Sie sehen wieder Werbung.';
+
+  @override
+  String get subscriptionPrice => '\$2.99';
+
+  @override
+  String get oneTimePayment => 'Einmalzahlung';
 
   @override
   String get bestValue => 'BESTER WERT';
 
   @override
-  String get fiftyPercentOff => '50% RABATT';
+  String get lifetimeAccess => 'LEBENSLANGER ZUGANG';
 
   @override
   String get totalGames => 'Gesamte Spiele';
@@ -398,6 +417,44 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get youWon => 'Du hast Gewonnen!';
+
+  @override
+  String get rateQuicko => 'Quicko bewerten';
+
+  @override
+  String get rateQuickoDescription =>
+      'Ihr Feedback hilft uns, uns zu verbessern und mehr Benutzer zu erreichen!';
+
+  @override
+  String get howWouldYouRate => 'Wie würden Sie Quicko bewerten?';
+
+  @override
+  String get rateOnStore => 'Im Store bewerten';
+
+  @override
+  String get openingStore => 'Store wird geöffnet...';
+
+  @override
+  String get ratingPoor => 'Schlecht';
+
+  @override
+  String get ratingFair => 'Ausreichend';
+
+  @override
+  String get ratingGood => 'Gut';
+
+  @override
+  String get ratingVeryGood => 'Sehr gut';
+
+  @override
+  String get ratingExcellent => 'Ausgezeichnet!';
+
+  @override
+  String get thankYouForRating => 'Vielen Dank für Ihre Bewertung von Quicko!';
+
+  @override
+  String get couldNotOpenStore =>
+      'Store konnte nicht geöffnet werden. Bitte versuchen Sie es erneut.';
 
   @override
   String get congratulationsMessage =>
@@ -523,6 +580,30 @@ class AppLocalizationsDe extends AppLocalizations {
   String get brown => 'Braun';
 
   @override
+  String get cyan => 'Cyan';
+
+  @override
+  String get lime => 'Limettengrün';
+
+  @override
+  String get magenta => 'Magenta';
+
+  @override
+  String get teal => 'Petrol';
+
+  @override
+  String get indigo => 'Indigo';
+
+  @override
+  String get amber => 'Bernstein';
+
+  @override
+  String get deep_purple => 'Dunkelviolett';
+
+  @override
+  String get light_blue => 'Hellblau';
+
+  @override
   String get play => 'Spielen';
 
   @override
@@ -641,9 +722,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get wrongPattern => 'Falsches Muster';
 
   @override
-  String get level => 'Level';
-
-  @override
   String get wrong => 'Falsch';
 
   @override
@@ -651,6 +729,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get column => 'Spalte';
+
+  @override
+  String get fiftyPercentOff => '50% OFF';
 
   @override
   String get gameInProgress => 'Game in Progress';
@@ -703,4 +784,98 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get restoreErrorDescription =>
       'Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackAndSuggestions => 'Feedback & Vorschläge';
+
+  @override
+  String get feedbackAndSuggestionsSubtitle =>
+      'Teilen Sie Ihre Gedanken mit und helfen Sie uns zu verbessern';
+
+  @override
+  String get directContact => 'Direkter Kontakt';
+
+  @override
+  String get directContactDescription =>
+      'Falls das Feedback-Formular nicht funktioniert, können Sie uns direkt kontaktieren unter:';
+
+  @override
+  String get sendFeedback => 'Feedback senden';
+
+  @override
+  String get sending => 'Wird gesendet...';
+
+  @override
+  String get feedbackSentSuccess =>
+      '✅ Feedback erfolgreich gesendet! Vielen Dank für Ihr Feedback.';
+
+  @override
+  String feedbackSentError(String errorMessage) {
+    return '❌ $errorMessage. Bitte versuchen Sie es erneut oder nutzen Sie die direkte E-Mail-Option oben.';
+  }
+
+  @override
+  String get feedbackCategoryBug => 'Fehlerbericht';
+
+  @override
+  String get feedbackCategoryFeature => 'Feature-Anfrage';
+
+  @override
+  String get feedbackCategoryImprovement => 'Verbesserungsvorschlag';
+
+  @override
+  String get feedbackCategoryGeneral => 'Allgemeines Feedback';
+
+  @override
+  String get feedbackCategory => 'Kategorie';
+
+  @override
+  String get feedbackTitle => 'Titel';
+
+  @override
+  String get feedbackTitleHint => 'Kurze Beschreibung Ihres Feedbacks';
+
+  @override
+  String get feedbackDescription => 'Beschreibung';
+
+  @override
+  String get feedbackDescriptionHint =>
+      'Bitte geben Sie detaillierte Informationen zu Ihrem Feedback...';
+
+  @override
+  String get feedbackEmail => 'E-Mail (Optional)';
+
+  @override
+  String get feedbackEmailHint => 'ihre.email@beispiel.com';
+
+  @override
+  String get feedbackEmailDescription =>
+      'Wir verwenden dies, um bei Bedarf auf Ihr Feedback zu antworten.';
+
+  @override
+  String feedbackFrom(String title) {
+    return 'Feedback von $title';
+  }
+
+  @override
+  String get emailLaunchError =>
+      'E-Mail-App konnte nicht geöffnet werden. Bitte versuchen Sie es manuell erneut.';
+
+  @override
+  String get invalidFeedbackData => 'Ungültige Feedback-Daten';
+
+  @override
+  String get failedToSendFeedback =>
+      'Feedback konnte nicht gesendet werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String errorSendingFeedback(String error) {
+    return 'Fehler beim Senden des Feedbacks: $error';
+  }
+
+  @override
+  String get maybeLater => 'Vielleicht später';
 }
