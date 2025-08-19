@@ -18,18 +18,6 @@ import 'features/leaderboard/providers/leaderboard_provider.dart';
 import 'core/routes/navigation_observer.dart';
 
 void main() async {
-  // Enable performance optimizations
-  if (kDebugMode) {
-    debugPrintRebuildDirtyWidgets = false;
-    debugPrint = (String? message, {int? wrapWidth}) {
-      if (message != null &&
-          !message.contains('ImageReader') &&
-          !message.contains('FrameEvents')) {
-        print(message);
-      }
-    };
-  }
-
   await AppInitializer.initialize();
 
   runApp(const MyApp());

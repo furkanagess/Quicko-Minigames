@@ -6,10 +6,7 @@
     <application
         android:label="Quicko"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon"
-        android:largeHeap="true"
-        android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="false">
+        android:icon="@mipmap/launcher_icon">
         
         <!-- AdMob App ID -->
         <meta-data

@@ -1,12 +1,16 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'optimized_screenshot_utils.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../shared/widgets/achievement_image_generator.dart';
 import '../../shared/models/leaderboard_entry.dart';
 
 class ShareUtils {
+  static final ScreenshotController _screenshotController =
+      ScreenshotController();
+
   /// Achievement görüntüsünü paylaş
   static Future<void> shareAchievementImage({
     required List<LeaderboardEntry> entries,
@@ -24,17 +28,24 @@ class ShareUtils {
         showTopGames: false, // SADECE ÜST ALAN
       );
 
-      // Optimize edilmiş screenshot al
-      final file = await OptimizedScreenshotUtils.saveScreenshot(
-        widget: achievementWidget,
-        fileName: 'achievement_${DateTime.now().millisecondsSinceEpoch}.png',
-        delay: const Duration(milliseconds: 50),
-        pixelRatio: 2.0,
-      );
+      // Screenshot al
+      final Uint8List? imageBytes = await _screenshotController
+          .captureFromWidget(
+            achievementWidget,
+            delay: const Duration(milliseconds: 100),
+            pixelRatio: 3.0,
+          );
 
-      if (file == null) {
+      if (imageBytes == null) {
         throw Exception('Screenshot alınamadı');
       }
+
+      // Geçici dosya oluştur
+      final tempDir = await getTemporaryDirectory();
+      final file = File(
+        '${tempDir.path}/achievement_${DateTime.now().millisecondsSinceEpoch}.png',
+      );
+      await file.writeAsBytes(imageBytes);
 
       // Paylaş
       await Share.shareXFiles([
