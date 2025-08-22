@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:math';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/models/game_state.dart';
 import '../models/higher_lower_game_state.dart';
 import '../providers/higher_lower_provider.dart';
-import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 
@@ -34,11 +34,10 @@ class _HigherLowerView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
-          final isWin = gameState.status == GameStatus.won;
+          final isWin = gameState.status == HigherLowerGameStatus.won;
           gameResult = GameResult(
             isWin: isWin,
             score: gameState.score,
-
             title:
                 isWin
                     ? AppLocalizations.of(context)!.congratulations
@@ -89,117 +88,116 @@ class _HigherLowerView extends StatelessWidget {
     HigherLowerGameState gameState,
     HigherLowerProvider provider,
   ) {
-    return Opacity(
-      opacity: gameState.isWaiting ? 0.4 : 1.0,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Sabit sayı gösterimi alanı
-          _buildNumberDisplayArea(context, gameState, provider),
+          // Score Display
+          _buildScoreDisplay(context, gameState),
 
-          const SizedBox(height: AppConstants.extraLargeSpacing),
+          const SizedBox(height: 32),
 
-          // Sabit oyun butonları alanı
-          _buildGameButtonsArea(context, gameState, provider),
+          // Main Number Display
+          _buildMainNumberDisplay(context, gameState),
 
-          // Dinamik içerik alanı (skor gösterimi, uyarı mesajları)
-          Expanded(child: _buildDynamicContent(context, gameState, provider)),
+          const SizedBox(height: 48),
+
+          // Game Buttons
+          _buildGameButtons(context, gameState, provider),
+
+          const SizedBox(height: 32),
+
+          // Game Status Info
         ],
       ),
     );
   }
 
-  Widget _buildNumberDisplayArea(
+  Widget _buildScoreDisplay(
     BuildContext context,
     HigherLowerGameState gameState,
-    HigherLowerProvider provider,
   ) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 300, // Maksimum genişlik
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Skor rozeti
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.2),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  AppIcons.trophy,
-                  size: 18,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-                  style: TextThemeManager.subtitleMedium.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
-          const SizedBox(height: AppConstants.mediumSpacing),
-
-          // Modern sayı gösterimi
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  _getNumberDisplayColor(context, gameState),
-                  _getNumberDisplayColor(
-                    context,
-                    gameState,
-                  ).withValues(alpha: 0.8),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(AppConstants.largeRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: _getNumberDisplayColor(
-                    context,
-                    gameState,
-                  ).withValues(alpha: 0.4),
-                  blurRadius: 12,
-                  spreadRadius: 0,
-                  offset: const Offset(0, 4),
-                ),
-                BoxShadow(
-                  color: _getNumberDisplayColor(
-                    context,
-                    gameState,
-                  ).withValues(alpha: 0.2),
-                  blurRadius: 20,
-                  spreadRadius: 0,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Center(child: _buildNumberContent(context, gameState)),
-          ),
-          const SizedBox(height: AppConstants.smallSpacing),
         ],
       ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(AppIcons.trophy, size: 20, color: Colors.white),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            '${AppLocalizations.of(context)!.score}: ${gameState.score}',
+            style: TextThemeManager.titleMedium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMainNumberDisplay(
+    BuildContext context,
+    HigherLowerGameState gameState,
+  ) {
+    return Container(
+      width: 160,
+      height: 160,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            _getNumberDisplayColor(context, gameState),
+            _getNumberDisplayColor(context, gameState).withValues(alpha: 0.8),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(80),
+        boxShadow: [
+          BoxShadow(
+            color: _getNumberDisplayColor(
+              context,
+              gameState,
+            ).withValues(alpha: 0.4),
+            blurRadius: 20,
+            spreadRadius: 0,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: _getNumberDisplayColor(
+              context,
+              gameState,
+            ).withValues(alpha: 0.2),
+            blurRadius: 40,
+            spreadRadius: 0,
+            offset: const Offset(0, 16),
+          ),
+        ],
+      ),
+      child: const Center(child: _NumberSpinner()),
     );
   }
 
@@ -213,107 +211,47 @@ class _HigherLowerView extends StatelessWidget {
     return AppTheme.darkWarning;
   }
 
-  Widget _buildNumberContent(
-    BuildContext context,
-    HigherLowerGameState gameState,
-  ) {
-    if (gameState.isWaiting) {
-      return TweenAnimationBuilder<double>(
-        duration: const Duration(milliseconds: 2000),
-        tween: Tween(begin: 0.0, end: 1.0),
-        builder: (context, value, child) {
-          return Transform.scale(
-            scale: 0.8 + (0.2 * value),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(AppConstants.smallRadius),
-              ),
-              child: const Icon(
-                AppIcons.question,
-                size: 36,
-                color: Colors.white,
-              ),
-            ),
-          );
-        },
-      );
-    }
+  // Localized performant spinner to avoid provider-wide rebuilds
 
-    return TweenAnimationBuilder<double>(
-      duration: const Duration(milliseconds: 600),
-      tween: Tween(begin: 0.0, end: 1.0),
-      builder: (context, value, child) {
-        return Transform.scale(
-          scale: 0.7 + (0.3 * value),
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(AppConstants.smallRadius),
-            ),
-            child: Text(
-              gameState.isAnimating
-                  ? gameState.animatedNumber.toString()
-                  : gameState.currentNumber.toString(),
-              style: TextThemeManager.gameNumber.copyWith(
-                fontSize: 36,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildGameButtonsArea(
+  Widget _buildGameButtons(
     BuildContext context,
     HigherLowerGameState gameState,
     HigherLowerProvider provider,
   ) {
-    return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 350, // Maksimum genişlik
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          // Lower Button
-          Expanded(
-            child: _buildModernGameButton(
-              context,
-              AppLocalizations.of(context)!.lower,
-              AppIcons.arrowDown,
-              AppTheme.darkError,
-              gameState.isGameActive && !gameState.isAnimating
-                  ? () => provider.guessLower()
-                  : null,
-            ),
+    return Row(
+      children: [
+        // Lower Button
+        Expanded(
+          child: _buildGameButton(
+            context,
+            AppLocalizations.of(context)!.lower,
+            AppIcons.arrowDown,
+            AppTheme.darkError,
+            gameState.isGameActive && !gameState.isAnimating
+                ? () => provider.guessLower()
+                : null,
           ),
+        ),
 
-          const SizedBox(width: AppConstants.mediumSpacing),
+        const SizedBox(width: 20),
 
-          // Higher Button
-          Expanded(
-            child: _buildModernGameButton(
-              context,
-              AppLocalizations.of(context)!.higher,
-              AppIcons.arrowUp,
-              AppTheme.darkSuccess,
-              gameState.isGameActive && !gameState.isAnimating
-                  ? () => provider.guessHigher()
-                  : null,
-            ),
+        // Higher Button
+        Expanded(
+          child: _buildGameButton(
+            context,
+            AppLocalizations.of(context)!.higher,
+            AppIcons.arrowUp,
+            AppTheme.darkSuccess,
+            gameState.isGameActive && !gameState.isAnimating
+                ? () => provider.guessHigher()
+                : null,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _buildModernGameButton(
+  Widget _buildGameButton(
     BuildContext context,
     String text,
     IconData icon,
@@ -327,14 +265,14 @@ class _HigherLowerView extends StatelessWidget {
         return Transform.scale(
           scale: value,
           child: Container(
-            height: 70,
+            height: 80,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [color, color.withValues(alpha: 0.8)],
               ),
-              borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: color.withValues(alpha: 0.4),
@@ -354,10 +292,10 @@ class _HigherLowerView extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: onPressed,
-                borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+                borderRadius: BorderRadius.circular(20),
                 splashColor: Colors.white.withValues(alpha: 0.3),
                 highlightColor: Colors.white.withValues(alpha: 0.1),
-                child: _ModernButtonContent(
+                child: _GameButtonContent(
                   text: text,
                   icon: icon,
                   onPressed: onPressed,
@@ -369,40 +307,24 @@ class _HigherLowerView extends StatelessWidget {
       },
     );
   }
-
-  Widget _buildDynamicContent(
-    BuildContext context,
-    HigherLowerGameState gameState,
-    HigherLowerProvider provider,
-  ) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Skor gösterimi kaldırıldı
-        // const SizedBox(height: AppConstants.largeSpacing),
-        const SizedBox(height: AppConstants.largeSpacing),
-        // Oyun durumu mesajları (opsiyonel)
-      ],
-    );
-  }
 }
 
-class _ModernButtonContent extends StatefulWidget {
+class _GameButtonContent extends StatefulWidget {
   final String text;
   final IconData icon;
   final VoidCallback? onPressed;
 
-  const _ModernButtonContent({
+  const _GameButtonContent({
     required this.text,
     required this.icon,
     required this.onPressed,
   });
 
   @override
-  State<_ModernButtonContent> createState() => _ModernButtonContentState();
+  State<_GameButtonContent> createState() => _GameButtonContentState();
 }
 
-class _ModernButtonContentState extends State<_ModernButtonContent>
+class _GameButtonContentState extends State<_GameButtonContent>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -457,20 +379,19 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
           return Transform.scale(
             scale: _scaleAnimation.value,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.mediumSpacing,
-              ),
-              child: Row(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(widget.icon, color: Colors.white, size: 24),
-                  const SizedBox(width: AppConstants.smallSpacing),
+                  Icon(widget.icon, color: Colors.white, size: 28),
+                  const SizedBox(height: 8),
                   Text(
                     widget.text,
                     style: TextThemeManager.buttonMedium.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -478,6 +399,126 @@ class _ModernButtonContentState extends State<_ModernButtonContent>
           );
         },
       ),
+    );
+  }
+}
+
+class _NumberSpinner extends StatefulWidget {
+  const _NumberSpinner();
+
+  @override
+  State<_NumberSpinner> createState() => _NumberSpinnerState();
+}
+
+class _NumberSpinnerState extends State<_NumberSpinner> {
+  final Random _random = Random();
+  Timer? _spinTimer;
+  int _displayNumber = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _syncWithProvider();
+  }
+
+  @override
+  void didUpdateWidget(covariant _NumberSpinner oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _syncWithProvider();
+  }
+
+  void _syncWithProvider() {
+    final provider = Provider.of<HigherLowerProvider>(context);
+    final state = provider.gameState;
+
+    // Waiting state: no spin, show question UI handled in build
+    if (state.isWaiting) {
+      _stopSpin();
+      return;
+    }
+
+    if (state.isAnimating) {
+      _startSpin();
+    } else {
+      _stopSpin();
+      setState(() {
+        _displayNumber = state.currentNumber;
+      });
+    }
+  }
+
+  void _startSpin() {
+    if (_spinTimer != null) return;
+    // Update locally at 60hz/30hz for smoothness but low cost
+    _spinTimer = Timer.periodic(const Duration(milliseconds: 50), (_) {
+      setState(() {
+        _displayNumber = _random.nextInt(50) + 1;
+      });
+    });
+  }
+
+  void _stopSpin() {
+    _spinTimer?.cancel();
+    _spinTimer = null;
+  }
+
+  @override
+  void dispose() {
+    _stopSpin();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<HigherLowerProvider>(context);
+    final state = provider.gameState;
+
+    if (state.isWaiting) {
+      return TweenAnimationBuilder<double>(
+        duration: const Duration(milliseconds: 2000),
+        tween: Tween(begin: 0.0, end: 1.0),
+        builder: (context, value, child) {
+          return Transform.scale(
+            scale: 0.8 + (0.2 * value),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Icon(AppIcons.question, size: 48, color: Colors.white),
+            ),
+          );
+        },
+      );
+    }
+
+    final numberToShow =
+        state.isAnimating ? _displayNumber : state.currentNumber;
+
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 250),
+      tween: Tween(begin: 0.9, end: 1.0),
+      builder: (context, value, child) {
+        return Transform.scale(
+          scale: value,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: Text(
+              numberToShow.toString(),
+              style: TextThemeManager.headlineSmall.copyWith(
+                fontSize: 48,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

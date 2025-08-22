@@ -11,6 +11,8 @@ import '../../../core/constants/app_icons.dart';
 import '../../../shared/models/game_model.dart';
 import '../providers/favorites_provider.dart';
 import '../../../shared/widgets/inline_banner_ad_widget.dart';
+import '../../../shared/widgets/banner_ad_widget.dart';
+import '../../../shared/widgets/app_bars.dart';
 import '../../../core/mixins/screen_animation_mixin.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -22,7 +24,6 @@ class FavoritesScreen extends StatefulWidget {
 
 class _FavoritesScreenState extends State<FavoritesScreen>
     with TickerProviderStateMixin, ScreenAnimationMixin {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,34 +61,9 @@ class _FavoritesScreenState extends State<FavoritesScreen>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.favorites,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            AppIcons.back,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.settingsAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.favorites,
     );
   }
 
@@ -240,6 +216,15 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             .toList();
 
     final List<Widget> children = [];
+
+    // Add banner ad at the top
+    children.add(
+      const Padding(
+        padding: EdgeInsets.only(bottom: AppConstants.mediumSpacing),
+        child: BannerAdWidget(),
+      ),
+    );
+
     for (int i = 0; i < favoriteGames.length; i++) {
       final game = favoriteGames[i]!;
       children.add(
@@ -257,10 +242,10 @@ class _FavoritesScreenState extends State<FavoritesScreen>
         ),
       );
 
-      // Insert a banner after every 3 favorites, except after the last item
-      final isThird = (i + 1) % 3 == 0;
+      // Insert a banner after every 8 favorites, except after the last item
+      final isEighth = (i + 1) % 8 == 0;
       final isLast = i == favoriteGames.length - 1;
-      if (isThird && !isLast) {
+      if (isEighth && !isLast) {
         // Use custom spacing to match the 16px gap between favorite cards
         children.add(
           const InlineBannerAdWidget(

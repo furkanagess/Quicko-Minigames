@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
 import '../../core/providers/test_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});
@@ -13,66 +15,102 @@ class BannerAdWidget extends StatefulWidget {
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   final AdMobService _adMobService = AdMobService();
-  bool _isAdLoaded = false;
-  bool _isLoading = true;
+  final AppConfig _config = AppConfig();
+
+  BannerAd? _bannerAd;
+  bool _isLoaded = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _loadBannerAd();
+    _load();
   }
 
-  Future<void> _loadBannerAd() async {
-    if (kDebugMode) {
-      print('BannerAdWidget: Starting to load banner ad');
-    }
+  Future<void> _load() async {
+    if (!_adMobService.shouldShowAds) return;
+    if (_isLoading || _isLoaded) return;
+    _isLoading = true;
 
     try {
-      final loaded = await _adMobService.loadBannerAdWithRetry(maxRetries: 3);
-      if (mounted) {
-        setState(() {
-          _isAdLoaded = loaded;
-          _isLoading = false;
-        });
-        if (kDebugMode) {
-          print('BannerAdWidget: Banner ad load result: $loaded');
-        }
-      }
-    } catch (e) {
+      final adUnitId = _config.bannerAdUnitId;
       if (kDebugMode) {
-        print('BannerAdWidget: Exception while loading banner ad: $e');
+        print('BannerAdWidget(self): Loading banner ad: $adUnitId');
       }
+      final banner = BannerAd(
+        adUnitId: adUnitId,
+        size: AdSize.banner,
+        request: const AdRequest(),
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            if (mounted) {
+              setState(() {
+                _bannerAd = ad as BannerAd;
+                _isLoaded = true;
+                _isLoading = false;
+              });
+            }
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            if (mounted) {
+              setState(() {
+                _isLoaded = false;
+                _isLoading = false;
+              });
+            }
+            if (kDebugMode) {
+              print(
+                'BannerAdWidget(self): Failed to load banner: ${error.message}',
+              );
+            }
+          },
+        ),
+      );
+
+      await banner.load();
+    } catch (e) {
       if (mounted) {
         setState(() {
-          _isAdLoaded = false;
+          _isLoaded = false;
           _isLoading = false;
         });
+      }
+      if (kDebugMode) {
+        print('BannerAdWidget(self): Exception while loading banner: $e');
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TestModeProvider>(
       builder: (context, testModeProvider, child) {
-        // Don't show anything if user has ad-free subscription (or test mode simulates it)
-        if (!_adMobService.shouldShowAds) {
+        final shouldShow = _adMobService.shouldShowAds;
+
+        if (!shouldShow) {
           return const SizedBox.shrink();
         }
 
-        // Don't show anything while loading or if ad failed to load
-        if (_isLoading || !_isAdLoaded) {
+        if (!_isLoaded && !_isLoading) {
+          _load();
+        }
+
+        if (!_isLoaded || _bannerAd == null) {
           return const SizedBox.shrink();
         }
 
-        final bannerWidget = _adMobService.getResponsiveBannerAdWidget();
-        if (bannerWidget == null) {
-          return const SizedBox.shrink();
-        }
-
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: bannerWidget,
+        return Container(
+          alignment: Alignment.center,
+          width: _bannerAd!.size.width.toDouble(),
+          height: _bannerAd!.size.height.toDouble(),
+          child: AdWidget(ad: _bannerAd!),
         );
       },
     );

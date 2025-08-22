@@ -1,11 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
 import '../../core/providers/in_app_purchase_provider.dart';
 import '../../core/providers/test_mode_provider.dart';
+import '../../core/constants/app_constants.dart';
 
 /// A self-contained banner ad widget that manages its own BannerAd instance.
 ///
@@ -14,13 +15,11 @@ import '../../core/providers/test_mode_provider.dart';
 class InlineBannerAdWidget extends StatefulWidget {
   final double verticalPadding;
   final double horizontalPadding;
-  final double fallbackGapHeight;
 
   const InlineBannerAdWidget({
     super.key,
-    this.verticalPadding = 16.0,
-    this.horizontalPadding = 0.0,
-    this.fallbackGapHeight = 0.0,
+    this.verticalPadding = 8.0,
+    this.horizontalPadding = 16.0,
   });
 
   @override
@@ -123,7 +122,7 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<InAppPurchaseProvider, TestModeProvider>(
-      builder: (context, iap, test, child) {
+      builder: (context, iap, testModeProvider, child) {
         final shouldShow = _adMobService.shouldShowAds;
 
         if (!shouldShow) {
@@ -166,10 +165,7 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
   /// This should match the typical spacing between list items
   double _getFallbackHeight() {
     // For favorites and home screens (verticalPadding: 8.0), return exactly 16px to match spacing
-    // For other screens, use a reasonable default spacing
-    if (widget.verticalPadding == 8.0) {
-      return 16.0; // Exact match for favorites card spacing and home grid spacing
-    }
-    return widget.verticalPadding < 12.0 ? 16.0 : 20.0;
+    // For other screens, return a reasonable default
+    return widget.verticalPadding * 2;
   }
 }

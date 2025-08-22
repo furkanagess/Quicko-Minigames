@@ -58,6 +58,7 @@ class _BlindSortView extends StatelessWidget {
           descriptionKey: 'blind_sort_description',
           gameId: 'blind_sort',
           gameResult: gameResult,
+          showCongratsOnWin: true,
           onTryAgain: () {
             provider.hideGameOver();
             provider.resetGame();

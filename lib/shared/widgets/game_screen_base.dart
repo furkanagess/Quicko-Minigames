@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../core/constants/app_constants.dart';
-import '../../core/constants/app_icons.dart';
-import '../../core/theme/app_theme.dart';
 import '../../core/routes/app_router.dart';
 import '../../core/theme/text_theme_manager.dart';
 import '../../core/utils/sound_utils.dart';
-import '../../core/utils/global_context.dart';
-import '../../features/favorites/providers/favorites_provider.dart';
+// import '../../core/utils/global_context.dart';
 import '../../l10n/app_localizations.dart';
-import 'continue_game_dialog.dart';
+import 'dialog/continue_game_dialog.dart';
+import 'dialog/game_in_progress_dialog.dart';
+import 'dialog/congrats_dialog.dart';
+import '../../core/services/leaderboard_service.dart';
+import 'dialog/leaderboard_register_dialog.dart';
+import '../../core/services/leaderboard_profile_service.dart';
+import 'app_bars.dart';
 import 'game_action_button.dart';
-import 'game_in_progress_dialog.dart';
 
 class GameScreenBase extends StatefulWidget {
   final String title;
@@ -31,6 +32,7 @@ class GameScreenBase extends StatefulWidget {
   final bool isGameInProgress;
   final VoidCallback? onPauseGame;
   final VoidCallback? onResumeGame;
+  final bool showCongratsOnWin;
 
   const GameScreenBase({
     super.key,
@@ -51,6 +53,7 @@ class GameScreenBase extends StatefulWidget {
     this.isGameInProgress = false,
     this.onPauseGame,
     this.onResumeGame,
+    this.showCongratsOnWin = false,
   });
 
   @override
@@ -139,12 +142,436 @@ class _GameScreenBaseState extends State<GameScreenBase>
       SoundUtils.playGameOverSound();
     }
 
-    // Continue dialog'unu göster
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (context.mounted) {
-        _checkAndShowContinueDialog(context);
+    // Eğer kazanıldıysa ve congrats gösterilmesi gerekiyorsa, doğrudan congrats dialog'u göster
+    if (widget.showCongratsOnWin && widget.gameResult!.isWin) {
+      Future.delayed(const Duration(milliseconds: 500), () async {
+        if (!context.mounted) return;
+        if (widget.gameResult == null) return;
+
+        final score = widget.gameResult!.score;
+
+        final result = await showDialog<ContinueGameResult>(
+          context: context,
+          barrierDismissible: false,
+          builder:
+              (context) => CongratsDialog(
+                gameId: widget.gameId,
+                gameTitle: _getLocalizedTitle(context),
+                currentScore: score,
+                onRestart: () {
+                  widget.onTryAgain?.call();
+                },
+                onExit: () {
+                  widget.onBackToMenu?.call();
+                },
+              ),
+        );
+
+        if (!context.mounted) return;
+        if (result == ContinueGameResult.continued) return;
+
+        // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard kaydı iste
+        await _handleLeaderboardQualification();
+      });
+      return;
+    }
+
+    // Kaybedildiyse veya congrats gösterilmemesi gerekiyorsa, continue dialog'u göster
+    Future.delayed(const Duration(milliseconds: 500), () async {
+      if (!context.mounted) return;
+      if (widget.gameResult == null) return;
+
+      final score = widget.gameResult!.score;
+
+      // Check if continue game is available
+      bool canContinue = false;
+      if (widget.canContinueGame != null) {
+        canContinue = await widget.canContinueGame!();
       }
+
+      final result = await showDialog<ContinueGameResult>(
+        context: context,
+        barrierDismissible: false,
+        builder:
+            (context) => ContinueGameDialog(
+              gameId: widget.gameId,
+              gameTitle: _getLocalizedTitle(context),
+              currentScore: score,
+              canOneTimeContinue: canContinue,
+              onContinue: () {
+                // Dışarıdan sağlanan devam et davranışı (varsa)
+                widget.onContinueGame?.call();
+                // gameResult temizlenirse, üstteki guard sonraki akışları engeller
+              },
+              onRestart: () {
+                widget.onResetGame?.call();
+              },
+              onExit: () {
+                widget.onBackToMenu?.call();
+              },
+            ),
+      );
+
+      if (!context.mounted) return;
+      if (result == ContinueGameResult.continued) return;
+
+      // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard akışını başlat
+      await _handleLeaderboardQualification();
     });
+  }
+
+  void _handleGameOver() {
+    // Handle game over - user chose to give up
+    widget.onResetGame?.call();
+  }
+
+  Future<void> _handleLeaderboardQualification() async {
+    final int score = widget.gameResult?.score ?? 0;
+    if (score <= 0) {
+      _finishFlowDefault();
+      return;
+    }
+    try {
+      final rank = await LeaderboardService().getProvisionalRank(
+        gameId: widget.gameId,
+        score: score,
+      );
+      if (!mounted) return;
+      if (rank != null && rank <= 10) {
+        // Ask user consent to be listed on the leaderboard
+        final bool consent = await _askLeaderboardOptIn(score);
+        if (!consent) {
+          _finishFlowDefault();
+          return;
+        }
+        // If we have stored profile, use it directly; else prompt once and persist
+        final profileService = LeaderboardProfileService();
+        final hasProfile = await profileService.hasProfile();
+        if (hasProfile) {
+          final name = await profileService.getName() ?? '';
+          final countryCode = await profileService.getCountryCode() ?? 'TR';
+          await LeaderboardService().saveUserScore(
+            gameId: widget.gameId,
+            name: name,
+            countryCode: countryCode,
+            score: score,
+          );
+          _finishFlowWithLeaderboard();
+        } else {
+          await showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder:
+                (context) => LeaderboardRegisterDialog(
+                  gameTitle: _getLocalizedTitle(context),
+                  score: score,
+                  onSubmit: ({
+                    required String name,
+                    required String countryCode,
+                  }) async {
+                    await profileService.saveProfile(
+                      name: name,
+                      countryCode: countryCode,
+                    );
+                    await LeaderboardService().saveUserScore(
+                      gameId: widget.gameId,
+                      name: name,
+                      countryCode: countryCode,
+                      score: score,
+                    );
+                    if (context.mounted) Navigator.of(context).pop();
+                    _finishFlowWithLeaderboard();
+                  },
+                ),
+          );
+        }
+      } else {
+        _finishFlowDefault();
+      }
+    } catch (_) {
+      if (!mounted) return;
+      _finishFlowDefault();
+    }
+  }
+
+  Future<bool> _askLeaderboardOptIn(int score) async {
+    return await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Dialog(
+              backgroundColor: Colors.transparent,
+              insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 24,
+                      offset: const Offset(0, 8),
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Header with gradient background
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.8),
+                          ],
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              Icons.emoji_events_rounded,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.congratulations,
+                                  style: TextThemeManager.subtitleMedium
+                                      .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${AppLocalizations.of(context)!.yourScore} $score',
+                                  style: TextThemeManager.bodyMedium.copyWith(
+                                    color: Colors.white.withValues(alpha: 0.9),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Content
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.addToLeaderboard,
+                            style: TextThemeManager.subtitleMedium.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.addToLeaderboardDescription,
+                            style: TextThemeManager.bodyMedium.copyWith(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.7),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 32),
+
+                          // Action buttons
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
+                                    borderRadius: BorderRadius.circular(16),
+                                    border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .outline
+                                          .withValues(alpha: 0.2),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: TextButton(
+                                    onPressed:
+                                        () => Navigator.of(context).pop(false),
+                                    style: TextButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.giveUp,
+                                      style: TextThemeManager.bodyMedium
+                                          .copyWith(
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurface,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Container(
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context).colorScheme.primary,
+                                        Theme.of(context).colorScheme.primary
+                                            .withValues(alpha: 0.8),
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withValues(alpha: 0.3),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ElevatedButton(
+                                    onPressed:
+                                        () => Navigator.of(context).pop(true),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      foregroundColor: Colors.white,
+                                      shadowColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.yesAdd,
+                                      style: TextThemeManager.bodyMedium
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ) ??
+        false;
+  }
+
+  void _showCongratsOnly() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => CongratsDialog(
+            gameId: widget.gameId,
+            gameTitle: _getLocalizedTitle(context),
+            currentScore: widget.gameResult?.score ?? 0,
+            onRestart: () {
+              widget.onTryAgain?.call();
+            },
+            onExit: () {
+              widget.onBackToMenu?.call();
+            },
+          ),
+    );
+  }
+
+  void _showCongratsWithLeaderboard() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => CongratsDialog(
+            gameId: widget.gameId,
+            gameTitle: _getLocalizedTitle(context),
+            currentScore: widget.gameResult?.score ?? 0,
+            onRestart: () {
+              widget.onTryAgain?.call();
+            },
+            onExit: () {
+              _showLeaderboardDialog();
+            },
+          ),
+    );
+  }
+
+  void _finishFlowDefault() {
+    // Kayıt akışı sonrası veya nitelik yoksa:
+    // Kazanıldıysa tebrikler, aksi halde continue dialogu
+    if (widget.showCongratsOnWin && (widget.gameResult?.isWin ?? false)) {
+      _showCongratsOnly();
+    } else {
+      // İkinci bir continue dialogunu gösterme
+      widget.onTryAgain?.call();
+    }
+  }
+
+  void _finishFlowWithLeaderboard() {
+    // Leaderboard kayıt akışı sonrası:
+    // Kazanıldıysa tebrikler, aksi halde continue dialogu
+    if (widget.showCongratsOnWin && (widget.gameResult?.isWin ?? false)) {
+      _showCongratsWithLeaderboard();
+    } else {
+      // İkinci bir continue dialogunu gösterme
+      widget.onTryAgain?.call();
+    }
+  }
+
+  void _showLeaderboardDialog() {
+    Navigator.of(context).pop(); // Close congrats dialog first
+    // İkinci continue dialogunu tetikleme, kullanıcıyı menüye veya tekrar dene akışına yönlendir
+    widget.onBackToMenu?.call();
   }
 
   @override
@@ -277,72 +704,11 @@ class _GameScreenBaseState extends State<GameScreenBase>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        _getLocalizedTitle(context),
-        style: TextThemeManager.appBarTitle.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-      elevation: 0,
-      centerTitle: true,
-      actions: [
-        // Favori butonu (sadece gameId varsa göster)
-        if (widget.gameId != null)
-          Consumer<FavoritesProvider>(
-            builder: (context, favoritesProvider, child) {
-              return Container(
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: IconButton(
-                  onPressed:
-                      () => favoritesProvider.toggleFavorite(widget.gameId!),
-                  icon: Icon(
-                    favoritesProvider.isFavorite(widget.gameId!)
-                        ? AppIcons.favoriteFilled
-                        : AppIcons.favoriteOutline,
-                    color:
-                        favoritesProvider.isFavorite(widget.gameId!)
-                            ? AppTheme.darkError
-                            : Colors.white,
-                  ),
-                ),
-              );
-            },
-          ),
-        // Diğer action'lar kaldırıldı
-      ],
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          onPressed: () => _handleBackButtonPress(context),
-          icon: const Icon(AppIcons.back, color: Colors.white),
-        ),
-      ),
+    return AppBars.gameScreenAppBar(
+      context: context,
+      title: _getLocalizedTitle(context),
+      gameId: widget.gameId,
+      onBackPressed: () => _handleBackButtonPress(context),
     );
   }
 
@@ -351,8 +717,8 @@ class _GameScreenBaseState extends State<GameScreenBase>
       isWaiting: widget.isWaiting,
       onPressed: () {
         if (widget.gameResult != null) {
-          // Check if game can be continued
-          _checkAndShowContinueDialog(context);
+          // Show appropriate dialog (congrats or continue)
+          _showContinueDialog();
         } else if (widget.isWaiting) {
           // Oyun bekliyor, start game
           widget.onStartGame?.call();

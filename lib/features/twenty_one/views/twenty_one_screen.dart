@@ -3,7 +3,6 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_action_button.dart';
 import '../../../shared/models/game_state.dart';
 import '../models/twenty_one_game_state.dart';
 import '../providers/twenty_one_provider.dart';
@@ -57,6 +56,7 @@ class _TwentyOneView extends StatelessWidget {
           descriptionKey: 'twenty_one_description',
           gameId: 'twenty_one',
           gameResult: gameResult,
+          showCongratsOnWin: true,
           onTryAgain: () {
             provider.hideGameOver();
             provider.resetGame();
@@ -91,8 +91,8 @@ class _TwentyOneView extends StatelessWidget {
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final maxWidth = constraints.maxWidth;
-        final maxHeight = constraints.maxHeight;
+        // final maxWidth = constraints.maxWidth;
+        // final maxHeight = constraints.maxHeight;
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

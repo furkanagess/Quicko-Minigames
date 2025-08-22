@@ -12,8 +12,10 @@ import '../widgets/game_card.dart';
 import '../../favorites/providers/favorites_provider.dart';
 import '../../../shared/widgets/banner_ad_widget.dart';
 import '../../../shared/widgets/inline_banner_ad_widget.dart';
-import '../../../shared/widgets/rating_bottom_sheet.dart';
+import '../../../shared/widgets/bottom_sheet/rating_bottom_sheet.dart';
+import '../../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
 import '../../../core/mixins/screen_animation_mixin.dart';
+import '../../../core/providers/onboarding_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +26,35 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with TickerProviderStateMixin, ScreenAnimationMixin {
+  @override
+  void initState() {
+    super.initState();
+    _checkAndShowRemoveAdsDialog();
+  }
+
+  void _checkAndShowRemoveAdsDialog() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final onboardingProvider = Provider.of<OnboardingProvider>(
+        context,
+        listen: false,
+      );
+
+      if (onboardingProvider.shouldShowRemoveAdsDialog) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (mounted) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => const ModernRemoveAdsDialog(),
+            );
+            // Dismiss the flag after showing the dialog
+            onboardingProvider.dismissRemoveAdsDialog();
+          }
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +67,9 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 // Header
                 _buildHeader(context),
+                const SizedBox(height: AppConstants.mediumSpacing),
+                // Banner Ad fixed below header
+                const BannerAdWidget(),
                 const SizedBox(height: AppConstants.mediumSpacing),
                 // Games Grid with inline ads
                 Expanded(child: _buildGamesGridWithInlineAds(context)),
@@ -104,10 +138,10 @@ class _HomeScreenState extends State<HomeScreen>
                       onTap: _showRatingBottomSheet,
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(10),
                         child: Icon(
                           Icons.star_rounded,
-                          size: 24,
+                          size: 20,
                           color: Colors.amber,
                         ),
                       ),
@@ -124,71 +158,68 @@ class _HomeScreenState extends State<HomeScreen>
             builder: (context, favoritesProvider, child) {
               return Stack(
                 children: [
-                  // Main button container
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Theme.of(context).colorScheme.surface,
-                          Theme.of(
-                            context,
-                          ).colorScheme.surface.withValues(alpha: 0.95),
-                        ],
-                      ),
+                  // Main button container (now container is the tap target)
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        AppRouter.pushNamed(context, AppRouter.favorites);
+                      },
                       borderRadius: BorderRadius.circular(12),
-
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.08),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Theme.of(context).colorScheme.surface,
+                              Theme.of(
+                                context,
+                              ).colorScheme.surface.withValues(alpha: 0.95),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.08),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                            BoxShadow(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withValues(alpha: 0.05),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        BoxShadow(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.primary.withValues(alpha: 0.05),
-                          blurRadius: 20,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          AppRouter.pushNamed(context, AppRouter.favorites);
-                        },
-                        borderRadius: BorderRadius.circular(12),
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          child:
-                              favoritesProvider.isLoading
-                                  ? SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Theme.of(context).colorScheme.primary,
-                                      ),
+                        padding: const EdgeInsets.all(10),
+                        child:
+                            favoritesProvider.isLoading
+                                ? SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Theme.of(context).colorScheme.primary,
                                     ),
-                                  )
-                                  : Icon(
-                                    favoritesProvider.hasFavorites
-                                        ? AppIcons.favoriteFilled
-                                        : AppIcons.favoriteOutline,
-                                    color:
-                                        favoritesProvider.hasFavorites
-                                            ? AppTheme.darkError
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .onSurface
-                                                .withValues(alpha: 0.7),
-                                    size: 24,
                                   ),
-                        ),
+                                )
+                                : Icon(
+                                  favoritesProvider.hasFavorites
+                                      ? AppIcons.favoriteFilled
+                                      : AppIcons.favoriteOutline,
+                                  color:
+                                      favoritesProvider.hasFavorites
+                                          ? AppTheme.darkError
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withValues(alpha: 0.7),
+                                  size: 20,
+                                ),
                       ),
                     ),
                   ),
@@ -196,62 +227,70 @@ class _HomeScreenState extends State<HomeScreen>
                   // Animated badge
                   if (favoritesProvider.favoritesCount > 0)
                     Positioned(
-                      right: 6,
-                      top: 6,
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeOutCubic,
-                        padding: EdgeInsets.symmetric(
-                          horizontal:
-                              favoritesProvider.favoritesCount > 9 ? 6 : 4,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              AppTheme.darkError,
-                              AppTheme.darkError.withValues(alpha: 0.8),
+                      right: 4,
+                      top: 4,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          AppRouter.pushNamed(context, AppRouter.favorites);
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOutCubic,
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                favoritesProvider.favoritesCount > 9 ? 6 : 4,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppTheme.darkError,
+                                AppTheme.darkError.withValues(alpha: 0.8),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppTheme.darkError.withValues(
+                                  alpha: 0.4,
+                                ),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.1),
+                                blurRadius: 4,
+                                offset: const Offset(0, 1),
+                              ),
                             ],
                           ),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.3),
-                            width: 1.5,
+                          constraints: BoxConstraints(
+                            minWidth:
+                                favoritesProvider.favoritesCount > 9 ? 20 : 16,
+                            minHeight: 16,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppTheme.darkError.withValues(alpha: 0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
+                          child: AnimatedDefaultTextStyle(
+                            duration: const Duration(milliseconds: 200),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize:
+                                  favoritesProvider.favoritesCount > 9 ? 9 : 10,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
                             ),
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.1),
-                              blurRadius: 4,
-                              offset: const Offset(0, 1),
+                            child: Text(
+                              favoritesProvider.favoritesCount > 99
+                                  ? '99+'
+                                  : favoritesProvider.favoritesCount.toString(),
+                              textAlign: TextAlign.center,
                             ),
-                          ],
-                        ),
-                        constraints: BoxConstraints(
-                          minWidth:
-                              favoritesProvider.favoritesCount > 9 ? 20 : 16,
-                          minHeight: 16,
-                        ),
-                        child: AnimatedDefaultTextStyle(
-                          duration: const Duration(milliseconds: 200),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize:
-                                favoritesProvider.favoritesCount > 9 ? 9 : 10,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                          ),
-                          child: Text(
-                            favoritesProvider.favoritesCount > 99
-                                ? '99+'
-                                : favoritesProvider.favoritesCount.toString(),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
@@ -276,18 +315,24 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ],
             ),
-            child: IconButton(
-              onPressed: () {
-                AppRouter.pushNamed(context, AppRouter.leaderboard);
-              },
-              icon: Image.asset(
-                'assets/icon/winner.png',
-                width: 24,
-                height: 24,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  AppRouter.pushNamed(context, AppRouter.leaderboard);
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Image.asset(
+                    'assets/icon/winner.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
               ),
             ),
           ),
-
           const SizedBox(width: AppConstants.smallSpacing),
 
           // Settings Button
@@ -303,14 +348,21 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ],
             ),
-            child: IconButton(
-              onPressed: () {
-                AppRouter.pushNamed(context, AppRouter.settings);
-              },
-              icon: Image.asset(
-                'assets/icon/settings.png',
-                width: 24,
-                height: 24,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  AppRouter.pushNamed(context, AppRouter.settings);
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Image.asset(
+                    'assets/icon/settings.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
               ),
             ),
           ),
@@ -339,16 +391,10 @@ class _HomeScreenState extends State<HomeScreen>
           padding: EdgeInsets.zero,
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              // Banner Ad at the top of the scrollable content
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0, bottom: 8),
-                child: const BannerAdWidget(),
-              ),
-
               // The grid wrapped as a sliver list of sections
               _GamesGridWithAdsSection(
                 games: games,
-                gamesPerAd: 6, // 3 rows
+                gamesPerAd: 8, // 4 rows (2x4)
                 gamesPerRow: 2,
                 fadeAnimation: fadeAnimation,
                 fadeController: fadeController,

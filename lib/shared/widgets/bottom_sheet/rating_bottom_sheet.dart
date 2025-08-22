@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
-import '../../core/mixins/screen_animation_mixin.dart';
+import '../../../core/mixins/screen_animation_mixin.dart';
 
-import '../../core/theme/text_theme_manager.dart';
-import '../../core/constants/app_constants.dart';
-import '../../core/routes/app_router.dart';
-import '../../l10n/app_localizations.dart';
+import '../../../core/theme/text_theme_manager.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/theme/app_theme.dart';
+import '../../../core/routes/app_router.dart';
 
 class RatingBottomSheet extends StatefulWidget {
   const RatingBottomSheet({super.key});
@@ -42,7 +43,9 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.15),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.15),
                 blurRadius: 30,
                 offset: const Offset(0, -8),
                 spreadRadius: 0,
@@ -209,7 +212,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                   decoration: BoxDecoration(
                     color:
                         isSelected
-                            ? Colors.amber.withValues(alpha: 0.1)
+                            ? AppTheme.goldYellow.withValues(alpha: 0.1)
                             : Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -220,7 +223,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                     size: 44,
                     color:
                         isSelected
-                            ? Colors.amber
+                            ? AppTheme.goldYellow
                             : Theme.of(
                               context,
                             ).colorScheme.onSurface.withValues(alpha: 0.4),
@@ -273,105 +276,47 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
       ),
       child: Column(
         children: [
-          // Enhanced rate button with better visual design
-          if (_selectedRating >= 4)
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeOutCubic,
-              width: double.infinity,
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Colors.amber, Colors.orange.shade600],
-                ),
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.amber.withValues(alpha: 0.4),
-                    blurRadius: 16,
-                    offset: const Offset(0, 8),
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: _isSubmitting ? null : _rateApp,
-                  borderRadius: BorderRadius.circular(18),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.largeSpacing,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (_isSubmitting) ...[
-                          SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: AppConstants.mediumSpacing),
-                        ] else ...[
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                          const SizedBox(width: AppConstants.mediumSpacing),
-                        ],
-                        Text(
-                          _isSubmitting
-                              ? AppLocalizations.of(context)!.openingStore
-                              : AppLocalizations.of(context)!.rateOnStore,
-                          style: TextThemeManager.buttonLarge.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-          if (_selectedRating >= 4)
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-          // Enhanced feedback button
-          Container(
+          // Enhanced rate button - always visible but conditionally enabled
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
             width: double.infinity,
             height: 56,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
+              gradient:
+                  _selectedRating >= 4
+                      ? LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.secondary,
+                        ],
+                      )
+                      : null,
+              color:
+                  _selectedRating >= 4
+                      ? null
+                      : Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.outline.withValues(alpha: 0.2),
+                color:
+                    _selectedRating >= 4
+                        ? Colors.transparent
+                        : Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                 width: 1.5,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              boxShadow: const [],
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: _isSubmitting ? null : _sendFeedback,
+                onTap:
+                    (_selectedRating == 0 || _isSubmitting)
+                        ? null
+                        : _onPrimaryAction,
                 borderRadius: BorderRadius.circular(18),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
@@ -380,47 +325,58 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.feedback_rounded,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        size: 24,
-                      ),
-                      const SizedBox(width: AppConstants.mediumSpacing),
+                      if (_isSubmitting) ...[
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              _selectedRating >= 4
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : Theme.of(context).colorScheme.onSurface
+                                      .withValues(alpha: 0.9),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: AppConstants.mediumSpacing),
+                      ] else ...[
+                        Icon(
+                          Icons.star_rounded,
+                          color:
+                              _selectedRating >= 4
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : (_selectedRating == 0
+                                      ? Theme.of(context).colorScheme.onSurface
+                                          .withValues(alpha: 0.4)
+                                      : Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface),
+                          size: 24,
+                        ),
+                        const SizedBox(width: AppConstants.mediumSpacing),
+                      ],
                       Text(
-                        AppLocalizations.of(context)!.sendFeedback,
+                        _isSubmitting
+                            ? AppLocalizations.of(context)!.openingStore
+                            : (_selectedRating >= 4
+                                ? AppLocalizations.of(context)!.rateOnStore
+                                : AppLocalizations.of(context)!.sendFeedback),
                         style: TextThemeManager.buttonLarge.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
+                          color:
+                              _selectedRating >= 4
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : (_selectedRating == 0
+                                      ? Theme.of(context).colorScheme.onSurface
+                                          .withValues(alpha: 0.4)
+                                      : Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface),
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: AppConstants.mediumSpacing),
-
-          // Enhanced close button
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: TextButton(
-              onPressed:
-                  _isSubmitting ? null : () => Navigator.of(context).pop(),
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.maybeLater,
-                style: TextThemeManager.bodyLarge.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -430,18 +386,32 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
     );
   }
 
+  void _onPrimaryAction() async {
+    if (_selectedRating >= 4) {
+      await _rateApp();
+    } else {
+      await _goFeedback();
+    }
+  }
+
+  Future<void> _goFeedback() async {
+    if (!mounted) return;
+    Navigator.of(context).pop();
+    AppRouter.pushNamed(context, AppRouter.feedback);
+  }
+
   Color _getRatingColor(int rating) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     switch (rating) {
       case 1:
-        return Colors.red;
+        return Theme.of(context).colorScheme.error;
       case 2:
-        return Colors.orange;
+        return isDark ? AppTheme.darkWarning : AppTheme.lightWarning;
       case 3:
-        return Colors.yellow.shade700;
+        return AppTheme.goldYellow;
       case 4:
-        return Colors.lightGreen;
       case 5:
-        return Colors.green;
+        return isDark ? AppTheme.darkSuccess : AppTheme.lightSuccess;
       default:
         return Theme.of(context).colorScheme.primary;
     }
@@ -482,59 +452,12 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
 
         if (mounted) {
           Navigator.of(context).pop();
-
-          // Enhanced success message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                children: [
-                  const Icon(Icons.check_circle_rounded, color: Colors.white),
-                  const SizedBox(width: AppConstants.smallSpacing),
-                  Expanded(
-                    child: Text(
-                      AppLocalizations.of(context)!.thankYouForRating,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
-              ),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              duration: const Duration(seconds: 4),
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          );
         }
       } else {
         throw Exception('Could not open store');
       }
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                const Icon(Icons.error_outline_rounded, color: Colors.white),
-                const SizedBox(width: AppConstants.smallSpacing),
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!.couldNotOpenStore,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Theme.of(context).colorScheme.error,
-            duration: const Duration(seconds: 4),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        );
-      }
+      // No snackbar on error per requirement
     } finally {
       if (mounted) {
         setState(() {
@@ -542,10 +465,5 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
         });
       }
     }
-  }
-
-  Future<void> _sendFeedback() async {
-    Navigator.of(context).pop();
-    AppRouter.pushNamed(context, AppRouter.feedback);
   }
 }

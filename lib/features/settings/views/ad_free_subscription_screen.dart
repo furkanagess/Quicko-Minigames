@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/theme/app_theme.dart';
+// import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
 import '../../../core/providers/test_mode_provider.dart';
-import '../../../core/routes/app_router.dart';
+import '../../../shared/widgets/app_bars.dart';
 
 class AdFreeSubscriptionScreen extends StatefulWidget {
   const AdFreeSubscriptionScreen({super.key});
@@ -69,9 +69,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           position: _slideAnimation,
           child: Consumer2<InAppPurchaseProvider, TestModeProvider>(
             builder: (context, purchaseProvider, testModeProvider, child) {
-              final isAdFree =
-                  purchaseProvider.isSubscriptionActive ||
-                  testModeProvider.testAdFreeMode;
+              final isAdFree = testModeProvider.isAdFreeForUI;
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(AppConstants.mediumSpacing),
@@ -87,25 +85,24 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                           isAdFree,
                         ),
                       ),
-                      // Fixed cancel subscription button at bottom for ad-free users
                       if (isAdFree) ...[
                         const SizedBox(height: AppConstants.largeSpacing),
                         SizedBox(
                           width: double.infinity,
                           height: 56,
-                          child: ElevatedButton(
+                          child: OutlinedButton(
                             onPressed:
                                 purchaseProvider.isLoading
                                     ? null
-                                    : () => _handleCancelSubscription(
+                                    : () => _handleRestore(
                                       context,
                                       purchaseProvider,
                                     ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppTheme.darkError,
-                              foregroundColor: Colors.white,
-                              elevation: 0,
-                              shadowColor: Colors.transparent,
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                   AppConstants.mediumRadius,
@@ -118,19 +115,14 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                                       width: 24,
                                       height: 24,
                                       child: CircularProgressIndicator(
-                                        color: Colors.white,
                                         strokeWidth: 2,
                                       ),
                                     )
                                     : Text(
                                       AppLocalizations.of(
                                         context,
-                                      )!.cancelSubscription,
-                                      style: TextThemeManager.buttonLarge
-                                          .copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                      )!.restorePurchases,
+                                      style: TextThemeManager.buttonLarge,
                                     ),
                           ),
                         ),
@@ -204,34 +196,9 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.removeAds,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.settingsAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.removeAds,
     );
   }
 
@@ -273,7 +240,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             ),
             child: Icon(
               isAdFree
-                  ? Icons.check_circle_rounded
+                  ? Icons.verified_rounded
                   : Icons.workspace_premium_rounded,
               color: Theme.of(context).colorScheme.primary,
               size: 24,
@@ -287,7 +254,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
               children: [
                 Text(
                   isAdFree
-                      ? AppLocalizations.of(context)!.cancelSubscription
+                      ? AppLocalizations.of(context)!.lifetimeAccess
                       : AppLocalizations.of(context)!.removeAds,
                   style: TextThemeManager.sectionTitle.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
@@ -297,9 +264,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                 const SizedBox(height: 4),
                 Text(
                   isAdFree
-                      ? AppLocalizations.of(
-                        context,
-                      )!.cancelSubscriptionDescription
+                      ? AppLocalizations.of(context)!.lifetimeAccess
                       : AppLocalizations.of(context)!.removeAdsDescription,
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
@@ -326,41 +291,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     return Column(
       children: [
         if (isAdFree) ...[
-          _buildActiveSubscriptionCard(context, purchaseProvider),
-          const SizedBox(height: AppConstants.largeSpacing),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Theme.of(
-                  context,
-                ).colorScheme.error.withValues(alpha: 0.2),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.warning_rounded,
-                  color: Theme.of(context).colorScheme.error,
-                  size: 20,
-                ),
-                const SizedBox(width: AppConstants.smallSpacing),
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!.cancelSubscriptionWarning,
-                    style: TextThemeManager.bodySmall.copyWith(
-                      color: Theme.of(context).colorScheme.error,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildAdFreeUnlockedContent(context, purchaseProvider),
         ] else ...[
           _buildPurchaseContent(context, purchaseProvider),
         ],
@@ -368,76 +299,148 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     );
   }
 
-  Widget _buildActiveSubscriptionCard(
+  Widget _buildAdFreeUnlockedContent(
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppConstants.largeSpacing),
-      padding: const EdgeInsets.all(AppConstants.largeSpacing),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.1),
-            Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(
-              context,
-            ).colorScheme.tertiary.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    return Column(
+      children: [
+        // Main Status Card
+
+        // Benefits Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(AppConstants.largeSpacing),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.outline.withValues(alpha: 0.1),
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Section Header
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.tertiary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      Icons.star_rounded,
+                      color: Theme.of(context).colorScheme.tertiary,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: AppConstants.smallSpacing),
+                  Text(
+                    AppLocalizations.of(context)!.unlockedBenefits,
+                    style: TextThemeManager.subtitleMedium.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: AppConstants.mediumSpacing),
+
+              // Benefits List
+              _buildBenefitItem(
+                context,
+                Icons.block_rounded,
+                AppLocalizations.of(context)!.noBannerAds,
+                AppLocalizations.of(context)!.noBannerAdvertisements,
+              ),
+              _buildBenefitItem(
+                context,
+                Icons.block_rounded,
+                AppLocalizations.of(context)!.noInterstitialAds,
+                AppLocalizations.of(context)!.noFullScreenAds,
+              ),
+              _buildBenefitItem(
+                context,
+                Icons.block_rounded,
+                AppLocalizations.of(context)!.noRewardedAds,
+                AppLocalizations.of(context)!.noVideoAds,
+              ),
+              _buildBenefitItem(
+                context,
+                Icons.auto_awesome_rounded,
+                AppLocalizations.of(context)!.cleanExperience,
+                AppLocalizations.of(context)!.distractionFreeGaming,
+              ),
+              _buildBenefitItem(
+                context,
+                Icons.all_inclusive_rounded,
+                AppLocalizations.of(context)!.lifetimeAccess,
+                AppLocalizations.of(context)!.oneTimePaymentForeverAccess,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBenefitItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String description,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(
                 context,
-              ).colorScheme.tertiary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+              ).colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
-              Icons.check_circle_rounded,
-              color: Theme.of(context).colorScheme.tertiary,
-              size: 24,
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
             ),
           ),
-          const SizedBox(width: AppConstants.mediumSpacing),
+          const SizedBox(width: AppConstants.smallSpacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.lifetimeAccess,
-                  style: TextThemeManager.subtitleMedium.copyWith(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontWeight: FontWeight.bold,
+                  title,
+                  style: TextThemeManager.bodyMedium.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 4),
                 Text(
-                  AppLocalizations.of(context)!.purchasedOn(
-                    purchaseProvider.lastPaymentDate != null
-                        ? '${purchaseProvider.lastPaymentDate!.day}/${purchaseProvider.lastPaymentDate!.month}/${purchaseProvider.lastPaymentDate!.year}'
-                        : '',
-                  ),
+                  description,
                   style: TextThemeManager.bodySmall.copyWith(
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -755,19 +758,18 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     }
   }
 
-  void _handleCancelSubscription(
+  // Cancel subscription flow removed for one-time purchase model
+
+  Future<void> _handleRestore(
     BuildContext context,
     InAppPurchaseProvider purchaseProvider,
   ) async {
-    await purchaseProvider.cancelSubscription();
-    if (!purchaseProvider.isSubscriptionActive &&
-        purchaseProvider.errorMessage != null &&
-        mounted) {
+    final success = await purchaseProvider.restorePurchases();
+    if (!success && mounted) {
       _showPurchaseErrorBottomSheet(
         context,
-        title: AppLocalizations.of(context)!.cancelSubscriptionError,
-        description:
-            AppLocalizations.of(context)!.cancelSubscriptionErrorDescription,
+        title: AppLocalizations.of(context)!.restoreError,
+        description: AppLocalizations.of(context)!.restoreErrorDescription,
       );
     }
   }

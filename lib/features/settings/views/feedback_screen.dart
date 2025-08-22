@@ -6,6 +6,7 @@ import '../../feedback/widgets/feedback_form_widget.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../shared/widgets/app_bars.dart';
 
 class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({super.key});
@@ -92,21 +93,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   PreferredSizeWidget _buildAppBar() {
     final l10n = AppLocalizations.of(context)!;
 
-    return AppBar(
-      title: Text(
-        l10n.feedback,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back_ios_rounded,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-    );
+    return AppBars.settingsAppBar(context: context, title: l10n.feedback);
   }
 
   Widget _buildFixedSubmitButton(BuildContext context) {
@@ -304,7 +291,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                   const SizedBox(height: AppConstants.mediumSpacing),
                   // Description
                   Text(
-                    'Thank you for your feedback! We appreciate your input and will review it carefully.',
+                    l10n.feedbackSuccessDescription,
                     style: TextThemeManager.bodyMedium.copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                       height: 1.5,
@@ -328,7 +315,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                         ),
                       ),
                       child: Text(
-                        'Got it!',
+                        l10n.feedbackSuccessGotIt,
                         style: TextThemeManager.buttonMedium.copyWith(
                           color: Colors.white,
                         ),
@@ -345,6 +332,8 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   }
 
   void _showFeedbackErrorBottomSheet(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -399,7 +388,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                   const SizedBox(height: AppConstants.largeSpacing),
                   // Title
                   Text(
-                    'Email Could Not Be Sent',
+                    l10n.feedbackErrorTitle,
                     style: TextThemeManager.sectionTitle.copyWith(
                       color: Theme.of(context).colorScheme.error,
                       fontWeight: FontWeight.bold,
@@ -409,7 +398,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                   const SizedBox(height: AppConstants.mediumSpacing),
                   // Description
                   Text(
-                    'We couldn\'t send your feedback at this time. Please try again later or contact us directly at quickogamehelp@gmail.com',
+                    l10n.feedbackErrorDescription,
                     style: TextThemeManager.bodyMedium.copyWith(
                       color: Theme.of(context).colorScheme.onSurface,
                       height: 1.5,
@@ -433,7 +422,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                         ),
                       ),
                       child: Text(
-                        'Got it!',
+                        l10n.feedbackSuccessGotIt,
                         style: TextThemeManager.buttonMedium.copyWith(
                           color: Colors.white,
                         ),

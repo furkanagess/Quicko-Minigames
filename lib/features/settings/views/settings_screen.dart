@@ -4,17 +4,19 @@ import '../../../core/providers/in_app_purchase_provider.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/providers/test_mode_provider.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../core/providers/onboarding_provider.dart';
+
+// import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/constants/app_icons.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
-import '../../../core/routes/app_router.dart';
+import '../../../shared/widgets/app_bars.dart';
 import 'sound_settings_screen.dart';
 import 'ad_free_subscription_screen.dart';
 import 'language_settings_screen.dart';
 import 'theme_settings_screen.dart';
 import 'feedback_screen.dart';
+import 'leaderboard_profile_settings_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -35,8 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     InAppPurchaseProvider purchaseProvider,
     TestModeProvider testModeProvider,
   ) {
-    return purchaseProvider.isSubscriptionActive ||
-        testModeProvider.testAdFreeMode;
+    return testModeProvider.isAdFreeForUI;
   }
 
   @override
@@ -119,107 +120,13 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.settings,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            AppIcons.back,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.settingsAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.settings,
     );
   }
 
-  Widget _buildSettingsHeader(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Image.asset(
-              'assets/icon/settings.png',
-              width: 24,
-              height: 24,
-            ),
-          ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.appSettings,
-                  style: TextThemeManager.sectionTitle.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  AppLocalizations.of(context)!.customizeAppExperience,
-                  style: TextThemeManager.bodySmall.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Unused header removed to avoid lints
 
   Widget _buildSettingsOptions(
     BuildContext context,
@@ -271,10 +178,26 @@ class _SettingsScreenState extends State<SettingsScreen>
 
             const SizedBox(height: AppConstants.mediumSpacing),
 
+            // Leaderboard Profile Option
+            _buildSettingOption(
+              context,
+              title: AppLocalizations.of(context)!.leaderboardProfile,
+              subtitle:
+                  AppLocalizations.of(context)!.leaderboardProfileSubtitle,
+              icon: Icons.emoji_events_rounded,
+              emoji: '🏅',
+              onTap: () => _navigateToLeaderboardProfile(context),
+            ),
+
+            const SizedBox(height: AppConstants.mediumSpacing),
+
             // Ad-Free Subscription Option
             _buildSettingOption(
               context,
-              title: AppLocalizations.of(context)!.removeAds,
+              title:
+                  _isAdFreeForTesting(purchaseProvider, testModeProvider)
+                      ? AppLocalizations.of(context)!.lifetimeAccess
+                      : AppLocalizations.of(context)!.removeAds,
               subtitle: _getAdFreeStatusDisplay(purchaseProvider),
               icon: Icons.block_rounded,
               emoji:
@@ -297,60 +220,65 @@ class _SettingsScreenState extends State<SettingsScreen>
               onTap: () => _navigateToFeedback(context),
             ),
 
-            const SizedBox(height: AppConstants.largeSpacing),
+            // const SizedBox(height: AppConstants.largeSpacing),
 
-            // Test Section Header
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.mediumSpacing,
-                vertical: AppConstants.smallSpacing,
-              ),
-              decoration: BoxDecoration(
-                color: Theme.of(
-                  context,
-                ).colorScheme.secondary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.secondary.withValues(alpha: 0.2),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.science_rounded,
-                    color: Theme.of(context).colorScheme.secondary,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Test Mode',
-                    style: TextThemeManager.bodySmall.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // // Test Section Header
+            // Container(
+            //   width: double.infinity,
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: AppConstants.mediumSpacing,
+            //     vertical: AppConstants.smallSpacing,
+            //   ),
+            //   decoration: BoxDecoration(
+            //     color: Theme.of(
+            //       context,
+            //     ).colorScheme.secondary.withValues(alpha: 0.1),
+            //     borderRadius: BorderRadius.circular(12),
+            //     border: Border.all(
+            //       color: Theme.of(
+            //         context,
+            //       ).colorScheme.secondary.withValues(alpha: 0.2),
+            //       width: 1,
+            //     ),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       Icon(
+            //         Icons.science_rounded,
+            //         color: Theme.of(context).colorScheme.secondary,
+            //         size: 16,
+            //       ),
+            //       const SizedBox(width: 8),
+            //       Text(
+            //         'Test Mode',
+            //         style: TextThemeManager.bodySmall.copyWith(
+            //           color: Theme.of(context).colorScheme.secondary,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
-            const SizedBox(height: AppConstants.mediumSpacing),
+            // const SizedBox(height: AppConstants.mediumSpacing),
 
-            // Test Ad-Free Experience
-            _buildTestOption(
-              context,
-              title: 'Test Ad-Free Experience',
-              subtitle: 'Toggle to test ad-free user experience',
-              icon: Icons.toggle_on_rounded,
-              emoji: '🧪',
-              isEnabled: testModeProvider.testAdFreeMode,
-              onToggle:
-                  (value) =>
-                      _toggleTestAdFree(context, value, testModeProvider),
-            ),
+            // // Test Ad-Free Experience
+            // _buildTestOption(
+            //   context,
+            //   title: 'Test Ad-Free Experience',
+            //   subtitle: 'Toggle to test ad-free user experience',
+            //   icon: Icons.toggle_on_rounded,
+            //   emoji: '🧪',
+            //   isEnabled: testModeProvider.testAdFreeMode,
+            //   onToggle:
+            //       (value) =>
+            //           _toggleTestAdFree(context, value, testModeProvider),
+            // ),
+
+            // const SizedBox(height: AppConstants.largeSpacing),
+
+            // // Debug Section
+            // _buildDebugSection(),
           ],
         );
       },
@@ -529,11 +457,10 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   String _getAdFreeStatusDisplay(InAppPurchaseProvider purchaseProvider) {
-    if (purchaseProvider.isSubscriptionActive) {
+    if (purchaseProvider.isAdFree || purchaseProvider.isSubscriptionActive) {
       return AppLocalizations.of(context)!.lifetimeAccess;
-    } else {
-      return AppLocalizations.of(context)!.subscriptionPrice;
     }
+    return AppLocalizations.of(context)!.subscriptionPrice;
   }
 
   void _navigateToLanguageSettings(BuildContext context) {
@@ -557,6 +484,14 @@ class _SettingsScreenState extends State<SettingsScreen>
   void _navigateToSoundSettings(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SoundSettingsScreen()),
+    );
+  }
+
+  void _navigateToLeaderboardProfile(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LeaderboardProfileSettingsScreen(),
+      ),
     );
   }
 
@@ -684,6 +619,149 @@ class _SettingsScreenState extends State<SettingsScreen>
             value
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.secondary,
+      ),
+    );
+  }
+
+  Widget _buildDebugSection() {
+    return Consumer<TestModeProvider>(
+      builder: (context, testModeProvider, child) {
+        if (!testModeProvider.isTestModeActive) return const SizedBox.shrink();
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildSectionHeader('Debug'),
+            _buildSettingTile(
+              icon: Icons.bug_report,
+              title: 'Reset Onboarding',
+              subtitle: 'Reset onboarding state for testing',
+              onTap: () async {
+                final onboardingProvider = Provider.of<OnboardingProvider>(
+                  context,
+                  listen: false,
+                );
+                await onboardingProvider.resetOnboarding();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Onboarding reset successfully'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.mediumSpacing,
+        vertical: AppConstants.smallSpacing,
+      ),
+      child: Text(
+        title,
+        style: TextThemeManager.bodySmall.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingTile({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(20),
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            child: Row(
+              children: [
+                // Icon Container
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.2),
+                      width: 1,
+                    ),
+                  ),
+                  child: Icon(icon, size: 24),
+                ),
+                const SizedBox(width: AppConstants.mediumSpacing),
+
+                // Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextThemeManager.subtitleMedium.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: TextThemeManager.bodySmall.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Arrow Icon
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.4),
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

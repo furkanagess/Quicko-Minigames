@@ -4,13 +4,11 @@ import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_action_button.dart';
 import '../models/number_memory_game_state.dart';
 import '../providers/number_memory_provider.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../shared/models/game_state.dart';
 
 class NumberMemoryScreen extends StatelessWidget {
   const NumberMemoryScreen({super.key});

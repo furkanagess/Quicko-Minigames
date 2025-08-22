@@ -4,9 +4,9 @@ import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/providers/sound_settings_provider.dart';
-import '../../../core/routes/app_router.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/utils/sound_utils.dart';
+import '../../../shared/widgets/app_bars.dart';
 
 class SoundSettingsScreen extends StatelessWidget {
   const SoundSettingsScreen({super.key});
@@ -56,34 +56,9 @@ class SoundSettingsScreen extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.soundSettings,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.settingsAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.soundSettings,
     );
   }
 

@@ -61,6 +61,7 @@ class _ReactionTimeView extends StatelessWidget {
           descriptionKey: 'reactionTimeDescription',
           gameId: 'reaction_time',
           gameResult: gameResult,
+          showCongratsOnWin: true,
           onTryAgain: () {
             provider.hideGameOver();
             provider.resetGame();

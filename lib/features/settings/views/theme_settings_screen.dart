@@ -6,8 +6,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/constants/app_icons.dart';
-import '../../../core/routes/app_router.dart';
+import '../../../shared/widgets/app_bars.dart';
 
 class ThemeSettingsScreen extends StatefulWidget {
   const ThemeSettingsScreen({super.key});
@@ -96,34 +95,9 @@ class _ThemeSettingsScreenState extends State<ThemeSettingsScreen>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.theme,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            AppIcons.back,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.settingsAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.theme,
     );
   }
 

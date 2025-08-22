@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
-import '../../core/providers/test_mode_provider.dart';
 
 class LeaderboardBannerAdWidget extends StatefulWidget {
   const LeaderboardBannerAdWidget({super.key});
@@ -14,42 +14,67 @@ class LeaderboardBannerAdWidget extends StatefulWidget {
 
 class _LeaderboardBannerAdWidgetState extends State<LeaderboardBannerAdWidget> {
   final AdMobService _adMobService = AdMobService();
-  bool _isAdLoaded = false;
-  bool _isLoading = true;
+  final AppConfig _config = AppConfig();
+
+  BannerAd? _bannerAd;
+  bool _isLoaded = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _loadBannerAd();
+    _load();
   }
 
-  Future<void> _loadBannerAd() async {
-    if (kDebugMode) {
-      print('LeaderboardBannerAdWidget: Starting to load banner ad');
-    }
+  Future<void> _load() async {
+    if (!_adMobService.shouldShowAds) return;
+    if (_isLoading || _isLoaded) return;
+    _isLoading = true;
 
     try {
-      final loaded = await _adMobService.loadLeaderboardBannerAdWithRetry(
-        maxRetries: 3,
-      );
-      if (mounted) {
-        setState(() {
-          _isAdLoaded = loaded;
-          _isLoading = false;
-        });
-        if (kDebugMode) {
-          print('LeaderboardBannerAdWidget: Banner ad load result: $loaded');
-        }
+      final adUnitId = _config.leaderboardBannerAdUnitId;
+      if (kDebugMode) {
+        print('LeaderboardBannerAdWidget(self): Loading banner ad: $adUnitId');
       }
+      final banner = BannerAd(
+        adUnitId: adUnitId,
+        size: AdSize.banner,
+        request: const AdRequest(),
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            if (mounted) {
+              setState(() {
+                _bannerAd = ad as BannerAd;
+                _isLoaded = true;
+                _isLoading = false;
+              });
+            }
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+            if (mounted) {
+              setState(() {
+                _isLoaded = false;
+                _isLoading = false;
+              });
+            }
+            if (kDebugMode) {
+              print(
+                'LeaderboardBannerAdWidget(self): Failed: ${error.message}',
+              );
+            }
+          },
+        ),
+      );
+
+      await banner.load();
     } catch (e) {
       if (kDebugMode) {
-        print(
-          'LeaderboardBannerAdWidget: Exception while loading banner ad: $e',
-        );
+        print('LeaderboardBannerAdWidget(self): Exception while loading: $e');
       }
       if (mounted) {
         setState(() {
-          _isAdLoaded = false;
+          _isLoaded = false;
           _isLoading = false;
         });
       }
@@ -57,29 +82,29 @@ class _LeaderboardBannerAdWidgetState extends State<LeaderboardBannerAdWidget> {
   }
 
   @override
+  void dispose() {
+    try {
+      _bannerAd?.dispose();
+    } catch (_) {}
+    _bannerAd = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Consumer<TestModeProvider>(
-      builder: (context, testModeProvider, child) {
-        // Don't show anything if user has ad-free subscription (or test mode simulates it)
-        if (!_adMobService.shouldShowAds) {
-          return const SizedBox.shrink();
-        }
-
-        // Don't show anything while loading or if ad failed to load
-        if (_isLoading || !_isAdLoaded) {
-          return const SizedBox.shrink();
-        }
-
-        final bannerWidget = _adMobService.getResponsiveBannerAdWidget();
-        if (bannerWidget == null) {
-          return const SizedBox.shrink();
-        }
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: bannerWidget,
-        );
-      },
+    if (!_adMobService.shouldShowAds) {
+      return const SizedBox.shrink();
+    }
+    if (!_isLoaded || _bannerAd == null) {
+      return const SizedBox.shrink();
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: SizedBox(
+        width: double.infinity,
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      ),
     );
   }
 }

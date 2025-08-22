@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import '../../../shared/widgets/game_screen_base.dart';
-import '../../../shared/widgets/game_action_button.dart';
-import '../../../shared/models/game_state.dart';
 import '../../../core/constants/app_constants.dart';
-import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/rps_provider.dart';
 import '../models/rps_game_state.dart';
@@ -57,6 +54,7 @@ class _RpsView extends StatelessWidget {
           descriptionKey: 'rock_paper_scissors_description',
           gameId: 'rps',
           gameResult: gameResult,
+          showCongratsOnWin: true,
           onTryAgain: () {
             provider.reset();
           },
@@ -361,7 +359,7 @@ class _ChoiceButtonState extends State<_ChoiceButton>
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _elevationAnimation;
-  bool _isPressed = false;
+  // Removed unused _isPressed to satisfy linter
 
   @override
   void initState() {
@@ -387,23 +385,14 @@ class _ChoiceButtonState extends State<_ChoiceButton>
   }
 
   void _onTapDown(TapDownDetails details) {
-    setState(() {
-      _isPressed = true;
-    });
     _animationController.forward();
   }
 
   void _onTapUp(TapUpDetails details) {
-    setState(() {
-      _isPressed = false;
-    });
     _animationController.reverse();
   }
 
   void _onTapCancel() {
-    setState(() {
-      _isPressed = false;
-    });
     _animationController.reverse();
   }
 

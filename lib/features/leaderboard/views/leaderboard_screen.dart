@@ -8,8 +8,9 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/routes/app_router.dart';
 import '../../../shared/models/leaderboard_entry.dart';
-import '../../../shared/widgets/leaderboard_banner_ad_widget.dart';
 import '../../../shared/widgets/inline_banner_ad_widget.dart';
+import '../../../shared/widgets/banner_ad_widget.dart';
+import '../../../shared/widgets/app_bars.dart';
 import '../providers/leaderboard_provider.dart';
 import '../../../core/mixins/screen_animation_mixin.dart';
 
@@ -54,34 +55,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.leaderboard,
-        style: TextThemeManager.appTitlePrimary(context),
-      ),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          onPressed: () => AppRouter.pop(context),
-        ),
-      ),
+    return AppBars.leaderboardAppBar(
+      context: context,
+      title: AppLocalizations.of(context)!.leaderboard,
     );
   }
 
@@ -230,10 +206,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
   Widget _buildLeaderboardContent(LeaderboardProvider leaderboardProvider) {
     final totalEntries = leaderboardProvider.entries.length;
-    const int groupSize = 3;
-    final int numberOfInlineBanners = totalEntries ~/ groupSize; // after each 3
+    const int groupSize = 8;
+    final int numberOfInlineBanners = totalEntries ~/ groupSize; // after each 8
 
-    // Items: 0 stats, 1 banner, 2 swipe hint, then groups of 3 entries + 1 banner
+    // Items: 0 stats, 1 banner, 2 swipe hint, then groups of 8 entries + 1 banner
     final int totalListItems = 3 + totalEntries + numberOfInlineBanners;
 
     return ListView.builder(
@@ -241,13 +217,20 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       itemCount: totalListItems,
       itemBuilder: (context, index) {
         if (index == 0) return _buildStatistics(leaderboardProvider);
-        if (index == 1) return const LeaderboardBannerAdWidget();
+        if (index == 1) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.mediumSpacing,
+            ),
+            child: BannerAdWidget(),
+          );
+        }
         if (index == 2) return _buildSwipeHint();
 
         final int afterHeaderIndex = index - 3;
-        // Pattern length: 4 (3 entries + 1 banner)
-        if ((afterHeaderIndex + 1) % 4 == 0) {
-          // Inline banner after each 3 entries; use custom spacing to match card spacing
+        // Pattern length: 9 (8 entries + 1 banner)
+        if ((afterHeaderIndex + 1) % 9 == 0) {
+          // Inline banner after each 8 entries; use custom spacing to match card spacing
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: const InlineBannerAdWidget(
@@ -257,7 +240,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         }
 
         // Compute entry index by subtracting banners before this position
-        final int bannersBefore = afterHeaderIndex ~/ 4;
+        final int bannersBefore = afterHeaderIndex ~/ 9;
         final int entryIndex = afterHeaderIndex - bannersBefore;
         final entry = leaderboardProvider.entries[entryIndex];
 
