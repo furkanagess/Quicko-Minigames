@@ -18,6 +18,10 @@
   "confirm": "Onayla",
   "fullscreen": "Tam Ekran",
   "cancel": "İptal",
+  "stay": "Kal",
+  "@stay": {
+    "description": "Stay button text"
+  },
   "reset": "Sıfırla",
   
   "higherLower": "Yüksek mi Düşük mü",
@@ -97,7 +101,7 @@
   "removeAds": "Reklamları Kaldır",
   "removeAdsDescription": "Tek seferlik ödeme ile reklamsız deneyim yaşayın",
   "monthlySubscription": "Aylık Abonelik",
-  "buyNow": "Şimdi Satın Al",
+  "buyNow": "Satın Al",
   "restorePurchases": "Satın Alımları Geri Yükle",
   "subscriptionActive": "Abonelik Aktif",
   "subscriptionExpired": "Abonelik Süresi Doldu",
@@ -531,6 +535,18 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "Oyununuza kaldığınız yerden devam edin.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "oneTimeContinueUsed": "Bu oyun session'ında zaten devam hakkınızı kullandınız.",
+  "@oneTimeContinueUsed": {
+    "description": "Message shown when ad-free user has already used their one-time continue"
+  },
+  "watchAdToContinueDescription": "Kısa bir reklam izleyerek oyununuza kaldığınız yerden devam edin.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "Aboneliği İptal Et",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -610,6 +626,10 @@
   "sendFeedback": "Geri Bildirim Gönder",
   "sending": "Gönderiliyor...",
   "feedbackSentSuccess": "✅ Geri bildirim başarıyla gönderildi! Görüşleriniz için teşekkürler.",
+  "feedbackSuccessDescription": "Geri bildiriminiz için teşekkürler! Görüşlerinizi değerlendiriyoruz ve dikkatle inceleyeceğiz.",
+  "feedbackSuccessGotIt": "Anladım!",
+  "feedbackErrorTitle": "E-posta Gönderilemedi",
+  "feedbackErrorDescription": "Geri bildiriminizi şu anda gönderemedik. Lütfen daha sonra tekrar deneyin veya doğrudan quickogamehelp@gmail.com adresinden bize ulaşın.",
   "feedbackSentError": "❌ {errorMessage}. Lütfen tekrar deneyin veya yukarıdaki doğrudan e-posta seçeneğini kullanın.",
   "feedbackCategoryBug": "Hata Bildirimi",
   "feedbackCategoryFeature": "Özellik İsteği",
@@ -628,5 +648,208 @@
   "invalidFeedbackData": "Geçersiz geri bildirim verisi",
   "failedToSendFeedback": "Geri bildirim gönderilemedi. Lütfen tekrar deneyin.",
   "errorSendingFeedback": "Geri bildirim gönderme hatası: {error}",
-  "maybeLater": "Belki Daha Sonra"
+  "maybeLater": "Daha Sonra",
+  
+  "noInternetTitle": "İnternet Bağlantısı Yok",
+  "noInternetDescription": "Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.",
+  "noEntriesYet": "Henüz giriş yok",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "Senin Sıralaman",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "Bu Senin Skorun!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "Kullanıcı verileri yükleniyor...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "Leaderboard Profili",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "İsim ve ülke bayrağınızı düzenleyin",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "İsim",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "İsim gerekli",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "En az 2 karakter",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "Ülke",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "Ülke Ara",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "Emin misiniz?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "Şu ana kadarki ilerlemeniz farklı isimle devam edecek.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "Profil bilgilerinizi (isim ve ülke) değiştirmek üzeresiniz.",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "İptal",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "save": "Kaydet",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "Tebrikler!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "skorunuz:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "Lider tablosuna kayıt olun",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "Skorunuzu global sıralamaya eklemek için bilgilerinizi girin.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "İsminizi girin",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "Ülke adı yazın...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "Ülkenizi seçin",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "Vazgeç",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "Lider tablosuna eklemek ister misiniz?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "Skorunuzu global sıralamaya ekleyerek diğer oyuncularla yarışabilirsiniz.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "Evet, Ekle",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "Sayı üretiliyor...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "Sonuç hesaplanıyor...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "Premium Özellikler",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "Premium özelliklerle temiz, reklamsız bir deneyim yaşayın.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "Aylık abonelik",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgressSubtitle": "Aktif bir oyun oturumunuz var",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Oyun Oturumu Aktif",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Oyun Tamamlandı!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Oyunu tamamladığınız için tebrikler! Tekrar oynamak için yeniden başlatabilir veya ana menüye dönmek için çıkabilirsiniz.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  },
+  "unlockedBenefits": "Açılan Faydalar",
+  "@unlockedBenefits": {
+    "description": "Title for unlocked benefits section in ad-free screen"
+  },
+  "noBannerAdvertisements": "Banner reklamları yok",
+  "@noBannerAdvertisements": {
+    "description": "Description for no banner ads benefit"
+  },
+  "noFullScreenAds": "Tam ekran reklamları yok",
+  "@noFullScreenAds": {
+    "description": "Description for no interstitial ads benefit"
+  },
+  "noVideoAds": "Video reklamları yok",
+  "@noVideoAds": {
+    "description": "Description for no rewarded ads benefit"
+  },
+  "distractionFreeGaming": "Dikkat dağıtmayan oyun deneyimi",
+  "@distractionFreeGaming": {
+    "description": "Description for clean experience benefit"
+  },
+  "oneTimePaymentForeverAccess": "Tek seferlik ödeme, sonsuz erişim",
+  "@oneTimePaymentForeverAccess": {
+    "description": "Description for lifetime access benefit"
+  },
+  "skip": "Atla",
+  "@skip": {
+    "description": "Skip button text for onboarding"
+  },
+  "getStarted": "Başla",
+  "@getStarted": {
+    "description": "Get started button text for onboarding"
+  },
+  "onboardingTitle1": "Beyninizi Eğitin",
+  "@onboardingTitle1": {
+    "description": "First onboarding page title"
+  },
+  "onboardingDescription1": "Hafıza, odaklanma ve bilişsel becerileri geliştirmek için tasarlanmış beyin eğitimi oyunlarımızla zihninizi zorlayın.",
+  "@onboardingDescription1": {
+    "description": "First onboarding page description"
+  },
+  "onboardingTitle2": "İlerlemenizi Takip Edin",
+  "@onboardingTitle2": {
+    "description": "Second onboarding page title"
+  },
+  "onboardingDescription2": "Performansınızı detaylı istatistiklerle izleyin ve küresel sıralama listelerimizde dünya çapındaki oyuncularla yarışın.",
+  "@onboardingTitle2": {
+    "description": "Second onboarding page description"
+  },
+  "onboardingTitle3": "Başarılar Kazanın",
+  "@onboardingTitle3": {
+    "description": "Third onboarding page title"
+  },
+  "onboardingDescription3": "Becerilerinizi geliştirdikçe başarılar ve ödüller açın. İlerlemenizi paylaşın ve arkadaşlarınızı skorlarınızı geçmeye davet edin.",
+  "@onboardingDescription3": {
+    "description": "Third onboarding page description"
+  }
 }

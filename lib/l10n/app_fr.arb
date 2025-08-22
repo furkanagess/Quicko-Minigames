@@ -64,7 +64,11 @@
   },
   "cancel": "Annuler",
   "@cancel": {
-    "description": "Texte du bouton Annuler"
+    "description": "Cancel button text"
+  },
+  "stay": "Rester",
+  "@stay": {
+    "description": "Stay button text"
   },
   "reset": "Réinitialiser",
   "@reset": {
@@ -313,7 +317,27 @@
   "@monthlySubscription": {
     "description": "Étiquette d'abonnement mensuel"
   },
-  "buyNow": "Acheter Maintenant",
+  "gameInProgress": "Partie en Cours",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressSubtitle": "Vous avez une session de jeu active",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Session de Jeu Active",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Jeu Terminé !",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Félicitations pour avoir terminé le jeu ! Vous pouvez redémarrer pour rejouer ou quitter pour retourner au menu principal.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  },
+  "buyNow": "Acheter",
   "@subscribeNow": {
     "description": "Texte du bouton S'abonner maintenant"
   },
@@ -881,6 +905,14 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "Continuez votre jeu là où vous l'avez laissé.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "watchAdToContinueDescription": "Regardez une courte publicité pour continuer votre jeu là où vous l'avez laissé.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "Annuler l'Abonnement",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -935,6 +967,10 @@
   "sendFeedback": "Envoyer un retour",
   "sending": "Envoi en cours...",
   "feedbackSentSuccess": "✅ Retour envoyé avec succès ! Merci pour votre contribution.",
+  "feedbackSuccessDescription": "Merci pour votre retour ! Nous apprécions votre contribution et l'examinerons attentivement.",
+  "feedbackSuccessGotIt": "Compris !",
+  "feedbackErrorTitle": "L'e-mail n'a pas pu être envoyé",
+  "feedbackErrorDescription": "Nous n'avons pas pu envoyer votre retour pour le moment. Veuillez réessayer plus tard ou nous contacter directement à quickogamehelp@gmail.com",
   "feedbackSentError": "❌ {errorMessage}. Veuillez réessayer ou utiliser l'option email direct ci-dessus.",
   "feedbackCategoryBug": "Signalement de bug",
   "feedbackCategoryFeature": "Demande de fonctionnalité",
@@ -953,5 +989,149 @@
   "invalidFeedbackData": "Données de retour invalides",
   "failedToSendFeedback": "Impossible d'envoyer le retour. Veuillez réessayer.",
   "errorSendingFeedback": "Erreur lors de l'envoi du retour : {error}",
-  "maybeLater": "Peut-être plus tard"
+  "maybeLater": "Plus tard",
+  "noEntriesYet": "Aucune entrée pour le moment",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "Votre Classement",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "C'est Votre Score !",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "Chargement des données utilisateur...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "Profil de Classement",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "Modifiez votre nom et drapeau du pays",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "Nom",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "Le nom est requis",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "Au moins 2 caractères",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "Pays",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "Rechercher un Pays",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "Êtes-vous sûr ?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "Votre progression jusqu'à présent continuera avec un nom différent.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "Vous êtes sur le point de modifier les informations de votre profil (nom et pays).",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "Annuler",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "save": "Enregistrer",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "Félicitations !",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "votre score :",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "Inscrivez-vous au classement",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "Entrez vos informations pour ajouter votre score au classement mondial.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "Entrez votre nom",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "Écrivez le nom du pays...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "Sélectionnez votre pays",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "Abandonner",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "Ajouter au classement ?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "Ajoutez votre score au classement mondial pour rivaliser avec d'autres joueurs.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "Oui, Ajouter",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "Génération du nombre...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "Calcul du résultat...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "Fonctionnalités Premium",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "Profitez d'une expérience propre et sans publicité avec les fonctionnalités premium.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "Abonnement mensuel",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgressSubtitle": "Vous avez une session de jeu active",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Session de Jeu Active",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Jeu Terminé !",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Félicitations pour avoir terminé le jeu ! Vous pouvez redémarrer pour rejouer ou quitter pour retourner au menu principal.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  }
 }

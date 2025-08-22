@@ -92,6 +92,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get oneTimeContinue => 'Continuer 1 Fois';
 
   @override
+  String get continueGameDescription =>
+      'Continuez votre jeu là où vous l\'avez laissé.';
+
+  @override
+  String get oneTimeContinueUsed =>
+      'You have already used your one-time continue for this game session.';
+
+  @override
+  String get watchAdToContinueDescription =>
+      'Regardez une courte publicité pour continuer votre jeu là où vous l\'avez laissé.';
+
+  @override
   String get cancelSubscription => 'Annuler l\'Abonnement';
 
   @override
@@ -124,6 +136,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get exit => 'Quitter';
+
+  @override
+  String get stay => 'Rester';
 
   @override
   String get andMore => 'et plus...';
@@ -287,10 +302,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Profitez d\'une expérience sans publicité avec un paiement unique';
 
   @override
-  String get monthlySubscription => 'Abonnement Mensuel';
+  String get monthlySubscription => 'Abonnement mensuel';
 
   @override
-  String get buyNow => 'Acheter Maintenant';
+  String get buyNow => 'Acheter';
 
   @override
   String get restorePurchases => 'Restaurer les Achats';
@@ -649,7 +664,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get correctGuesses => 'Devinettes Correctes';
 
   @override
-  String get yourScore => 'Votre Score';
+  String get yourScore => 'votre score :';
 
   @override
   String get cpuScore => 'Score CPU';
@@ -736,7 +751,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get fiftyPercentOff => '50% OFF';
 
   @override
-  String get gameInProgress => 'Game in Progress';
+  String get gameInProgress => 'Partie en Cours';
 
   @override
   String get gameInProgressMessage =>
@@ -816,6 +831,20 @@ class AppLocalizationsFr extends AppLocalizations {
       '✅ Retour envoyé avec succès ! Merci pour votre contribution.';
 
   @override
+  String get feedbackSuccessDescription =>
+      'Merci pour votre retour ! Nous apprécions votre contribution et l\'examinerons attentivement.';
+
+  @override
+  String get feedbackSuccessGotIt => 'Compris !';
+
+  @override
+  String get feedbackErrorTitle => 'L\'e-mail n\'a pas pu être envoyé';
+
+  @override
+  String get feedbackErrorDescription =>
+      'Nous n\'avons pas pu envoyer votre retour pour le moment. Veuillez réessayer plus tard ou nous contacter directement à quickogamehelp@gmail.com';
+
+  @override
   String feedbackSentError(String errorMessage) {
     return '❌ $errorMessage. Veuillez réessayer ou utiliser l\'option email direct ci-dessus.';
   }
@@ -880,5 +909,167 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get maybeLater => 'Peut-être plus tard';
+  String get maybeLater => 'Plus tard';
+
+  @override
+  String get noInternetTitle => 'No Internet Connection';
+
+  @override
+  String get noInternetDescription =>
+      'Please check your internet connection and try again.';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get offlineModeInfo =>
+      'Games work offline, but ads and online features require internet.';
+
+  @override
+  String get noEntriesYet => 'Aucune entrée pour le moment';
+
+  @override
+  String get yourRanking => 'Votre Classement';
+
+  @override
+  String get thisIsYourScore => 'C\'est Votre Score !';
+
+  @override
+  String get loadingUserData => 'Chargement des données utilisateur...';
+
+  @override
+  String get leaderboardProfile => 'Profil de Classement';
+
+  @override
+  String get leaderboardProfileSubtitle =>
+      'Modifiez votre nom et drapeau du pays';
+
+  @override
+  String get name => 'Nom';
+
+  @override
+  String get nameRequired => 'Le nom est requis';
+
+  @override
+  String get minimumTwoCharacters => 'Au moins 2 caractères';
+
+  @override
+  String get country => 'Pays';
+
+  @override
+  String get searchCountry => 'Rechercher un Pays';
+
+  @override
+  String get areYouSure => 'Êtes-vous sûr ?';
+
+  @override
+  String get profileChangeWarning =>
+      'Votre progression jusqu\'à présent continuera avec un nom différent.';
+
+  @override
+  String get profileChangeDescription =>
+      'Vous êtes sur le point de modifier les informations de votre profil (nom et pays).';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get registerForLeaderboard => 'Inscrivez-vous au classement';
+
+  @override
+  String get enterInfoForGlobalRanking =>
+      'Entrez vos informations pour ajouter votre score au classement mondial.';
+
+  @override
+  String get enterYourName => 'Entrez votre nom';
+
+  @override
+  String get writeCountryName => 'Écrivez le nom du pays...';
+
+  @override
+  String get selectYourCountry => 'Sélectionnez votre pays';
+
+  @override
+  String get giveUp => 'Abandonner';
+
+  @override
+  String get addToLeaderboard => 'Ajouter au classement ?';
+
+  @override
+  String get addToLeaderboardDescription =>
+      'Ajoutez votre score au classement mondial pour rivaliser avec d\'autres joueurs.';
+
+  @override
+  String get yesAdd => 'Oui, Ajouter';
+
+  @override
+  String get generatingNumber => 'Génération du nombre...';
+
+  @override
+  String get calculatingResult => 'Calcul du résultat...';
+
+  @override
+  String get premiumFeatures => 'Fonctionnalités Premium';
+
+  @override
+  String get getCleanExperience =>
+      'Profitez d\'une expérience propre et sans publicité avec les fonctionnalités premium.';
+
+  @override
+  String get gameInProgressSubtitle => 'Vous avez une session de jeu active';
+
+  @override
+  String get gameInProgressTitle => 'Session de Jeu Active';
+
+  @override
+  String get gameCompleted => 'Jeu Terminé !';
+
+  @override
+  String get gameCompletedMessage =>
+      'Félicitations pour avoir terminé le jeu ! Vous pouvez redémarrer pour rejouer ou quitter pour retourner au menu principal.';
+
+  @override
+  String get unlockedBenefits => 'Unlocked Benefits';
+
+  @override
+  String get noBannerAdvertisements => 'No banner advertisements';
+
+  @override
+  String get noFullScreenAds => 'No full-screen ads';
+
+  @override
+  String get noVideoAds => 'No video ads';
+
+  @override
+  String get distractionFreeGaming => 'Distraction-free gaming';
+
+  @override
+  String get oneTimePaymentForeverAccess => 'One-time payment, forever access';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get onboardingTitle1 => 'Train Your Brain';
+
+  @override
+  String get onboardingDescription1 =>
+      'Challenge your mind with our collection of brain training games designed to improve memory, focus, and cognitive skills.';
+
+  @override
+  String get onboardingTitle2 => 'Track Your Progress';
+
+  @override
+  String get onboardingDescription2 =>
+      'Monitor your performance with detailed statistics and compete with players worldwide on our global leaderboards.';
+
+  @override
+  String get onboardingTitle3 => 'Earn Achievements';
+
+  @override
+  String get onboardingDescription3 =>
+      'Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.';
 }

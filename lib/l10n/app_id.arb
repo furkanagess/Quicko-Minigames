@@ -66,6 +66,10 @@
   "@cancel": {
     "description": "Teks tombol Batal"
   },
+  "stay": "Tinggal",
+  "@stay": {
+    "description": "Teks tombol Tinggal"
+  },
   "reset": "Reset",
   "@reset": {
     "description": "Teks tombol Reset"
@@ -313,7 +317,7 @@
   "@monthlySubscription": {
     "description": "Label berlangganan bulanan"
   },
-  "buyNow": "Beli Sekarang",
+  "buyNow": "Beli",
   "@subscribeNow": {
     "description": "Teks tombol Berlangganan sekarang"
   },
@@ -879,6 +883,14 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "Lanjutkan permainan Anda dari tempat Anda berhenti.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "watchAdToContinueDescription": "Tonton iklan singkat untuk melanjutkan permainan Anda dari tempat Anda berhenti.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "Batalkan Langganan",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -950,5 +962,153 @@
   "invalidFeedbackData": "Data umpan balik tidak valid",
   "failedToSendFeedback": "Gagal mengirim umpan balik. Silakan coba lagi.",
   "errorSendingFeedback": "Error mengirim umpan balik: {error}",
-  "maybeLater": "Mungkin nanti"
+  "maybeLater": "Nanti",
+  "noEntriesYet": "Belum ada entri",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "Peringkat Anda",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "Ini Skor Anda!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "Memuat data pengguna...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "Profil Papan Peringkat",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "Edit nama dan bendera negara Anda",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "Nama",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "Nama diperlukan",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "Minimal 2 karakter",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "Negara",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "Cari Negara",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "Apakah Anda yakin?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "Kemajuan Anda sejauh ini akan berlanjut dengan nama yang berbeda.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "Anda akan mengubah informasi profil Anda (nama dan negara).",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "Batal",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "save": "Simpan",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "Selamat!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "skor Anda:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "Daftar untuk papan peringkat",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "Masukkan informasi Anda untuk menambahkan skor Anda ke peringkat global.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "Masukkan nama Anda",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "Tulis nama negara...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "Pilih negara Anda",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "Menyerah",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "Tambahkan ke papan peringkat?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "Tambahkan skor Anda ke peringkat global untuk bersaing dengan pemain lain.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "Ya, Tambahkan",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "Menghasilkan angka...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "Menghitung hasil...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "Fitur Premium",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "Dapatkan pengalaman bersih dan bebas iklan dengan fitur premium.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "Langganan bulanan",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgress": "Permainan Sedang Berlangsung",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressSubtitle": "Anda memiliki sesi permainan yang aktif",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Sesi Permainan Aktif",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Permainan Selesai!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Selamat atas menyelesaikan permainan! Anda dapat memulai ulang untuk bermain lagi atau keluar untuk kembali ke menu utama.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  }
 }

@@ -92,6 +92,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get oneTimeContinue => '1 Kerelik Devam Et';
 
   @override
+  String get continueGameDescription =>
+      'Oyununuza kaldığınız yerden devam edin.';
+
+  @override
+  String get oneTimeContinueUsed =>
+      'Bu oyun session\'ında zaten devam hakkınızı kullandınız.';
+
+  @override
+  String get watchAdToContinueDescription =>
+      'Kısa bir reklam izleyerek oyununuza kaldığınız yerden devam edin.';
+
+  @override
   String get cancelSubscription => 'Aboneliği İptal Et';
 
   @override
@@ -123,6 +135,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get exit => 'Çıkış';
+
+  @override
+  String get stay => 'Kal';
 
   @override
   String get andMore => 've daha fazlası...';
@@ -285,10 +300,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Tek seferlik ödeme ile reklamsız deneyim yaşayın';
 
   @override
-  String get monthlySubscription => 'Aylık Abonelik';
+  String get monthlySubscription => 'Aylık abonelik';
 
   @override
-  String get buyNow => 'Şimdi Satın Al';
+  String get buyNow => 'Satın Al';
 
   @override
   String get restorePurchases => 'Satın Alımları Geri Yükle';
@@ -643,7 +658,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get correctGuesses => 'Doğru Tahminler';
 
   @override
-  String get yourScore => 'Senin Skorun';
+  String get yourScore => 'skorunuz:';
 
   @override
   String get cpuScore => 'PC Skoru';
@@ -809,6 +824,20 @@ class AppLocalizationsTr extends AppLocalizations {
       '✅ Geri bildirim başarıyla gönderildi! Görüşleriniz için teşekkürler.';
 
   @override
+  String get feedbackSuccessDescription =>
+      'Geri bildiriminiz için teşekkürler! Görüşlerinizi değerlendiriyoruz ve dikkatle inceleyeceğiz.';
+
+  @override
+  String get feedbackSuccessGotIt => 'Anladım!';
+
+  @override
+  String get feedbackErrorTitle => 'E-posta Gönderilemedi';
+
+  @override
+  String get feedbackErrorDescription =>
+      'Geri bildiriminizi şu anda gönderemedik. Lütfen daha sonra tekrar deneyin veya doğrudan quickogamehelp@gmail.com adresinden bize ulaşın.';
+
+  @override
   String feedbackSentError(String errorMessage) {
     return '❌ $errorMessage. Lütfen tekrar deneyin veya yukarıdaki doğrudan e-posta seçeneğini kullanın.';
   }
@@ -873,5 +902,167 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get maybeLater => 'Belki Daha Sonra';
+  String get maybeLater => 'Daha Sonra';
+
+  @override
+  String get noInternetTitle => 'İnternet Bağlantısı Yok';
+
+  @override
+  String get noInternetDescription =>
+      'Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get offlineModeInfo =>
+      'Games work offline, but ads and online features require internet.';
+
+  @override
+  String get noEntriesYet => 'Henüz giriş yok';
+
+  @override
+  String get yourRanking => 'Senin Sıralaman';
+
+  @override
+  String get thisIsYourScore => 'Bu Senin Skorun!';
+
+  @override
+  String get loadingUserData => 'Kullanıcı verileri yükleniyor...';
+
+  @override
+  String get leaderboardProfile => 'Leaderboard Profili';
+
+  @override
+  String get leaderboardProfileSubtitle =>
+      'İsim ve ülke bayrağınızı düzenleyin';
+
+  @override
+  String get name => 'İsim';
+
+  @override
+  String get nameRequired => 'İsim gerekli';
+
+  @override
+  String get minimumTwoCharacters => 'En az 2 karakter';
+
+  @override
+  String get country => 'Ülke';
+
+  @override
+  String get searchCountry => 'Ülke Ara';
+
+  @override
+  String get areYouSure => 'Emin misiniz?';
+
+  @override
+  String get profileChangeWarning =>
+      'Şu ana kadarki ilerlemeniz farklı isimle devam edecek.';
+
+  @override
+  String get profileChangeDescription =>
+      'Profil bilgilerinizi (isim ve ülke) değiştirmek üzeresiniz.';
+
+  @override
+  String get save => 'Kaydet';
+
+  @override
+  String get registerForLeaderboard => 'Lider tablosuna kayıt olun';
+
+  @override
+  String get enterInfoForGlobalRanking =>
+      'Skorunuzu global sıralamaya eklemek için bilgilerinizi girin.';
+
+  @override
+  String get enterYourName => 'İsminizi girin';
+
+  @override
+  String get writeCountryName => 'Ülke adı yazın...';
+
+  @override
+  String get selectYourCountry => 'Ülkenizi seçin';
+
+  @override
+  String get giveUp => 'Vazgeç';
+
+  @override
+  String get addToLeaderboard => 'Lider tablosuna eklemek ister misiniz?';
+
+  @override
+  String get addToLeaderboardDescription =>
+      'Skorunuzu global sıralamaya ekleyerek diğer oyuncularla yarışabilirsiniz.';
+
+  @override
+  String get yesAdd => 'Evet, Ekle';
+
+  @override
+  String get generatingNumber => 'Sayı üretiliyor...';
+
+  @override
+  String get calculatingResult => 'Sonuç hesaplanıyor...';
+
+  @override
+  String get premiumFeatures => 'Premium Özellikler';
+
+  @override
+  String get getCleanExperience =>
+      'Premium özelliklerle temiz, reklamsız bir deneyim yaşayın.';
+
+  @override
+  String get gameInProgressSubtitle => 'Aktif bir oyun oturumunuz var';
+
+  @override
+  String get gameInProgressTitle => 'Oyun Oturumu Aktif';
+
+  @override
+  String get gameCompleted => 'Oyun Tamamlandı!';
+
+  @override
+  String get gameCompletedMessage =>
+      'Oyunu tamamladığınız için tebrikler! Tekrar oynamak için yeniden başlatabilir veya ana menüye dönmek için çıkabilirsiniz.';
+
+  @override
+  String get unlockedBenefits => 'Açılan Faydalar';
+
+  @override
+  String get noBannerAdvertisements => 'Banner reklamları yok';
+
+  @override
+  String get noFullScreenAds => 'Tam ekran reklamları yok';
+
+  @override
+  String get noVideoAds => 'Video reklamları yok';
+
+  @override
+  String get distractionFreeGaming => 'Dikkat dağıtmayan oyun deneyimi';
+
+  @override
+  String get oneTimePaymentForeverAccess => 'Tek seferlik ödeme, sonsuz erişim';
+
+  @override
+  String get skip => 'Atla';
+
+  @override
+  String get getStarted => 'Başla';
+
+  @override
+  String get onboardingTitle1 => 'Beyninizi Eğitin';
+
+  @override
+  String get onboardingDescription1 =>
+      'Hafıza, odaklanma ve bilişsel becerileri geliştirmek için tasarlanmış beyin eğitimi oyunlarımızla zihninizi zorlayın.';
+
+  @override
+  String get onboardingTitle2 => 'İlerlemenizi Takip Edin';
+
+  @override
+  String get onboardingDescription2 =>
+      'Performansınızı detaylı istatistiklerle izleyin ve küresel sıralama listelerimizde dünya çapındaki oyuncularla yarışın.';
+
+  @override
+  String get onboardingTitle3 => 'Başarılar Kazanın';
+
+  @override
+  String get onboardingDescription3 =>
+      'Becerilerinizi geliştirdikçe başarılar ve ödüller açın. İlerlemenizi paylaşın ve arkadaşlarınızı skorlarınızı geçmeye davet edin.';
 }

@@ -64,9 +64,13 @@
   },
   "cancel": "रद्द करें",
   "@cancel": {
-    "description": "रद्द करें बटन का टेक्स्ट"
+    "description": "Cancel button text"
   },
-  "reset": "रीसेट",
+  "stay": "रहें",
+  "@stay": {
+    "description": "Stay button text"
+  },
+  "reset": "रीसेट करें",
   "@reset": {
     "description": "रीसेट बटन का टेक्स्ट"
   },
@@ -311,9 +315,9 @@
   },
   "monthlySubscription": "मासिक सदस्यता",
   "@monthlySubscription": {
-    "description": "मासिक सदस्यता लेबल"
+    "description": "Monthly subscription text"
   },
-  "buyNow": "अभी खरीदें",
+  "buyNow": "खरीदें",
   "@subscribeNow": {
     "description": "अभी सदस्यता लें बटन का टेक्स्ट"
   },
@@ -879,6 +883,14 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "अपना खेल वहीं से जारी रखें जहां आपने छोड़ा था।",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "watchAdToContinueDescription": "अपना खेल वहीं से जारी रखने के लिए एक छोटा विज्ञापन देखें।",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "सदस्यता रद्द करें",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -922,6 +934,10 @@
   "sendFeedback": "प्रतिक्रिया भेजें",
   "sending": "भेज रहा है...",
   "feedbackSentSuccess": "✅ प्रतिक्रिया सफलतापूर्वक भेजी गई! आपके योगदान के लिए धन्यवाद।",
+  "feedbackSuccessDescription": "आपकी प्रतिक्रिया के लिए धन्यवाद! हम आपके योगदान की सराहना करते हैं और इसे सावधानीपूर्वक समीक्षा करेंगे।",
+  "feedbackSuccessGotIt": "समझ गया!",
+  "feedbackErrorTitle": "ईमेल नहीं भेजा जा सका",
+  "feedbackErrorDescription": "हम इस समय आपकी प्रतिक्रिया नहीं भेज सके। कृपया बाद में पुनः प्रयास करें या हमसे सीधे quickogamehelp@gmail.com पर संपर्क करें",
   "feedbackSentError": "❌ {errorMessage}. कृपया पुनः प्रयास करें या ऊपर दिए गए सीधे ईमेल विकल्प का उपयोग करें।",
   "feedbackCategoryBug": "बग रिपोर्ट",
   "feedbackCategoryFeature": "सुविधा अनुरोध",
@@ -940,5 +956,154 @@
   "invalidFeedbackData": "अमान्य प्रतिक्रिया डेटा",
   "failedToSendFeedback": "प्रतिक्रिया भेजने में विफल। कृपया पुनः प्रयास करें।",
   "errorSendingFeedback": "प्रतिक्रिया भेजने में त्रुटि: {error}",
-  "maybeLater": "शायद बाद में"
+  "maybeLater": "बाद में",
+  "noEntriesYet": "अभी तक कोई प्रविष्टि नहीं",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "आपकी रैंकिंग",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "यह आपका स्कोर है!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "उपयोगकर्ता डेटा लोड हो रहा है...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "लीडरबोर्ड प्रोफाइल",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "अपना नाम और देश का झंडा संपादित करें",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "नाम",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "नाम आवश्यक है",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "कम से कम 2 अक्षर",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "देश",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "देश खोजें",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "क्या आप निश्चित हैं?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "अब तक की आपकी प्रगति अलग नाम से जारी रहेगी।",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "आप अपनी प्रोफाइल जानकारी (नाम और देश) बदलने वाले हैं।",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "रद्द करें",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "stay": "रहें",
+  "@stay": {
+    "description": "Stay button text"
+  },
+  "save": "सहेजें",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "बधाई हो!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "आपका स्कोर:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "लीडरबोर्ड में पंजीकरण करें",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "अपना स्कोर वैश्विक रैंकिंग में जोड़ने के लिए अपनी जानकारी दर्ज करें।",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "अपना नाम दर्ज करें",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "देश का नाम लिखें...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "अपना देश चुनें",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "छोड़ दें",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "लीडरबोर्ड में जोड़ें?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "अपना स्कोर वैश्विक रैंकिंग में जोड़कर अन्य खिलाड़ियों के साथ प्रतिस्पर्धा करें।",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "हाँ, जोड़ें",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "संख्या उत्पन्न हो रही है...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "परिणाम की गणना हो रही है...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "प्रीमियम सुविधाएं",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "प्रीमियम सुविधाओं के साथ स्वच्छ, विज्ञापन-मुक्त अनुभव प्राप्त करें।",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "मासिक सदस्यता",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgress": "खेल जारी है",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressSubtitle": "आपके पास एक सक्रिय गेम सत्र है",
+  "gameInProgressTitle": "गेम सत्र सक्रिय",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "खेल पूरा हुआ!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "खेल पूरा करने के लिए बधाई! आप फिर से खेलने के लिए पुनः प्रारंभ कर सकते हैं या मुख्य मेनू पर वापस जाने के लिए बाहर निकल सकते हैं।",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  }
 }

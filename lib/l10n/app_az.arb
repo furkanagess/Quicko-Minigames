@@ -313,7 +313,27 @@
   "@monthlySubscription": {
     "description": "Aylıq abunəlik etiketi"
   },
-  "buyNow": "İndi Al",
+  "gameInProgress": "Oyun Davam Edir",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressSubtitle": "Aktiv oyun sessiyanız var",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Oyun Sessiyası Aktiv",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Oyun Tamamlandı!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Oyunu tamamladığınız üçün təbrik edirik! Yenidən oynamaq üçün yenidən başlada bilər və ya əsas menyuya qayıtmaq üçün çıxa bilərsiniz.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  },
+  "buyNow": "Al",
   "@subscribeNow": {
     "description": "İndi abunə ol düyməsinin mətni"
   },
@@ -879,6 +899,14 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "Oyununuzu dayandığınız yerdən davam edin.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "watchAdToContinueDescription": "Oyununuzu dayandığınız yerdən davam etmək üçün qısa reklam izləyin.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "Abunəliyi Ləğv Et",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -922,8 +950,12 @@
   "directContactDescription": "Əgər rəy forması işləmirsə, birbaşa bu ünvandan bizimlə əlaqə saxlaya bilərsiniz:",
   "sendFeedback": "Rəy Göndər",
   "sending": "Göndərilir...",
-  "feedbackSentSuccess": "✅ Rəy uğurla göndərildi! Təşəkkür edirik.",
-  "feedbackSentError": "❌ {errorMessage}. Zəhmət olmasa yenidən cəhd edin və ya yuxarıdakı birbaşa email seçimindən istifadə edin.",
+  "feedbackSentSuccess": "✅ Rəy uğurla göndərildi! Təqdimatınız üçün təşəkkür edirik.",
+  "feedbackSuccessDescription": "Rəyiniz üçün təşəkkür edirik! Təqdimatınızı qiymətləndiririk və diqqətlə nəzərdən keçirəcəyik.",
+  "feedbackSuccessGotIt": "Başa düşdüm!",
+  "feedbackErrorTitle": "E-poçt göndərilə bilmədi",
+  "feedbackErrorDescription": "Rəyinizi bu anda göndərə bilmədik. Zəhmət olmasa daha sonra yenidən cəhd edin və ya birbaşa quickogamehelp@gmail.com ünvanından bizimlə əlaqə saxlayın",
+  "feedbackSentError": "❌ {errorMessage}. Zəhmət olmasa yenidən cəhd edin və ya yuxarıdakı birbaşa e-poçt seçimindən istifadə edin.",
   "feedbackCategoryBug": "Xəta Hesabatı",
   "feedbackCategoryFeature": "Funksiya Tələbi",
   "feedbackCategoryImprovement": "Təkmilləşdirmə Təklifi",
@@ -941,5 +973,153 @@
   "invalidFeedbackData": "Yanlış rəy məlumatları",
   "failedToSendFeedback": "Rəy göndərilə bilmədi. Zəhmət olmasa yenidən cəhd edin.",
   "errorSendingFeedback": "Rəy göndərmə xətası: {error}",
-  "maybeLater": "Bəlkə də sonra"
+  "maybeLater": "Sonra",
+  "noEntriesYet": "Hələ də giriş yoxdur",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "Sizin Sıralamanız",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "Bu Sizin Skorunuzdur!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "İstifadəçi məlumatları yüklənir...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "Liderlər Cədvəli Profili",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "Adınızı və ölkə bayrağınızı redaktə edin",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "Ad",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "Ad tələb olunur",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "Ən azı 2 simvol",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "Ölkə",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "Ölkə Axtar",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "Əminsiniz?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "İndiyə qədərki tərəqqiniz fərqli adla davam edəcək.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "Profil məlumatlarınızı (ad və ölkə) dəyişmək üzrəsiniz.",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "Ləğv et",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "stay": "Qal",
+  "@stay": {
+    "description": "Stay button text"
+  },
+  "save": "Yadda saxla",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "Təbrik edirik!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "nəticəniz:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "Liderlər cədvəlinə qeydiyyatdan keçin",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "Nəticənizi qlobal sıralamaya əlavə etmək üçün məlumatlarınızı daxil edin.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "Adınızı daxil edin",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "Ölkə adını yazın...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "Ölkənizi seçin",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "Vaz keç",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "Liderlər cədvəlinə əlavə etmək istəyirsiniz?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "Nəticənizi qlobal sıralamaya əlavə edərək digər oyunçularla yarışın.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "Bəli, Əlavə et",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "Rəqəm yaradılır...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "Nəticə hesablanır...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "Premium Xüsusiyyətlər",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "Premium xüsusiyyətlərlə təmiz, reklamsız təcrübə yaşayın.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "Aylıq abunəlik",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgressSubtitle": "Aktiv oyun sessiyanız var",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Oyun Sessiyası Aktiv",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Oyun Tamamlandı!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Oyunu tamamladığınız üçün təbrik edirik! Yenidən oynamaq üçün yenidən başlada bilər və ya əsas menyuya qayıtmaq üçün çıxa bilərsiniz.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  }
 }

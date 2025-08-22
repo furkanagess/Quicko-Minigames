@@ -66,6 +66,10 @@
   "@cancel": {
     "description": "نص زر الإلغاء"
   },
+  "stay": "البقاء",
+  "@stay": {
+    "description": "نص زر البقاء"
+  },
   "reset": "إعادة تعيين",
   "@reset": {
     "description": "نص زر إعادة التعيين"
@@ -304,7 +308,7 @@
   "@monthlySubscription": {
     "description": "تسمية الاشتراك الشهري"
   },
-  "buyNow": "اشتر الآن",
+  "buyNow": "اشتر",
   "@subscribeNow": {
     "description": "نص زر الاشتراك الآن"
   },
@@ -849,6 +853,14 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "استمر في لعبتك من حيث توقفت.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "watchAdToContinueDescription": "شاهد إعلانًا قصيرًا للاستمرار في لعبتك من حيث توقفت.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "إلغاء الاشتراك",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -920,5 +932,156 @@
   "invalidFeedbackData": "بيانات التعليقات غير صالحة",
   "failedToSendFeedback": "تعذر إرسال التعليقات. يرجى المحاولة مرة أخرى.",
   "errorSendingFeedback": "خطأ في إرسال التعليقات: {error}",
-  "maybeLater": "ربما لاحقاً"
+  "maybeLater": "لاحقاً",
+  
+  "noInternetTitle": "لا يوجد اتصال بالإنترنت",
+  "noInternetDescription": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
+  "noEntriesYet": "لا توجد إدخالات بعد",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "تصنيفك",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "هذه نتيجتك!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "جاري تحميل بيانات المستخدم...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "ملف التعريف للقائمة",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "تحرير اسمك وعلم بلدك",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "الاسم",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "الاسم مطلوب",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "حرفان على الأقل",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "البلد",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "البحث عن بلد",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "هل أنت متأكد؟",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "تقدمك حتى الآن سيستمر باسم مختلف.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "أنت على وشك تغيير معلومات ملف التعريف الخاص بك (الاسم والبلد).",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "إلغاء",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "save": "حفظ",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "تهانينا!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "نتيجتك:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "سجل في قائمة المتصدرين",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "أدخل معلوماتك لإضافة نتيجتك إلى التصنيف العالمي.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "أدخل اسمك",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "اكتب اسم البلد...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "اختر بلدك",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "استسلم",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "إضافة إلى قائمة المتصدرين؟",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "أضف نتيجتك إلى التصنيف العالمي للمنافسة مع لاعبين آخرين.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "نعم، أضف",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "جاري إنشاء الرقم...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "جاري حساب النتيجة...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "الميزات المميزة",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "احصل على تجربة نظيفة وخالية من الإعلانات مع الميزات المميزة.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "اشتراك شهري",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgress": "اللعبة قيد التقدم",
+  "@gameInProgress": {
+    "description": "Game in progress dialog title"
+  },
+  "gameInProgressSubtitle": "لديك جلسة لعب نشطة",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "جلسة اللعب نشطة",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "تم إكمال اللعبة!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "تهانينا على إكمال اللعبة! يمكنك إعادة التشغيل للعب مرة أخرى أو الخروج للعودة إلى القائمة الرئيسية.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  }
 }

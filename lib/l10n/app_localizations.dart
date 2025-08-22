@@ -280,6 +280,24 @@ abstract class AppLocalizations {
   /// **'1-Time Continue'**
   String get oneTimeContinue;
 
+  /// Description for continue game option
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your game from where you left off.'**
+  String get continueGameDescription;
+
+  /// Message shown when ad-free user has already used their one-time continue
+  ///
+  /// In en, this message translates to:
+  /// **'You have already used your one-time continue for this game session.'**
+  String get oneTimeContinueUsed;
+
+  /// Description for watching ad to continue game
+  ///
+  /// In en, this message translates to:
+  /// **'Watch a short ad to continue your game from where you left off.'**
+  String get watchAdToContinueDescription;
+
   /// Title for cancel subscription screen
   ///
   /// In en, this message translates to:
@@ -339,6 +357,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Exit'**
   String get exit;
+
+  /// Stay button text
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get stay;
 
   /// Text shown when there are more items to display
   ///
@@ -640,16 +664,16 @@ abstract class AppLocalizations {
   /// **'Enjoy an ad-free experience with one-time payment'**
   String get removeAdsDescription;
 
-  /// Monthly subscription label
+  /// Monthly subscription text
   ///
   /// In en, this message translates to:
-  /// **'Monthly Subscription'**
+  /// **'Monthly subscription'**
   String get monthlySubscription;
 
   /// No description provided for @buyNow.
   ///
   /// In en, this message translates to:
-  /// **'Buy Now'**
+  /// **'Buy'**
   String get buyNow;
 
   /// Restore purchases button text
@@ -1294,7 +1318,7 @@ abstract class AppLocalizations {
   /// **'Wrong sequence!'**
   String get wrongSequence;
 
-  /// Congratulations message for winning games
+  /// Congratulations message
   ///
   /// In en, this message translates to:
   /// **'Congratulations!'**
@@ -1324,10 +1348,10 @@ abstract class AppLocalizations {
   /// **'Correct Guesses'**
   String get correctGuesses;
 
-  /// Label for player score in RPS game
+  /// Label for user's score
   ///
   /// In en, this message translates to:
-  /// **'Your Score'**
+  /// **'your score:'**
   String get yourScore;
 
   /// Label for CPU score in RPS game
@@ -1636,6 +1660,30 @@ abstract class AppLocalizations {
   /// **'✅ Feedback sent successfully! Thank you for your input.'**
   String get feedbackSentSuccess;
 
+  /// Description text shown in feedback success bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your feedback! We appreciate your input and will review it carefully.'**
+  String get feedbackSuccessDescription;
+
+  /// Button text for closing feedback success bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Got it!'**
+  String get feedbackSuccessGotIt;
+
+  /// Title shown in feedback error bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Email Could Not Be Sent'**
+  String get feedbackErrorTitle;
+
+  /// Description text shown in feedback error bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t send your feedback at this time. Please try again later or contact us directly at quickogamehelp@gmail.com'**
+  String get feedbackErrorDescription;
+
   /// Error message when feedback sending fails
   ///
   /// In en, this message translates to:
@@ -1747,8 +1795,308 @@ abstract class AppLocalizations {
   /// Maybe later button text
   ///
   /// In en, this message translates to:
-  /// **'Maybe Later'**
+  /// **'Later'**
   String get maybeLater;
+
+  /// No internet connection screen title
+  ///
+  /// In en, this message translates to:
+  /// **'No Internet Connection'**
+  String get noInternetTitle;
+
+  /// No internet connection screen description
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your internet connection and try again.'**
+  String get noInternetDescription;
+
+  /// Retry button text
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// Offline mode information text
+  ///
+  /// In en, this message translates to:
+  /// **'Games work offline, but ads and online features require internet.'**
+  String get offlineModeInfo;
+
+  /// Message when there are no leaderboard entries
+  ///
+  /// In en, this message translates to:
+  /// **'No entries yet'**
+  String get noEntriesYet;
+
+  /// Label for user's ranking in leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'Your Ranking'**
+  String get yourRanking;
+
+  /// Message shown when user's score appears in leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'This is Your Score!'**
+  String get thisIsYourScore;
+
+  /// Message shown when loading user data for leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'Loading user data...'**
+  String get loadingUserData;
+
+  /// Title for leaderboard profile settings
+  ///
+  /// In en, this message translates to:
+  /// **'Leaderboard Profile'**
+  String get leaderboardProfile;
+
+  /// Subtitle for leaderboard profile settings
+  ///
+  /// In en, this message translates to:
+  /// **'Edit your name and country flag'**
+  String get leaderboardProfileSubtitle;
+
+  /// Name field label
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// Validation message for required name
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameRequired;
+
+  /// Validation message for minimum name length
+  ///
+  /// In en, this message translates to:
+  /// **'At least 2 characters'**
+  String get minimumTwoCharacters;
+
+  /// Country field label
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// Country search field label
+  ///
+  /// In en, this message translates to:
+  /// **'Search Country'**
+  String get searchCountry;
+
+  /// Confirmation dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure?'**
+  String get areYouSure;
+
+  /// Warning message about profile change
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress so far will continue with a different name.'**
+  String get profileChangeWarning;
+
+  /// Description of profile change action
+  ///
+  /// In en, this message translates to:
+  /// **'You are about to change your profile information (name and country).'**
+  String get profileChangeDescription;
+
+  /// Save button text
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Title for leaderboard registration
+  ///
+  /// In en, this message translates to:
+  /// **'Register for the leaderboard'**
+  String get registerForLeaderboard;
+
+  /// Description for leaderboard registration
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your information to add your score to the global ranking.'**
+  String get enterInfoForGlobalRanking;
+
+  /// Hint text for name field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enterYourName;
+
+  /// Hint text for country search
+  ///
+  /// In en, this message translates to:
+  /// **'Write country name...'**
+  String get writeCountryName;
+
+  /// Hint text for country field
+  ///
+  /// In en, this message translates to:
+  /// **'Select your country'**
+  String get selectYourCountry;
+
+  /// Give up button text
+  ///
+  /// In en, this message translates to:
+  /// **'Give Up'**
+  String get giveUp;
+
+  /// Title for leaderboard opt-in dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Leaderboard?'**
+  String get addToLeaderboard;
+
+  /// Description for leaderboard opt-in dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Add your score to the global ranking to compete with other players.'**
+  String get addToLeaderboardDescription;
+
+  /// Yes button for adding to leaderboard
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, Add'**
+  String get yesAdd;
+
+  /// Message shown while generating a random number
+  ///
+  /// In en, this message translates to:
+  /// **'Generating number...'**
+  String get generatingNumber;
+
+  /// Message shown while calculating game result
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating result...'**
+  String get calculatingResult;
+
+  /// Title for premium features section
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Features'**
+  String get premiumFeatures;
+
+  /// Description for premium features
+  ///
+  /// In en, this message translates to:
+  /// **'Get a clean, ad-free experience with premium features.'**
+  String get getCleanExperience;
+
+  /// Subtitle for game in progress dialog
+  ///
+  /// In en, this message translates to:
+  /// **'You have an active game session'**
+  String get gameInProgressSubtitle;
+
+  /// Title for game in progress dialog content
+  ///
+  /// In en, this message translates to:
+  /// **'Game Session Active'**
+  String get gameInProgressTitle;
+
+  /// Title for game completed dialog content
+  ///
+  /// In en, this message translates to:
+  /// **'Game Completed!'**
+  String get gameCompleted;
+
+  /// Message for game completed dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations on completing the game! You can restart to play again or exit to return to the main menu.'**
+  String get gameCompletedMessage;
+
+  /// Title for unlocked benefits section in ad-free screen
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked Benefits'**
+  String get unlockedBenefits;
+
+  /// Description for no banner ads benefit
+  ///
+  /// In en, this message translates to:
+  /// **'No banner advertisements'**
+  String get noBannerAdvertisements;
+
+  /// Description for no interstitial ads benefit
+  ///
+  /// In en, this message translates to:
+  /// **'No full-screen ads'**
+  String get noFullScreenAds;
+
+  /// Description for no rewarded ads benefit
+  ///
+  /// In en, this message translates to:
+  /// **'No video ads'**
+  String get noVideoAds;
+
+  /// Description for clean experience benefit
+  ///
+  /// In en, this message translates to:
+  /// **'Distraction-free gaming'**
+  String get distractionFreeGaming;
+
+  /// Description for lifetime access benefit
+  ///
+  /// In en, this message translates to:
+  /// **'One-time payment, forever access'**
+  String get oneTimePaymentForeverAccess;
+
+  /// Skip button text for onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// Get started button text for onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// First onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Train Your Brain'**
+  String get onboardingTitle1;
+
+  /// First onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge your mind with our collection of brain training games designed to improve memory, focus, and cognitive skills.'**
+  String get onboardingDescription1;
+
+  /// Second onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Track Your Progress'**
+  String get onboardingTitle2;
+
+  /// Second onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor your performance with detailed statistics and compete with players worldwide on our global leaderboards.'**
+  String get onboardingDescription2;
+
+  /// Third onboarding page title
+  ///
+  /// In en, this message translates to:
+  /// **'Earn Achievements'**
+  String get onboardingTitle3;
+
+  /// Third onboarding page description
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.'**
+  String get onboardingDescription3;
 }
 
 class _AppLocalizationsDelegate

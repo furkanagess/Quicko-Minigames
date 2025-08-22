@@ -112,6 +112,18 @@
   "@oneTimeContinue": {
     "description": "Button text for ad-free users to continue game once"
   },
+  "continueGameDescription": "Continue your game from where you left off.",
+  "@continueGameDescription": {
+    "description": "Description for continue game option"
+  },
+  "oneTimeContinueUsed": "You have already used your one-time continue for this game session.",
+  "@oneTimeContinueUsed": {
+    "description": "Message shown when ad-free user has already used their one-time continue"
+  },
+  "watchAdToContinueDescription": "Watch a short ad to continue your game from where you left off.",
+  "@watchAdToContinueDescription": {
+    "description": "Description for watching ad to continue game"
+  },
   "cancelSubscription": "Cancel Subscription",
   "@cancelSubscription": {
     "description": "Title for cancel subscription screen"
@@ -151,6 +163,10 @@
   "exit": "Exit",
   "@exit": {
     "description": "Exit button text"
+  },
+  "stay": "Stay",
+  "@stay": {
+    "description": "Stay button text"
   },
   "andMore": "and more...",
   "@andMore": {
@@ -366,7 +382,7 @@
   "@monthlySubscription": {
     "description": "Monthly subscription label"
   },
-  "buyNow": "Buy Now",
+  "buyNow": "Buy",
   "@subscribeNow": {
     "description": "Subscribe now button text"
   },
@@ -1099,6 +1115,22 @@
   "@feedbackSentSuccess": {
     "description": "Success message when feedback is sent"
   },
+  "feedbackSuccessDescription": "Thank you for your feedback! We appreciate your input and will review it carefully.",
+  "@feedbackSuccessDescription": {
+    "description": "Description text shown in feedback success bottom sheet"
+  },
+  "feedbackSuccessGotIt": "Got it!",
+  "@feedbackSuccessGotIt": {
+    "description": "Button text for closing feedback success bottom sheet"
+  },
+  "feedbackErrorTitle": "Email Could Not Be Sent",
+  "@feedbackErrorTitle": {
+    "description": "Title shown in feedback error bottom sheet"
+  },
+  "feedbackErrorDescription": "We couldn't send your feedback at this time. Please try again later or contact us directly at quickogamehelp@gmail.com",
+  "@feedbackErrorDescription": {
+    "description": "Description text shown in feedback error bottom sheet"
+  },
   "feedbackSentError": "❌ {errorMessage}. Please try again or use the direct email option above.",
   "@feedbackSentError": {
     "description": "Error message when feedback sending fails",
@@ -1189,8 +1221,224 @@
       }
     }
   },
-  "maybeLater": "Maybe Later",
+  "maybeLater": "Later",
+  "noInternetTitle": "No Internet Connection",
+  "@noInternetTitle": {
+    "description": "No internet connection screen title"
+  },
+  "noInternetDescription": "Please check your internet connection and try again.",
+  "@noInternetDescription": {
+    "description": "No internet connection screen description"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button text"
+  },
+  "offlineModeInfo": "Games work offline, but ads and online features require internet.",
+  "@offlineModeInfo": {
+    "description": "Offline mode information text"
+  },
   "@maybeLater": {
     "description": "Maybe later button text"
+  },
+  "noEntriesYet": "No entries yet",
+  "@noEntriesYet": {
+    "description": "Message when there are no leaderboard entries"
+  },
+  "yourRanking": "Your Ranking",
+  "@yourRanking": {
+    "description": "Label for user's ranking in leaderboard"
+  },
+  "thisIsYourScore": "This is Your Score!",
+  "@thisIsYourScore": {
+    "description": "Message shown when user's score appears in leaderboard"
+  },
+  "loadingUserData": "Loading user data...",
+  "@loadingUserData": {
+    "description": "Message shown when loading user data for leaderboard"
+  },
+  "leaderboardProfile": "Leaderboard Profile",
+  "@leaderboardProfile": {
+    "description": "Title for leaderboard profile settings"
+  },
+  "leaderboardProfileSubtitle": "Edit your name and country flag",
+  "@leaderboardProfileSubtitle": {
+    "description": "Subtitle for leaderboard profile settings"
+  },
+  "name": "Name",
+  "@name": {
+    "description": "Name field label"
+  },
+  "nameRequired": "Name is required",
+  "@nameRequired": {
+    "description": "Validation message for required name"
+  },
+  "minimumTwoCharacters": "At least 2 characters",
+  "@minimumTwoCharacters": {
+    "description": "Validation message for minimum name length"
+  },
+  "country": "Country",
+  "@country": {
+    "description": "Country field label"
+  },
+  "searchCountry": "Search Country",
+  "@searchCountry": {
+    "description": "Country search field label"
+  },
+  "areYouSure": "Are you sure?",
+  "@areYouSure": {
+    "description": "Confirmation dialog title"
+  },
+  "profileChangeWarning": "Your progress so far will continue with a different name.",
+  "@profileChangeWarning": {
+    "description": "Warning message about profile change"
+  },
+  "profileChangeDescription": "You are about to change your profile information (name and country).",
+  "@profileChangeDescription": {
+    "description": "Description of profile change action"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button text"
+  },
+  "congratulations": "Congratulations!",
+  "@congratulations": {
+    "description": "Congratulations message"
+  },
+  "yourScore": "your score:",
+  "@yourScore": {
+    "description": "Label for user's score"
+  },
+  "registerForLeaderboard": "Register for the leaderboard",
+  "@registerForLeaderboard": {
+    "description": "Title for leaderboard registration"
+  },
+  "enterInfoForGlobalRanking": "Enter your information to add your score to the global ranking.",
+  "@enterInfoForGlobalRanking": {
+    "description": "Description for leaderboard registration"
+  },
+  "enterYourName": "Enter your name",
+  "@enterYourName": {
+    "description": "Hint text for name field"
+  },
+  "writeCountryName": "Write country name...",
+  "@writeCountryName": {
+    "description": "Hint text for country search"
+  },
+  "selectYourCountry": "Select your country",
+  "@selectYourCountry": {
+    "description": "Hint text for country field"
+  },
+  "giveUp": "Give Up",
+  "@giveUp": {
+    "description": "Give up button text"
+  },
+  "addToLeaderboard": "Add to Leaderboard?",
+  "@addToLeaderboard": {
+    "description": "Title for leaderboard opt-in dialog"
+  },
+  "addToLeaderboardDescription": "Add your score to the global ranking to compete with other players.",
+  "@addToLeaderboardDescription": {
+    "description": "Description for leaderboard opt-in dialog"
+  },
+  "yesAdd": "Yes, Add",
+  "@yesAdd": {
+    "description": "Yes button for adding to leaderboard"
+  },
+  "generatingNumber": "Generating number...",
+  "@generatingNumber": {
+    "description": "Message shown while generating a random number"
+  },
+  "calculatingResult": "Calculating result...",
+  "@calculatingResult": {
+    "description": "Message shown while calculating game result"
+  },
+  "premiumFeatures": "Premium Features",
+  "@premiumFeatures": {
+    "description": "Title for premium features section"
+  },
+  "getCleanExperience": "Get a clean, ad-free experience with premium features.",
+  "@getCleanExperience": {
+    "description": "Description for premium features"
+  },
+  "monthlySubscription": "Monthly subscription",
+  "@monthlySubscription": {
+    "description": "Monthly subscription text"
+  },
+  "gameInProgressSubtitle": "You have an active game session",
+  "@gameInProgressSubtitle": {
+    "description": "Subtitle for game in progress dialog"
+  },
+  "gameInProgressTitle": "Game Session Active",
+  "@gameInProgressTitle": {
+    "description": "Title for game in progress dialog content"
+  },
+  "gameCompleted": "Game Completed!",
+  "@gameCompleted": {
+    "description": "Title for game completed dialog content"
+  },
+  "gameCompletedMessage": "Congratulations on completing the game! You can restart to play again or exit to return to the main menu.",
+  "@gameCompletedMessage": {
+    "description": "Message for game completed dialog"
+  },
+  "unlockedBenefits": "Unlocked Benefits",
+  "@unlockedBenefits": {
+    "description": "Title for unlocked benefits section in ad-free screen"
+  },
+  "noBannerAdvertisements": "No banner advertisements",
+  "@noBannerAdvertisements": {
+    "description": "Description for no banner ads benefit"
+  },
+  "noFullScreenAds": "No full-screen ads",
+  "@noFullScreenAds": {
+    "description": "Description for no interstitial ads benefit"
+  },
+  "noVideoAds": "No video ads",
+  "@noVideoAds": {
+    "description": "Description for no rewarded ads benefit"
+  },
+  "distractionFreeGaming": "Distraction-free gaming",
+  "@distractionFreeGaming": {
+    "description": "Description for clean experience benefit"
+  },
+  "oneTimePaymentForeverAccess": "One-time payment, forever access",
+  "@oneTimePaymentForeverAccess": {
+    "description": "Description for lifetime access benefit"
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Skip button text for onboarding"
+  },
+  "getStarted": "Get Started",
+  "@getStarted": {
+    "description": "Get started button text for onboarding"
+  },
+  "onboardingTitle1": "Train Your Brain",
+  "@onboardingTitle1": {
+    "description": "First onboarding page title"
+  },
+  "onboardingDescription1": "Challenge your mind with our collection of brain training games designed to improve memory, focus, and cognitive skills.",
+  "@onboardingDescription1": {
+    "description": "First onboarding page description"
+  },
+  "onboardingTitle2": "Track Your Progress",
+  "@onboardingTitle2": {
+    "description": "Second onboarding page title"
+  },
+  "onboardingDescription2": "Monitor your performance with detailed statistics and compete with players worldwide on our global leaderboards.",
+  "@onboardingDescription2": {
+    "description": "Second onboarding page description"
+  },
+  "onboardingTitle3": "Earn Achievements",
+  "@onboardingTitle3": {
+    "description": "Third onboarding page title"
+  },
+  "onboardingDescription3": "Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.",
+  "@onboardingDescription3": {
+    "description": "Third onboarding page description"
   }
 }
