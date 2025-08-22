@@ -145,4 +145,14 @@ class GamesConfig {
   static List<String> getAllGameIds() {
     return allGames.map((game) => game.id).toList();
   }
+
+  /// Map route path to game id
+  static String? getGameIdByRoute(String? route) {
+    if (route == null) return null;
+    try {
+      return allGames.firstWhere((g) => g.route == route).id;
+    } catch (_) {
+      return null;
+    }
+  }
 }

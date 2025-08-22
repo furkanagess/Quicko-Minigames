@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart' hide Card;
-import 'package:quicko_app/l10n/app_localizations.dart';
 
 import '../models/twenty_one_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
@@ -53,6 +52,13 @@ class TwentyOneProvider extends ChangeNotifier {
     _gameState = _gameState.copyWith(playerHand: newPlayerHand);
 
     if (_gameState.playerTotal > 21) {
+      // Save state before bust to allow one-time continue to retry this hit
+      _saveGameStateBeforeBust(
+        playerHandBefore: List<Card>.from(_gameState.playerHand)..removeLast(),
+        dealerHand: List<Card>.from(_gameState.dealerHand),
+        losingCard: newCard,
+        deck: List<Card>.from(_deck),
+      );
       _endRound('Bust! You went over 21');
     } else if (_gameState.playerTotal == 21) {
       stand();
@@ -218,7 +224,8 @@ class TwentyOneProvider extends ChangeNotifier {
         isDealerTurn: false,
       );
 
-      await LeaderboardUtils.updateHighScore('twenty_one', _gameState.score);
+      // Count match wins only: +1 per round win
+      await LeaderboardUtils.updateHighScore('twenty_one', 1);
 
       // Clear any saved state on success
       await clearSavedGameState();
@@ -265,28 +272,150 @@ class TwentyOneProvider extends ChangeNotifier {
     await GameStateService().saveGameScore('twenty_one', _gameState.score);
   }
 
+  void _saveGameStateBeforeBust({
+    required List<Card> playerHandBefore,
+    required List<Card> dealerHand,
+    required Card losingCard,
+    required List<Card> deck,
+  }) async {
+    final state = {
+      'type': 'bust',
+      'score': _gameState.score,
+      'level': _gameState.level,
+      'playerHandBefore':
+          playerHandBefore
+              .map((c) => {'suit': c.suit, 'rank': c.rank, 'value': c.value})
+              .toList(),
+      'dealerHand':
+          dealerHand
+              .map(
+                (c) => {
+                  'suit': c.suit,
+                  'rank': c.rank,
+                  'value': c.value,
+                  'isHidden': c.isHidden,
+                },
+              )
+              .toList(),
+      'losingCard': {
+        'suit': losingCard.suit,
+        'rank': losingCard.rank,
+        'value': losingCard.value,
+      },
+      'deck':
+          deck
+              .map((c) => {'suit': c.suit, 'rank': c.rank, 'value': c.value})
+              .toList(),
+    };
+    await GameStateService().saveGameState('twenty_one', state);
+  }
+
   Future<bool> continueGame() async {
     final saved = await GameStateService().loadGameState('twenty_one');
     if (saved == null) return false;
     try {
-      _gameState = _gameState.copyWith(
-        level: (saved['level'] as int?) ?? 1,
-        score: (saved['score'] as int?) ?? 0,
-        status: TwentyOneGameStatus.playing,
-        showGameOver: false,
-      );
-      // restart a fresh hand at the same level
-      _initializeDeck();
-      _dealInitialCards();
+      if (saved['type'] == 'bust') {
+        // Restore state before bust and allow a new hit (replace losing card)
+        final score = (saved['score'] as int?) ?? 0;
+        final level = (saved['level'] as int?) ?? 1;
 
-      // Clear the saved state after successful restore
-      await clearSavedGameState();
+        List<Card> playerHandBefore =
+            ((saved['playerHandBefore'] as List?) ?? [])
+                .map(
+                  (m) => Card(
+                    suit: m['suit'] as String,
+                    rank: m['rank'] as String,
+                    value: m['value'] as int,
+                  ),
+                )
+                .toList();
 
-      // Mark that continue has been used
-      _hasUsedContinue = true;
+        List<Card> dealerHand =
+            ((saved['dealerHand'] as List?) ?? [])
+                .map(
+                  (m) => Card(
+                    suit: m['suit'] as String,
+                    rank: m['rank'] as String,
+                    value: m['value'] as int,
+                    isHidden: (m['isHidden'] as bool?) ?? false,
+                  ),
+                )
+                .toList();
 
-      notifyListeners();
-      return true;
+        final losing = saved['losingCard'] as Map?;
+        final losingSuit = losing != null ? losing['suit'] as String : null;
+        final losingRank = losing != null ? losing['rank'] as String : null;
+        final losingValue = losing != null ? losing['value'] as int : null;
+
+        List<Card> deck =
+            ((saved['deck'] as List?) ?? [])
+                .map(
+                  (m) => Card(
+                    suit: m['suit'] as String,
+                    rank: m['rank'] as String,
+                    value: m['value'] as int,
+                  ),
+                )
+                .toList();
+
+        // Remove the losing card from the deck if present to avoid drawing it again
+        if (losingSuit != null && losingRank != null && losingValue != null) {
+          deck.removeWhere(
+            (c) =>
+                c.suit == losingSuit &&
+                c.rank == losingRank &&
+                c.value == losingValue,
+          );
+        }
+
+        // Apply restored state
+        _deck = deck;
+        _gameState = _gameState.copyWith(
+          level: level,
+          score: score,
+          playerHand: playerHandBefore,
+          dealerHand: dealerHand,
+          status: TwentyOneGameStatus.playing,
+          showGameOver: false,
+          canHit: true,
+          canStand: true,
+          isDealerTurn: false,
+          gameMessage: 'Bonus hit! Try again.',
+        );
+
+        // Clear the saved state after successful restore
+        await clearSavedGameState();
+
+        // Mark that continue has been used
+        _hasUsedContinue = true;
+
+        notifyListeners();
+        return true;
+      } else {
+        // Fallback: start a fresh hand at the same level/score
+        _gameState = _gameState.copyWith(
+          level: (saved['level'] as int?) ?? 1,
+          score: (saved['score'] as int?) ?? 0,
+          status: TwentyOneGameStatus.playing,
+          showGameOver: false,
+          canHit: true,
+          canStand: true,
+          isDealerTurn: false,
+        );
+        _initializeDeck();
+        _dealInitialCards();
+        // Ensure buttons are enabled after dealing
+        _gameState = _gameState.copyWith(
+          canHit: true,
+          canStand: true,
+          isDealerTurn: false,
+        );
+
+        await clearSavedGameState();
+        _hasUsedContinue = true;
+        notifyListeners();
+        return true;
+      }
     } catch (_) {
       return false;
     }

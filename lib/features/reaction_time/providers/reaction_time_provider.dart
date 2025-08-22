@@ -253,6 +253,10 @@ class ReactionTimeProvider extends ChangeNotifier {
 
     // Update high score (lower time is better)
     _updateHighScore();
+
+    // Clear any saved state on successful completion
+    await clearSavedGameState();
+
     notifyListeners();
   }
 

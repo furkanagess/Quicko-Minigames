@@ -17,42 +17,24 @@ class ColorHuntProvider extends ChangeNotifier {
 
   // Enhanced color keys with more distinct and easily differentiable colors
   final Map<String, Color> _colorMap = {
-    'red': const Color(0xFFE53E3E), // Bright red
-    'green': const Color(0xFF38A169), // Bright green
-    'blue': const Color(0xFF3182CE), // Bright blue
-    'purple': const Color(0xFF805AD5), // Bright purple
-    'orange': const Color(0xFFFF6B35), // Vibrant orange
-    'yellow': const Color(0xFFFFD700), // Gold yellow
-    'pink': const Color(0xFFE91E63), // Hot pink
-    'brown': const Color(0xFF8B4513), // Saddle brown
-    'cyan': const Color(0xFF00BCD4), // Bright cyan
-    'lime': const Color(0xFF4CAF50), // Material green
-    'magenta': const Color(0xFF9C27B0), // Purple magenta
-    'teal': const Color(0xFF009688), // Material teal
+    'red': const Color(0xFFE53E3E), // Red
+    'orange': const Color(0xFFFF6B35), // Orange
+    'yellow': const Color(0xFFFFD700), // Yellow (Gold)
+    'green': const Color(0xFF38A169), // Green
+    'blue': const Color(0xFF3182CE), // Blue
     'indigo': const Color(0xFF3F51B5), // Indigo
-    'amber': const Color(0xFFFF9800), // Material amber
-    'deep_purple': const Color(0xFF673AB7), // Deep purple
-    'light_blue': const Color(0xFF03A9F4), // Light blue
+    'purple': const Color(0xFF805AD5), // Violet/Purple
   };
 
-  // Enhanced available colors list with more distinct options
+  // Only use the 7 main colors above as selectable options
   final List<Color> _availableColors = [
-    const Color(0xFFE53E3E), // Bright red
-    const Color(0xFF38A169), // Bright green
-    const Color(0xFF3182CE), // Bright blue
-    const Color(0xFF805AD5), // Bright purple
-    const Color(0xFFFF6B35), // Vibrant orange
-    const Color(0xFFFFD700), // Gold yellow
-    const Color(0xFFE91E63), // Hot pink
-    const Color(0xFF8B4513), // Saddle brown
-    const Color(0xFF00BCD4), // Bright cyan
-    const Color(0xFF4CAF50), // Material green
-    const Color(0xFF9C27B0), // Purple magenta
-    const Color(0xFF009688), // Material teal
+    const Color(0xFFE53E3E), // Red
+    const Color(0xFFFF6B35), // Orange
+    const Color(0xFFFFD700), // Yellow (Gold)
+    const Color(0xFF38A169), // Green
+    const Color(0xFF3182CE), // Blue
     const Color(0xFF3F51B5), // Indigo
-    const Color(0xFFFF9800), // Material amber
-    const Color(0xFF673AB7), // Deep purple
-    const Color(0xFF03A9F4), // Light blue
+    const Color(0xFF805AD5), // Violet/Purple
   ];
 
   /// Oyunu başlat
@@ -131,19 +113,18 @@ class ColorHuntProvider extends ChangeNotifier {
     );
 
     // Create more interesting text color combinations
-    // Sometimes use the same color as target (creates confusion), sometimes different
+    // Always use a different color for the text to increase confusion (Stroop effect)
     Color textColor;
-    final useSameColor = _random.nextBool(); // 50% chance to use same color
-
-    if (useSameColor) {
-      // Use the same color as target (creates visual confusion)
-      textColor = targetColor;
-    } else {
-      // Use a different color (traditional approach)
-      do {
-        textColor = _availableColors[_random.nextInt(_availableColors.length)];
-      } while (textColor == targetColor);
-    }
+    int _attempts = 0;
+    do {
+      textColor = _availableColors[_random.nextInt(_availableColors.length)];
+      _attempts++;
+      if (_attempts > 20) {
+        // Failsafe: break to avoid a potential infinite loop in extreme cases
+        break;
+      }
+    } while (textColor == targetColor ||
+        _isColorTooSimilar(textColor, targetColor));
 
     // Ensure target color is always in the available options
     final availableColorsForDisplay = <Color>[];
@@ -197,11 +178,71 @@ class ColorHuntProvider extends ChangeNotifier {
       }
     }
 
+    // Ensure invariants:
+    // 1) targetColor MUST be present among options
+    // 2) Exactly 4 distinct colors
+    // 3) Avoid colors that are too similar
+    // Remove duplicates first
+    final distinctSet = <int, Color>{};
+    for (final c in availableColorsForDisplay) {
+      distinctSet[c.value] = c;
+    }
+    availableColorsForDisplay
+      ..clear()
+      ..addAll(distinctSet.values);
+
+    // Ensure targetColor present
+    if (!availableColorsForDisplay.contains(targetColor)) {
+      availableColorsForDisplay.insert(0, targetColor);
+    }
+
+    // Fill up to 4 with distinct, not-too-similar colors
+    if (availableColorsForDisplay.length < 4) {
+      for (final candidate in _availableColors) {
+        if (availableColorsForDisplay.length >= 4) break;
+        if (candidate == targetColor) continue;
+        bool similarToAny = false;
+        for (final existing in availableColorsForDisplay) {
+          if (_isColorTooSimilar(candidate, existing)) {
+            similarToAny = true;
+            break;
+          }
+        }
+        if (!similarToAny && !availableColorsForDisplay.contains(candidate)) {
+          availableColorsForDisplay.add(candidate);
+        }
+      }
+    }
+
+    // If still fewer than 4, append any remaining distinct colors
+    while (availableColorsForDisplay.length < 4) {
+      final fallback =
+          _availableColors[_random.nextInt(_availableColors.length)];
+      if (!availableColorsForDisplay.contains(fallback)) {
+        availableColorsForDisplay.add(fallback);
+      }
+    }
+
+    // Trim to exactly 4 while keeping targetColor
+    if (availableColorsForDisplay.length > 4) {
+      // Keep target and first 3 others
+      final trimmed = <Color>[];
+      trimmed.add(targetColor);
+      for (final c in availableColorsForDisplay) {
+        if (trimmed.length >= 4) break;
+        if (c == targetColor) continue;
+        if (!trimmed.contains(c)) trimmed.add(c);
+      }
+      availableColorsForDisplay
+        ..clear()
+        ..addAll(trimmed);
+    }
+
     // Shuffle the final list to randomize positions
     availableColorsForDisplay.shuffle();
 
     debugPrint(
-      'Color Hunt: New target generated - Available colors: $availableColorsForDisplay, Text color: $textColor, Same color: $useSameColor',
+      'Color Hunt: New target generated - Options: $availableColorsForDisplay (contains target: ${availableColorsForDisplay.contains(targetColor)}), Text color: $textColor (different from target)',
     );
 
     _gameState = _gameState.copyWith(

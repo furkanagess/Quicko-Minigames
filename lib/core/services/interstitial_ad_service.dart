@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_config.dart';
 import 'in_app_purchase_service.dart';
+import 'package:flutter/material.dart';
+import '../utils/global_context.dart';
+import '../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
 import '../providers/test_mode_provider.dart';
 
 class InterstitialAdService {
@@ -22,17 +25,18 @@ class InterstitialAdService {
   // Route tracking
   int _routeChangeCount = 0;
   DateTime? _lastInterstitialAdShown;
+  int _interstitialsShownSincePrompt = 0;
+  bool _hasShownUpsellThisSession = false;
 
   // Configuration
-  static const int _routeChangeThreshold = 10;
+  static const int _routeChangeThreshold = 15;
   static const Duration _minimumAdInterval = Duration(minutes: 1);
 
   /// Get interstitial ad unit ID
   String get _interstitialAdUnitId => _config.interstitialAdUnitId;
 
   /// Check if ads should be shown (respects ad-free subscription and test mode)
-  bool get _shouldShowAds =>
-      !_purchaseService.isAdFree && !_testModeProvider.shouldBehaveAsAdFree;
+  bool get _shouldShowAds => !_testModeProvider.shouldBehaveAsAdFree;
 
   /// Initialize the service
   Future<void> initialize() async {
@@ -165,33 +169,24 @@ class InterstitialAdService {
 
   /// Check if interstitial ad should be shown
   bool _shouldShowInterstitialAd() {
-    // Check if we have enough route changes
+    // Don't show if user has ad-free subscription or test mode
+    if (!_shouldShowAds) {
+      return false;
+    }
+
+    // Check route change threshold
     if (_routeChangeCount < _routeChangeThreshold) {
       return false;
     }
 
-    // Check if enough time has passed since last ad
+    // Check minimum interval between ads
     if (_lastInterstitialAdShown != null) {
       final timeSinceLastAd = DateTime.now().difference(
         _lastInterstitialAdShown!,
       );
       if (timeSinceLastAd < _minimumAdInterval) {
-        if (kDebugMode) {
-          print(
-            'InterstitialAdService: Not enough time passed since last ad. '
-            'Time since last ad: ${timeSinceLastAd.inSeconds} seconds',
-          );
-        }
         return false;
       }
-    }
-
-    // Check if ad is loaded
-    if (!_isInterstitialAdLoaded || _interstitialAd == null) {
-      if (kDebugMode) {
-        print('InterstitialAdService: Interstitial ad not loaded');
-      }
-      return false;
     }
 
     return true;
@@ -230,6 +225,13 @@ class InterstitialAdService {
       // Reset route change count after showing ad
       _routeChangeCount = 0;
 
+      // Count interstitials and maybe prompt upsell
+      _interstitialsShownSincePrompt++;
+      if (_interstitialsShownSincePrompt % 5 == 0 &&
+          !_hasShownUpsellThisSession) {
+        _maybeShowAdFreeUpsell();
+      }
+
       if (kDebugMode) {
         print('InterstitialAdService: Interstitial ad shown successfully');
         print('InterstitialAdService: Route change count reset to 0');
@@ -246,12 +248,29 @@ class InterstitialAdService {
     }
   }
 
+  void _maybeShowAdFreeUpsell() {
+    if (!_shouldShowAds) return;
+    final BuildContext? ctx = GlobalContext.context;
+    if (ctx == null) return;
+
+    // Mark that we've shown the upsell this session
+    _hasShownUpsellThisSession = true;
+
+    showDialog(
+      context: ctx,
+      barrierDismissible: true,
+      builder: (context) {
+        return const ModernRemoveAdsDialog();
+      },
+    );
+  }
+
   /// Force show interstitial ad (for testing or manual triggers)
   Future<bool> forceShowInterstitialAd() async {
-    if (_purchaseService.isAdFree) {
+    if (_testModeProvider.shouldBehaveAsAdFree) {
       if (kDebugMode) {
         print(
-          'InterstitialAdService: User has ad-free subscription, skipping ad',
+          'InterstitialAdService: User has ad-free subscription or test mode enabled, skipping ad',
         );
       }
       return false;
@@ -293,7 +312,7 @@ class InterstitialAdService {
   bool get isInterstitialAdAvailable =>
       _isInterstitialAdLoaded && _interstitialAd != null;
 
-  /// Check if interstitial ads should be shown (respects ad-free subscription)
+  /// Check if interstitial ads should be shown (respects ad-free subscription and test mode)
   bool get shouldShowInterstitialAds => _shouldShowAds;
 
   /// Reset route change count (useful for testing)
@@ -304,7 +323,15 @@ class InterstitialAdService {
     }
   }
 
-  /// Dispose interstitial ad
+  /// Reset session upsell flag (call this when app starts or session begins)
+  void resetSessionUpsellFlag() {
+    _hasShownUpsellThisSession = false;
+    if (kDebugMode) {
+      print('InterstitialAdService: Session upsell flag reset');
+    }
+  }
+
+  /// Dispose the service
   void dispose() {
     _interstitialAd?.dispose();
     _interstitialAd = null;

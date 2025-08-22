@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/config/app_initializer.dart';
@@ -9,18 +8,24 @@ import 'core/theme/app_theme.dart';
 import 'core/providers/app_providers.dart';
 import 'core/providers/language_provider.dart';
 import 'core/providers/theme_provider.dart';
+import 'core/providers/connectivity_provider.dart';
+import 'core/providers/onboarding_provider.dart';
 import 'core/routes/app_router.dart';
 import 'core/utils/global_context.dart';
 import 'core/constants/supported_locales.dart';
 import 'features/favorites/providers/favorites_provider.dart';
-import 'features/leaderboard/providers/leaderboard_provider.dart';
+import 'core/utils/sound_utils.dart';
+import 'shared/widgets/no_internet_screen.dart';
+import 'shared/widgets/loading_screen.dart';
 // Removed: handled by AppInitializer
 import 'core/routes/navigation_observer.dart';
 
 void main() async {
   await AppInitializer.initialize();
-
   runApp(const MyApp());
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    SoundUtils.playOpeningSound();
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -29,8 +34,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppProviders(
-      child: Consumer2<LanguageProvider, ThemeProvider>(
-        builder: (context, languageProvider, themeProvider, child) {
+      child: Consumer3<LanguageProvider, ThemeProvider, ConnectivityProvider>(
+        builder: (
+          context,
+          languageProvider,
+          themeProvider,
+          connectivityProvider,
+          child,
+        ) {
           // Debug: Check saved values when app starts
           WidgetsBinding.instance.addPostFrameCallback((_) {
             themeProvider.debugCheckSavedTheme();
@@ -65,7 +76,7 @@ class MyApp extends StatelessWidget {
             themeMode: _getThemeMode(themeProvider),
 
             // Routes
-            initialRoute: AppRouter.home,
+            initialRoute: _getInitialRoute(context),
             onGenerateRoute: AppRouter.generateRoute,
             navigatorObservers: [AppNavigationObserver()],
 
@@ -80,7 +91,7 @@ class MyApp extends StatelessWidget {
                   data: MediaQuery.of(
                     context,
                   ).copyWith(textScaler: const TextScaler.linear(1.0)),
-                  child: child!,
+                  child: _buildAppContent(context, connectivityProvider, child),
                 ),
               );
             },
@@ -99,5 +110,42 @@ class MyApp extends StatelessWidget {
       case AppThemeMode.system:
         return ThemeMode.system;
     }
+  }
+
+  String _getInitialRoute(BuildContext context) {
+    final onboardingProvider = Provider.of<OnboardingProvider>(
+      context,
+      listen: false,
+    );
+
+    if (onboardingProvider.isLoading) {
+      // Show a loading screen or default to home
+      return AppRouter.home;
+    }
+
+    return onboardingProvider.shouldShowOnboarding
+        ? AppRouter.onboarding
+        : AppRouter.home;
+  }
+
+  Widget _buildAppContent(
+    BuildContext context,
+    ConnectivityProvider connectivityProvider,
+    Widget? child,
+  ) {
+    final onboardingProvider = Provider.of<OnboardingProvider>(
+      context,
+      listen: false,
+    );
+
+    if (onboardingProvider.isLoading) {
+      return const LoadingScreen();
+    }
+
+    if (connectivityProvider.showNoInternetScreen) {
+      return const NoInternetScreen();
+    }
+
+    return child!;
   }
 }

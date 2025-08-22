@@ -43,26 +43,14 @@ class HigherLowerProvider extends ChangeNotifier {
   /// Rastgele sayı animasyonu başlat
   void startNumberAnimation() {
     SoundUtils.playSpinnerSound();
-    _gameState = _gameState.copyWith(
-      isAnimating: true,
-      animatedNumber: _generateRandomNumber(),
-    );
+    _gameState = _gameState.copyWith(isAnimating: true);
     notifyListeners();
-
-    _animationTimer = Timer.periodic(const Duration(milliseconds: 100), (
-      timer,
-    ) {
-      _gameState = _gameState.copyWith(animatedNumber: _generateRandomNumber());
-      notifyListeners();
-    });
 
     // 2 saniye sonra animasyonu durdur ve final sayıyı göster
     Timer(const Duration(seconds: 2), () async {
-      stopNumberAnimation();
       final finalNumber = _generateRandomNumber();
       _gameState = _gameState.copyWith(
         currentNumber: finalNumber,
-        animatedNumber: finalNumber,
         isAnimating: false,
       );
       await SoundUtils.stopSpinnerSound();
@@ -158,26 +146,15 @@ class HigherLowerProvider extends ChangeNotifier {
     _gameState = _gameState.copyWith(
       previousNumber: previousNumber,
       isAnimating: true,
-      animatedNumber: _generateRandomNumber(),
     );
     notifyListeners();
 
-    // Animasyon timer'ı başlat
-    _animationTimer = Timer.periodic(const Duration(milliseconds: 100), (
-      timer,
-    ) {
-      _gameState = _gameState.copyWith(animatedNumber: _generateRandomNumber());
-      notifyListeners();
-    });
-
     // 2 saniye sonra animasyonu durdur ve final sayıyı göster
     Timer(const Duration(seconds: 2), () async {
-      stopNumberAnimation();
       _gameState = _gameState.copyWith(
         currentNumber: newNumber,
         score: newScore,
         isAnimating: false,
-        animatedNumber: newNumber,
       );
       await SoundUtils.stopSpinnerSound();
       notifyListeners();
@@ -192,26 +169,15 @@ class HigherLowerProvider extends ChangeNotifier {
     _gameState = _gameState.copyWith(
       previousNumber: previousNumber,
       isAnimating: true,
-      animatedNumber: _generateRandomNumber(),
     );
     notifyListeners();
 
-    // Animasyon timer'ı başlat
-    _animationTimer = Timer.periodic(const Duration(milliseconds: 100), (
-      timer,
-    ) {
-      _gameState = _gameState.copyWith(animatedNumber: _generateRandomNumber());
-      notifyListeners();
-    });
-
     // 2 saniye sonra animasyonu durdur ve oyun biter
     Timer(const Duration(seconds: 2), () async {
-      stopNumberAnimation();
       _gameState = _gameState.copyWith(
         currentNumber: newNumber,
         status: HigherLowerGameStatus.gameOver,
         isAnimating: false,
-        animatedNumber: newNumber,
         showGameOver: true,
       );
       await SoundUtils.stopSpinnerSound();

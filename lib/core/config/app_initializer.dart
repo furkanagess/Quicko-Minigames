@@ -11,6 +11,7 @@ import '../services/admob_service.dart';
 import '../services/in_app_purchase_service.dart';
 import '../services/interstitial_ad_service.dart';
 import '../services/sound_settings_service.dart';
+import '../services/connectivity_service.dart';
 
 class AppInitializer {
   AppInitializer._();
@@ -33,6 +34,9 @@ class AppInitializer {
 
     // Core services that are required app-wide
     await _initializeCoreServices();
+
+    // Initialize connectivity service
+    await ConnectivityService().initialize();
 
     // Firebase last so platform bindings are already in place
     await _initializeFirebase();
@@ -81,6 +85,9 @@ class AppInitializer {
 
     await AdMobService().initialize();
     await InterstitialAdService().initialize();
+
+    // Reset session upsell flag on app start
+    InterstitialAdService().resetSessionUpsellFlag();
   }
 
   static Future<void> _initializeFirebase() async {

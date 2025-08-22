@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/in_app_purchase_service.dart';
 
 class TestModeProvider extends ChangeNotifier {
   static final TestModeProvider _instance = TestModeProvider._internal();
@@ -79,5 +80,23 @@ class TestModeProvider extends ChangeNotifier {
   }
 
   /// Check if app should behave as ad-free (combines actual subscription + test mode)
-  bool get shouldBehaveAsAdFree => _testAdFreeMode;
+  bool get shouldBehaveAsAdFree {
+    final purchaseService = InAppPurchaseService();
+    return purchaseService.isAdFree || (kDebugMode && _testAdFreeMode);
+  }
+
+  /// Get comprehensive ad-free status for UI display
+  bool get isAdFreeForUI {
+    final purchaseService = InAppPurchaseService();
+    return purchaseService.isAdFree || _testAdFreeMode;
+  }
+
+  /// Check if user has real ad-free purchase (not test mode)
+  bool get hasRealAdFreePurchase {
+    final purchaseService = InAppPurchaseService();
+    return purchaseService.isAdFree;
+  }
+
+  /// Check if test mode is active
+  bool get isTestModeActive => kDebugMode && _testAdFreeMode;
 }

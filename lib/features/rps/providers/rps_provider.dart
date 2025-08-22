@@ -12,12 +12,15 @@ class RpsProvider extends ChangeNotifier {
   Timer? _cpuAnimTimer;
   RpsGameState _state = const RpsGameState();
   bool _hasUsedContinue = false;
+  // Shuffle-bag for fair CPU choices (ensures near-equal distribution)
+  final List<RpsChoice> _cpuBag = [];
 
   RpsGameState get state => _state;
 
   void start() {
     _hasUsedContinue = false;
     _state = _state.copyWith(isWaiting: false);
+    if (_cpuBag.isEmpty) _refillCpuBag();
     notifyListeners();
   }
 
@@ -25,6 +28,7 @@ class RpsProvider extends ChangeNotifier {
     _cpuAnimTimer?.cancel();
     _state = const RpsGameState();
     _hasUsedContinue = false;
+    _cpuBag.clear();
     notifyListeners();
   }
 
@@ -64,7 +68,7 @@ class RpsProvider extends ChangeNotifier {
     Future.delayed(const Duration(milliseconds: 650), () async {
       _cpuAnimTimer?.cancel();
       await SoundUtils.stopSpinnerSound();
-      final cpu = RpsChoice.values[_rng.nextInt(3)];
+      final cpu = _drawCpuChoice();
       _state = _state.copyWith(
         isCpuAnimating: false,
         cpuPick: cpu,
@@ -101,11 +105,39 @@ class RpsProvider extends ChangeNotifier {
         final youWon = _state.youScore >= 5;
         _state = _state.copyWith(showGameOver: true, youWon: youWon);
         notifyListeners();
-        await LeaderboardUtils.updateHighScore('rps', _state.youScore);
+        // Count match wins only: +1 per match won
+        if (youWon) {
+          await LeaderboardUtils.updateHighScore('rps', 1);
+        }
         // Save state for rewarded-continue
         await _saveGameState();
       }
     });
+  }
+
+  // Draw a CPU choice from a shuffled bag to ensure fairness over short runs
+  RpsChoice _drawCpuChoice() {
+    if (_cpuBag.isEmpty) {
+      _refillCpuBag();
+    }
+    return _cpuBag.removeLast();
+  }
+
+  void _refillCpuBag() {
+    // 5 copies of each ensures 15-length cycle with equal counts
+    const int repeats = 5;
+    _cpuBag
+      ..clear()
+      ..addAll(List<RpsChoice>.filled(repeats, RpsChoice.rock))
+      ..addAll(List<RpsChoice>.filled(repeats, RpsChoice.paper))
+      ..addAll(List<RpsChoice>.filled(repeats, RpsChoice.scissors));
+    // Shuffle
+    for (int i = _cpuBag.length - 1; i > 0; i--) {
+      final j = _rng.nextInt(i + 1);
+      final tmp = _cpuBag[i];
+      _cpuBag[i] = _cpuBag[j];
+      _cpuBag[j] = tmp;
+    }
   }
 
   int _roundResult(RpsChoice a, RpsChoice b) {

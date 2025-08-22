@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -47,11 +46,11 @@ class AdMobService {
 
   /// Load rewarded ad
   Future<bool> loadRewardedAd() async {
-    // Don't load ads if user has ad-free subscription
+    // Don't load ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       if (kDebugMode) {
         print(
-          'AdMob: Skipping rewarded ad load - user has ad-free subscription',
+          'AdMob: Skipping rewarded ad load - user has ad-free subscription or test mode enabled',
         );
       }
       return false;
@@ -133,11 +132,11 @@ class AdMobService {
     required Function() onAdClosed,
     required Function(String error) onAdFailed,
   }) async {
-    // Don't show ads if user has ad-free subscription
+    // Don't show ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       if (kDebugMode) {
         print(
-          'AdMob: Skipping rewarded ad show - user has ad-free subscription',
+          'AdMob: Skipping rewarded ad show - user has ad-free subscription or test mode enabled',
         );
       }
       // For ad-free users, directly call onRewarded to continue
@@ -176,10 +175,12 @@ class AdMobService {
 
   /// Load banner ad
   Future<bool> loadBannerAd() async {
-    // Don't load banner ads if user has ad-free subscription
+    // Don't load banner ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       if (kDebugMode) {
-        print('AdMob: Skipping banner ad load - user has ad-free subscription');
+        print(
+          'AdMob: Skipping banner ad load - user has ad-free subscription or test mode enabled',
+        );
       }
       return false;
     }
@@ -276,11 +277,11 @@ class AdMobService {
 
   /// Load leaderboard banner ad
   Future<bool> loadLeaderboardBannerAd() async {
-    // Don't load banner ads if user has ad-free subscription
+    // Don't load banner ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       if (kDebugMode) {
         print(
-          'AdMob: Skipping leaderboard banner ad load - user has ad-free subscription',
+          'AdMob: Skipping leaderboard banner ad load - user has ad-free subscription or test mode enabled',
         );
       }
       return false;
@@ -295,7 +296,7 @@ class AdMobService {
     try {
       _bannerAd = BannerAd(
         adUnitId: _leaderboardBannerAdUnitId,
-        size: AdSize.banner,
+        size: AdSize.leaderboard,
         request: const AdRequest(),
         listener: BannerAdListener(
           onAdLoaded: (ad) {
@@ -383,7 +384,7 @@ class AdMobService {
 
   /// Get banner ad widget
   Widget? getBannerAdWidget() {
-    // Don't show banner ads if user has ad-free subscription
+    // Don't show banner ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       return null;
     }
@@ -401,7 +402,7 @@ class AdMobService {
 
   /// Get banner ad widget with responsive sizing
   Widget? getResponsiveBannerAdWidget() {
-    // Don't show banner ads if user has ad-free subscription
+    // Don't show banner ads if user has ad-free subscription or test mode
     if (!shouldShowAds) {
       return null;
     }
@@ -424,8 +425,7 @@ class AdMobService {
   bool get isBannerAdAvailable => _isBannerAdLoaded && _bannerAd != null;
 
   /// Check if ads should be shown (respects ad-free subscription and test mode)
-  bool get shouldShowAds =>
-      !_purchaseService.isAdFree && !_testModeProvider.shouldBehaveAsAdFree;
+  bool get shouldShowAds => !_testModeProvider.shouldBehaveAsAdFree;
 
   /// Check if banner ads should be shown
   bool get shouldShowBannerAds => shouldShowAds && isBannerAdAvailable;

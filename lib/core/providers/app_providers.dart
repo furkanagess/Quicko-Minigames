@@ -5,6 +5,8 @@ import 'language_provider.dart';
 import 'sound_settings_provider.dart';
 import 'test_mode_provider.dart';
 import 'theme_provider.dart';
+import 'connectivity_provider.dart';
+import 'onboarding_provider.dart';
 import '../../features/favorites/providers/favorites_provider.dart';
 import '../../features/leaderboard/providers/leaderboard_provider.dart';
 import '../../features/feedback/providers/feedback_provider.dart';
@@ -23,6 +25,8 @@ class AppProviders extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SoundSettingsProvider()),
         ChangeNotifierProvider(create: (_) => TestModeProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
+        ChangeNotifierProvider(create: (_) => OnboardingProvider()),
         // Feature providers
         ChangeNotifierProvider(create: (_) => FavoritesProvider()),
         ChangeNotifierProvider(create: (_) => LeaderboardProvider()),

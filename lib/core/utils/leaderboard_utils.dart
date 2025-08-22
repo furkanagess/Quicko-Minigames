@@ -4,6 +4,8 @@ import '../../shared/models/leaderboard_entry.dart';
 
 class LeaderboardUtils {
   static const String _leaderboardKey = 'leaderboard_entries';
+  // Games that should accumulate total points instead of keeping highest score
+  static const Set<String> _cumulativeGames = {'blind_sort'};
 
   /// Liderlik tablosu verilerini kaydet
   static Future<void> saveLeaderboard(List<LeaderboardEntry> entries) async {
@@ -43,16 +45,26 @@ class LeaderboardUtils {
 
     if (existingIndex != -1) {
       // Mevcut girişi güncelle
-      if (score > entries[existingIndex].highScore) {
+      if (_cumulativeGames.contains(gameId)) {
+        // Accumulate total points
+        final newTotal = entries[existingIndex].highScore + score;
         entries[existingIndex] = entries[existingIndex].copyWith(
-          highScore: score,
+          highScore: newTotal,
           lastPlayed: DateTime.now(),
         );
       } else {
-        // Sadece son oynama tarihini güncelle
-        entries[existingIndex] = entries[existingIndex].copyWith(
-          lastPlayed: DateTime.now(),
-        );
+        // Keep highest score behavior
+        if (score > entries[existingIndex].highScore) {
+          entries[existingIndex] = entries[existingIndex].copyWith(
+            highScore: score,
+            lastPlayed: DateTime.now(),
+          );
+        } else {
+          // Sadece son oynama tarihini güncelle
+          entries[existingIndex] = entries[existingIndex].copyWith(
+            lastPlayed: DateTime.now(),
+          );
+        }
       }
     } else {
       // Yeni giriş ekle
@@ -82,16 +94,26 @@ class LeaderboardUtils {
 
     if (existingIndex != -1) {
       // Mevcut girişi güncelle
-      if (score > entries[existingIndex].highScore) {
+      if (_cumulativeGames.contains(gameId)) {
+        // Accumulate total points
+        final newTotal = entries[existingIndex].highScore + score;
         entries[existingIndex] = entries[existingIndex].copyWith(
-          highScore: score,
+          highScore: newTotal,
           lastPlayed: DateTime.now(),
         );
       } else {
-        // Sadece son oynama tarihini güncelle
-        entries[existingIndex] = entries[existingIndex].copyWith(
-          lastPlayed: DateTime.now(),
-        );
+        // Keep highest score behavior
+        if (score > entries[existingIndex].highScore) {
+          entries[existingIndex] = entries[existingIndex].copyWith(
+            highScore: score,
+            lastPlayed: DateTime.now(),
+          );
+        } else {
+          // Sadece son oynama tarihini güncelle
+          entries[existingIndex] = entries[existingIndex].copyWith(
+            lastPlayed: DateTime.now(),
+          );
+        }
       }
     } else {
       // Yeni giriş ekle

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:quicko_app/l10n/app_localizations.dart';
 import '../models/number_memory_game_state.dart';
 import '../../../core/utils/sound_utils.dart';
 import '../../../core/utils/leaderboard_utils.dart';
@@ -13,6 +12,7 @@ class NumberMemoryProvider extends ChangeNotifier {
   Timer? _sequenceTimer;
   Timer? _correctMessageTimer;
   bool _hasUsedContinue = false;
+  DateTime? _inputStartTime;
 
   NumberMemoryGameState get gameState => _gameState;
 
@@ -25,7 +25,9 @@ class NumberMemoryProvider extends ChangeNotifier {
 
   void startGame() {
     _hasUsedContinue = false;
-    _gameState = _gameState.copyWith(level: 1, score: 0, isGameActive: true);
+    _inputStartTime = null;
+    // Start at a slightly higher level to make early game more engaging
+    _gameState = _gameState.copyWith(level: 3, score: 0, isGameActive: true);
     _generateNewSequence();
     notifyListeners();
   }
@@ -35,7 +37,8 @@ class NumberMemoryProvider extends ChangeNotifier {
     final sequence = <int>[];
 
     for (int i = 0; i < _gameState.level; i++) {
-      sequence.add(random.nextInt(9) + 1); // 1-9 digits (no 0)
+      // Always use digits 1-9 (no zero) as requested
+      sequence.add(random.nextInt(9) + 1);
     }
 
     _gameState = _gameState.copyWith(
@@ -48,13 +51,15 @@ class NumberMemoryProvider extends ChangeNotifier {
     );
 
     // Show sequence for different durations based on context
-    final displayDuration =
-        isAfterAd ? 4 : 2; // 4 seconds after ad, 2 seconds normally
-    _sequenceTimer = Timer(Duration(seconds: displayDuration), () {
+    final displayDurationSeconds =
+        isAfterAd ? 4 : 2; // Keep brief to raise challenge
+    _sequenceTimer = Timer(Duration(seconds: displayDurationSeconds), () {
       _gameState = _gameState.copyWith(
         isShowingSequence: false,
         isWaitingForInput: true,
       );
+      // Start timing user input for potential speed bonus
+      _inputStartTime = DateTime.now();
       notifyListeners();
     });
 
@@ -126,10 +131,26 @@ class NumberMemoryProvider extends ChangeNotifier {
 
     // Show correct message briefly
     _correctMessageTimer = Timer(const Duration(milliseconds: 1500), () {
+      // Calculate speed bonus: if user finishes under level*800ms, grant +1 bonus
+      int bonus = 0;
+      if (_inputStartTime != null) {
+        final int elapsedMs =
+            DateTime.now().difference(_inputStartTime!).inMilliseconds;
+        final int thresholdMs = (_gameState.level * 800);
+        if (elapsedMs <= thresholdMs) {
+          bonus = 1;
+          if (kDebugMode) {
+            print(
+              'NumberMemory: Speed bonus awarded (elapsed ${elapsedMs}ms, threshold ${thresholdMs}ms)',
+            );
+          }
+        }
+      }
+
       _gameState = _gameState.copyWith(
         showCorrectMessage: false,
         level: _gameState.level + 1,
-        score: _gameState.score + 1,
+        score: _gameState.score + 1 + bonus,
       );
       _generateNewSequence();
       notifyListeners();
@@ -173,6 +194,7 @@ class NumberMemoryProvider extends ChangeNotifier {
     _correctMessageTimer?.cancel();
 
     _gameState = const NumberMemoryGameState();
+    _inputStartTime = null;
     startGame();
   }
 
@@ -182,6 +204,7 @@ class NumberMemoryProvider extends ChangeNotifier {
 
     _gameState = const NumberMemoryGameState();
     _hasUsedContinue = false;
+    _inputStartTime = null;
     notifyListeners();
   }
 

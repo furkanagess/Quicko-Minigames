@@ -15,9 +15,11 @@ import '../../features/reaction_time/views/reaction_time_screen.dart';
 import '../../features/pattern_memory/views/pattern_memory_screen.dart';
 import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
+import '../../features/leaderboard/views/game_leaderboard_screen.dart';
 import '../../features/settings/views/settings_screen.dart';
 import '../../features/settings/views/ad_free_subscription_screen.dart';
 import '../../features/settings/views/feedback_screen.dart';
+import '../../features/onboarding/views/onboarding_screen.dart';
 
 class AppRouter {
   static const String home = '/';
@@ -33,9 +35,11 @@ class AppRouter {
   static const String patternMemory = '/pattern-memory';
   static const String favorites = '/favorites';
   static const String leaderboard = '/leaderboard';
+  static const String gameLeaderboard = '/game-leaderboard';
   static const String settings = '/settings';
   static const String adFreeSubscription = '/ad-free-subscription';
   static const String feedback = '/feedback';
+  static const String onboarding = '/onboarding';
 
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -78,6 +82,17 @@ class AppRouter {
       case leaderboard:
         return _buildModernRoute(routeSettings, const LeaderboardScreen());
 
+      case gameLeaderboard:
+        final args = routeSettings.arguments as Map<String, dynamic>?;
+        final String gameId = args?['gameId'] as String? ?? '';
+        final String title = args?['title'] as String? ?? 'Leaderboard';
+        return _buildModernRoute(
+          routeSettings,
+          // Lazy import to avoid circular deps; file path: features/leaderboard/views/game_leaderboard_screen.dart
+          // ignore: prefer_const_constructors
+          GameLeaderboardScreen(gameId: gameId, title: title),
+        );
+
       case settings:
         return _buildModernRoute(routeSettings, const SettingsScreen());
 
@@ -89,6 +104,9 @@ class AppRouter {
 
       case feedback:
         return _buildModernRoute(routeSettings, const FeedbackScreen());
+
+      case onboarding:
+        return _buildModernRoute(routeSettings, const OnboardingScreen());
 
       default:
         return _buildModernRoute(
