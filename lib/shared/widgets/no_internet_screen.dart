@@ -47,7 +47,7 @@ class NoInternetScreen extends StatelessWidget {
   }
 
   Widget _buildLottieAnimation(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 200,
       height: 200,
       child: Lottie.asset(

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
@@ -286,14 +288,16 @@ class _LeaderboardProfileSettingsScreenState
                                 ),
                                 maxLength: 16,
                                 validator: (v) {
-                                  if (v == null || v.trim().isEmpty)
+                                  if (v == null || v.trim().isEmpty) {
                                     return AppLocalizations.of(
                                       context,
                                     )!.nameRequired;
-                                  if (v.trim().length < 2)
+                                  }
+                                  if (v.trim().length < 2) {
                                     return AppLocalizations.of(
                                       context,
                                     )!.minimumTwoCharacters;
+                                  }
                                   return null;
                                 },
                               ),
@@ -413,15 +417,18 @@ class _LeaderboardProfileSettingsScreenState
                             ),
                           ),
                           onPressed: () async {
-                            if (!(_formKey.currentState?.validate() ?? false))
+                            if (!(_formKey.currentState?.validate() ?? false)) {
                               return;
+                            }
                             final bool confirmed = await _confirmProfileSave();
                             if (!confirmed) return;
                             await LeaderboardProfileService().saveProfile(
                               name: _nameController.text.trim(),
                               countryCode: _countryCode,
                             );
-                            if (mounted) AppRouter.pop(context);
+                            if (mounted) {
+                              AppRouter.pop(context);
+                            }
                           },
                           child: Text(
                             AppLocalizations.of(context)!.save,

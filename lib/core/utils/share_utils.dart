@@ -29,16 +29,12 @@ class ShareUtils {
       );
 
       // Screenshot al
-      final Uint8List? imageBytes = await _screenshotController
+      final Uint8List imageBytes = await _screenshotController
           .captureFromWidget(
             achievementWidget,
             delay: const Duration(milliseconds: 100),
             pixelRatio: 3.0,
           );
-
-      if (imageBytes == null) {
-        throw Exception('Screenshot alınamadı');
-      }
 
       // Geçici dosya oluştur
       final tempDir = await getTemporaryDirectory();

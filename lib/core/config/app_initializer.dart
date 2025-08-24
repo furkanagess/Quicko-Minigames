@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:quicko_app/firebase_options.dart';
-
-import '../config/app_config.dart';
 
 import '../services/admob_service.dart';
 import '../services/in_app_purchase_service.dart';
@@ -22,8 +19,6 @@ class AppInitializer {
   /// Safe to call multiple times; subsequent calls are no-ops.
   static Future<void> initialize() async {
     if (_initialized) return;
-
-    final Stopwatch stopwatch = Stopwatch()..start();
 
     // Ensure Flutter engine is ready
     // and set device orientation before any UI builds.

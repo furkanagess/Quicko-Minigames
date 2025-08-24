@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/constants/supported_locales.dart';

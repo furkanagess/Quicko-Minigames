@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
-import '../../core/providers/in_app_purchase_provider.dart';
-
-import '../../core/constants/app_constants.dart';
 
 /// A self-contained banner ad widget that manages its own BannerAd instance.
 ///

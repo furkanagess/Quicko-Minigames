@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/routes/app_router.dart';
 import '../../../core/services/leaderboard_service.dart';
 import '../../../shared/models/global_leaderboard_entry.dart';
 import '../../../shared/models/user_ranking_info.dart';

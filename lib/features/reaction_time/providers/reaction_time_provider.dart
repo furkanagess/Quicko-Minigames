@@ -12,7 +12,6 @@ class ReactionTimeProvider extends ChangeNotifier {
   bool _hasUsedContinue = false;
   final Random _random = Random();
   Size? _gameAreaSize;
-  bool _hasBrokenRecordThisGame = false;
 
   ReactionTimeGameState get gameState => _gameState;
 
@@ -75,7 +74,6 @@ class ReactionTimeProvider extends ChangeNotifier {
 
   /// Start the game
   void startGame() async {
-    _hasBrokenRecordThisGame = false;
     _hasUsedContinue = false;
     _gameState = _gameState.copyWith(
       nextTarget: 1,
@@ -190,7 +188,6 @@ class ReactionTimeProvider extends ChangeNotifier {
   void cleanupGame() {
     _stopTimer();
     _gameState = const ReactionTimeGameState();
-    _hasBrokenRecordThisGame = false;
     notifyListeners();
   }
 
@@ -238,7 +235,6 @@ class ReactionTimeProvider extends ChangeNotifier {
   /// Game over
   void _gameOver() async {
     _stopTimer();
-    _hasBrokenRecordThisGame = true;
 
     final finalTime = _gameState.elapsedTime;
 
@@ -371,7 +367,6 @@ class ReactionTimeProvider extends ChangeNotifier {
   void resetGame() {
     _stopTimer();
     _gameState = const ReactionTimeGameState();
-    _hasBrokenRecordThisGame = false;
     _hasUsedContinue = false;
     _generateTargetPositions();
     notifyListeners();

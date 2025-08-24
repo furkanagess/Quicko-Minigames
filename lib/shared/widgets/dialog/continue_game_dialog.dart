@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../core/providers/in_app_purchase_provider.dart';
 
 import '../../../core/services/admob_service.dart';
 import '../../../core/services/in_app_purchase_service.dart';

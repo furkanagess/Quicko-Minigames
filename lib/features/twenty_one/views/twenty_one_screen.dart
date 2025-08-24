@@ -34,6 +34,7 @@ class _TwentyOneView extends StatelessWidget {
         // Create game result when game is over
         GameResult? gameResult;
         if (gameState.showGameOver) {
+          // ignore: unrelated_type_equality_checks
           final isWin = gameState.status == GameStatus.won;
           gameResult = GameResult(
             isWin: isWin,

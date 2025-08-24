@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 
 class LeaderboardRegisterDialog extends StatefulWidget {
@@ -225,12 +223,14 @@ class _LeaderboardRegisterDialogState extends State<LeaderboardRegisterDialog> {
                       ),
                       maxLength: 16,
                       validator: (v) {
-                        if (v == null || v.trim().isEmpty)
+                        if (v == null || v.trim().isEmpty) {
                           return AppLocalizations.of(context)!.nameRequired;
-                        if (v.trim().length < 2)
+                        }
+                        if (v.trim().length < 2) {
                           return AppLocalizations.of(
                             context,
                           )!.minimumTwoCharacters;
+                        }
                         return null;
                       },
                     ),

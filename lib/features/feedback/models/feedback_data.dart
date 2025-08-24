@@ -26,8 +26,9 @@ class FeedbackData {
     if (title.trim().isEmpty) return 'Please enter a title';
     if (title.trim().length < 3) return 'Title must be at least 3 characters';
     if (description.trim().isEmpty) return 'Please enter a description';
-    if (description.trim().length < 10)
+    if (description.trim().length < 10) {
       return 'Description must be at least 10 characters';
+    }
     return null;
   }
 

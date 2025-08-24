@@ -1,13 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../models/find_difference_game_state.dart';
 import '../../../core/utils/leaderboard_utils.dart';
 import '../../../core/utils/sound_utils.dart';
 import '../../../core/services/game_state_service.dart';
-import '../../../core/providers/app_providers.dart';
 import '../../../core/theme/app_theme.dart';
 
 class FindDifferenceProvider extends ChangeNotifier {
@@ -93,16 +93,6 @@ class FindDifferenceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _gameOver() {
-    _timeTimer?.cancel();
-    _gameState = _gameState.copyWith(
-      status: FindDifferenceStatus.gameOver,
-      showGameOver: false, // Don't show dialog
-    );
-    notifyListeners();
-    _saveGameState();
-  }
-
   void _gameOverWithMistakes() {
     _timeTimer?.cancel();
     _gameState = _gameState.copyWith(
@@ -171,11 +161,6 @@ class FindDifferenceProvider extends ChangeNotifier {
     }
     // Levels 16+: Maximum difficulty
     return 0.01;
-  }
-
-  int _timeForLevel(int level) {
-    // Not used anymore - total game time is managed in startGame()
-    return 30;
   }
 
   void _generateRound() {

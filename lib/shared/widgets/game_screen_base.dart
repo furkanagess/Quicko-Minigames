@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/routes/app_router.dart';
@@ -218,11 +220,6 @@ class _GameScreenBaseState extends State<GameScreenBase>
       // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard akışını başlat
       await _handleLeaderboardQualification();
     });
-  }
-
-  void _handleGameOver() {
-    // Handle game over - user chose to give up
-    widget.onResetGame?.call();
   }
 
   Future<void> _handleLeaderboardQualification() async {
@@ -728,44 +725,6 @@ class _GameScreenBaseState extends State<GameScreenBase>
         }
       },
     );
-  }
-
-  Future<void> _checkAndShowContinueDialog(BuildContext context) async {
-    // Check if continue game is available
-    if (widget.canContinueGame != null && widget.onContinueGame != null) {
-      final canContinue = await widget.canContinueGame!();
-
-      if (context.mounted) {
-        // Show continue game dialog always; button visibility handled inside
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder:
-              (context) => ContinueGameDialog(
-                gameId: widget.gameId,
-                gameTitle: _getLocalizedTitle(context),
-                currentScore: widget.gameResult?.score ?? 0,
-                onContinue: () async {
-                  final success = await widget.onContinueGame!();
-                  if (success) {
-                    // Don't call onGameResultCleared when continue is successful
-                    // because the game should continue from where it left off
-                  }
-                },
-                onRestart: () {
-                  widget.onTryAgain?.call();
-                },
-                onExit: () {
-                  widget.onBackToMenu?.call();
-                },
-                canOneTimeContinue: canContinue,
-              ),
-        );
-      }
-    } else {
-      // No continue game support, use normal try again
-      widget.onTryAgain?.call();
-    }
   }
 
   void _handleBackButtonPress(BuildContext context) async {

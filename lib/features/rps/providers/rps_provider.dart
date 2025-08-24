@@ -40,8 +40,9 @@ class RpsProvider extends ChangeNotifier {
   void onPick(RpsChoice pick) {
     if (_state.showGameOver ||
         _state.isWaiting ||
-        _state.isPlayerSelectionLocked)
+        _state.isPlayerSelectionLocked) {
       return;
+    }
 
     SoundUtils.playTapSound();
     _state = _state.copyWith(

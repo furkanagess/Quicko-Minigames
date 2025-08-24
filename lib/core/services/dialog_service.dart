@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import '../../shared/widgets/dialog/congrats_dialog.dart';
 import '../../shared/widgets/dialog/continue_game_dialog.dart';

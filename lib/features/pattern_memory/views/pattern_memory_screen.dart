@@ -6,7 +6,6 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
-import '../../../core/routes/app_router.dart';
 
 import '../../../shared/widgets/game_screen_base.dart';
 
@@ -130,7 +129,6 @@ class PatternMemoryScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxSize = constraints.maxWidth - 40; // Padding
-        final tileSize = (maxSize - (tileSpacing * (gridSize - 1))) / gridSize;
 
         return SizedBox(
           width: maxSize,

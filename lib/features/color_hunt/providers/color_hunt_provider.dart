@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -111,11 +113,11 @@ class ColorHuntProvider extends ChangeNotifier {
     // Create more interesting text color combinations
     // Always use a different color for the text to increase confusion (Stroop effect)
     Color textColor;
-    int _attempts = 0;
+    int attempts = 0;
     do {
       textColor = _availableColors[_random.nextInt(_availableColors.length)];
-      _attempts++;
-      if (_attempts > 20) {
+      attempts++;
+      if (attempts > 20) {
         // Failsafe: break to avoid a potential infinite loop in extreme cases
         break;
       }

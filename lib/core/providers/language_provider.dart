@@ -55,14 +55,14 @@ class LanguageProvider extends ChangeNotifier {
     // Handle country-specific locales
     if (languageCode == 'pt_BR') {
       newLocale = const Locale('pt', 'BR');
-    } else if (newLocale == null) {
-      // Fallback to default locale if not supported
-      newLocale = SupportedLocales.defaultLocale;
+    } else {
+      newLocale ??= SupportedLocales.defaultLocale;
     }
 
     if (_currentLocale.languageCode == newLocale.languageCode &&
-        _currentLocale.countryCode == newLocale.countryCode)
+        _currentLocale.countryCode == newLocale.countryCode) {
       return;
+    }
 
     _isLoading = true;
     notifyListeners();
