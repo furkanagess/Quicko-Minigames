@@ -18,10 +18,8 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code related
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -32,6 +30,12 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+**/build/
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/GeneratedPluginRegistrant.*
 
 # Symbolication related
 app.*.symbols
@@ -67,6 +71,8 @@ google-services.json
 GoogleService-Info.plist
 firebase_options.dart
 firebase_config.json
+**/google-services.json
+**/GoogleService-Info.plist
 
 # API Keys and Secrets
 **/api_keys.dart
@@ -180,4 +186,37 @@ debug_config.dart
 *.json.bak
 *.plist.bak
 *.xml.bak
+
+# Flutter generated files
+**/ios/Flutter/GeneratedPluginRegistrant.swift
+**/ios/Flutter/GeneratedPluginRegistrant.h
+**/ios/Flutter/GeneratedPluginRegistrant.m
+
+# Pods directory for iOS
+**/ios/Pods/
+**/ios/Podfile.lock
+
+# Gradle files
+**/android/.gradle/
+**/android/gradle/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+
+# Keystore files
+**/android/app/debug.keystore
+**/android/app/release.keystore
+**/*.keystore
+**/*.jks
+
+# FVM (Flutter Version Management)
+.fvm/
+
+# Flutter coverage
+coverage/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+**/generated_plugin_registrant.dart
 
