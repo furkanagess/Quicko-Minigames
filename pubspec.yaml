@@ -88,10 +88,10 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path_ios: "assets/logo/playstore-icon.png"
-  image_path_android: "assets/logo/playstore-icon.png"
-  adaptive_icon_foreground: "assets/logo/quicko_game_removebg.png"
-  adaptive_icon_background: "#8E44AD"
+  image_path_ios: "assets/logo/quality_icon.png"
+  image_path_android: "assets/logo/quality_icon.png"
+  adaptive_icon_foreground: "assets/logo/quality_icon.png"
+  adaptive_icon_background: "assets/logo/quality_icon_bg.png"
   remove_alpha_ios: true
   min_sdk_android: 23
 
@@ -100,12 +100,12 @@ flutter_native_splash:
   color: "#8E44AD"
   color_dark: "#8E44AD"
   
-  image: assets/logo/quicko_game_removebg.png
-  image_dark: assets/logo/quicko_game_removebg.png
+  image: assets/logo/quality_icon.png
+  image_dark: assets/logo/quality_icon.png
   
   android_12:
-    image: assets/logo/quicko_game_removebg.png
-    image_dark: assets/logo/quicko_game_removebg.png
+    image: assets/logo/quality_icon.png
+    image_dark: assets/logo/quality_icon.png
     color: "#8E44AD"
     color_dark: "#8E44AD"
     icon_background_color: "#8E44AD"
