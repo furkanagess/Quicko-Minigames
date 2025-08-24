@@ -684,7 +684,26 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                       ),
                     ),
 
-                    // Removed extra info icon for a cleaner layout
+                    // Info button in top right corner
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => _showUninstallWarningBottomSheet(context),
+                          borderRadius: BorderRadius.circular(20),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: AppConstants.mediumSpacing),
@@ -909,5 +928,108 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     );
   }
 
-  // Removed uninstall warning bottom sheet builders
+  void _showUninstallWarningBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(AppConstants.largeSpacing),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Handle bar
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Icon
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Icon(
+                        Icons.warning_rounded,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Title
+                  Text(
+                    AppLocalizations.of(context)!.uninstallWarningTitle,
+                    style: TextThemeManager.sectionTitle.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppConstants.mediumSpacing),
+                  // Description
+                  Text(
+                    AppLocalizations.of(context)!.uninstallWarningMessage,
+                    style: TextThemeManager.bodyMedium.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(height: AppConstants.largeSpacing),
+                  // Close Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.mediumRadius,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.gotIt,
+                        style: TextThemeManager.buttonMedium.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
