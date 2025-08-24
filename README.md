@@ -84,45 +84,7 @@
 - **🔊 Sound Effects** - Immersive audio experience
 - **📱 Cross-Platform** - Works on iOS and Android
 - **📈 Achievement System** - Unlock achievements as you progress
-
-## 🏗️ Architecture
-
-Quicko follows a clean, scalable architecture pattern:
-
-```
-lib/
-├── core/                    # Core functionality
-│   ├── config/             # App configuration
-│   ├── constants/          # App constants
-│   ├── mixins/            # Reusable mixins
-│   ├── providers/         # State management
-│   ├── routes/            # Navigation
-│   ├── services/          # Business logic
-│   ├── theme/             # UI theming
-│   └── utils/             # Utility functions
-├── features/              # Feature modules
-│   ├── aim_trainer/       # Aim training game
-│   ├── blind_sort/        # Blind sorting game
-│   ├── color_hunt/        # Color hunting game
-│   ├── favorites/         # Favorites management
-│   ├── feedback/          # User feedback system
-│   ├── find_difference/   # Spot the difference game
-│   ├── higher_lower/      # Higher or lower game
-│   ├── home/              # Home screen
-│   ├── leaderboard/       # Leaderboard system
-│   ├── number_memory/     # Number memory game
-│   ├── pattern_memory/    # Pattern memory game
-│   ├── reaction_time/     # Reaction time game
-│   ├── rps/               # Rock paper scissors game
-│   ├── settings/          # App settings
-│   └── twenty_one/        # Twenty one game
-├── l10n/                  # Localization files
-├── shared/                # Shared components
-│   ├── models/           # Data models
-│   └── widgets/          # Reusable widgets
-└── main.dart             # App entry point
-```
-
+-
 ## 🛠️ Technology Stack
 
 - **Framework**: Flutter 3.7.0+
@@ -168,7 +130,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Copyright Notice
 
 ```
-Copyright (c) 2024 Furkan Ağaç
+Copyright (c) 2025 Furkan Caglar
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
