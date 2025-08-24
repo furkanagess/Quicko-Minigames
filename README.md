@@ -1,4 +1,4 @@
-# Quicko - Brain Training Games
+# Quicko Minigames
 
 <div align="center">
   <img src="assets/logo/quicko_game_removebg.png" alt="Quicko Minigames" width="120" height="120">
