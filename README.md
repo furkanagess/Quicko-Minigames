@@ -1,9 +1,9 @@
 # Quicko - Brain Training Games
 
 <div align="center">
-  <img src="assets/icon/quicko.png" alt="Quicko Logo" width="120" height="120">
+  <img src="assets/logo/quicko_game_removebg.png" alt="Quicko Minigames" width="120" height="120">
   
-  **A comprehensive brain training app featuring 12+ cognitive games**
+  **A comprehensive brain training app featuring 10+ cognitive games**
   
   [![Flutter](https://img.shields.io/badge/Flutter-3.7.0+-blue.svg)](https://flutter.dev/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
