@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
 import '../../core/providers/in_app_purchase_provider.dart';
-import '../../core/providers/test_mode_provider.dart';
+
 import '../../core/constants/app_constants.dart';
 
 /// A self-contained banner ad widget that manages its own BannerAd instance.
@@ -42,9 +42,6 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
 
   Future<void> _load() async {
     if (!_adMobService.shouldShowAds) {
-      if (kDebugMode) {
-        print('InlineBannerAdWidget: Ads disabled (ad-free or test mode).');
-      }
       return;
     }
 
@@ -53,9 +50,7 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
 
     try {
       final adUnitId = _config.bannerAdUnitId;
-      if (kDebugMode) {
-        print('InlineBannerAdWidget: Loading banner ad: $adUnitId');
-      }
+
       final banner = BannerAd(
         adUnitId: adUnitId,
         size: AdSize.banner,
@@ -69,9 +64,6 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
                 _isLoading = false;
               });
             }
-            if (kDebugMode) {
-              print('InlineBannerAdWidget: Banner loaded (${ad.responseInfo})');
-            }
           },
           onAdFailedToLoad: (ad, error) {
             ad.dispose();
@@ -81,20 +73,12 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
                 _isLoading = false;
               });
             }
-            if (kDebugMode) {
-              print(
-                'InlineBannerAdWidget: Failed to load banner: ${error.message}',
-              );
-            }
           },
         ),
       );
 
       await banner.load();
     } catch (e) {
-      if (kDebugMode) {
-        print('InlineBannerAdWidget: Exception while loading banner: $e');
-      }
       if (mounted) {
         setState(() {
           _isLoaded = false;
@@ -121,43 +105,39 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<InAppPurchaseProvider, TestModeProvider>(
-      builder: (context, iap, testModeProvider, child) {
-        final shouldShow = _adMobService.shouldShowAds;
+    final shouldShow = _adMobService.shouldShowAds;
 
-        if (!shouldShow) {
-          if (_bannerAd != null) {
-            _disposeBannerIfAny();
-          }
-          // Use fallback height that matches list spacing when ads are disabled
-          return SizedBox(height: _getFallbackHeight());
-        }
+    if (!shouldShow) {
+      if (_bannerAd != null) {
+        _disposeBannerIfAny();
+      }
+      // Use fallback height that matches list spacing when ads are disabled
+      return SizedBox(height: _getFallbackHeight());
+    }
 
-        if (!_isLoaded && !_isLoading) {
-          // Try load if eligible and not yet loading
-          _load();
-        }
+    if (!_isLoaded && !_isLoading) {
+      // Try load if eligible and not yet loading
+      _load();
+    }
 
-        if (!_isLoaded || _bannerAd == null) {
-          // Use fallback height that matches list spacing when ad fails to load
-          return SizedBox(height: _getFallbackHeight());
-        }
+    if (!_isLoaded || _bannerAd == null) {
+      // Use fallback height that matches list spacing when ad fails to load
+      return SizedBox(height: _getFallbackHeight());
+    }
 
-        return Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.only(
-            bottom: widget.verticalPadding,
-            top: widget.verticalPadding,
-            left: widget.horizontalPadding,
-            right: widget.horizontalPadding,
-          ),
-          width: double.infinity,
-          child: SizedBox(
-            height: _bannerAd!.size.height.toDouble(),
-            child: AdWidget(ad: _bannerAd!),
-          ),
-        );
-      },
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(
+        bottom: widget.verticalPadding,
+        top: widget.verticalPadding,
+        left: widget.horizontalPadding,
+        right: widget.horizontalPadding,
+      ),
+      width: double.infinity,
+      child: SizedBox(
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      ),
     );
   }
 

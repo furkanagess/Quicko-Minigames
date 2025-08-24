@@ -6,7 +6,8 @@ import '../../../core/constants/app_constants.dart';
 // import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
-import '../../../core/providers/test_mode_provider.dart';
+
+import '../../../core/services/dialog_service.dart';
 import '../../../shared/widgets/app_bars.dart';
 
 class AdFreeSubscriptionScreen extends StatefulWidget {
@@ -67,9 +68,9 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         opacity: _fadeAnimation,
         child: SlideTransition(
           position: _slideAnimation,
-          child: Consumer2<InAppPurchaseProvider, TestModeProvider>(
-            builder: (context, purchaseProvider, testModeProvider, child) {
-              final isAdFree = testModeProvider.isAdFreeForUI;
+          child: Consumer<InAppPurchaseProvider>(
+            builder: (context, purchaseProvider, child) {
+              final isAdFree = purchaseProvider.isAdFree;
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(AppConstants.mediumSpacing),
@@ -746,10 +747,21 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     InAppPurchaseProvider purchaseProvider,
   ) async {
     await purchaseProvider.purchaseAdFreeSubscription();
-    // Show a friendly error bottom sheet if purchase failed
-    if (!purchaseProvider.isSubscriptionActive &&
-        purchaseProvider.errorMessage != null &&
-        mounted) {
+
+    if (!mounted) return;
+
+    // Check if purchase was successful
+    if (purchaseProvider.isSubscriptionActive) {
+      // Show success dialog
+      await DialogService.showAdFreeSuccessDialog(
+        context: context,
+        onContinue: () {
+          // Refresh the UI to show ad-free content
+          setState(() {});
+        },
+      );
+    } else if (purchaseProvider.errorMessage != null) {
+      // Show error bottom sheet if purchase failed
       _showPurchaseErrorBottomSheet(
         context,
         title: AppLocalizations.of(context)!.purchaseError,
@@ -765,7 +777,19 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     InAppPurchaseProvider purchaseProvider,
   ) async {
     final success = await purchaseProvider.restorePurchases();
-    if (!success && mounted) {
+
+    if (!mounted) return;
+
+    if (success) {
+      // Show success dialog for restored purchases
+      await DialogService.showAdFreeSuccessDialog(
+        context: context,
+        onContinue: () {
+          // Refresh the UI to show ad-free content
+          setState(() {});
+        },
+      );
+    } else {
       _showPurchaseErrorBottomSheet(
         context,
         title: AppLocalizations.of(context)!.restoreError,

@@ -442,7 +442,7 @@ class _RatingBottomSheetState extends State<RatingBottomSheet>
     try {
       final String storeUrl =
           Platform.isIOS
-              ? 'https://apps.apple.com/app/quicko/id[YOUR_APP_STORE_ID]'
+              ? 'https://apps.apple.com/app/quicko/id6751204576'
               : 'https://play.google.com/store/apps/details?id=com.furkanages.quicko_app';
 
       final Uri uri = Uri.parse(storeUrl);

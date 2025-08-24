@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../core/config/app_config.dart';
 import '../../core/services/admob_service.dart';
-import '../../core/providers/test_mode_provider.dart';
+
 import 'package:provider/provider.dart';
 
 class BannerAdWidget extends StatefulWidget {
@@ -34,9 +34,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
     try {
       final adUnitId = _config.bannerAdUnitId;
-      if (kDebugMode) {
-        print('BannerAdWidget(self): Loading banner ad: $adUnitId');
-      }
+
       final banner = BannerAd(
         adUnitId: adUnitId,
         size: AdSize.banner,
@@ -59,11 +57,6 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
                 _isLoading = false;
               });
             }
-            if (kDebugMode) {
-              print(
-                'BannerAdWidget(self): Failed to load banner: ${error.message}',
-              );
-            }
           },
         ),
       );
@@ -76,9 +69,6 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
           _isLoading = false;
         });
       }
-      if (kDebugMode) {
-        print('BannerAdWidget(self): Exception while loading banner: $e');
-      }
     }
   }
 
@@ -90,29 +80,25 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TestModeProvider>(
-      builder: (context, testModeProvider, child) {
-        final shouldShow = _adMobService.shouldShowAds;
+    final shouldShow = _adMobService.shouldShowAds;
 
-        if (!shouldShow) {
-          return const SizedBox.shrink();
-        }
+    if (!shouldShow) {
+      return const SizedBox.shrink();
+    }
 
-        if (!_isLoaded && !_isLoading) {
-          _load();
-        }
+    if (!_isLoaded && !_isLoading) {
+      _load();
+    }
 
-        if (!_isLoaded || _bannerAd == null) {
-          return const SizedBox.shrink();
-        }
+    if (!_isLoaded || _bannerAd == null) {
+      return const SizedBox.shrink();
+    }
 
-        return Container(
-          alignment: Alignment.center,
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
-        );
-      },
+    return Container(
+      alignment: Alignment.center,
+      width: _bannerAd!.size.width.toDouble(),
+      height: _bannerAd!.size.height.toDouble(),
+      child: AdWidget(ad: _bannerAd!),
     );
   }
 }

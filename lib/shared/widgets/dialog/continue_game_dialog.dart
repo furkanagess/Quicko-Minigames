@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
-import '../../../core/providers/test_mode_provider.dart';
+
 import '../../../core/services/admob_service.dart';
 import '../../../core/services/in_app_purchase_service.dart';
 import '../../../core/theme/app_theme.dart';
@@ -98,11 +98,10 @@ class _ContinueGameDialogState extends State<ContinueGameDialog>
     // Currently using _isAdFreeEnabled() method instead
   }
 
-  /// Check if ad-free mode is enabled (combines actual subscription + test mode)
+  /// Check if ad-free mode is enabled
   bool _isAdFreeEnabled() {
     final purchaseService = InAppPurchaseService();
-    final testModeProvider = TestModeProvider();
-    return purchaseService.isAdFree || testModeProvider.shouldBehaveAsAdFree;
+    return purchaseService.isAdFree;
   }
 
   /// Check if one-time continue is available for ad-free users

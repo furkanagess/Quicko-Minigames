@@ -33,9 +33,7 @@ class _LeaderboardBannerAdWidgetState extends State<LeaderboardBannerAdWidget> {
 
     try {
       final adUnitId = _config.leaderboardBannerAdUnitId;
-      if (kDebugMode) {
-        print('LeaderboardBannerAdWidget(self): Loading banner ad: $adUnitId');
-      }
+
       final banner = BannerAd(
         adUnitId: adUnitId,
         size: AdSize.banner,
@@ -58,20 +56,12 @@ class _LeaderboardBannerAdWidgetState extends State<LeaderboardBannerAdWidget> {
                 _isLoading = false;
               });
             }
-            if (kDebugMode) {
-              print(
-                'LeaderboardBannerAdWidget(self): Failed: ${error.message}',
-              );
-            }
           },
         ),
       );
 
       await banner.load();
     } catch (e) {
-      if (kDebugMode) {
-        print('LeaderboardBannerAdWidget(self): Exception while loading: $e');
-      }
       if (mounted) {
         setState(() {
           _isLoaded = false;

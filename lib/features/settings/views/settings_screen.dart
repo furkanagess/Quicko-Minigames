@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
 import '../../../core/providers/language_provider.dart';
-import '../../../core/providers/test_mode_provider.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/providers/onboarding_provider.dart';
-
-// import '../../../core/theme/app_theme.dart';
-import '../../../core/theme/text_theme_manager.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/managers/settings_manager.dart';
+import '../../../core/services/navigation_service.dart';
 import '../../../shared/widgets/app_bars.dart';
-import 'sound_settings_screen.dart';
-import 'ad_free_subscription_screen.dart';
-import 'language_settings_screen.dart';
-import 'theme_settings_screen.dart';
-import 'feedback_screen.dart';
-import 'leaderboard_profile_settings_screen.dart';
+import '../../../shared/widgets/settings_option_widget.dart';
+import '../../../shared/widgets/animated_screen_widget.dart';
+import '../../../core/services/animation_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -25,108 +18,58 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late AnimationController _slideController;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-
-  // Getter for testing ad-free status (combines real and test mode)
-  bool _isAdFreeForTesting(
-    InAppPurchaseProvider purchaseProvider,
-    TestModeProvider testModeProvider,
-  ) {
-    return testModeProvider.isAdFreeForUI;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _slideController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeOut));
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.05),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
-
-    _fadeController.forward();
-    _slideController.forward();
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    super.dispose();
-  }
-
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child:
-              Consumer3<LanguageProvider, ThemeProvider, InAppPurchaseProvider>(
-                builder: (
-                  context,
-                  languageProvider,
-                  themeProvider,
-                  purchaseProvider,
-                  child,
-                ) {
-                  return SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Settings Header
-
-                            // Settings Options
-                            _buildSettingsOptions(
-                              context,
-                              languageProvider,
-                              themeProvider,
-                              purchaseProvider,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-        ),
-      ),
+      body: _buildAnimatedBody(),
     );
   }
 
   PreferredSizeWidget _buildAppBar() {
     return AppBars.settingsAppBar(
       context: context,
-      title: AppLocalizations.of(context)!.settings,
+      title: 'Settings', // This will be localized by the app bar
     );
   }
 
-  // Unused header removed to avoid lints
+  Widget _buildAnimatedBody() {
+    return Consumer3<LanguageProvider, ThemeProvider, InAppPurchaseProvider>(
+      builder: (
+        context,
+        languageProvider,
+        themeProvider,
+        purchaseProvider,
+        child,
+      ) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSettingsOptions(
+                    context,
+                    languageProvider,
+                    themeProvider,
+                    purchaseProvider,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ).withScreenAnimation(
+          animationConfig: AnimationConfig.screen,
+          onAnimationComplete: () {
+            // Animation completed callback if needed
+          },
+        );
+      },
+    );
+  }
 
   Widget _buildSettingsOptions(
     BuildContext context,
@@ -134,635 +77,49 @@ class _SettingsScreenState extends State<SettingsScreen>
     ThemeProvider themeProvider,
     InAppPurchaseProvider purchaseProvider,
   ) {
-    return Consumer<TestModeProvider>(
-      builder: (context, testModeProvider, child) {
-        return Column(
-          children: [
-            // Language Setting Option
-            _buildSettingOption(
-              context,
-              title: AppLocalizations.of(context)!.language,
-              subtitle: _getLanguageDisplayName(
-                languageProvider.currentLocale.languageCode,
-              ),
-              icon: Icons.language_rounded,
-              emoji: _getLanguageEmoji(
-                languageProvider.currentLocale.languageCode,
-              ),
-              onTap: () => _navigateToLanguageSettings(context),
-            ),
-
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-            // Theme Setting Option
-            _buildSettingOption(
-              context,
-              title: AppLocalizations.of(context)!.theme,
-              subtitle: _getCurrentThemeDisplay(themeProvider),
-              icon: Icons.palette_rounded,
-              emoji: _getThemeEmoji(themeProvider),
-              onTap: () => _navigateToThemeSettings(context),
-            ),
-
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-            // Sound Settings Option
-            _buildSettingOption(
-              context,
-              title: AppLocalizations.of(context)!.soundSettings,
-              subtitle: AppLocalizations.of(context)!.soundSettingsMenuSubtitle,
-              icon: Icons.volume_up_rounded,
-              emoji: '🔊',
-              onTap: () => _navigateToSoundSettings(context),
-            ),
-
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-            // Leaderboard Profile Option
-            _buildSettingOption(
-              context,
-              title: AppLocalizations.of(context)!.leaderboardProfile,
-              subtitle:
-                  AppLocalizations.of(context)!.leaderboardProfileSubtitle,
-              icon: Icons.emoji_events_rounded,
-              emoji: '🏅',
-              onTap: () => _navigateToLeaderboardProfile(context),
-            ),
-
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-            // Ad-Free Subscription Option
-            _buildSettingOption(
-              context,
-              title:
-                  _isAdFreeForTesting(purchaseProvider, testModeProvider)
-                      ? AppLocalizations.of(context)!.lifetimeAccess
-                      : AppLocalizations.of(context)!.removeAds,
-              subtitle: _getAdFreeStatusDisplay(purchaseProvider),
-              icon: Icons.block_rounded,
-              emoji:
-                  _isAdFreeForTesting(purchaseProvider, testModeProvider)
-                      ? '✅'
-                      : '🚫',
-              onTap: () => _navigateToAdFreeSubscription(context),
-            ),
-
-            const SizedBox(height: AppConstants.mediumSpacing),
-
-            // Feedback Option
-            _buildSettingOption(
-              context,
-              title: AppLocalizations.of(context)!.feedbackAndSuggestions,
-              subtitle:
-                  AppLocalizations.of(context)!.feedbackAndSuggestionsSubtitle,
-              icon: Icons.feedback_rounded,
-              emoji: '💬',
-              onTap: () => _navigateToFeedback(context),
-            ),
-
-            // const SizedBox(height: AppConstants.largeSpacing),
-
-            // // Test Section Header
-            // Container(
-            //   width: double.infinity,
-            //   padding: const EdgeInsets.symmetric(
-            //     horizontal: AppConstants.mediumSpacing,
-            //     vertical: AppConstants.smallSpacing,
-            //   ),
-            //   decoration: BoxDecoration(
-            //     color: Theme.of(
-            //       context,
-            //     ).colorScheme.secondary.withValues(alpha: 0.1),
-            //     borderRadius: BorderRadius.circular(12),
-            //     border: Border.all(
-            //       color: Theme.of(
-            //         context,
-            //       ).colorScheme.secondary.withValues(alpha: 0.2),
-            //       width: 1,
-            //     ),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       Icon(
-            //         Icons.science_rounded,
-            //         color: Theme.of(context).colorScheme.secondary,
-            //         size: 16,
-            //       ),
-            //       const SizedBox(width: 8),
-            //       Text(
-            //         'Test Mode',
-            //         style: TextThemeManager.bodySmall.copyWith(
-            //           color: Theme.of(context).colorScheme.secondary,
-            //           fontWeight: FontWeight.w600,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            // const SizedBox(height: AppConstants.mediumSpacing),
-
-            // // Test Ad-Free Experience
-            // _buildTestOption(
-            //   context,
-            //   title: 'Test Ad-Free Experience',
-            //   subtitle: 'Toggle to test ad-free user experience',
-            //   icon: Icons.toggle_on_rounded,
-            //   emoji: '🧪',
-            //   isEnabled: testModeProvider.testAdFreeMode,
-            //   onToggle:
-            //       (value) =>
-            //           _toggleTestAdFree(context, value, testModeProvider),
-            // ),
-
-            // const SizedBox(height: AppConstants.largeSpacing),
-
-            // // Debug Section
-            // _buildDebugSection(),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildSettingOption(
-    BuildContext context, {
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required String emoji,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-            child: Row(
-              children: [
-                // Icon Container
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(emoji, style: const TextStyle(fontSize: 24)),
-                ),
-                const SizedBox(width: AppConstants.mediumSpacing),
-
-                // Content
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextThemeManager.subtitleMedium.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle,
-                        style: TextThemeManager.bodySmall.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Arrow Icon
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.4),
-                  size: 16,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Returns the display name for the given language code
-  /// This is a static method for better performance and reusability
-  static String _getLanguageDisplayName(String languageCode) {
-    switch (languageCode) {
-      case 'en':
-        return 'English';
-      case 'tr':
-        return 'Türkçe';
-      case 'es':
-        return 'Español';
-      case 'pt':
-        return 'Português';
-      case 'ar':
-        return 'العربية';
-      case 'de':
-        return 'Deutsch';
-      case 'fr':
-        return 'Français';
-      case 'id':
-        return 'Bahasa Indonesia';
-      case 'hi':
-        return 'हिंदी';
-      case 'az':
-        return 'Azərbaycan';
-      case 'it':
-        return 'Italiano';
-      default:
-        return '';
-    }
-  }
-
-  /// Returns the emoji flag for the given language code
-  /// This is a static method for better performance and reusability
-  static String _getLanguageEmoji(String languageCode) {
-    switch (languageCode) {
-      case 'en':
-        return '🇺🇸';
-      case 'tr':
-        return '🇹🇷';
-      case 'es':
-        return '🇪🇸';
-      case 'pt':
-        return '🇧🇷';
-      case 'ar':
-        return '🇸🇦';
-      case 'de':
-        return '🇩🇪';
-      case 'fr':
-        return '🇫🇷';
-      case 'id':
-        return '🇮🇩';
-      case 'hi':
-        return '🇮🇳';
-      case 'az':
-        return '🇦🇿';
-      case 'it':
-        return '🇮🇹';
-      default:
-        return '🌐';
-    }
-  }
-
-  String _getCurrentThemeDisplay(ThemeProvider themeProvider) {
-    switch (themeProvider.currentThemeMode) {
-      case AppThemeMode.light:
-        return AppLocalizations.of(context)!.lightTheme;
-      case AppThemeMode.dark:
-        return AppLocalizations.of(context)!.darkTheme;
-      case AppThemeMode.system:
-        return AppLocalizations.of(context)!.systemTheme;
-    }
-  }
-
-  String _getThemeEmoji(ThemeProvider themeProvider) {
-    return themeProvider.getThemeModeEmoji(themeProvider.currentThemeMode);
-  }
-
-  String _getAdFreeStatusDisplay(InAppPurchaseProvider purchaseProvider) {
-    if (purchaseProvider.isAdFree || purchaseProvider.isSubscriptionActive) {
-      return AppLocalizations.of(context)!.lifetimeAccess;
-    }
-    return AppLocalizations.of(context)!.subscriptionPrice;
-  }
-
-  void _navigateToLanguageSettings(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const LanguageSettingsScreen()),
-    );
-  }
-
-  void _navigateToThemeSettings(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const ThemeSettingsScreen()),
-    );
-  }
-
-  void _navigateToAdFreeSubscription(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const AdFreeSubscriptionScreen()),
-    );
-  }
-
-  void _navigateToSoundSettings(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const SoundSettingsScreen()),
-    );
-  }
-
-  void _navigateToLeaderboardProfile(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LeaderboardProfileSettingsScreen(),
-      ),
-    );
-  }
-
-  void _navigateToFeedback(BuildContext context) {
-    Navigator.of(
+    final settingsOptions = SettingsManager.getSettingsOptions(
       context,
-    ).push(MaterialPageRoute(builder: (context) => const FeedbackScreen()));
-  }
+      languageProvider,
+      themeProvider,
+      purchaseProvider,
+    );
 
-  Widget _buildTestOption(
-    BuildContext context, {
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required String emoji,
-    required bool isEnabled,
-    required Function(bool) onToggle,
-  }) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () => onToggle(!isEnabled),
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-            child: Row(
+    return Column(
+      children:
+          settingsOptions.map((option) {
+            return Column(
               children: [
-                // Icon Container
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(emoji, style: const TextStyle(fontSize: 24)),
+                SettingsOptionWidget(
+                  optionData: option,
+                  onTap: () => _handleSettingsOptionTap(context, option.route),
                 ),
-                const SizedBox(width: AppConstants.mediumSpacing),
-
-                // Content
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextThemeManager.subtitleMedium.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle,
-                        style: TextThemeManager.bodySmall.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Toggle Switch
-                Switch(
-                  value: isEnabled,
-                  onChanged: (value) => onToggle(value),
-                  activeColor: Theme.of(context).colorScheme.primary,
-                  inactiveThumbColor: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.3),
-                  inactiveTrackColor: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.1),
-                ),
+                const SizedBox(height: AppConstants.mediumSpacing),
               ],
-            ),
-          ),
-        ),
-      ),
+            );
+          }).toList(),
     );
   }
 
-  void _toggleTestAdFree(
-    BuildContext context,
-    bool value,
-    TestModeProvider testModeProvider,
-  ) {
-    testModeProvider.setTestAdFreeMode(value);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          value
-              ? '🧪 Test Mode: Ad-Free experience enabled! You can now test ad-free features.'
-              : '🧪 Test Mode: Ad-Free experience disabled! You can now test normal user experience.',
-        ),
-        duration: const Duration(seconds: 3),
-        backgroundColor:
-            value
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.secondary,
-      ),
-    );
-  }
-
-  Widget _buildDebugSection() {
-    return Consumer<TestModeProvider>(
-      builder: (context, testModeProvider, child) {
-        if (!testModeProvider.isTestModeActive) return const SizedBox.shrink();
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionHeader('Debug'),
-            _buildSettingTile(
-              icon: Icons.bug_report,
-              title: 'Reset Onboarding',
-              subtitle: 'Reset onboarding state for testing',
-              onTap: () async {
-                final onboardingProvider = Provider.of<OnboardingProvider>(
-                  context,
-                  listen: false,
-                );
-                await onboardingProvider.resetOnboarding();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Onboarding reset successfully'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.mediumSpacing,
-        vertical: AppConstants.smallSpacing,
-      ),
-      child: Text(
-        title,
-        style: TextThemeManager.bodySmall.copyWith(
-          color: Theme.of(context).colorScheme.secondary,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSettingTile({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.1),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-            child: Row(
-              children: [
-                // Icon Container
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.primary.withValues(alpha: 0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: Icon(icon, size: 24),
-                ),
-                const SizedBox(width: AppConstants.mediumSpacing),
-
-                // Content
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextThemeManager.subtitleMedium.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle,
-                        style: TextThemeManager.bodySmall.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.6),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Arrow Icon
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.4),
-                  size: 16,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+  void _handleSettingsOptionTap(BuildContext context, String route) {
+    switch (route) {
+      case '/language-settings':
+        NavigationService.navigateToLanguageSettings(context);
+        break;
+      case '/theme-settings':
+        NavigationService.navigateToThemeSettings(context);
+        break;
+      case '/sound-settings':
+        NavigationService.navigateToSoundSettings(context);
+        break;
+      case '/leaderboard-profile':
+        NavigationService.navigateToLeaderboardProfile(context);
+        break;
+      case '/ad-free-subscription':
+        NavigationService.navigateToAdFreeSubscription(context);
+        break;
+      case '/feedback':
+        NavigationService.navigateToFeedback(context);
+        break;
+    }
   }
 }

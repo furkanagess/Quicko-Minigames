@@ -50,9 +50,6 @@ class _NumberMemoryView extends StatelessWidget {
                 isWin ? null : AppLocalizations.of(context)!.wrongNumber,
           );
         } else if (gameState.showContinueDialog) {
-          if (kDebugMode) {
-            print('NumberMemory UI: Creating continue dialog game result');
-          }
           gameResult = GameResult(
             isWin: false,
             score: gameState.score,

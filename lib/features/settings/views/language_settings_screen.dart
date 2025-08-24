@@ -256,7 +256,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
 
       // Tier 4: Regional Languages
       'tr': 'Türkçe',
-      'az': 'Azərbaycan',
+      'ru': 'Русский',
     };
 
     // Language flag emojis mapping
@@ -279,7 +279,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
 
       // Tier 4: Regional Languages
       'tr': '🇹🇷',
-      'az': '🇦🇿',
+      'ru': '🇷🇺',
     };
 
     return SupportedLocales.locales.map((locale) {

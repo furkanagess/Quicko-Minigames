@@ -35,15 +35,10 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             // Load favorites if not already loaded
             if (!favoritesProvider.isLoading &&
                 favoritesProvider.favorites.isEmpty) {
-              print('FavoritesScreen: Triggering favorites load...');
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 favoritesProvider.loadFavorites();
               });
             }
-
-            print(
-              'FavoritesScreen: isLoading: ${favoritesProvider.isLoading}, hasFavorites: ${favoritesProvider.hasFavorites}, favoritesCount: ${favoritesProvider.favoritesCount}',
-            );
 
             if (favoritesProvider.isLoading) {
               return _buildLoadingState();

@@ -731,17 +731,11 @@ class _GameScreenBaseState extends State<GameScreenBase>
   }
 
   Future<void> _checkAndShowContinueDialog(BuildContext context) async {
-    debugPrint('GameScreenBase: Checking if continue game is available...');
-
     // Check if continue game is available
     if (widget.canContinueGame != null && widget.onContinueGame != null) {
       final canContinue = await widget.canContinueGame!();
 
       if (context.mounted) {
-        debugPrint(
-          'GameScreenBase: Showing continue game dialog (canContinue=$canContinue)',
-        );
-
         // Show continue game dialog always; button visibility handled inside
         showDialog(
           context: context,
@@ -752,22 +746,16 @@ class _GameScreenBaseState extends State<GameScreenBase>
                 gameTitle: _getLocalizedTitle(context),
                 currentScore: widget.gameResult?.score ?? 0,
                 onContinue: () async {
-                  debugPrint('GameScreenBase: User chose to continue game');
                   final success = await widget.onContinueGame!();
                   if (success) {
-                    debugPrint('GameScreenBase: Continue game successful');
                     // Don't call onGameResultCleared when continue is successful
                     // because the game should continue from where it left off
-                  } else {
-                    debugPrint('GameScreenBase: Continue game failed');
                   }
                 },
                 onRestart: () {
-                  debugPrint('GameScreenBase: User chose to restart game');
                   widget.onTryAgain?.call();
                 },
                 onExit: () {
-                  debugPrint('GameScreenBase: User chose to exit game');
                   widget.onBackToMenu?.call();
                 },
                 canOneTimeContinue: canContinue,
@@ -775,9 +763,6 @@ class _GameScreenBaseState extends State<GameScreenBase>
         );
       }
     } else {
-      debugPrint(
-        'GameScreenBase: No continue game support, using normal try again',
-      );
       // No continue game support, use normal try again
       widget.onTryAgain?.call();
     }
