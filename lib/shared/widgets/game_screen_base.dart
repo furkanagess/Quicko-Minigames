@@ -229,32 +229,90 @@ class _GameScreenBaseState extends State<GameScreenBase>
       return;
     }
     try {
+      // Check if score qualifies for leaderboard
       final rank = await LeaderboardService().getProvisionalRank(
         gameId: widget.gameId,
         score: score,
       );
       if (!mounted) return;
+
       if (rank != null && rank <= 10) {
-        // Ask user consent to be listed on the leaderboard
-        final bool consent = await _askLeaderboardOptIn(score);
-        if (!consent) {
-          _finishFlowDefault();
-          return;
-        }
-        // If we have stored profile, use it directly; else prompt once and persist
+        // Score qualifies for leaderboard
+        // First check if user already has a profile and better score
         final profileService = LeaderboardProfileService();
         final hasProfile = await profileService.hasProfile();
+
         if (hasProfile) {
           final name = await profileService.getName() ?? '';
           final countryCode = await profileService.getCountryCode() ?? 'TR';
-          await LeaderboardService().saveUserScore(
+
+          // Check if user already has a better score before showing dialog
+          final existingEntry = await LeaderboardService().getUserExistingEntry(
+            gameId: widget.gameId,
+            name: name,
+            countryCode: countryCode,
+          );
+
+          if (existingEntry != null) {
+            // User already has an entry in leaderboard
+            if (existingEntry.score >= score) {
+              // User already has a better score, skip leaderboard without showing dialog
+              _finishFlowDefault();
+              return;
+            } else {
+              // User has a lower score, show leaderboard dialog and then update
+              final bool consent = await _askLeaderboardOptIn(score);
+              if (!consent) {
+                _finishFlowDefault();
+                return;
+              }
+
+              final result = await LeaderboardService().submitScoreSmart(
+                gameId: widget.gameId,
+                name: name,
+                countryCode: countryCode,
+                score: score,
+              );
+
+              if (result.success) {
+                _finishFlowWithLeaderboard();
+              } else {
+                // This shouldn't happen since we already checked, but handle just in case
+                _finishFlowDefault();
+              }
+              return;
+            }
+          }
+
+          // User doesn't have an entry yet, proceed with leaderboard opt-in
+          final bool consent = await _askLeaderboardOptIn(score);
+          if (!consent) {
+            _finishFlowDefault();
+            return;
+          }
+
+          // Use smart submission method
+          final result = await LeaderboardService().submitScoreSmart(
             gameId: widget.gameId,
             name: name,
             countryCode: countryCode,
             score: score,
           );
-          _finishFlowWithLeaderboard();
+
+          if (result.success) {
+            _finishFlowWithLeaderboard();
+          } else {
+            // This shouldn't happen since we already checked, but handle just in case
+            _finishFlowDefault();
+          }
         } else {
+          // User doesn't have a profile, show registration dialog
+          final bool consent = await _askLeaderboardOptIn(score);
+          if (!consent) {
+            _finishFlowDefault();
+            return;
+          }
+
           await showDialog(
             context: context,
             barrierDismissible: false,
@@ -270,14 +328,23 @@ class _GameScreenBaseState extends State<GameScreenBase>
                       name: name,
                       countryCode: countryCode,
                     );
-                    await LeaderboardService().saveUserScore(
+
+                    // Use smart submission method
+                    final result = await LeaderboardService().submitScoreSmart(
                       gameId: widget.gameId,
                       name: name,
                       countryCode: countryCode,
                       score: score,
                     );
+
                     if (context.mounted) Navigator.of(context).pop();
-                    _finishFlowWithLeaderboard();
+
+                    if (result.success) {
+                      _finishFlowWithLeaderboard();
+                    } else {
+                      // This shouldn't happen for new users, but handle just in case
+                      _finishFlowDefault();
+                    }
                   },
                 ),
           );

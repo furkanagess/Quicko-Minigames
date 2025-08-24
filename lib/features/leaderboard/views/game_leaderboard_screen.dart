@@ -574,15 +574,12 @@ class _GameLeaderboardScreenState extends State<GameLeaderboardScreen>
   }
 
   bool _isUserEntry(GlobalLeaderboardEntry entry) {
-    if (_userRanking == null || _userName == null || _userCountryCode == null) {
+    if (_userName == null || _userCountryCode == null) {
       return false;
     }
 
-    // Check if this entry matches the user's profile info and is in top 10
-    return entry.name == _userName &&
-        entry.countryCode == _userCountryCode &&
-        entry.score == _userRanking!.leaderboardScore &&
-        _userRanking!.isInTopTen;
+    // Check if this entry matches the user's profile info (name and country code)
+    return entry.name == _userName && entry.countryCode == _userCountryCode;
   }
 
   Widget _buildUserRankingCard(UserRankingInfo userRanking) {
