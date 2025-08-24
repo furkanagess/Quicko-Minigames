@@ -1,7 +1,7 @@
 # Quicko Minigames
 
 <div align="center">
-  <img src="assets/logo/quality_icon.png" alt="Quicko Minigames" width="120" height="120">
+  <img src="assets/logo/quicko_game_removebg.png" alt="Quicko Minigames" width="120" height="120">
   
   **A comprehensive brain training app featuring 10+ cognitive games**
   
