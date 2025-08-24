@@ -18,7 +18,7 @@ class GameStateService {
       final jsonString = jsonEncode(state);
       await prefs.setString(key, jsonString);
     } catch (e) {
-      print('Error saving game state: $e');
+      // Handle error silently in production
     }
   }
 
@@ -33,7 +33,7 @@ class GameStateService {
         return jsonDecode(jsonString) as Map<String, dynamic>;
       }
     } catch (e) {
-      print('Error loading game state: $e');
+      // Handle error silently in production
     }
     return null;
   }
@@ -50,7 +50,7 @@ class GameStateService {
       await prefs.remove(scoreKey);
       await prefs.remove(levelKey);
     } catch (e) {
-      print('Error clearing game state: $e');
+      // Handle error silently in production
     }
   }
 
@@ -61,7 +61,7 @@ class GameStateService {
       final key = '$_gameScorePrefix$gameId';
       await prefs.setInt(key, score);
     } catch (e) {
-      print('Error saving game score: $e');
+      // Handle error silently in production
     }
   }
 
@@ -72,7 +72,7 @@ class GameStateService {
       final key = '$_gameScorePrefix$gameId';
       return prefs.getInt(key);
     } catch (e) {
-      print('Error loading game score: $e');
+      // Handle error silently in production
     }
     return null;
   }
@@ -84,7 +84,7 @@ class GameStateService {
       final key = '$_gameLevelPrefix$gameId';
       await prefs.setInt(key, level);
     } catch (e) {
-      print('Error saving game level: $e');
+      // Handle error silently in production
     }
   }
 
@@ -95,7 +95,7 @@ class GameStateService {
       final key = '$_gameLevelPrefix$gameId';
       return prefs.getInt(key);
     } catch (e) {
-      print('Error loading game level: $e');
+      // Handle error silently in production
     }
     return null;
   }
@@ -107,7 +107,7 @@ class GameStateService {
       final key = '$_gameStatePrefix$gameId';
       return prefs.containsKey(key);
     } catch (e) {
-      print('Error checking game state: $e');
+      // Handle error silently in production
     }
     return false;
   }
@@ -131,7 +131,7 @@ class GameStateService {
 
       return gameStates;
     } catch (e) {
-      print('Error getting all game states: $e');
+      // Handle error silently in production
     }
     return {};
   }

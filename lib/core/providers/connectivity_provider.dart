@@ -33,9 +33,6 @@ class ConnectivityProvider extends ChangeNotifier {
 
       _isInitialized = true;
     } catch (e) {
-      if (kDebugMode) {
-        print('ConnectivityProvider: Error initializing: $e');
-      }
       // Assume connected if we can't initialize
       _isConnected = true;
       _isInitialized = true;
@@ -53,9 +50,6 @@ class ConnectivityProvider extends ChangeNotifier {
     try {
       _isConnected = await _connectivityService.checkConnectivity();
     } catch (e) {
-      if (kDebugMode) {
-        print('ConnectivityProvider: Error checking connectivity: $e');
-      }
       _isConnected = false;
     }
 

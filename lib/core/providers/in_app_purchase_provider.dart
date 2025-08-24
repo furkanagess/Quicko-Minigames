@@ -36,9 +36,6 @@ class InAppPurchaseProvider extends ChangeNotifier {
       _errorMessage = null;
     } catch (e) {
       _errorMessage = 'Failed to initialize purchase service: $e';
-      if (kDebugMode) {
-        print('InAppPurchaseProvider: Error initializing: $e');
-      }
     }
 
     _isLoading = false;
@@ -69,9 +66,6 @@ class InAppPurchaseProvider extends ChangeNotifier {
       return success;
     } catch (e) {
       _errorMessage = 'Purchase error: $e';
-      if (kDebugMode) {
-        print('InAppPurchaseProvider: Purchase error: $e');
-      }
       return false;
     } finally {
       _isLoading = false;
@@ -103,9 +97,6 @@ class InAppPurchaseProvider extends ChangeNotifier {
       return success;
     } catch (e) {
       _errorMessage = 'Restore error: $e';
-      if (kDebugMode) {
-        print('InAppPurchaseProvider: Restore error: $e');
-      }
       return false;
     } finally {
       _isLoading = false;
@@ -137,9 +128,6 @@ class InAppPurchaseProvider extends ChangeNotifier {
       return success;
     } catch (e) {
       _errorMessage = 'Cancel subscription error: $e';
-      if (kDebugMode) {
-        print('InAppPurchaseProvider: Cancel subscription error: $e');
-      }
       return false;
     } finally {
       _isLoading = false;

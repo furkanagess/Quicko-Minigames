@@ -108,10 +108,6 @@ class ColorHuntProvider extends ChangeNotifier {
     final targetColorKey = colorKeys[_random.nextInt(colorKeys.length)];
     final targetColor = _colorMap[targetColorKey]!;
 
-    debugPrint(
-      'Color Hunt: Generating new target - Key: $targetColorKey, Color: $targetColor',
-    );
-
     // Create more interesting text color combinations
     // Always use a different color for the text to increase confusion (Stroop effect)
     Color textColor;
@@ -241,10 +237,6 @@ class ColorHuntProvider extends ChangeNotifier {
     // Shuffle the final list to randomize positions
     availableColorsForDisplay.shuffle();
 
-    debugPrint(
-      'Color Hunt: New target generated - Options: $availableColorsForDisplay (contains target: ${availableColorsForDisplay.contains(targetColor)}), Text color: $textColor (different from target)',
-    );
-
     _gameState = _gameState.copyWith(
       targetColorKey: targetColorKey,
       targetColor: targetColor,
@@ -281,17 +273,11 @@ class ColorHuntProvider extends ChangeNotifier {
     final tappedColor = _gameState.availableColors[index];
     final targetColor = _gameState.targetColor;
 
-    debugPrint(
-      'Color Hunt: Color tapped - Index: $index, Tapped: $tappedColor, Target: $targetColor, Match: ${tappedColor == targetColor}',
-    );
-
     if (tappedColor == targetColor) {
       // Doğru renk seçildi
-      debugPrint('Color Hunt: Correct color selected');
       _correctAnswer();
     } else {
       // Yanlış renk seçildi
-      debugPrint('Color Hunt: Wrong color selected');
       _wrongAnswer(index);
     }
   }
@@ -333,8 +319,6 @@ class ColorHuntProvider extends ChangeNotifier {
     // Ensure we capture the final score before setting game over
     final finalScore = _gameState.score;
 
-    debugPrint('Color Hunt: Wrong answer - Final score: $finalScore');
-
     // Save state BEFORE setting game over status
     await _saveGameState();
 
@@ -358,8 +342,6 @@ class ColorHuntProvider extends ChangeNotifier {
 
     // Ensure we capture the final score before setting game over
     final finalScore = _gameState.score;
-
-    debugPrint('Color Hunt: Game over - Final score: $finalScore');
 
     // Save state BEFORE setting game over status
     await _saveGameState();
@@ -394,34 +376,21 @@ class ColorHuntProvider extends ChangeNotifier {
   }
 
   Future<void> _saveGameState() async {
-    debugPrint(
-      'Color Hunt: Saving game state - Score: ${_gameState.score}, Time: ${_gameState.timeLeft}',
-    );
-
     final state = {'score': _gameState.score, 'timeLeft': _gameState.timeLeft};
 
     await GameStateService().saveGameState('color_hunt', state);
     await GameStateService().saveGameScore('color_hunt', _gameState.score);
-
-    debugPrint('Color Hunt: Game state saved successfully');
   }
 
   Future<bool> continueGame() async {
-    debugPrint('Color Hunt: Attempting to continue game...');
-
     final saved = await GameStateService().loadGameState('color_hunt');
     if (saved == null) {
-      debugPrint('Color Hunt: No saved state found');
       return false;
     }
 
     try {
       final savedScore = (saved['score'] as int?) ?? 0;
       final savedTimeLeft = (saved['timeLeft'] as int?) ?? 30;
-
-      debugPrint(
-        'Color Hunt: Continuing game - Score: $savedScore, Time: $savedTimeLeft',
-      );
 
       // Restore game state with both score and time from where user left off
       _gameState = _gameState.copyWith(
@@ -432,14 +401,8 @@ class ColorHuntProvider extends ChangeNotifier {
         wrongTapIndex: null,
       );
 
-      debugPrint('Color Hunt: Basic state restored, generating new target...');
-
       // Generate a new target as if user never made a mistake
       _generateNewTarget();
-
-      debugPrint(
-        'Color Hunt: New target generated, restarting timer with saved time: $savedTimeLeft...',
-      );
 
       // Restart the timer with the saved time (not reset to 30)
       _startTimer();
@@ -450,13 +413,9 @@ class ColorHuntProvider extends ChangeNotifier {
       // Mark that continue has been used
       _hasUsedContinue = true;
 
-      debugPrint(
-        'Color Hunt: Game continued with new target and restored time successfully',
-      );
       notifyListeners();
       return true;
     } catch (e) {
-      debugPrint('Error continuing Color Hunt game: $e');
       return false;
     }
   }
@@ -464,16 +423,11 @@ class ColorHuntProvider extends ChangeNotifier {
   Future<bool> canContinueGame() async {
     if (_hasUsedContinue) return false;
     final hasState = await GameStateService().hasGameState('color_hunt');
-    debugPrint(
-      'Color Hunt: canContinueGame check - Has state: $hasState, hasUsedContinue: $_hasUsedContinue',
-    );
     return hasState;
   }
 
   Future<void> clearSavedGameState() async {
-    debugPrint('Color Hunt: Clearing saved game state');
     await GameStateService().clearGameState('color_hunt');
-    debugPrint('Color Hunt: Saved game state cleared');
   }
 
   /// Game over animasyonunu gizle

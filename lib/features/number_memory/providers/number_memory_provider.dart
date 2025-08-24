@@ -139,11 +139,6 @@ class NumberMemoryProvider extends ChangeNotifier {
         final int thresholdMs = (_gameState.level * 800);
         if (elapsedMs <= thresholdMs) {
           bonus = 1;
-          if (kDebugMode) {
-            print(
-              'NumberMemory: Speed bonus awarded (elapsed ${elapsedMs}ms, threshold ${thresholdMs}ms)',
-            );
-          }
         }
       }
 
@@ -163,10 +158,6 @@ class NumberMemoryProvider extends ChangeNotifier {
     // Play error sound
     SoundUtils.playGameOverSound();
 
-    if (kDebugMode) {
-      print('NumberMemory: Wrong answer detected, showing continue dialog');
-    }
-
     _gameState = _gameState.copyWith(
       wrongIndices: wrongIndices,
       isWaitingForInput: false,
@@ -181,12 +172,6 @@ class NumberMemoryProvider extends ChangeNotifier {
 
     // Save state for rewarded-continue
     await _saveGameState();
-
-    if (kDebugMode) {
-      print(
-        'NumberMemory: Game state saved, continue dialog should be visible',
-      );
-    }
   }
 
   void restartGame() {
@@ -219,15 +204,8 @@ class NumberMemoryProvider extends ChangeNotifier {
   }
 
   Future<bool> continueGame() async {
-    if (kDebugMode) {
-      print('NumberMemory: Continue game requested');
-    }
-
     final saved = await GameStateService().loadGameState('number_memory');
     if (saved == null) {
-      if (kDebugMode) {
-        print('NumberMemory: No saved state found');
-      }
       return false;
     }
 
@@ -236,12 +214,6 @@ class NumberMemoryProvider extends ChangeNotifier {
       // but keep the current score
       final currentLevel = (saved['level'] as int?) ?? 1;
       final currentScore = (saved['score'] as int?) ?? 0;
-
-      if (kDebugMode) {
-        print(
-          'NumberMemory: Restoring game state - Level: $currentLevel -> ${currentLevel + 1}, Score: $currentScore',
-        );
-      }
 
       // Clear the saved state after successful restore
       await clearSavedGameState();
@@ -261,17 +233,8 @@ class NumberMemoryProvider extends ChangeNotifier {
       // Generate new sequence for the next level and show it
       _generateNewSequence(isAfterAd: true);
 
-      if (kDebugMode) {
-        print(
-          'NumberMemory: Game continued successfully to level ${currentLevel + 1}',
-        );
-      }
-
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print('NumberMemory: Error continuing game: $e');
-      }
       return false;
     }
   }
@@ -279,11 +242,6 @@ class NumberMemoryProvider extends ChangeNotifier {
   Future<bool> canContinueGame() async {
     if (_hasUsedContinue) return false;
     final canContinue = await GameStateService().hasGameState('number_memory');
-    if (kDebugMode) {
-      print(
-        'NumberMemory: Can continue game: $canContinue, hasUsedContinue: $_hasUsedContinue',
-      );
-    }
     return canContinue;
   }
 
@@ -302,9 +260,6 @@ class NumberMemoryProvider extends ChangeNotifier {
   /// Hide continue dialog
   void hideContinueDialog() {
     if (_gameState.showContinueDialog) {
-      if (kDebugMode) {
-        print('NumberMemory: Hiding continue dialog');
-      }
       _gameState = _gameState.copyWith(showContinueDialog: false);
       notifyListeners();
     }

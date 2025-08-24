@@ -333,7 +333,6 @@ class ReactionTimeProvider extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Error loading game state: $e');
       return false;
     }
   }

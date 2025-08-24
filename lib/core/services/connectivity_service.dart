@@ -26,10 +26,6 @@ class ConnectivityService {
       final result = await _connectivity.checkConnectivity();
       _isConnected = result != ConnectivityResult.none;
 
-      if (kDebugMode) {
-        print('ConnectivityService: Initial status - ${result.name}');
-      }
-
       // Listen to connectivity changes
       _connectivitySubscription = _connectivity.onConnectivityChanged.listen((
         ConnectivityResult result,
@@ -37,19 +33,12 @@ class ConnectivityService {
         final wasConnected = _isConnected;
         _isConnected = result != ConnectivityResult.none;
 
-        if (kDebugMode) {
-          print('ConnectivityService: Status changed to ${result.name}');
-        }
-
         // Notify listeners if connection status changed
         if (wasConnected != _isConnected) {
           _connectionStatusController.add(_isConnected);
         }
       });
     } catch (e) {
-      if (kDebugMode) {
-        print('ConnectivityService: Error initializing: $e');
-      }
       // Assume connected if we can't check
       _isConnected = true;
     }
@@ -67,9 +56,6 @@ class ConnectivityService {
       _isConnected = result != ConnectivityResult.none;
       return _isConnected;
     } catch (e) {
-      if (kDebugMode) {
-        print('ConnectivityService: Error checking connectivity: $e');
-      }
       return false;
     }
   }

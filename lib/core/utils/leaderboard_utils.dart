@@ -28,8 +28,7 @@ class LeaderboardUtils {
             .toList();
       }
     } catch (e) {
-      // Hata durumunda boş liste döndür
-      print('Liderlik tablosu yüklenirken hata: $e');
+      // Handle error silently in production
     }
 
     return [];

@@ -245,7 +245,6 @@ class AimTrainerProvider extends ChangeNotifier {
 
   Future<void> _saveGameState() async {
     final state = {'score': _gameState.score, 'timeLeft': _gameState.timeLeft};
-    print('AimTrainer: _saveGameState - saving state: $state');
     await GameStateService().saveGameState('aim_trainer', state);
     await GameStateService().saveGameScore('aim_trainer', _gameState.score);
   }
@@ -258,9 +257,7 @@ class AimTrainerProvider extends ChangeNotifier {
       final restoredTimeLeft = (saved['timeLeft'] as int?) ?? 0;
       final resumedTimeLeft = restoredTimeLeft + 10; // +10s bonus on continue
 
-      print(
-        'AimTrainer: continueGame - restoredScore: $restoredScore, restoredTimeLeft: $restoredTimeLeft, resumedTimeLeft: $resumedTimeLeft',
-      );
+
 
       _gameState = _gameState.copyWith(
         score: restoredScore,
@@ -277,13 +274,10 @@ class AimTrainerProvider extends ChangeNotifier {
       // Mark that continue has been used
       _hasUsedContinue = true;
 
-      print(
-        'AimTrainer: continueGame - game resumed with score: ${_gameState.score}, timeLeft: ${_gameState.timeLeft}',
-      );
+
       notifyListeners();
       return true;
     } catch (e) {
-      print('AimTrainer: continueGame - error: $e');
       return false;
     }
   }
@@ -291,9 +285,6 @@ class AimTrainerProvider extends ChangeNotifier {
   Future<bool> canContinueGame() async {
     if (_hasUsedContinue) return false;
     final hasState = await GameStateService().hasGameState('aim_trainer');
-    print(
-      'AimTrainer: canContinueGame - hasState: $hasState, hasUsedContinue: $_hasUsedContinue',
-    );
     return hasState;
   }
 

@@ -42,12 +42,8 @@ class MyApp extends StatelessWidget {
           connectivityProvider,
           child,
         ) {
-          // Debug: Check saved values when app starts
+          // Initialize favorites provider
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            themeProvider.debugCheckSavedTheme();
-            languageProvider.debugCheckSavedLanguage();
-
-            // Initialize favorites provider
             final favoritesProvider = Provider.of<FavoritesProvider>(
               context,
               listen: false,

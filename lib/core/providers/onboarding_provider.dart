@@ -42,8 +42,7 @@ class OnboardingProvider extends ChangeNotifier {
       _shouldShowRemoveAdsDialog = true;
       notifyListeners();
     } catch (e) {
-      // Handle error silently or log it
-      debugPrint('Error saving onboarding state: $e');
+      // Handle error silently in production
     }
   }
 
@@ -54,7 +53,7 @@ class OnboardingProvider extends ChangeNotifier {
       _shouldShowRemoveAdsDialog = false;
       notifyListeners();
     } catch (e) {
-      debugPrint('Error dismissing remove ads dialog: $e');
+      // Handle error silently in production
     }
   }
 
@@ -67,7 +66,7 @@ class OnboardingProvider extends ChangeNotifier {
       _shouldShowRemoveAdsDialog = false;
       notifyListeners();
     } catch (e) {
-      debugPrint('Error resetting onboarding state: $e');
+      // Handle error silently in production
     }
   }
 }

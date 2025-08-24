@@ -21,7 +21,7 @@ class SoundSettingsService {
       _effectsVolume = _prefs.getDouble(_keyEffectsVolume) ?? 0.7;
       _effectsVolume = _clampVolume(_effectsVolume);
     } catch (e) {
-      debugPrint('SoundSettingsService: init error: $e');
+      // Handle initialization error silently in production
     }
     _initialized = true;
   }

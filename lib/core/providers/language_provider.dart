@@ -24,8 +24,6 @@ class LanguageProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       final savedLanguage = prefs.getString(_languageKey);
 
-      debugPrint('LanguageProvider: Loading saved language: $savedLanguage');
-
       if (savedLanguage != null) {
         // Handle country-specific locales
         if (savedLanguage == 'pt_BR') {
@@ -33,9 +31,6 @@ class LanguageProvider extends ChangeNotifier {
         } else {
           _currentLocale = Locale(savedLanguage);
         }
-        debugPrint(
-          'LanguageProvider: Loaded saved language: ${_currentLocale.languageCode}',
-        );
       } else {
         // Default to English for new installations
         _currentLocale = SupportedLocales.defaultLocale;
@@ -44,16 +39,10 @@ class LanguageProvider extends ChangeNotifier {
           _languageKey,
           SupportedLocales.defaultLocale.languageCode,
         );
-        debugPrint(
-          'LanguageProvider: Set default language: ${_currentLocale.languageCode}',
-        );
       }
     } catch (e) {
       // Fallback to English if there's an error
       _currentLocale = SupportedLocales.fallbackLocale;
-      debugPrint(
-        'LanguageProvider: Error loading language, using fallback: $e',
-      );
     }
 
     _isLoading = false;
@@ -75,10 +64,6 @@ class LanguageProvider extends ChangeNotifier {
         _currentLocale.countryCode == newLocale.countryCode)
       return;
 
-    debugPrint(
-      'LanguageProvider: Changing language from ${_currentLocale.languageCode} to ${newLocale.languageCode}',
-    );
-
     _isLoading = true;
     notifyListeners();
 
@@ -87,12 +72,8 @@ class LanguageProvider extends ChangeNotifier {
       await prefs.setString(_languageKey, languageCode);
 
       _currentLocale = newLocale;
-      debugPrint(
-        'LanguageProvider: Language saved successfully: $languageCode',
-      );
     } catch (e) {
       // Handle error if needed
-      debugPrint('LanguageProvider: Error saving language preference: $e');
     }
 
     _isLoading = false;
@@ -135,8 +116,8 @@ class LanguageProvider extends ChangeNotifier {
     await changeLanguage('hi');
   }
 
-  Future<void> changeLanguageToAzerbaijani() async {
-    await changeLanguage('az');
+  Future<void> changeLanguageToRussian() async {
+    await changeLanguage('ru');
   }
 
   Future<void> changeLanguageToItalian() async {
@@ -153,22 +134,8 @@ class LanguageProvider extends ChangeNotifier {
   bool get isFrench => _currentLocale.languageCode == 'fr';
   bool get isIndonesian => _currentLocale.languageCode == 'id';
   bool get isHindi => _currentLocale.languageCode == 'hi';
-  bool get isAzerbaijani => _currentLocale.languageCode == 'az';
+  bool get isRussian => _currentLocale.languageCode == 'ru';
   bool get isItalian => _currentLocale.languageCode == 'it';
-
-  // Debug method to check saved language value
-  Future<void> debugCheckSavedLanguage() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final savedLanguage = prefs.getString(_languageKey);
-      debugPrint('LanguageProvider: Debug - Saved language: $savedLanguage');
-      debugPrint(
-        'LanguageProvider: Debug - Current language: ${_currentLocale.languageCode}',
-      );
-    } catch (e) {
-      debugPrint('LanguageProvider: Debug - Error checking saved language: $e');
-    }
-  }
 
   /// Get all supported locales
   List<Locale> get supportedLocales => SupportedLocales.locales;

@@ -200,21 +200,4 @@ class AppConfig {
       'interstitialAdUnitId': interstitialAdUnitId,
     };
   }
-
-  /// Print configuration for debugging
-  void printConfig() {
-    if (kDebugMode) {
-      print('=== App Configuration ===');
-      print('Environment: $environment');
-      print('Debug Mode: $isDebugMode');
-      print('Production: $isProduction');
-      print('Development: $isDevelopment');
-      print('AdMob App ID: $adMobAppId');
-      print('Rewarded Ad Unit ID: $rewardedAdUnitId');
-      print('Banner Ad Unit ID: $bannerAdUnitId');
-      print('Leaderboard Banner Ad Unit ID: $leaderboardBannerAdUnitId');
-      print('Interstitial Ad Unit ID: $interstitialAdUnitId');
-      print('========================');
-    }
-  }
 }

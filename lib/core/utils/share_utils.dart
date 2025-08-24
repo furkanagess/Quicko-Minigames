@@ -52,7 +52,7 @@ class ShareUtils {
         XFile(file.path),
       ], text: 'Check out my gaming achievements! 🎮🏆');
     } catch (e) {
-      print('Achievement paylaşılırken hata: $e');
+      // Handle error silently in production
       rethrow;
     }
   }

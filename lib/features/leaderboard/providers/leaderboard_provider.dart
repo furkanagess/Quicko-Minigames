@@ -20,7 +20,6 @@ class LeaderboardProvider extends ChangeNotifier {
       _entries = await LeaderboardUtils.loadLeaderboard();
       _sortEntries();
     } catch (e) {
-      print('Liderlik tablosu yüklenirken hata: $e');
       _entries = [];
     } finally {
       _isLoading = false;

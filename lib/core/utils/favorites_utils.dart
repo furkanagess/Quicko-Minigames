@@ -22,8 +22,7 @@ class FavoritesUtils {
         return favoritesList.cast<String>();
       }
     } catch (e) {
-      // Hata durumunda boş liste döndür
-      print('Favoriler yüklenirken hata: $e');
+      // Handle error silently in production
     }
 
     return [];

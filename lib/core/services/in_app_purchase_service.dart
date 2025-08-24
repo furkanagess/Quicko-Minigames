@@ -44,22 +44,13 @@ class InAppPurchaseService {
         _onPurchaseUpdate,
         onDone: () => _subscription?.cancel(),
         onError: (error) {
-          if (kDebugMode) {
-            print('InAppPurchase: Purchase stream error: $error');
-          }
+          // Handle error silently in production
         },
       );
 
       _isInitialized = true;
-      if (kDebugMode) {
-        print('InAppPurchase: Service initialized successfully');
-        print('InAppPurchase: Ad-free status: $_isAdFree');
-        print('InAppPurchase: Subscription expiry: $_subscriptionExpiry');
-      }
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error initializing service: $e');
-      }
+      // Handle error silently in production
     }
   }
 
@@ -98,9 +89,7 @@ class InAppPurchaseService {
         await _saveSubscriptionStatus();
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error loading subscription status: $e');
-      }
+      // Handle error silently in production
     }
   }
 
@@ -137,39 +126,23 @@ class InAppPurchaseService {
         await prefs.remove(_lastPaymentDateKey);
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error saving subscription status: $e');
-      }
+      // Handle error silently in production
     }
   }
 
   /// Handle purchase updates
   void _onPurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) {
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      if (kDebugMode) {
-        print('InAppPurchase: Purchase update: ${purchaseDetails.productID}');
-        print('InAppPurchase: Purchase status: ${purchaseDetails.status}');
-      }
-
       if (purchaseDetails.status == PurchaseStatus.pending) {
         // Handle pending purchase
-        if (kDebugMode) {
-          print('InAppPurchase: Purchase pending');
-        }
       } else if (purchaseDetails.status == PurchaseStatus.purchased ||
           purchaseDetails.status == PurchaseStatus.restored) {
         // Handle successful purchase
         _handleSuccessfulPurchase(purchaseDetails);
       } else if (purchaseDetails.status == PurchaseStatus.error) {
         // Handle purchase error
-        if (kDebugMode) {
-          print('InAppPurchase: Purchase error: ${purchaseDetails.error}');
-        }
       } else if (purchaseDetails.status == PurchaseStatus.canceled) {
         // Handle canceled purchase
-        if (kDebugMode) {
-          print('InAppPurchase: Purchase canceled');
-        }
       }
 
       // Complete the purchase
@@ -192,27 +165,14 @@ class InAppPurchaseService {
       _subscriptionExpiry = null;
 
       await _saveSubscriptionStatus();
-
-      if (kDebugMode) {
-        print('InAppPurchase: Lifetime ad-free access activated');
-        print('InAppPurchase: Purchased on: $_lastPaymentDate');
-        print('InAppPurchase: No expiry date (lifetime access)');
-      }
     }
   }
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
     try {
-      if (kDebugMode) {
-        print('InAppPurchase: Starting ad-free subscription purchase');
-      }
-
       // Check if already subscribed
       if (_isAdFree) {
-        if (kDebugMode) {
-          print('InAppPurchase: Already subscribed to ad-free');
-        }
         return true;
       }
 
@@ -221,16 +181,10 @@ class InAppPurchaseService {
           .queryProductDetails({_adFreeSubscriptionId});
 
       if (response.error != null) {
-        if (kDebugMode) {
-          print('InAppPurchase: Error querying products: ${response.error}');
-        }
         return false;
       }
 
       if (response.productDetails.isEmpty) {
-        if (kDebugMode) {
-          print('InAppPurchase: No products found');
-        }
         return false;
       }
 
@@ -245,15 +199,8 @@ class InAppPurchaseService {
         purchaseParam: purchaseParam,
       );
 
-      if (kDebugMode) {
-        print('InAppPurchase: Purchase initiated: $success');
-      }
-
       return success;
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error purchasing subscription: $e');
-      }
       return false;
     }
   }
@@ -261,16 +208,9 @@ class InAppPurchaseService {
   /// Restore purchases
   Future<bool> restorePurchases() async {
     try {
-      if (kDebugMode) {
-        print('InAppPurchase: Restoring purchases');
-      }
-
       await _inAppPurchase.restorePurchases();
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error restoring purchases: $e');
-      }
       return false;
     }
   }
@@ -278,10 +218,6 @@ class InAppPurchaseService {
   /// Cancel subscription (clear ad-free status)
   Future<bool> cancelSubscription() async {
     try {
-      if (kDebugMode) {
-        print('InAppPurchase: Canceling subscription');
-      }
-
       // Clear ad-free status
       _isAdFree = false;
       _subscriptionExpiry = null;
@@ -291,15 +227,8 @@ class InAppPurchaseService {
       // Save the updated status
       await _saveSubscriptionStatus();
 
-      if (kDebugMode) {
-        print('InAppPurchase: Subscription canceled successfully');
-      }
-
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print('InAppPurchase: Error canceling subscription: $e');
-      }
       return false;
     }
   }

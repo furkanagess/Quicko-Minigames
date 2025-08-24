@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:quicko_app/firebase_options.dart';
 
 import '../config/app_config.dart';
-import '../providers/test_mode_provider.dart';
+
 import '../services/admob_service.dart';
 import '../services/in_app_purchase_service.dart';
 import '../services/interstitial_ad_service.dart';
@@ -29,9 +29,6 @@ class AppInitializer {
     // and set device orientation before any UI builds.
     await _ensureFlutterBindingAndOrientation();
 
-    // Print app configuration early in debug mode
-    _printConfigIfDebug();
-
     // Core services that are required app-wide
     await _initializeCoreServices();
 
@@ -42,12 +39,6 @@ class AppInitializer {
     await _initializeFirebase();
 
     _initialized = true;
-
-    if (kDebugMode) {
-      debugPrint(
-        'AppInitializer: completed in ${stopwatch.elapsedMilliseconds}ms',
-      );
-    }
   }
 
   static Future<void> _ensureFlutterBindingAndOrientation() async {
@@ -66,19 +57,11 @@ class AppInitializer {
     ]);
   }
 
-  static void _printConfigIfDebug() {
-    if (!kDebugMode) return;
-    final AppConfig config = AppConfig();
-    config.printConfig();
-  }
-
   static Future<void> _initializeCoreServices() async {
     // Order matters slightly:
-    // - Load persisted user flags first (test mode)
     // - IAP status before ad services
     // - Sound settings for early usage
     await Future.wait(<Future<void>>[
-      TestModeProvider().initialize(),
       InAppPurchaseService().initialize(),
       SoundSettingsService.ensureInitialized(),
     ]);
@@ -95,13 +78,7 @@ class AppInitializer {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      if (kDebugMode) {
-        debugPrint('Firebase: initialized');
-      }
     } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Firebase: initialization error: $e');
-      }
       rethrow;
     }
   }

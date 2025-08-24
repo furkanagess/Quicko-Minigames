@@ -15,12 +15,12 @@ class SupportedLocales {
     Locale('de'), // German - Strong European market
     Locale('fr'), // French - Major European market
     Locale('it'), // Italian - Important European market
+    Locale('ru'), // Russian - Major European and CIS market
     // Tier 3: Emerging Markets
     Locale('pt', 'BR'), // Portuguese (Brazil) - Large Latin American market
     Locale('id'), // Indonesian - Fast-growing Southeast Asian market
     // Tier 4: Regional Languages
     Locale('tr'), // Turkish - Regional market
-    Locale('az'), // Azerbaijani - Regional market
   ];
 
   /// Get locale by language code

@@ -5,7 +5,6 @@ import 'in_app_purchase_service.dart';
 import 'package:flutter/material.dart';
 import '../utils/global_context.dart';
 import '../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
-import '../providers/test_mode_provider.dart';
 
 class InterstitialAdService {
   static final InterstitialAdService _instance =
@@ -15,7 +14,6 @@ class InterstitialAdService {
 
   final AppConfig _config = AppConfig();
   final InAppPurchaseService _purchaseService = InAppPurchaseService();
-  final TestModeProvider _testModeProvider = TestModeProvider();
 
   // Interstitial ad management
   InterstitialAd? _interstitialAd;
@@ -36,30 +34,18 @@ class InterstitialAdService {
   String get _interstitialAdUnitId => _config.interstitialAdUnitId;
 
   /// Check if ads should be shown (respects ad-free subscription and test mode)
-  bool get _shouldShowAds => !_testModeProvider.shouldBehaveAsAdFree;
+  bool get _shouldShowAds => !_purchaseService.isAdFree;
 
   /// Initialize the service
   Future<void> initialize() async {
-    if (kDebugMode) {
-      print('InterstitialAdService: Initializing...');
-      print(
-        'InterstitialAdService: Using Interstitial Ad ID: $_interstitialAdUnitId',
-      );
-    }
-
     // Preload the first interstitial ad
     await loadInterstitialAd();
   }
 
   /// Load interstitial ad
   Future<bool> loadInterstitialAd() async {
-    // Don't load interstitial ads if user has ad-free subscription or test mode is enabled
+    // Don't load interstitial ads if user has ad-free subscription
     if (!_shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: Skipping interstitial ad load - user has ad-free subscription or test mode enabled',
-        );
-      }
       return false;
     }
 
@@ -79,36 +65,18 @@ class InterstitialAdService {
             _isInterstitialAdLoaded = true;
             _isInterstitialAdLoading = false;
 
-            if (kDebugMode) {
-              print(
-                'InterstitialAdService: Interstitial ad loaded successfully',
-              );
-            }
-
             // Set up ad event listeners
             _setupInterstitialAdEventListeners();
           },
           onAdFailedToLoad: (error) {
             _isInterstitialAdLoaded = false;
             _isInterstitialAdLoading = false;
-
-            if (kDebugMode) {
-              print(
-                'InterstitialAdService: Failed to load interstitial ad: ${error.message}',
-              );
-            }
           },
         ),
       );
     } catch (e) {
       _isInterstitialAdLoaded = false;
       _isInterstitialAdLoading = false;
-
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: Exception while loading interstitial ad: $e',
-        );
-      }
     }
 
     return _isInterstitialAdLoaded;
@@ -122,10 +90,6 @@ class InterstitialAdService {
         _interstitialAd = null;
         _lastInterstitialAdShown = DateTime.now();
 
-        if (kDebugMode) {
-          print('InterstitialAdService: Interstitial ad dismissed');
-        }
-
         // Load the next interstitial ad
         loadInterstitialAd();
       },
@@ -133,22 +97,10 @@ class InterstitialAdService {
         _isInterstitialAdLoaded = false;
         _interstitialAd = null;
 
-        if (kDebugMode) {
-          print(
-            'InterstitialAdService: Failed to show interstitial ad: ${error.message}',
-          );
-        }
-
         // Try to load another ad
         loadInterstitialAd();
       },
-      onAdShowedFullScreenContent: (ad) {
-        if (kDebugMode) {
-          print(
-            'InterstitialAdService: Interstitial ad showed full screen content',
-          );
-        }
-      },
+      onAdShowedFullScreenContent: (ad) {},
     );
   }
 
@@ -156,10 +108,6 @@ class InterstitialAdService {
   Future<void> onRouteChanged() async {
     if (_shouldShowAds) {
       _routeChangeCount++;
-
-      if (kDebugMode) {
-        print('InterstitialAdService: Route change count: $_routeChangeCount');
-      }
 
       if (_shouldShowInterstitialAd()) {
         await showInterstitialAd();
@@ -194,27 +142,14 @@ class InterstitialAdService {
 
   /// Show interstitial ad
   Future<bool> showInterstitialAd() async {
-    // Don't show interstitial ads if user has ad-free subscription or test mode is enabled
+    // Don't show interstitial ads if user has ad-free subscription
     if (!_shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: Skipping interstitial ad show - user has ad-free subscription or test mode enabled',
-        );
-      }
       return false;
     }
 
     if (!_isInterstitialAdLoaded || _interstitialAd == null) {
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: Interstitial ad not available, trying to load...',
-        );
-      }
       final loaded = await loadInterstitialAd();
       if (!loaded) {
-        if (kDebugMode) {
-          print('InterstitialAdService: Failed to load interstitial ad');
-        }
         return false;
       }
     }
@@ -232,18 +167,8 @@ class InterstitialAdService {
         _maybeShowAdFreeUpsell();
       }
 
-      if (kDebugMode) {
-        print('InterstitialAdService: Interstitial ad shown successfully');
-        print('InterstitialAdService: Route change count reset to 0');
-      }
-
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: Exception while showing interstitial ad: $e',
-        );
-      }
       return false;
     }
   }
@@ -267,33 +192,11 @@ class InterstitialAdService {
 
   /// Force show interstitial ad (for testing or manual triggers)
   Future<bool> forceShowInterstitialAd() async {
-    if (_testModeProvider.shouldBehaveAsAdFree) {
-      if (kDebugMode) {
-        print(
-          'InterstitialAdService: User has ad-free subscription or test mode enabled, skipping ad',
-        );
-      }
+    if (!_shouldShowAds) {
       return false;
     }
 
     return await showInterstitialAd();
-  }
-
-  /// Test method to manually trigger interstitial ad (for debugging)
-  Future<bool> testInterstitialAd() async {
-    if (kDebugMode) {
-      print('InterstitialAdService: Testing interstitial ad...');
-      print('InterstitialAdService: Route change count: $_routeChangeCount');
-      print(
-        'InterstitialAdService: Time since last ad: ${timeSinceLastAd?.inSeconds ?? 0} seconds',
-      );
-      print('InterstitialAdService: Ad loaded: $_isInterstitialAdLoaded');
-      print(
-        'InterstitialAdService: Should show ads: $shouldShowInterstitialAds',
-      );
-    }
-
-    return await forceShowInterstitialAd();
   }
 
   /// Get current route change count
@@ -318,17 +221,11 @@ class InterstitialAdService {
   /// Reset route change count (useful for testing)
   void resetRouteChangeCount() {
     _routeChangeCount = 0;
-    if (kDebugMode) {
-      print('InterstitialAdService: Route change count reset to 0');
-    }
   }
 
   /// Reset session upsell flag (call this when app starts or session begins)
   void resetSessionUpsellFlag() {
     _hasShownUpsellThisSession = false;
-    if (kDebugMode) {
-      print('InterstitialAdService: Session upsell flag reset');
-    }
   }
 
   /// Dispose the service

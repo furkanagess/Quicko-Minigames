@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_config.dart';
 import 'in_app_purchase_service.dart';
-import '../providers/test_mode_provider.dart';
 
 class AdMobService {
   static final AdMobService _instance = AdMobService._internal();
@@ -23,36 +22,16 @@ class AdMobService {
   bool _isAdLoading = false;
   bool _isBannerAdLoaded = false;
   final InAppPurchaseService _purchaseService = InAppPurchaseService();
-  final TestModeProvider _testModeProvider = TestModeProvider();
 
   /// Initialize AdMob
   Future<void> initialize() async {
-    if (kDebugMode) {
-      print('AdMob: Initializing...');
-      _config.printConfig();
-    }
-
     await MobileAds.instance.initialize();
-
-    if (kDebugMode) {
-      print('AdMob: Initialized successfully');
-      print('AdMob: Using Rewarded Ad ID: $_rewardedAdUnitId');
-      print('AdMob: Using Banner Ad ID: $_bannerAdUnitId');
-      print(
-        'AdMob: Using Leaderboard Banner Ad ID: $_leaderboardBannerAdUnitId',
-      );
-    }
   }
 
   /// Load rewarded ad
   Future<bool> loadRewardedAd() async {
-    // Don't load ads if user has ad-free subscription or test mode
+    // Don't load ads if user has ad-free subscription
     if (!shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'AdMob: Skipping rewarded ad load - user has ad-free subscription or test mode enabled',
-        );
-      }
       return false;
     }
 
@@ -70,30 +49,18 @@ class AdMobService {
             _isAdLoaded = true;
             _isAdLoading = false;
 
-            if (kDebugMode) {
-              print('AdMob: Rewarded ad loaded successfully');
-            }
-
             // Set up ad event listeners
             _setupAdEventListeners();
           },
           onAdFailedToLoad: (error) {
             _isAdLoaded = false;
             _isAdLoading = false;
-
-            if (kDebugMode) {
-              print('AdMob: Failed to load rewarded ad: ${error.message}');
-            }
           },
         ),
       );
     } catch (e) {
       _isAdLoaded = false;
       _isAdLoading = false;
-
-      if (kDebugMode) {
-        print('AdMob: Exception while loading rewarded ad: $e');
-      }
     }
 
     return _isAdLoaded;
@@ -105,24 +72,12 @@ class AdMobService {
       onAdDismissedFullScreenContent: (ad) {
         _isAdLoaded = false;
         _rewardedAd = null;
-
-        if (kDebugMode) {
-          print('AdMob: Rewarded ad dismissed');
-        }
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
         _isAdLoaded = false;
         _rewardedAd = null;
-
-        if (kDebugMode) {
-          print('AdMob: Failed to show rewarded ad: ${error.message}');
-        }
       },
-      onAdShowedFullScreenContent: (ad) {
-        if (kDebugMode) {
-          print('AdMob: Rewarded ad showed full screen content');
-        }
-      },
+      onAdShowedFullScreenContent: (ad) {},
     );
   }
 
@@ -132,13 +87,8 @@ class AdMobService {
     required Function() onAdClosed,
     required Function(String error) onAdFailed,
   }) async {
-    // Don't show ads if user has ad-free subscription or test mode
+    // Don't show ads if user has ad-free subscription
     if (!shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'AdMob: Skipping rewarded ad show - user has ad-free subscription or test mode enabled',
-        );
-      }
       // For ad-free users, directly call onRewarded to continue
       onRewarded();
       return true;
@@ -155,9 +105,6 @@ class AdMobService {
     try {
       await _rewardedAd!.show(
         onUserEarnedReward: (ad, reward) {
-          if (kDebugMode) {
-            print('AdMob: User earned reward: ${reward.amount} ${reward.type}');
-          }
           onRewarded();
         },
       );
@@ -165,9 +112,6 @@ class AdMobService {
       onAdClosed();
       return true;
     } catch (e) {
-      if (kDebugMode) {
-        print('AdMob: Exception while showing rewarded ad: $e');
-      }
       onAdFailed(e.toString());
       return false;
     }
@@ -175,25 +119,13 @@ class AdMobService {
 
   /// Load banner ad
   Future<bool> loadBannerAd() async {
-    // Don't load banner ads if user has ad-free subscription or test mode
+    // Don't load banner ads if user has ad-free subscription
     if (!shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'AdMob: Skipping banner ad load - user has ad-free subscription or test mode enabled',
-        );
-      }
       return false;
     }
 
     if (_isBannerAdLoaded) {
-      if (kDebugMode) {
-        print('AdMob: Banner ad already loaded');
-      }
       return true;
-    }
-
-    if (kDebugMode) {
-      print('AdMob: Loading banner ad with ID: $_bannerAdUnitId');
     }
 
     try {
@@ -204,47 +136,20 @@ class AdMobService {
         listener: BannerAdListener(
           onAdLoaded: (ad) {
             _isBannerAdLoaded = true;
-            if (kDebugMode) {
-              print('AdMob: Banner ad loaded successfully');
-              if (ad is BannerAd) {
-                print(
-                  'AdMob: Banner ad size: ${ad.size.width}x${ad.size.height}',
-                );
-              }
-            }
           },
           onAdFailedToLoad: (ad, error) {
             _isBannerAdLoaded = false;
-            if (kDebugMode) {
-              print('AdMob: Failed to load banner ad: ${error.message}');
-              print('AdMob: Error code: ${error.code}');
-            }
           },
-          onAdOpened: (ad) {
-            if (kDebugMode) {
-              print('AdMob: Banner ad opened');
-            }
-          },
-          onAdClosed: (ad) {
-            if (kDebugMode) {
-              print('AdMob: Banner ad closed');
-            }
-          },
+          onAdOpened: (ad) {},
+          onAdClosed: (ad) {},
         ),
       );
 
       await _bannerAd!.load();
 
-      if (kDebugMode) {
-        print('AdMob: Banner ad load completed. Success: $_isBannerAdLoaded');
-      }
-
       return _isBannerAdLoaded;
     } catch (e) {
       _isBannerAdLoaded = false;
-      if (kDebugMode) {
-        print('AdMob: Exception while loading banner ad: $e');
-      }
       return false;
     }
   }
@@ -252,45 +157,24 @@ class AdMobService {
   /// Load banner ad with retry mechanism
   Future<bool> loadBannerAdWithRetry({int maxRetries = 3}) async {
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
-      if (kDebugMode) {
-        print('AdMob: Banner ad load attempt $attempt of $maxRetries');
-      }
-
       final success = await loadBannerAd();
       if (success) {
         return true;
       }
 
       if (attempt < maxRetries) {
-        if (kDebugMode) {
-          print('AdMob: Banner ad load failed, retrying in 2 seconds...');
-        }
         await Future.delayed(const Duration(seconds: 2));
       }
     }
 
-    if (kDebugMode) {
-      print('AdMob: Banner ad load failed after $maxRetries attempts');
-    }
     return false;
   }
 
   /// Load leaderboard banner ad
   Future<bool> loadLeaderboardBannerAd() async {
-    // Don't load banner ads if user has ad-free subscription or test mode
+    // Don't load banner ads if user has ad-free subscription
     if (!shouldShowAds) {
-      if (kDebugMode) {
-        print(
-          'AdMob: Skipping leaderboard banner ad load - user has ad-free subscription or test mode enabled',
-        );
-      }
       return false;
-    }
-
-    if (kDebugMode) {
-      print(
-        'AdMob: Loading leaderboard banner ad with ID: $_leaderboardBannerAdUnitId',
-      );
     }
 
     try {
@@ -301,51 +185,20 @@ class AdMobService {
         listener: BannerAdListener(
           onAdLoaded: (ad) {
             _isBannerAdLoaded = true;
-            if (kDebugMode) {
-              print('AdMob: Leaderboard banner ad loaded successfully');
-              if (ad is BannerAd) {
-                print(
-                  'AdMob: Leaderboard banner ad size: ${ad.size.width}x${ad.size.height}',
-                );
-              }
-            }
           },
           onAdFailedToLoad: (ad, error) {
             _isBannerAdLoaded = false;
-            if (kDebugMode) {
-              print(
-                'AdMob: Failed to load leaderboard banner ad: ${error.message}',
-              );
-              print('AdMob: Error code: ${error.code}');
-            }
           },
-          onAdOpened: (ad) {
-            if (kDebugMode) {
-              print('AdMob: Leaderboard banner ad opened');
-            }
-          },
-          onAdClosed: (ad) {
-            if (kDebugMode) {
-              print('AdMob: Leaderboard banner ad closed');
-            }
-          },
+          onAdOpened: (ad) {},
+          onAdClosed: (ad) {},
         ),
       );
 
       await _bannerAd!.load();
 
-      if (kDebugMode) {
-        print(
-          'AdMob: Leaderboard banner ad load completed. Success: $_isBannerAdLoaded',
-        );
-      }
-
       return _isBannerAdLoaded;
     } catch (e) {
       _isBannerAdLoaded = false;
-      if (kDebugMode) {
-        print('AdMob: Exception while loading leaderboard banner ad: $e');
-      }
       return false;
     }
   }
@@ -353,38 +206,22 @@ class AdMobService {
   /// Load leaderboard banner ad with retry mechanism
   Future<bool> loadLeaderboardBannerAdWithRetry({int maxRetries = 3}) async {
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
-      if (kDebugMode) {
-        print(
-          'AdMob: Leaderboard banner ad load attempt $attempt of $maxRetries',
-        );
-      }
-
       final success = await loadLeaderboardBannerAd();
       if (success) {
         return true;
       }
 
       if (attempt < maxRetries) {
-        if (kDebugMode) {
-          print(
-            'AdMob: Leaderboard banner ad load failed, retrying in 2 seconds...',
-          );
-        }
         await Future.delayed(const Duration(seconds: 2));
       }
     }
 
-    if (kDebugMode) {
-      print(
-        'AdMob: Leaderboard banner ad load failed after $maxRetries attempts',
-      );
-    }
     return false;
   }
 
   /// Get banner ad widget
   Widget? getBannerAdWidget() {
-    // Don't show banner ads if user has ad-free subscription or test mode
+    // Don't show banner ads if user has ad-free subscription
     if (!shouldShowAds) {
       return null;
     }
@@ -402,7 +239,7 @@ class AdMobService {
 
   /// Get banner ad widget with responsive sizing
   Widget? getResponsiveBannerAdWidget() {
-    // Don't show banner ads if user has ad-free subscription or test mode
+    // Don't show banner ads if user has ad-free subscription
     if (!shouldShowAds) {
       return null;
     }
@@ -425,7 +262,7 @@ class AdMobService {
   bool get isBannerAdAvailable => _isBannerAdLoaded && _bannerAd != null;
 
   /// Check if ads should be shown (respects ad-free subscription and test mode)
-  bool get shouldShowAds => !_testModeProvider.shouldBehaveAsAdFree;
+  bool get shouldShowAds => !_purchaseService.isAdFree;
 
   /// Check if banner ads should be shown
   bool get shouldShowBannerAds => shouldShowAds && isBannerAdAvailable;

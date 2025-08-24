@@ -4,6 +4,7 @@ import '../../shared/widgets/dialog/continue_game_dialog.dart';
 import '../../shared/widgets/dialog/game_in_progress_dialog.dart';
 import '../../shared/widgets/dialog/leaderboard_register_dialog.dart';
 import '../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
+import '../../shared/widgets/dialog/ad_free_success_dialog.dart';
 
 /// Service class for managing all dialog interactions
 class DialogService {
@@ -179,6 +180,18 @@ class DialogService {
               ),
             ],
           ),
+    );
+  }
+
+  /// Show ad-free success dialog
+  static Future<void> showAdFreeSuccessDialog({
+    required BuildContext context,
+    required VoidCallback onContinue,
+  }) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AdFreeSuccessDialog(onContinue: onContinue),
     );
   }
 }
