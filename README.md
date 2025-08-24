@@ -10,6 +10,56 @@
   [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20Desktop-lightgrey.svg)](https://flutter.dev/)
 </div>
 
+## 📱 App Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="assets/ss/Home.png" alt="Home Screen" width="200">
+        <br><strong>Home Screen</strong>
+        <br>Ana ekran - Tüm oyunların listelendiği, favori oyunların öne çıkarıldığı ve oyuncunun istatistiklerinin gösterildiği merkezi hub.
+      </td>
+      <td align="center">
+        <img src="assets/ss/game_detail.png" alt="Game Detail" width="200">
+        <br><strong>Game Detail</strong>
+        <br>Oyun detay sayfası - Seçilen oyunun kurallarının açıklandığı, yüksek skorların gösterildiği ve oyuna başlama butonunun bulunduğu sayfa.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="assets/ss/favorites.png" alt="Favorites" width="200">
+        <br><strong>Favorites</strong>
+        <br>Favoriler sayfası - Kullanıcının favori olarak işaretlediği oyunların listelendiği, hızlı erişim sağlayan özel sayfa.
+      </td>
+      <td align="center">
+        <img src="assets/ss/global_leaderboard.png" alt="Global Leaderboard" width="200">
+        <br><strong>Global Leaderboard</strong>
+        <br>Küresel liderlik tablosu - Tüm oyuncuların en yüksek skorlarının gösterildiği, dünya çapında rekabetin yaşandığı sayfa.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="assets/ss/personal_leaderboard.png" alt="Personal Leaderboard" width="200">
+        <br><strong>Personal Leaderboard</strong>
+        <br>Kişisel liderlik tablosu - Kullanıcının kendi en iyi skorlarının ve gelişiminin takip edildiği, ilerleme grafiklerinin bulunduğu sayfa.
+      </td>
+      <td align="center">
+        <img src="assets/ss/paywall.png" alt="Paywall" width="200">
+        <br><strong>Premium Subscription</strong>
+        <br>Premium abonelik sayfası - Reklamsız deneyim, ek özellikler ve premium içerikler için abonelik seçeneklerinin sunulduğu sayfa.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="assets/ss/settings.png" alt="Settings" width="200">
+        <br><strong>Settings</strong>
+        <br>Ayarlar sayfası - Dil seçimi, tema değiştirme, ses ayarları, bildirim tercihleri ve diğer uygulama ayarlarının yapıldığı sayfa.
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## 🎮 Game Collection
 
 - **Find the Difference** - Spot the different colored square
