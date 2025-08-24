@@ -1,9 +1,9 @@
-# Quicko - Brain Training Games
+# Quicko Minigames
 
 <div align="center">
-  <img src="assets/icon/quicko.png" alt="Quicko Logo" width="120" height="120">
+  <img src="assets/logo/quicko_game_removebg.png" alt="Quicko Minigames" width="120" height="120">
   
-  **A comprehensive brain training app featuring 12+ cognitive games**
+  **A comprehensive brain training app featuring 10+ cognitive games**
   
   [![Flutter](https://img.shields.io/badge/Flutter-3.7.0+-blue.svg)](https://flutter.dev/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -12,24 +12,10 @@
 
 ## 🎮 Game Collection
 
-### 🥇 Tier 1: Entry Level Games
-
-- **Rock Paper Scissors** - Classic reflex game against AI
-- **Higher or Lower** - Predict if the next number will be higher or lower
-- **Color Hunt** - Find the target color while avoiding text-color confusion
-
-### 🥈 Tier 2: Medium Difficulty Games
-
 - **Find the Difference** - Spot the different colored square
 - **Blind Sort** - Sort numbers without seeing the full sequence
 - **Aim Trainer** - Hit targets as they appear randomly
-
-### 🥉 Tier 3: Advanced Games
-
-- **Aim Trainer** - Improve hand-eye coordination and reaction speed
-- **Blind Sort** - Test your memory and logical thinking
 - **Color Hunt** - Enhance visual perception and color recognition
-- **Find Difference** - Sharpen attention to detail and observation skills
 - **Higher or Lower** - Train probability and decision-making
 - **Number Memory** - Boost working memory and concentration
 - **Pattern Memory** - Strengthen visual memory and pattern recognition
@@ -46,66 +32,9 @@
 - **🌍 Multi-Language Support** - Available in 11 languages
 - **🎨 Dark/Light Theme** - Customizable appearance
 - **🔊 Sound Effects** - Immersive audio experience
-- **📱 Cross-Platform** - Works on mobile, web, and desktop
-- **🔄 Offline Play** - No internet required for gameplay
+- **📱 Cross-Platform** - Works on iOS and Android
 - **📈 Achievement System** - Unlock achievements as you progress
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Flutter SDK 3.7.0 or higher
-- Dart SDK 3.0.0 or higher
-- Android Studio / VS Code
-- Git
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/furkanages/quicko_app.git
-   cd quicko_app
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   flutter pub get
-   ```
-
-3. **Run the app**
-   ```bash
-   flutter run
-   ```
-
-### Building for Production
-
-**Android APK:**
-
-```bash
-flutter build apk --release
-```
-
-**iOS:**
-
-```bash
-flutter build ios --release
-```
-
-**Web:**
-
-```bash
-flutter build web --release
-```
-
-**Desktop:**
-
-```bash
-flutter build windows --release  # Windows
-flutter build macos --release    # macOS
-flutter build linux --release    # Linux
-```
 
 ## 🏗️ Architecture
 
@@ -174,39 +103,8 @@ Quicko supports 11 languages:
 - 🇸🇦 Arabic
 - 🇮🇳 Hindi
 - 🇮🇩 Indonesian
-- 🇦🇿 Azerbaijani
+- 🇷🇺 Russian
 
-## 📱 Platform Support
-
-- ✅ **Android** (API 21+)
-- ✅ **iOS** (iOS 12.0+)
-- ✅ **Web** (Chrome, Firefox, Safari, Edge)
-- ✅ **Windows** (Windows 10+)
-- ✅ **macOS** (macOS 10.14+)
-- ✅ **Linux** (Ubuntu 18.04+)
-
-## 🔧 Configuration
-
-### Environment Setup
-
-1. **Firebase Configuration**
-
-   - Add `google-services.json` for Android
-   - Add `GoogleService-Info.plist` for iOS
-
-2. **AdMob Configuration**
-
-   - Configure ad unit IDs in `lib/core/config/app_config.dart`
-
-3. **In-App Purchase**
-   - Set up product IDs in app stores
-   - Configure in `lib/core/services/in_app_purchase_service.dart`
-
-### Build Configuration
-
-- **App Icons**: Configured via `flutter_launcher_icons.yaml`
-- **Splash Screen**: Configured via `flutter_native_splash.yaml`
-- **Localization**: Configured via `l10n.yaml`
 
 ## 📊 Performance
 
@@ -214,35 +112,6 @@ Quicko supports 11 languages:
 - **Memory Usage**: ~50MB average
 - **Startup Time**: <2 seconds
 - **Frame Rate**: 60 FPS consistently
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow Flutter best practices
-- Use meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-- Follow the existing code style
-
-## 🐛 Bug Reports
-
-If you find a bug, please create an issue with:
-
-- **Platform**: Android/iOS/Web/Desktop
-- **Version**: App version and OS version
-- **Steps to reproduce**: Detailed steps
-- **Expected behavior**: What should happen
-- **Actual behavior**: What actually happens
-- **Screenshots**: If applicable
 
 ## 📄 License
 
@@ -272,19 +141,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## 🙏 Acknowledgments
-
-- **Flutter Team** - For the amazing framework
-- **Material Design** - For design inspiration
-- **Open Source Community** - For the libraries and tools
-- **Beta Testers** - For valuable feedback and bug reports
-
 ## 📞 Contact
 
-- **Developer**: Furkan Ağaç
+- **Developer**: Furkan Caglar
 - **Email**: quickogamehelp@gmail.com
-- **Website**: [Coming Soon]
-- **Support**: Create an issue on GitHub
+
 
 ## 📈 Roadmap
 
@@ -300,6 +161,6 @@ SOFTWARE.
 ---
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/furkanages">Furkan Ağaç</a></p>
+  <p>Made with ❤️ by <a href="https://github.com/furkanages">Furkan Caglar</a></p>
   <p>⭐ Star this repository if you find it helpful!</p>
 </div>
