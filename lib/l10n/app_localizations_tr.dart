@@ -1065,4 +1065,11 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get onboardingDescription3 =>
       'Becerilerinizi geliştirdikçe başarılar ve ödüller açın. İlerlemenizi paylaşın ve arkadaşlarınızı skorlarınızı geçmeye davet edin.';
+
+  @override
+  String get uninstallWarningTitle => 'Önemli Uyarı';
+
+  @override
+  String get uninstallWarningMessage =>
+      'Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.';
 }

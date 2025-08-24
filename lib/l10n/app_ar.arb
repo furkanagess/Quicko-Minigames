@@ -1083,5 +1083,13 @@
   "gameCompletedMessage": "تهانينا على إكمال اللعبة! يمكنك إعادة التشغيل للعب مرة أخرى أو الخروج للعودة إلى القائمة الرئيسية.",
   "@gameCompletedMessage": {
     "description": "Message for game completed dialog"
+  },
+  "uninstallWarningTitle": "تنبيه مهم",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "إذا قمت بإلغاء تثبيت التطبيق، فسيتم حذف جميع نقاط اللعب وحقوق الاشتراك بشكل دائم.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

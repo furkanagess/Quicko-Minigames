@@ -1133,5 +1133,13 @@
   "gameCompletedMessage": "Glückwunsch zum Abschluss des Spiels! Sie können neu starten, um erneut zu spielen, oder beenden, um zum Hauptmenü zurückzukehren.",
   "@gameCompletedMessage": {
     "description": "Message for game completed dialog"
+  },
+  "uninstallWarningTitle": "Wichtiger Hinweis",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Wenn Sie die App deinstallieren, werden alle Ihre Spielergebnisse und Abonnementrechte dauerhaft gelöscht.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

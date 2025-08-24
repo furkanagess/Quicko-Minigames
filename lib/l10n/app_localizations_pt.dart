@@ -1060,6 +1060,13 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get onboardingDescription3 =>
       'Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.';
+
+  @override
+  String get uninstallWarningTitle => 'Important Notice';
+
+  @override
+  String get uninstallWarningMessage =>
+      'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -2033,4 +2040,11 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get gameCompletedMessage =>
       'Parabéns por completar o jogo! Você pode reiniciar para jogar novamente ou sair para voltar ao menu principal.';
+
+  @override
+  String get uninstallWarningTitle => 'Aviso Importante';
+
+  @override
+  String get uninstallWarningMessage =>
+      'Se você desinstalar o aplicativo, todas as suas pontuações de jogo e direitos de assinatura serão permanentemente excluídos.';
 }

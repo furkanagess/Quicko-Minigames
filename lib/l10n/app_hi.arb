@@ -1105,5 +1105,13 @@
   "gameCompletedMessage": "खेल पूरा करने के लिए बधाई! आप फिर से खेलने के लिए पुनः प्रारंभ कर सकते हैं या मुख्य मेनू पर वापस जाने के लिए बाहर निकल सकते हैं।",
   "@gameCompletedMessage": {
     "description": "Message for game completed dialog"
+  },
+  "uninstallWarningTitle": "महत्वपूर्ण सूचना",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "यदि आप ऐप को अनइंस्टॉल करते हैं, तो आपके सभी गेम स्कोर और सदस्यता अधिकार स्थायी रूप से हटा दिए जाएंगे।",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

@@ -8,6 +8,7 @@ class SupportedLocales {
   static const List<Locale> locales = [
     // Tier 1: Global Languages (Most Popular)
     Locale('en'), // English - Global lingua franca
+    Locale('tr'), // Turkish - Regional market
     Locale('es'), // Spanish - 2nd most spoken language
     Locale('hi'), // Hindi - 3rd most spoken language
     Locale('ar'), // Arabic - Major regional language
@@ -19,8 +20,6 @@ class SupportedLocales {
     // Tier 3: Emerging Markets
     Locale('pt', 'BR'), // Portuguese (Brazil) - Large Latin American market
     Locale('id'), // Indonesian - Fast-growing Southeast Asian market
-    // Tier 4: Regional Languages
-    Locale('tr'), // Turkish - Regional market
   ];
 
   /// Get locale by language code

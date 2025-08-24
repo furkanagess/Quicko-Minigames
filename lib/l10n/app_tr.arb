@@ -851,5 +851,13 @@
   "onboardingDescription3": "Becerilerinizi geliştirdikçe başarılar ve ödüller açın. İlerlemenizi paylaşın ve arkadaşlarınızı skorlarınızı geçmeye davet edin.",
   "@onboardingDescription3": {
     "description": "Third onboarding page description"
+  },
+  "uninstallWarningTitle": "Önemli Uyarı",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

@@ -1071,4 +1071,11 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get onboardingDescription3 =>
       'Разблокируйте достижения и награды по мере улучшения ваших навыков. Делитесь своим прогрессом и бросайте вызов друзьям, чтобы побить ваши результаты.';
+
+  @override
+  String get uninstallWarningTitle => 'Важное Уведомление';
+
+  @override
+  String get uninstallWarningMessage =>
+      'Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.';
 }

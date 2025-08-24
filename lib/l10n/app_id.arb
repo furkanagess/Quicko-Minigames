@@ -1110,5 +1110,13 @@
   "gameCompletedMessage": "Selamat atas menyelesaikan permainan! Anda dapat memulai ulang untuk bermain lagi atau keluar untuk kembali ke menu utama.",
   "@gameCompletedMessage": {
     "description": "Message for game completed dialog"
+  },
+  "uninstallWarningTitle": "Peringatan Penting",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Jika Anda menghapus aplikasi, semua skor permainan dan hak berlangganan Anda akan dihapus secara permanen.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

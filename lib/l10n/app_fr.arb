@@ -1133,5 +1133,13 @@
   "gameCompletedMessage": "Félicitations pour avoir terminé le jeu ! Vous pouvez redémarrer pour rejouer ou quitter pour retourner au menu principal.",
   "@gameCompletedMessage": {
     "description": "Message for game completed dialog"
+  },
+  "uninstallWarningTitle": "Avis Important",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Si vous désinstallez l'application, tous vos scores de jeu et droits d'abonnement seront définitivement supprimés.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

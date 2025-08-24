@@ -2097,6 +2097,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.'**
   String get onboardingDescription3;
+
+  /// Title for uninstall warning dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Important Notice'**
+  String get uninstallWarningTitle;
+
+  /// Message for uninstall warning dialog
+  ///
+  /// In en, this message translates to:
+  /// **'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.'**
+  String get uninstallWarningMessage;
 }
 
 class _AppLocalizationsDelegate

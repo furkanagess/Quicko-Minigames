@@ -1145,5 +1145,13 @@
   "oneTimePaymentForeverAccess": "Pago único, acceso para siempre",
   "@oneTimePaymentForeverAccess": {
     "description": "Description for lifetime access benefit"
+  },
+  "uninstallWarningTitle": "Aviso Importante",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Si desinstalas la aplicación, todas tus puntuaciones de juego y derechos de suscripción se eliminarán permanentemente.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

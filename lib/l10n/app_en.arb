@@ -1440,5 +1440,13 @@
   "onboardingDescription3": "Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.",
   "@onboardingDescription3": {
     "description": "Third onboarding page description"
+  },
+  "uninstallWarningTitle": "Important Notice",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "If you uninstall the app, all your game scores and subscription rights will be permanently deleted.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }

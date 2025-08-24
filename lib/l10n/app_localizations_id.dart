@@ -1069,4 +1069,11 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get onboardingDescription3 =>
       'Unlock achievements and rewards as you improve your skills. Share your progress and challenge friends to beat your scores.';
+
+  @override
+  String get uninstallWarningTitle => 'Peringatan Penting';
+
+  @override
+  String get uninstallWarningMessage =>
+      'Jika Anda menghapus aplikasi, semua skor permainan dan hak berlangganan Anda akan dihapus secara permanen.';
 }

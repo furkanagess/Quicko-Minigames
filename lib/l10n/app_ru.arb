@@ -1440,5 +1440,13 @@
   "onboardingDescription3": "Разблокируйте достижения и награды по мере улучшения ваших навыков. Делитесь своим прогрессом и бросайте вызов друзьям, чтобы побить ваши результаты.",
   "@onboardingDescription3": {
     "description": "Third onboarding page description"
+  },
+  "uninstallWarningTitle": "Важное Уведомление",
+  "@uninstallWarningTitle": {
+    "description": "Title for uninstall warning dialog"
+  },
+  "uninstallWarningMessage": "Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.",
+  "@uninstallWarningMessage": {
+    "description": "Message for uninstall warning dialog"
   }
 }
