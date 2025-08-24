@@ -541,7 +541,9 @@
     "onboardingTitle2",
     "onboardingDescription2",
     "onboardingTitle3",
-    "onboardingDescription3"
+    "onboardingDescription3",
+    "uninstallWarningTitle",
+    "uninstallWarningMessage"
   ],
 
   "pt_BR": [
