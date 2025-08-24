@@ -110,12 +110,6 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
                       _buildLanguageOptions(context, languageProvider),
 
                       const SizedBox(height: AppConstants.largeSpacing),
-
-                      // Info Section
-                      _buildInfoSection(context),
-
-                      // Bottom padding for better scroll experience
-                      const SizedBox(height: AppConstants.largeSpacing),
                     ],
                   ),
                 ),
@@ -240,6 +234,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
     const Map<String, String> languageDisplayNames = {
       // Tier 1: Global Languages (Most Popular)
       'en': 'English',
+      'tr': 'Türkçe',
       'es': 'Español',
       'hi': 'हिंदी',
       'ar': 'العربية',
@@ -248,14 +243,11 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
       'de': 'Deutsch',
       'fr': 'Français',
       'it': 'Italiano',
+      'ru': 'Русский',
 
       // Tier 3: Emerging Markets
       'pt_BR': 'Português',
       'id': 'Bahasa Indonesia',
-
-      // Tier 4: Regional Languages
-      'tr': 'Türkçe',
-      'ru': 'Русский',
     };
 
     // Language flag emojis mapping
@@ -263,6 +255,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
     const Map<String, String> languageFlags = {
       // Tier 1: Global Languages (Most Popular)
       'en': '🇺🇸',
+      'tr': '🇹🇷',
       'es': '🇪🇸',
       'hi': '🇮🇳',
       'ar': '🇸🇦',
@@ -271,14 +264,11 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
       'de': '🇩🇪',
       'fr': '🇫🇷',
       'it': '🇮🇹',
+      'ru': '🇷🇺',
 
       // Tier 3: Emerging Markets
       'pt_BR': '🇧🇷',
       'id': '🇮🇩',
-
-      // Tier 4: Regional Languages
-      'tr': '🇹🇷',
-      'ru': '🇷🇺',
     };
 
     return SupportedLocales.locales.map((locale) {
@@ -438,65 +428,6 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen>
         borderRadius: BorderRadius.circular(12),
       ),
       child: const Icon(Icons.check_rounded, color: Colors.white, size: 16),
-    );
-  }
-
-  Widget _buildInfoSection(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.03),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(
-              context,
-            ).colorScheme.primary.withValues(alpha: 0.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(
-              Icons.info_outline_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Expanded(
-            child: Text(
-              AppLocalizations.of(context)!.languageChangeInfo,
-              style: TextThemeManager.bodyMedium.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
