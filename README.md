@@ -29,73 +29,16 @@ Quicko is a modern, cross-platform brain training application designed to enhanc
 
 ### ✨ Key Features
 
-- **🎯 12+ Brain Training Games** - Diverse cognitive challenges
+- **🎯 10+ Brain Training Games** - Diverse cognitive challenges
 - **📊 Progress Tracking** - Monitor your improvement over time
 - **🏆 Leaderboards** - Compete with other players globally
 - **⭐ Favorites System** - Save and quick-access your preferred games
 - **🌍 Multi-Language Support** - Available in 11 languages
 - **🎨 Dark/Light Theme** - Customizable appearance
 - **🔊 Sound Effects** - Immersive audio experience
-- **📱 Cross-Platform** - Works on mobile, web, and desktop
-- **🔄 Offline Play** - No internet required for gameplay
+- **📱 Cross-Platform** - Works on iOS and Android
 - **📈 Achievement System** - Unlock achievements as you progress
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Flutter SDK 3.7.0 or higher
-- Dart SDK 3.0.0 or higher
-- Android Studio / VS Code
-- Git
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/furkanages/quicko_app.git
-   cd quicko_app
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   flutter pub get
-   ```
-
-3. **Run the app**
-   ```bash
-   flutter run
-   ```
-
-### Building for Production
-
-**Android APK:**
-
-```bash
-flutter build apk --release
-```
-
-**iOS:**
-
-```bash
-flutter build ios --release
-```
-
-**Web:**
-
-```bash
-flutter build web --release
-```
-
-**Desktop:**
-
-```bash
-flutter build windows --release  # Windows
-flutter build macos --release    # macOS
-flutter build linux --release    # Linux
-```
 
 ## 🏗️ Architecture
 
@@ -164,39 +107,8 @@ Quicko supports 11 languages:
 - 🇸🇦 Arabic
 - 🇮🇳 Hindi
 - 🇮🇩 Indonesian
-- 🇦🇿 Azerbaijani
+- 🇷🇺 Russion
 
-## 📱 Platform Support
-
-- ✅ **Android** (API 21+)
-- ✅ **iOS** (iOS 12.0+)
-- ✅ **Web** (Chrome, Firefox, Safari, Edge)
-- ✅ **Windows** (Windows 10+)
-- ✅ **macOS** (macOS 10.14+)
-- ✅ **Linux** (Ubuntu 18.04+)
-
-## 🔧 Configuration
-
-### Environment Setup
-
-1. **Firebase Configuration**
-
-   - Add `google-services.json` for Android
-   - Add `GoogleService-Info.plist` for iOS
-
-2. **AdMob Configuration**
-
-   - Configure ad unit IDs in `lib/core/config/app_config.dart`
-
-3. **In-App Purchase**
-   - Set up product IDs in app stores
-   - Configure in `lib/core/services/in_app_purchase_service.dart`
-
-### Build Configuration
-
-- **App Icons**: Configured via `flutter_launcher_icons.yaml`
-- **Splash Screen**: Configured via `flutter_native_splash.yaml`
-- **Localization**: Configured via `l10n.yaml`
 
 ## 📊 Performance
 
@@ -205,15 +117,6 @@ Quicko supports 11 languages:
 - **Startup Time**: <2 seconds
 - **Frame Rate**: 60 FPS consistently
 
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ### Development Guidelines
 
@@ -227,7 +130,7 @@ We welcome contributions! Please follow these steps:
 
 If you find a bug, please create an issue with:
 
-- **Platform**: Android/iOS/Web/Desktop
+- **Platform**: Android/iOS
 - **Version**: App version and OS version
 - **Steps to reproduce**: Detailed steps
 - **Expected behavior**: What should happen
@@ -241,7 +144,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Copyright Notice
 
 ```
-Copyright (c) 2024 Furkan Ağaç
+Copyright (c) 2024 Furkan Caglar
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -262,19 +165,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## 🙏 Acknowledgments
 
-- **Flutter Team** - For the amazing framework
-- **Material Design** - For design inspiration
-- **Open Source Community** - For the libraries and tools
-- **Beta Testers** - For valuable feedback and bug reports
 
 ## 📞 Contact
 
-- **Developer**: Furkan Ağaç
+- **Developer**: Furkan Caglar
 - **Email**: quickogamehelp@gmail.com
-- **Website**: [Coming Soon]
-- **Support**: Create an issue on GitHub
+
 
 ## 📈 Roadmap
 
@@ -290,6 +187,6 @@ SOFTWARE.
 ---
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/furkanages">Furkan Ağaç</a></p>
+  <p>Made with ❤️ by <a href="https://github.com/furkanages">Furkan Caglar</a></p>
   <p>⭐ Star this repository if you find it helpful!</p>
 </div>
