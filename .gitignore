@@ -55,6 +55,7 @@ app.*.map.json
 .env.development
 .env.staging
 .env.test
+.env.example
 *.env
 
 # Configuration files with sensitive data
