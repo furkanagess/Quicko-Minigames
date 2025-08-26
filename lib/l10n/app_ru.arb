@@ -1081,6 +1081,8 @@
   "purchaseErrorDescription": "Мы не смогли завершить вашу покупку. Попробуйте снова или проверьте способ оплаты.",
   "@purchaseErrorDescription": {"description": "Detailed message shown when purchase fails"},
   "restoreErrorDescription": "Мы не смогли восстановить ваши покупки. Попробуйте снова.",
+  "noPurchasesFound": "Предыдущие Покупки Не Найдены",
+  "noPurchasesFoundDescription": "Мы не смогли найти предыдущие покупки для восстановления. Убедитесь, что вы вошли в систему с тем же Apple ID, который использовали для оригинальной покупки.",
   "@restoreErrorDescription": {"description": "Detailed message shown when restore fails"},
 
   "feedback": "Обратная Связь",

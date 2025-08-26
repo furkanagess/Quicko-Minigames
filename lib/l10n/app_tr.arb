@@ -617,6 +617,8 @@
   "playSampleSound": "Örnek Sesi Çal",
   "purchaseErrorDescription": "Satın alma tamamlanamadı. Lütfen tekrar deneyin veya ödeme yöntemini kontrol edin.",
   "restoreErrorDescription": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.",
+  "noPurchasesFound": "Önceki Satın Alım Bulunamadı",
+  "noPurchasesFoundDescription": "Geri yüklenecek önceki satın alım bulunamadı. Orijinal satın alım için kullandığınız aynı Apple ID ile giriş yaptığınızdan emin olun.",
 
   "feedback": "Geri Bildirim",
   "feedbackAndSuggestions": "Geri Bildirim & Öneriler",

@@ -461,6 +461,8 @@
     "exitGame",
     "purchaseErrorDescription",
     "restoreErrorDescription",
+    "noPurchasesFound",
+    "noPurchasesFoundDescription",
     "feedback",
     "feedbackAndSuggestions",
     "feedbackAndSuggestionsSubtitle",

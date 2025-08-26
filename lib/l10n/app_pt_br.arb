@@ -935,6 +935,8 @@
   "playSampleSound": "Reproduzir som de exemplo",
   "purchaseErrorDescription": "Não conseguimos completar sua compra. Tente novamente ou verifique seu método de pagamento.",
   "restoreErrorDescription": "Não conseguimos restaurar suas compras. Tente novamente.",
+  "noPurchasesFound": "Nenhuma Compra Anterior Encontrada",
+  "noPurchasesFoundDescription": "Não conseguimos encontrar compras anteriores para restaurar. Certifique-se de estar conectado com o mesmo Apple ID que você usou para a compra original.",
 
   "feedback": "Feedback",
   "feedbackAndSuggestions": "Feedback e Sugestões",

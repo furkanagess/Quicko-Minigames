@@ -945,6 +945,8 @@
   },
   "purchaseErrorDescription": "Non siamo riusciti a completare il tuo acquisto. Riprova o verifica il tuo metodo di pagamento.",
   "restoreErrorDescription": "Non siamo riusciti a ripristinare i tuoi acquisti. Riprova.",
+  "noPurchasesFound": "Nessun Acquisto Precedente Trovato",
+  "noPurchasesFoundDescription": "Non abbiamo trovato acquisti precedenti da ripristinare. Assicurati di essere connesso con lo stesso Apple ID che hai usato per l'acquisto originale.",
 
   "feedback": "Feedback",
   "feedbackAndSuggestions": "Feedback e Suggerimenti",

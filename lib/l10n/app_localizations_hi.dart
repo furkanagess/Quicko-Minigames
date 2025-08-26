@@ -796,6 +796,13 @@ class AppLocalizationsHi extends AppLocalizations {
       'हम आपकी खरीद को पुनर्स्थापित नहीं कर सके। कृपया पुनः प्रयास करें।';
 
   @override
+  String get noPurchasesFound => 'कोई पिछली खरीद नहीं मिली';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'हमें पुनर्स्थापित करने के लिए कोई पिछली खरीद नहीं मिली। सुनिश्चित करें कि आप उसी Apple ID से लॉग इन हैं जिसका उपयोग आपने मूल खरीद के लिए किया था।';
+
+  @override
   String get feedback => 'प्रतिक्रिया';
 
   @override

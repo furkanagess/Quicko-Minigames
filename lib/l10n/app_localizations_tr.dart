@@ -797,6 +797,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.';
 
   @override
+  String get noPurchasesFound => 'Önceki Satın Alım Bulunamadı';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Geri yüklenecek önceki satın alım bulunamadı. Orijinal satın alım için kullandığınız aynı Apple ID ile giriş yaptığınızdan emin olun.';
+
+  @override
   String get feedback => 'Geri Bildirim';
 
   @override

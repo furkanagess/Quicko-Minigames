@@ -935,6 +935,8 @@
   "playSampleSound": "Putar Suara Contoh",
   "purchaseErrorDescription": "Kami tidak dapat menyelesaikan pembelian Anda. Silakan coba lagi atau periksa metode pembayaran Anda.",
   "restoreErrorDescription": "Kami tidak dapat memulihkan pembelian Anda. Silakan coba lagi.",
+  "noPurchasesFound": "Tidak Ada Pembelian Sebelumnya Ditemukan",
+  "noPurchasesFoundDescription": "Kami tidak dapat menemukan pembelian sebelumnya untuk dipulihkan. Pastikan Anda masuk dengan Apple ID yang sama yang Anda gunakan untuk pembelian asli.",
 
   "feedback": "Umpan Balik",
   "feedbackAndSuggestions": "Umpan Balik & Saran",

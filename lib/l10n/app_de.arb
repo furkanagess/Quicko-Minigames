@@ -958,6 +958,8 @@
   "playSampleSound": "Beispielsound abspielen",
   "purchaseErrorDescription": "Dein Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut oder prüfe deine Zahlungsmethode.",
   "restoreErrorDescription": "Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.",
+  "noPurchasesFound": "Keine Vorherigen Käufe Gefunden",
+  "noPurchasesFoundDescription": "Wir konnten keine vorherigen Käufe zum Wiederherstellen finden. Stelle sicher, dass du mit derselben Apple ID angemeldet bist, die du für den ursprünglichen Kauf verwendet hast.",
 
   "feedback": "Feedback",
   "feedbackAndSuggestions": "Feedback & Vorschläge",

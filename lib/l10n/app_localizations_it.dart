@@ -799,6 +799,13 @@ class AppLocalizationsIt extends AppLocalizations {
       'Non siamo riusciti a ripristinare i tuoi acquisti. Riprova.';
 
   @override
+  String get noPurchasesFound => 'Nessun Acquisto Precedente Trovato';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Non abbiamo trovato acquisti precedenti da ripristinare. Assicurati di essere connesso con lo stesso Apple ID che hai usato per l\'acquisto originale.';
+
+  @override
   String get feedback => 'Feedback';
 
   @override

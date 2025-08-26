@@ -77,10 +77,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                 child: Padding(
                   padding: const EdgeInsets.all(AppConstants.mediumSpacing),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildHeader(context, isAdFree),
-                      const SizedBox(height: AppConstants.largeSpacing),
                       Expanded(
                         child: _buildMainContent(
                           context,
@@ -88,49 +85,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                           isAdFree,
                         ),
                       ),
-                      if (isAdFree) ...[
-                        const SizedBox(height: AppConstants.largeSpacing),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: OutlinedButton(
-                            onPressed:
-                                purchaseProvider.isLoading
-                                    ? null
-                                    : () => _handleRestore(
-                                      context,
-                                      purchaseProvider,
-                                    ),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(
-                                color: Theme.of(context).colorScheme.primary,
-                                width: 2,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  AppConstants.mediumRadius,
-                                ),
-                              ),
-                            ),
-                            child:
-                                purchaseProvider.isLoading
-                                    ? const SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                      ),
-                                    )
-                                    : Text(
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.restorePurchases,
-                                      style: TextThemeManager.buttonLarge,
-                                    ),
-                          ),
-                        ),
-                      ] else ...[
-                        // Fixed Buy Now button at bottom for non-ad-free users
+                      // Fixed bottom buttons
+                      if (!isAdFree) ...[
                         const SizedBox(height: AppConstants.largeSpacing),
                         SizedBox(
                           width: double.infinity,
@@ -186,6 +142,89 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                                     ),
                           ),
                         ),
+                        // Restore Purchases button - right below Buy Now button
+                        const SizedBox(height: AppConstants.mediumSpacing),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: OutlinedButton(
+                            onPressed:
+                                purchaseProvider.isLoading
+                                    ? null
+                                    : () => _handleRestore(
+                                      context,
+                                      purchaseProvider,
+                                    ),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppConstants.mediumRadius,
+                                ),
+                              ),
+                            ),
+                            child:
+                                purchaseProvider.isLoading
+                                    ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                    : Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.restorePurchases,
+                                      style: TextThemeManager.buttonLarge,
+                                    ),
+                          ),
+                        ),
+                      ] else ...[
+                        // Restore Purchases button for ad-free users
+                        const SizedBox(height: AppConstants.largeSpacing),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: OutlinedButton(
+                            onPressed:
+                                purchaseProvider.isLoading
+                                    ? null
+                                    : () => _handleRestore(
+                                      context,
+                                      purchaseProvider,
+                                    ),
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppConstants.mediumRadius,
+                                ),
+                              ),
+                            ),
+                            child:
+                                purchaseProvider.isLoading
+                                    ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                    : Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.restorePurchases,
+                                      style: TextThemeManager.buttonLarge,
+                                    ),
+                          ),
+                        ),
                       ],
                     ],
                   ),
@@ -202,87 +241,6 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     return AppBars.settingsAppBar(
       context: context,
       title: AppLocalizations.of(context)!.removeAds,
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, bool isAdFree) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppConstants.largeRadius),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-            ),
-            child: Icon(
-              isAdFree
-                  ? Icons.verified_rounded
-                  : Icons.workspace_premium_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: 24,
-            ),
-          ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  isAdFree
-                      ? AppLocalizations.of(context)!.lifetimeAccess
-                      : AppLocalizations.of(context)!.removeAds,
-                  style: TextThemeManager.sectionTitle.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  isAdFree
-                      ? AppLocalizations.of(context)!.lifetimeAccess
-                      : AppLocalizations.of(context)!.removeAdsDescription,
-                  style: TextThemeManager.bodySmall.copyWith(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.7),
-                    height: 1.4,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -691,7 +649,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () => _showUninstallWarningBottomSheet(context),
+                          onTap:
+                              () => _showUninstallWarningBottomSheet(context),
                           borderRadius: BorderRadius.circular(20),
                           child: Padding(
                             padding: const EdgeInsets.all(8),
@@ -802,14 +761,25 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     if (!mounted) return;
 
     if (success) {
-      // Show success dialog for restored purchases
-      await DialogService.showAdFreeSuccessDialog(
-        context: context,
-        onContinue: () {
-          // Refresh the UI to show ad-free content
-          setState(() {});
-        },
-      );
+      // Check if the user is now ad-free (restoration was successful)
+      if (purchaseProvider.isSubscriptionActive) {
+        // Show success dialog for restored purchases
+        await DialogService.showAdFreeSuccessDialog(
+          context: context,
+          onContinue: () {
+            // Refresh the UI to show ad-free content
+            setState(() {});
+          },
+        );
+      } else {
+        // Show message that no purchases were found to restore
+        _showPurchaseErrorBottomSheet(
+          context,
+          title: AppLocalizations.of(context)!.noPurchasesFound,
+          description:
+              AppLocalizations.of(context)!.noPurchasesFoundDescription,
+        );
+      }
     } else {
       _showPurchaseErrorBottomSheet(
         context,

@@ -8,7 +8,7 @@ class InAppPurchaseService {
   factory InAppPurchaseService() => _instance;
   InAppPurchaseService._internal();
 
-  static const String _adFreeSubscriptionId = 'one_time_payment';
+  static const String _adFreeSubscriptionId = 'one_time_payment_299';
   static const String _isAdFreeKey = 'is_ad_free';
   static const String _subscriptionExpiryKey = 'subscription_expiry';
   static const String _subscriptionStartKey = 'subscription_start';
@@ -206,9 +206,24 @@ class InAppPurchaseService {
   /// Restore purchases
   Future<bool> restorePurchases() async {
     try {
+      // Check if already ad-free (no need to restore if already active)
+      if (_isAdFree) {
+        return true;
+      }
+
+      // Call the platform's restore purchases method
       await _inAppPurchase.restorePurchases();
-      return true;
+
+      // The actual restoration will be handled by _onPurchaseUpdate
+      // when the restored purchases come through the purchase stream
+
+      // Wait a bit for the purchase stream to process the restored purchases
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Check if restoration was successful by checking if we're now ad-free
+      return _isAdFree;
     } catch (e) {
+      // Handle error silently in production
       return false;
     }
   }

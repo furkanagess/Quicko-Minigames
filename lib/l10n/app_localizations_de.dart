@@ -801,6 +801,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Deine Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.';
 
   @override
+  String get noPurchasesFound => 'Keine Vorherigen Käufe Gefunden';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Wir konnten keine vorherigen Käufe zum Wiederherstellen finden. Stelle sicher, dass du mit derselben Apple ID angemeldet bist, die du für den ursprünglichen Kauf verwendet hast.';
+
+  @override
   String get feedback => 'Feedback';
 
   @override

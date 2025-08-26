@@ -905,6 +905,8 @@
   "playSampleSound": "تشغيل صوت تجريبي",
   "purchaseErrorDescription": "لم نتمكن من إكمال عملية الشراء. يرجى المحاولة مرة أخرى أو التحقق من طريقة الدفع.",
   "restoreErrorDescription": "لم نتمكن من استعادة مشترياتك. يرجى المحاولة مرة أخرى.",
+  "noPurchasesFound": "لم يتم العثور على مشتريات سابقة",
+  "noPurchasesFoundDescription": "لم نتمكن من العثور على مشتريات سابقة لاستعادتها. تأكد من تسجيل الدخول بنفس Apple ID الذي استخدمته للشراء الأصلي.",
 
   "feedback": "التعليقات",
   "feedbackAndSuggestions": "التعليقات والاقتراحات",

@@ -793,6 +793,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'We couldn\'t restore your purchases. Please try again.';
 
   @override
+  String get noPurchasesFound => 'No Previous Purchases Found';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'We couldn\'t find any previous purchases to restore. Make sure you\'re signed in with the same Apple ID you used for the original purchase.';
+
+  @override
   String get feedback => 'Feedback';
 
   @override
@@ -1830,6 +1837,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get restoreErrorDescription =>
       'Não conseguimos restaurar suas compras. Tente novamente.';
+
+  @override
+  String get noPurchasesFound => 'Nenhuma Compra Anterior Encontrada';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Não conseguimos encontrar compras anteriores para restaurar. Certifique-se de estar conectado com o mesmo Apple ID que você usou para a compra original.';
 
   @override
   String get feedback => 'Feedback';

@@ -90,8 +90,10 @@ class InAppPurchaseProvider extends ChangeNotifier {
 
       if (success) {
         _errorMessage = null;
+        // Force UI refresh after successful restoration
+        notifyListeners();
       } else {
-        _errorMessage = 'Failed to restore purchases';
+        _errorMessage = 'No previous purchases found to restore';
       }
 
       return success;

@@ -802,6 +802,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Мы не смогли восстановить ваши покупки. Попробуйте снова.';
 
   @override
+  String get noPurchasesFound => 'Предыдущие Покупки Не Найдены';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Мы не смогли найти предыдущие покупки для восстановления. Убедитесь, что вы вошли в систему с тем же Apple ID, который использовали для оригинальной покупки.';
+
+  @override
   String get feedback => 'Обратная Связь';
 
   @override

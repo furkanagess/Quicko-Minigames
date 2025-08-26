@@ -804,6 +804,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Nous n\'avons pas pu restaurer vos achats. Veuillez réessayer.';
 
   @override
+  String get noPurchasesFound => 'Aucun Achat Précédent Trouvé';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Nous n\'avons trouvé aucun achat précédent à restaurer. Assurez-vous d\'être connecté avec le même Apple ID que vous avez utilisé pour l\'achat original.';
+
+  @override
   String get feedback => 'Retour d\'expérience';
 
   @override

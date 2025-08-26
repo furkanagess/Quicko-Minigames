@@ -958,6 +958,8 @@
   "playSampleSound": "Lire un son d'exemple",
   "purchaseErrorDescription": "Nous n'avons pas pu finaliser votre achat. Veuillez réessayer ou vérifier votre méthode de paiement.",
   "restoreErrorDescription": "Nous n'avons pas pu restaurer vos achats. Veuillez réessayer.",
+  "noPurchasesFound": "Aucun Achat Précédent Trouvé",
+  "noPurchasesFoundDescription": "Nous n'avons trouvé aucun achat précédent à restaurer. Assurez-vous d'être connecté avec le même Apple ID que vous avez utilisé pour l'achat original.",
 
   "feedback": "Retour d'expérience",
   "feedbackAndSuggestions": "Retour d'expérience et Suggestions",

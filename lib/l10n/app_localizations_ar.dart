@@ -790,6 +790,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'لم نتمكن من استعادة مشترياتك. يرجى المحاولة مرة أخرى.';
 
   @override
+  String get noPurchasesFound => 'لم يتم العثور على مشتريات سابقة';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'لم نتمكن من العثور على مشتريات سابقة لاستعادتها. تأكد من تسجيل الدخول بنفس Apple ID الذي استخدمته للشراء الأصلي.';
+
+  @override
   String get feedback => 'التعليقات';
 
   @override

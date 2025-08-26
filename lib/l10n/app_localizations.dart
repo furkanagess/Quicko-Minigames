@@ -1612,6 +1612,18 @@ abstract class AppLocalizations {
   /// **'We couldn\'t restore your purchases. Please try again.'**
   String get restoreErrorDescription;
 
+  /// Title shown when no purchases are found to restore
+  ///
+  /// In en, this message translates to:
+  /// **'No Previous Purchases Found'**
+  String get noPurchasesFound;
+
+  /// Description shown when no purchases are found to restore
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find any previous purchases to restore. Make sure you\'re signed in with the same Apple ID you used for the original purchase.'**
+  String get noPurchasesFoundDescription;
+
   /// Feedback screen title
   ///
   /// In en, this message translates to:

@@ -1082,6 +1082,10 @@
   "@purchaseErrorDescription": {"description": "Detailed message shown when purchase fails"},
   "restoreErrorDescription": "We couldn't restore your purchases. Please try again.",
   "@restoreErrorDescription": {"description": "Detailed message shown when restore fails"},
+  "noPurchasesFound": "No Previous Purchases Found",
+  "@noPurchasesFound": {"description": "Title shown when no purchases are found to restore"},
+  "noPurchasesFoundDescription": "We couldn't find any previous purchases to restore. Make sure you're signed in with the same Apple ID you used for the original purchase.",
+  "@noPurchasesFoundDescription": {"description": "Description shown when no purchases are found to restore"},
 
   "feedback": "Feedback",
   "@feedback": {

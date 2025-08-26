@@ -801,6 +801,13 @@ class AppLocalizationsId extends AppLocalizations {
       'Kami tidak dapat memulihkan pembelian Anda. Silakan coba lagi.';
 
   @override
+  String get noPurchasesFound => 'Tidak Ada Pembelian Sebelumnya Ditemukan';
+
+  @override
+  String get noPurchasesFoundDescription =>
+      'Kami tidak dapat menemukan pembelian sebelumnya untuk dipulihkan. Pastikan Anda masuk dengan Apple ID yang sama yang Anda gunakan untuk pembelian asli.';
+
+  @override
   String get feedback => 'Umpan Balik';
 
   @override
