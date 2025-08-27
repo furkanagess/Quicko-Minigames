@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,7 +9,22 @@ class InAppPurchaseService {
   factory InAppPurchaseService() => _instance;
   InAppPurchaseService._internal();
 
-  static const String _adFreeSubscriptionId = 'one_time_payment_299';
+  // Platform-specific product IDs
+  static const String _adFreeSubscriptionIdIOS = 'one_time_payment_299';
+  static const String _adFreeSubscriptionIdAndroid = 'one_time_payment';
+
+  // Get the appropriate product ID based on platform
+  String get _adFreeSubscriptionId {
+    if (Platform.isIOS) {
+      return _adFreeSubscriptionIdIOS;
+    } else if (Platform.isAndroid) {
+      return _adFreeSubscriptionIdAndroid;
+    } else {
+      // Default to iOS ID for other platforms
+      return _adFreeSubscriptionIdIOS;
+    }
+  }
+
   static const String _isAdFreeKey = 'is_ad_free';
   static const String _subscriptionExpiryKey = 'subscription_expiry';
   static const String _subscriptionStartKey = 'subscription_start';
@@ -28,6 +44,9 @@ class InAppPurchaseService {
   DateTime? get subscriptionStart => _subscriptionStart;
   DateTime? get lastPaymentDate => _lastPaymentDate;
   bool get isInitialized => _isInitialized;
+
+  /// Get the current platform's product ID (for debugging/logging)
+  String get currentProductId => _adFreeSubscriptionId;
 
   /// Initialize the in-app purchase service
   Future<void> initialize() async {
@@ -152,7 +171,9 @@ class InAppPurchaseService {
 
   /// Handle successful purchase
   void _handleSuccessfulPurchase(PurchaseDetails purchaseDetails) async {
-    if (purchaseDetails.productID == _adFreeSubscriptionId) {
+    // Check for both iOS and Android product IDs
+    if (purchaseDetails.productID == _adFreeSubscriptionIdIOS ||
+        purchaseDetails.productID == _adFreeSubscriptionIdAndroid) {
       final now = DateTime.now();
 
       _isAdFree = true;
