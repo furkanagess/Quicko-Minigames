@@ -10,7 +10,7 @@ class InAppPurchaseService {
   InAppPurchaseService._internal();
 
   // Platform-specific product IDs
-  static const String _adFreeSubscriptionIdIOS = 'renove_ads';
+  static const String _adFreeSubscriptionIdIOS = 'remove_ads_ios';
   static const String _adFreeSubscriptionIdAndroid = 'one_time_payment';
 
   // Get the appropriate product ID based on platform
@@ -38,12 +38,14 @@ class InAppPurchaseService {
   DateTime? _subscriptionStart;
   DateTime? _lastPaymentDate;
   bool _isInitialized = false;
+  bool _isAvailable = false;
 
   bool get isAdFree => _isAdFree;
   DateTime? get subscriptionExpiry => _subscriptionExpiry;
   DateTime? get subscriptionStart => _subscriptionStart;
   DateTime? get lastPaymentDate => _lastPaymentDate;
   bool get isInitialized => _isInitialized;
+  bool get isAvailable => _isAvailable;
 
   /// Get the current platform's product ID (for debugging/logging)
   String get currentProductId => _adFreeSubscriptionId;
@@ -53,6 +55,14 @@ class InAppPurchaseService {
     if (_isInitialized) return;
 
     try {
+      // Check if in-app purchase is available
+      _isAvailable = await _inAppPurchase.isAvailable();
+
+      if (!_isAvailable) {
+        print('In-app purchase is not available on this device');
+        return;
+      }
+
       // Load saved subscription status
       await _loadSubscriptionStatus();
 
@@ -293,6 +303,75 @@ class InAppPurchaseService {
   String getSubscriptionStatusText() {
     if (!_isAdFree) return 'Not purchased';
     return 'Lifetime access';
+  }
+
+  /// Debug method to check service status
+  Future<Map<String, dynamic>> getDebugInfo() async {
+    return {
+      'isInitialized': _isInitialized,
+      'isAvailable': _isAvailable,
+      'isAdFree': _isAdFree,
+      'currentProductId': _adFreeSubscriptionId,
+      'platform': Platform.operatingSystem,
+      'subscriptionExpiry': _subscriptionExpiry?.toIso8601String(),
+      'subscriptionStart': _subscriptionStart?.toIso8601String(),
+      'lastPaymentDate': _lastPaymentDate?.toIso8601String(),
+    };
+  }
+
+  /// Test method for development
+  Future<void> testConnection() async {
+    try {
+      print('Testing in-app purchase connection...');
+
+      if (!_isAvailable) {
+        print('❌ In-app purchase not available');
+        return;
+      }
+
+      print('✅ In-app purchase available');
+
+      if (!_isInitialized) {
+        print('❌ Service not initialized');
+        return;
+      }
+
+      print('✅ Service initialized');
+
+      // Test product query
+      final response = await _inAppPurchase.queryProductDetails({
+        _adFreeSubscriptionId,
+      });
+
+      if (response.error != null) {
+        print('❌ Product query error: ${response.error}');
+        print('Error details: ${response.error!.message}');
+        print('Error code: ${response.error!.code}');
+      } else if (response.productDetails.isEmpty) {
+        print('❌ No products found for ID: $_adFreeSubscriptionId');
+        print('Available product IDs: ${response.notFoundIDs}');
+      } else {
+        print('✅ Found ${response.productDetails.length} products');
+        for (final product in response.productDetails) {
+          print('  - ${product.title}: ${product.price}');
+          print('    ID: ${product.id}');
+          print('    Description: ${product.description}');
+        }
+      }
+    } catch (e) {
+      print('❌ Test connection error: $e');
+      print('Error type: ${e.runtimeType}');
+    }
+  }
+
+  /// Simple test method that can be called from UI
+  Future<String> quickTest() async {
+    try {
+      await testConnection();
+      return 'Test completed. Check console for details.';
+    } catch (e) {
+      return 'Test failed: $e';
+    }
   }
 
   /// Dispose the service
