@@ -10,7 +10,7 @@ class InAppPurchaseService {
   InAppPurchaseService._internal();
 
   // Platform-specific product IDs
-  static const String _adFreeSubscriptionIdIOS = 'one_time_payment_ads_remove';
+  static const String _adFreeSubscriptionIdIOS = 'renove_ads';
   static const String _adFreeSubscriptionIdAndroid = 'one_time_payment';
 
   // Get the appropriate product ID based on platform
