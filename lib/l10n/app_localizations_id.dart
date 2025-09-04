@@ -1083,4 +1083,14 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Jika Anda menghapus aplikasi, semua skor permainan dan hak berlangganan Anda akan dihapus secara permanen.';
+
+  @override
+  String get comingSoon => 'Segera Hadir';
+
+  @override
+  String get comingSoonMessage =>
+      'Pembelian dalam aplikasi tidak tersedia di perangkat iOS. Silakan gunakan perangkat Android untuk membeli versi bebas iklan.';
+
+  @override
+  String get comingSoonTitle => 'Pembelian Dalam Aplikasi Tidak Tersedia';
 }

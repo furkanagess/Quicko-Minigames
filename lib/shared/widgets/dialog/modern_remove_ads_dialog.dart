@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../l10n/app_localizations.dart';
@@ -184,7 +185,10 @@ class _ModernRemoveAdsDialogState
                   text: localizations.buyNow,
                   onPressed: () {
                     Navigator.of(context).pop();
-                    AppRouter.pushNamed(context, '/ad-free-subscription');
+                    // Don't navigate to ad-free subscription on iOS
+                    if (!Platform.isIOS) {
+                      AppRouter.pushNamed(context, '/ad-free-subscription');
+                    }
                   },
                   style: ModernDialogButtonStyle.primary(AppTheme.goldYellow),
                 ),

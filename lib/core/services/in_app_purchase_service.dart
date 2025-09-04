@@ -54,6 +54,13 @@ class InAppPurchaseService {
   Future<void> initialize() async {
     if (_isInitialized) return;
 
+    // Don't initialize in-app purchase on iOS
+    if (Platform.isIOS) {
+      _isInitialized = true;
+      _isAvailable = false;
+      return;
+    }
+
     try {
       // Check if in-app purchase is available
       _isAvailable = await _inAppPurchase.isAvailable();
@@ -199,6 +206,11 @@ class InAppPurchaseService {
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
+    // Don't allow purchases on iOS
+    if (Platform.isIOS) {
+      return false;
+    }
+
     try {
       // Check if already subscribed
       if (_isAdFree) {
@@ -236,6 +248,11 @@ class InAppPurchaseService {
 
   /// Restore purchases
   Future<bool> restorePurchases() async {
+    // Don't allow restore on iOS
+    if (Platform.isIOS) {
+      return false;
+    }
+
     try {
       // Check if already ad-free (no need to restore if already active)
       if (_isAdFree) {

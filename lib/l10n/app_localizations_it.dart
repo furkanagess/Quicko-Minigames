@@ -1081,4 +1081,14 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Se disinstalli l\'app, tutti i tuoi punteggi di gioco e diritti di abbonamento verranno eliminati definitivamente.';
+
+  @override
+  String get comingSoon => 'Prossimamente';
+
+  @override
+  String get comingSoonMessage =>
+      'Gli acquisti in-app non sono disponibili sui dispositivi iOS. Utilizza un dispositivo Android per acquistare la versione senza pubblicità.';
+
+  @override
+  String get comingSoonTitle => 'Acquisti In-App Non Disponibili';
 }

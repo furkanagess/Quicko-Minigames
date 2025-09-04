@@ -1115,5 +1115,17 @@
   "uninstallWarningMessage": "यदि आप ऐप को अनइंस्टॉल करते हैं, तो आपके सभी गेम स्कोर और सदस्यता अधिकार स्थायी रूप से हटा दिए जाएंगे।",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  "comingSoon": "जल्द आ रहा है",
+  "@comingSoon": {
+    "description": "Text shown for features that will be available in the future"
+  },
+  "comingSoonMessage": "ऐप-इन खरीदारी iOS डिवाइस पर उपलब्ध नहीं है। कृपया विज्ञापन-मुक्त संस्करण खरीदने के लिए Android डिवाइस का उपयोग करें।",
+  "@comingSoonMessage": {
+    "description": "Message explaining why in-app purchases are not available on iOS"
+  },
+  "comingSoonTitle": "ऐप-इन खरीदारी उपलब्ध नहीं है",
+  "@comingSoonTitle": {
+    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

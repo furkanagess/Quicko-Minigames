@@ -1074,6 +1074,16 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.';
+
+  @override
+  String get comingSoon => 'Coming Soon';
+
+  @override
+  String get comingSoonMessage =>
+      'In-app purchases are not available on iOS devices. Please use an Android device to purchase the ad-free version.';
+
+  @override
+  String get comingSoonTitle => 'In-App Purchases Not Available';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -2061,4 +2071,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get uninstallWarningMessage =>
       'Se você desinstalar o aplicativo, todas as suas pontuações de jogo e direitos de assinatura serão permanentemente excluídos.';
+
+  @override
+  String get comingSoon => 'Em Breve';
+
+  @override
+  String get comingSoonMessage =>
+      'As compras no aplicativo não estão disponíveis em dispositivos iOS. Use um dispositivo Android para comprar a versão sem anúncios.';
+
+  @override
+  String get comingSoonTitle => 'Compras No Aplicativo Não Disponíveis';
 }

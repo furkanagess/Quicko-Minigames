@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'dart:io';
 import '../services/in_app_purchase_service.dart';
 
 class InAppPurchaseProvider extends ChangeNotifier {
@@ -21,6 +22,7 @@ class InAppPurchaseProvider extends ChangeNotifier {
   String get subscriptionStatusText =>
       _purchaseService.getSubscriptionStatusText();
   String? get errorMessage => _errorMessage;
+  bool get isIOS => Platform.isIOS;
 
   InAppPurchaseProvider() {
     _initialize();
@@ -44,6 +46,13 @@ class InAppPurchaseProvider extends ChangeNotifier {
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
+    // Don't allow purchases on iOS
+    if (Platform.isIOS) {
+      _errorMessage = 'In-app purchases are not available on iOS';
+      notifyListeners();
+      return false;
+    }
+
     if (!_isInitialized) {
       _errorMessage = 'Purchase service not initialized';
       notifyListeners();
@@ -75,6 +84,13 @@ class InAppPurchaseProvider extends ChangeNotifier {
 
   /// Restore purchases
   Future<bool> restorePurchases() async {
+    // Don't allow restore on iOS
+    if (Platform.isIOS) {
+      _errorMessage = 'Restore purchases are not available on iOS';
+      notifyListeners();
+      return false;
+    }
+
     if (!_isInitialized) {
       _errorMessage = 'Purchase service not initialized';
       notifyListeners();

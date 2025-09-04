@@ -545,7 +545,10 @@
     "onboardingTitle3",
     "onboardingDescription3",
     "uninstallWarningTitle",
-    "uninstallWarningMessage"
+    "uninstallWarningMessage",
+    "comingSoon",
+    "comingSoonMessage",
+    "comingSoonTitle"
   ],
 
   "pt_BR": [

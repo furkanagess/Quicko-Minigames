@@ -1085,4 +1085,14 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.';
+
+  @override
+  String get comingSoon => 'Скоро Доступно';
+
+  @override
+  String get comingSoonMessage =>
+      'Покупки в приложении недоступны на устройствах iOS. Пожалуйста, используйте устройство Android для покупки версии без рекламы.';
+
+  @override
+  String get comingSoonTitle => 'Покупки В Приложении Недоступны';
 }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 import '../../../l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -63,6 +64,50 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Show iOS not supported message
+    if (Platform.isIOS) {
+      return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: _buildAppBar(),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.info_outline_rounded,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: AppConstants.mediumSpacing),
+                  Text(
+                    AppLocalizations.of(context)!.comingSoonTitle,
+                    style: TextThemeManager.screenTitle.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppConstants.smallSpacing),
+                  Text(
+                    'In-app purchases are not available on iOS devices. Please use an Android device to purchase the ad-free version.',
+                    style: TextThemeManager.bodyMedium.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(),

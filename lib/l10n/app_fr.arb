@@ -1143,5 +1143,17 @@
   "uninstallWarningMessage": "Si vous désinstallez l'application, tous vos scores de jeu et droits d'abonnement seront définitivement supprimés.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  "comingSoon": "Bientôt Disponible",
+  "@comingSoon": {
+    "description": "Text shown for features that will be available in the future"
+  },
+  "comingSoonMessage": "Les achats intégrés ne sont pas disponibles sur les appareils iOS. Veuillez utiliser un appareil Android pour acheter la version sans publicité.",
+  "@comingSoonMessage": {
+    "description": "Message explaining why in-app purchases are not available on iOS"
+  },
+  "comingSoonTitle": "Achats Intégrés Non Disponibles",
+  "@comingSoonTitle": {
+    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

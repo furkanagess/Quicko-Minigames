@@ -1086,4 +1086,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Si vous désinstallez l\'application, tous vos scores de jeu et droits d\'abonnement seront définitivement supprimés.';
+
+  @override
+  String get comingSoon => 'Bientôt Disponible';
+
+  @override
+  String get comingSoonMessage =>
+      'Les achats intégrés ne sont pas disponibles sur les appareils iOS. Veuillez utiliser un appareil Android pour acheter la version sans publicité.';
+
+  @override
+  String get comingSoonTitle => 'Achats Intégrés Non Disponibles';
 }
