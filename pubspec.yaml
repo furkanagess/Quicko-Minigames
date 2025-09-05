@@ -1,7 +1,7 @@
 name: quicko_app
 description: "Quicko"
 publish_to: 'none' 
-version: 1.0.0+12
+version: 1.0.0+13
 
 environment:
   sdk: ^3.7.0
@@ -68,7 +68,6 @@ flutter:
   assets:
     - assets/sounds/
     - assets/icon/
-    - assets/logo/
     - assets/lottie/
 
   fonts:

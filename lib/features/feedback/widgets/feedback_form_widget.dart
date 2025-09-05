@@ -194,7 +194,7 @@ class FeedbackFormWidget extends StatelessWidget {
             ],
           ),
           child: DropdownButtonFormField<String>(
-            value: _getValidDropdownValue(
+            initialValue: _getValidDropdownValue(
               provider.feedbackData.category,
               context,
             ),

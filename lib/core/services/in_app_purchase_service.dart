@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, empty_catches
+
 import 'dart:async';
 import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -66,7 +68,6 @@ class InAppPurchaseService {
       _isAvailable = await _inAppPurchase.isAvailable();
 
       if (!_isAvailable) {
-        print('In-app purchase is not available on this device');
         return;
       }
 
@@ -339,21 +340,13 @@ class InAppPurchaseService {
   /// Test method for development
   Future<void> testConnection() async {
     try {
-      print('Testing in-app purchase connection...');
-
       if (!_isAvailable) {
-        print('❌ In-app purchase not available');
         return;
       }
-
-      print('✅ In-app purchase available');
 
       if (!_isInitialized) {
-        print('❌ Service not initialized');
         return;
       }
-
-      print('✅ Service initialized');
 
       // Test product query
       final response = await _inAppPurchase.queryProductDetails({
@@ -361,24 +354,11 @@ class InAppPurchaseService {
       });
 
       if (response.error != null) {
-        print('❌ Product query error: ${response.error}');
-        print('Error details: ${response.error!.message}');
-        print('Error code: ${response.error!.code}');
       } else if (response.productDetails.isEmpty) {
-        print('❌ No products found for ID: $_adFreeSubscriptionId');
-        print('Available product IDs: ${response.notFoundIDs}');
       } else {
-        print('✅ Found ${response.productDetails.length} products');
-        for (final product in response.productDetails) {
-          print('  - ${product.title}: ${product.price}');
-          print('    ID: ${product.id}');
-          print('    Description: ${product.description}');
-        }
+        for (final product in response.productDetails) {}
       }
-    } catch (e) {
-      print('❌ Test connection error: $e');
-      print('Error type: ${e.runtimeType}');
-    }
+    } catch (e) {}
   }
 
   /// Simple test method that can be called from UI
