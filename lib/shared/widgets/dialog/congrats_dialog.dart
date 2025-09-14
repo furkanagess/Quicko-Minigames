@@ -3,6 +3,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../l10n/app_localizations.dart';
 import 'modern_dialog_base.dart';
 import 'dialog_config.dart';
+import 'continue_game_dialog.dart';
 
 class CongratsDialog extends ModernDialogBase {
   final String gameId;
@@ -61,8 +62,9 @@ class _CongratsDialogState extends ModernDialogBaseState<CongratsDialog> {
                 ModernDialogButton(
                   text: localizations.restart,
                   onPressed: () {
+                    // Restart immediately (no navigation) and return intent to caller
                     widget.onRestart();
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(ContinueGameResult.restarted);
                   },
                   style: ModernDialogButtonStyle.secondary(
                     AppTheme.darkWarning,
@@ -72,8 +74,8 @@ class _CongratsDialogState extends ModernDialogBaseState<CongratsDialog> {
                 ModernDialogButton(
                   text: localizations.exit,
                   onPressed: () {
-                    widget.onExit();
-                    Navigator.of(context).pop();
+                    // Do not exit here. Return intent so caller can save score first.
+                    Navigator.of(context).pop(ContinueGameResult.exited);
                   },
                   style: ModernDialogButtonStyle.primary(AppTheme.darkSuccess),
                   icon: Icons.exit_to_app_rounded,

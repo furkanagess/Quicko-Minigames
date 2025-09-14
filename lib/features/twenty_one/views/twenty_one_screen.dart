@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart' hide Card;
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -92,8 +93,11 @@ class _TwentyOneView extends StatelessWidget {
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // final maxWidth = constraints.maxWidth;
-        // final maxHeight = constraints.maxHeight;
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing =
+            isSmallScreen
+                ? AppConstants.smallSpacing
+                : AppConstants.mediumSpacing;
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -105,21 +109,33 @@ class _TwentyOneView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Score display
-                  _buildScoreDisplay(context, gameState),
+                  _buildScoreDisplay(context, gameState, isSmallScreen),
                 ],
               ),
             ),
 
             // Middle section: Player and Dealer side by side
             Expanded(
-              flex: 4,
+              flex: isSmallScreen ? 3 : 4,
               child: Row(
                 children: [
                   // You section (left)
-                  Expanded(child: _buildPlayerSection(context, gameState)),
-                  const SizedBox(width: AppConstants.mediumSpacing),
+                  Expanded(
+                    child: _buildPlayerSection(
+                      context,
+                      gameState,
+                      isSmallScreen,
+                    ),
+                  ),
+                  SizedBox(width: spacing),
                   // Dealer section (right)
-                  Expanded(child: _buildDealerSection(context, gameState)),
+                  Expanded(
+                    child: _buildDealerSection(
+                      context,
+                      gameState,
+                      isSmallScreen,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -132,7 +148,12 @@ class _TwentyOneView extends StatelessWidget {
                 children: [
                   // Action buttons
                   if (gameState.isGameActive && !gameState.isDealerTurn)
-                    _buildActionButtons(context, gameState, provider),
+                    _buildActionButtons(
+                      context,
+                      gameState,
+                      provider,
+                      isSmallScreen,
+                    ),
                 ],
               ),
             ),
@@ -145,12 +166,16 @@ class _TwentyOneView extends StatelessWidget {
   Widget _buildScoreDisplay(
     BuildContext context,
     TwentyOneGameState gameState,
+    bool isSmallScreen,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: isSmallScreen ? 12 : 16,
+        vertical: isSmallScreen ? 6 : 8,
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 12 : 16),
         border: Border.all(
           color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
           width: 1,
@@ -162,15 +187,18 @@ class _TwentyOneView extends StatelessWidget {
           Icon(
             AppIcons.trophy,
             color: Theme.of(context).colorScheme.primary,
-            size: 18,
+            size: isSmallScreen ? 16 : 18,
           ),
-          const SizedBox(width: 6),
+          SizedBox(width: isSmallScreen ? 4 : 6),
           Text(
             '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-            style: TextThemeManager.subtitleMedium.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold,
-            ),
+            style: (isSmallScreen
+                    ? TextThemeManager.bodyMedium
+                    : TextThemeManager.subtitleMedium)
+                .copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ],
       ),
@@ -180,22 +208,32 @@ class _TwentyOneView extends StatelessWidget {
   Widget _buildDealerSection(
     BuildContext context,
     TwentyOneGameState gameState,
+    bool isSmallScreen,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           AppLocalizations.of(context)!.dealer,
-          style: TextThemeManager.subtitleMedium.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
+          style: (isSmallScreen
+                  ? TextThemeManager.bodyMedium
+                  : TextThemeManager.subtitleMedium)
+              .copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        const SizedBox(height: AppConstants.smallSpacing),
+        SizedBox(
+          height:
+              isSmallScreen
+                  ? AppConstants.smallSpacing / 2
+                  : AppConstants.smallSpacing,
+        ),
         _buildHandDisplay(
           context,
           gameState.dealerHand,
           gameState.dealerVisibleTotal,
+          isSmallScreen,
         ),
       ],
     );
@@ -204,30 +242,54 @@ class _TwentyOneView extends StatelessWidget {
   Widget _buildPlayerSection(
     BuildContext context,
     TwentyOneGameState gameState,
+    bool isSmallScreen,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           AppLocalizations.of(context)!.you,
-          style: TextThemeManager.subtitleMedium.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.bold,
-          ),
+          style: (isSmallScreen
+                  ? TextThemeManager.bodyMedium
+                  : TextThemeManager.subtitleMedium)
+              .copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        const SizedBox(height: AppConstants.smallSpacing),
-        _buildHandDisplay(context, gameState.playerHand, gameState.playerTotal),
+        SizedBox(
+          height:
+              isSmallScreen
+                  ? AppConstants.smallSpacing / 2
+                  : AppConstants.smallSpacing,
+        ),
+        _buildHandDisplay(
+          context,
+          gameState.playerHand,
+          gameState.playerTotal,
+          isSmallScreen,
+        ),
       ],
     );
   }
 
-  Widget _buildHandDisplay(BuildContext context, List<Card> hand, int total) {
+  Widget _buildHandDisplay(
+    BuildContext context,
+    List<Card> hand,
+    int total,
+    bool isSmallScreen,
+  ) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 280),
-      padding: const EdgeInsets.all(12),
+      constraints: BoxConstraints(
+        maxWidth: min(
+          MediaQuery.of(context).size.width * (isSmallScreen ? 0.6 : 0.7),
+          MediaQuery.of(context).size.height * (isSmallScreen ? 0.4 : 0.5),
+        ),
+      ),
+      padding: EdgeInsets.all(isSmallScreen ? 8 : 12),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 8 : 12),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
           width: 1,
@@ -244,18 +306,29 @@ class _TwentyOneView extends StatelessWidget {
         children: [
           // Cards
           Wrap(
-            spacing: 4,
-            runSpacing: 4,
+            spacing: isSmallScreen ? 2 : 4,
+            runSpacing: isSmallScreen ? 2 : 4,
             alignment: WrapAlignment.center,
-            children: hand.map((card) => _buildCard(context, card)).toList(),
+            children:
+                hand
+                    .map((card) => _buildCard(context, card, isSmallScreen))
+                    .toList(),
           ),
-          const SizedBox(height: AppConstants.smallSpacing),
+          SizedBox(
+            height:
+                isSmallScreen
+                    ? AppConstants.smallSpacing / 2
+                    : AppConstants.smallSpacing,
+          ),
           // Total
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: EdgeInsets.symmetric(
+              horizontal: isSmallScreen ? 8 : 12,
+              vertical: isSmallScreen ? 4 : 6,
+            ),
             decoration: BoxDecoration(
               color: AppTheme.darkPrimary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(isSmallScreen ? 6 : 8),
               border: Border.all(
                 color: AppTheme.darkPrimary.withValues(alpha: 0.2),
                 width: 1,
@@ -263,10 +336,13 @@ class _TwentyOneView extends StatelessWidget {
             ),
             child: Text(
               '${AppLocalizations.of(context)!.total}: $total',
-              style: TextThemeManager.bodyMedium.copyWith(
-                color: AppTheme.darkPrimary,
-                fontWeight: FontWeight.bold,
-              ),
+              style: (isSmallScreen
+                      ? TextThemeManager.bodySmall
+                      : TextThemeManager.bodyMedium)
+                  .copyWith(
+                    color: AppTheme.darkPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ),
         ],
@@ -274,13 +350,19 @@ class _TwentyOneView extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, Card card) {
+  Widget _buildCard(BuildContext context, Card card, bool isSmallScreen) {
     return Container(
-      width: 55,
-      height: 75,
+      width: min(
+        MediaQuery.of(context).size.width * (isSmallScreen ? 0.11 : 0.13),
+        MediaQuery.of(context).size.height * (isSmallScreen ? 0.08 : 0.1),
+      ),
+      height: min(
+        MediaQuery.of(context).size.width * (isSmallScreen ? 0.16 : 0.18),
+        MediaQuery.of(context).size.height * (isSmallScreen ? 0.12 : 0.14),
+      ),
       decoration: BoxDecoration(
         color: card.isHidden ? AppTheme.overlayDark : Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 6 : 8),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
           width: 1,
@@ -297,7 +379,16 @@ class _TwentyOneView extends StatelessWidget {
         child: Text(
           card.displayName,
           style: TextStyle(
-            fontSize: card.isHidden ? 18 : 14,
+            fontSize: min(
+              MediaQuery.of(context).size.width *
+                  (card.isHidden
+                      ? (isSmallScreen ? 0.04 : 0.045)
+                      : (isSmallScreen ? 0.03 : 0.035)),
+              MediaQuery.of(context).size.height *
+                  (card.isHidden
+                      ? (isSmallScreen ? 0.03 : 0.035)
+                      : (isSmallScreen ? 0.02 : 0.025)),
+            ),
             fontWeight: FontWeight.bold,
             color: card.isHidden ? Colors.white : _getCardColor(card.suit),
           ),
@@ -317,9 +408,15 @@ class _TwentyOneView extends StatelessWidget {
     BuildContext context,
     TwentyOneGameState gameState,
     TwentyOneProvider provider,
+    bool isSmallScreen,
   ) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 400),
+      constraints: BoxConstraints(
+        maxWidth: min(
+          MediaQuery.of(context).size.width * (isSmallScreen ? 0.8 : 0.9),
+          MediaQuery.of(context).size.height * (isSmallScreen ? 0.5 : 0.6),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -329,6 +426,7 @@ class _TwentyOneView extends StatelessWidget {
             Icons.add,
             AppTheme.darkSuccess,
             gameState.canHit ? () => provider.hit() : null,
+            isSmallScreen,
           ),
           _buildActionButton(
             context,
@@ -336,6 +434,7 @@ class _TwentyOneView extends StatelessWidget {
             Icons.stop,
             AppTheme.darkError,
             gameState.canStand ? () => provider.stand() : null,
+            isSmallScreen,
           ),
         ],
       ),
@@ -348,16 +447,23 @@ class _TwentyOneView extends StatelessWidget {
     IconData icon,
     Color color,
     VoidCallback? onPressed,
+    bool isSmallScreen,
   ) {
     return Container(
-      width: 120,
-      height: 60,
+      width: min(
+        MediaQuery.of(context).size.width * (isSmallScreen ? 0.25 : 0.3),
+        MediaQuery.of(context).size.height * (isSmallScreen ? 0.15 : 0.18),
+      ),
+      height: min(
+        MediaQuery.of(context).size.width * (isSmallScreen ? 0.12 : 0.15),
+        MediaQuery.of(context).size.height * (isSmallScreen ? 0.08 : 0.1),
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 12 : 16),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.3),
-            blurRadius: 8,
+            blurRadius: isSmallScreen ? 6 : 8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -368,7 +474,7 @@ class _TwentyOneView extends StatelessWidget {
           backgroundColor: color,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(isSmallScreen ? 12 : 16),
           ),
           elevation: 0,
           padding: EdgeInsets.zero,
@@ -376,12 +482,25 @@ class _TwentyOneView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 24),
-            const SizedBox(height: 4),
+            Icon(
+              icon,
+              size: min(
+                MediaQuery.of(context).size.width *
+                    (isSmallScreen ? 0.05 : 0.06),
+                MediaQuery.of(context).size.height *
+                    (isSmallScreen ? 0.035 : 0.04),
+              ),
+            ),
+            SizedBox(height: isSmallScreen ? 2 : 4),
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: min(
+                  MediaQuery.of(context).size.width *
+                      (isSmallScreen ? 0.03 : 0.035),
+                  MediaQuery.of(context).size.height *
+                      (isSmallScreen ? 0.02 : 0.025),
+                ),
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.5,
               ),

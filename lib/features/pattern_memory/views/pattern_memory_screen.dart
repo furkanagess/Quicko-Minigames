@@ -1,8 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 
-import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_icons.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
@@ -73,47 +73,67 @@ class PatternMemoryScreen extends StatelessWidget {
     PatternMemoryGameState gameState,
     PatternMemoryProvider provider,
   ) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Score info (matched to Find Difference design)
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.2),
-              width: 1,
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                AppIcons.trophy,
-                color: Theme.of(context).colorScheme.primary,
-                size: 18,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing = isSmallScreen ? 24.0 : 32.0;
+        final horizontalPadding = isSmallScreen ? 12.0 : 16.0;
+        final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+        final borderRadius = isSmallScreen ? 12.0 : 16.0;
+        final iconSize = isSmallScreen ? 16.0 : 18.0;
+        final iconSpacing = isSmallScreen ? 4.0 : 6.0;
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Score info (matched to Find Difference design)
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
               ),
-              const SizedBox(width: 6),
-              Text(
-                '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-                style: TextThemeManager.subtitleMedium.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
+              decoration: BoxDecoration(
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(borderRadius),
+                border: Border.all(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.2),
+                  width: 1,
                 ),
               ),
-            ],
-          ),
-        ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    AppIcons.trophy,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: iconSize,
+                  ),
+                  SizedBox(width: iconSpacing),
+                  Text(
+                    '${AppLocalizations.of(context)!.score}: ${gameState.score}',
+                    style: (isSmallScreen
+                            ? TextThemeManager.bodyMedium
+                            : TextThemeManager.subtitleMedium)
+                        .copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
+              ),
+            ),
 
-        const SizedBox(height: AppConstants.extraLargeSpacing),
+            SizedBox(height: spacing),
 
-        // Game grid
-        _buildGameGrid(context, gameState, provider),
-      ],
+            // Game grid
+            _buildGameGrid(context, gameState, provider, isSmallScreen),
+          ],
+        );
+      },
     );
   }
 
@@ -121,31 +141,77 @@ class PatternMemoryScreen extends StatelessWidget {
     BuildContext context,
     PatternMemoryGameState gameState,
     PatternMemoryProvider provider,
+    bool isSmallScreen,
   ) {
-    const gridSize = 5;
-    const tileSpacing = 8.0;
-    const tileRadius = 8.0;
+    const gridCount = 5;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Boşluklar ekran boyutuna göre ayarlanır
+    final baseTileSpacing = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final tileSpacing = baseTileSpacing.clamp(6.0, 8.0);
+
+    // Kenar yuvarlaklığı ekran boyutuna göre ayarlanır
+    final baseTileRadius = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final tileRadius = baseTileRadius.clamp(6.0, 8.0);
+
+    // Padding ekran boyutuna göre ayarlanır
+    final basePadding = min(
+      screenWidth * (isSmallScreen ? 0.08 : 0.1),
+      screenHeight * (isSmallScreen ? 0.06 : 0.08),
+    );
+    final padding = basePadding.clamp(32.0, 40.0);
+
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final blurRadius = baseBlurRadius.clamp(6.0, 8.0);
+
+    final baseShadowOffset = min(
+      screenWidth * (isSmallScreen ? 0.003 : 0.005),
+      screenHeight * (isSmallScreen ? 0.002 : 0.003),
+    );
+    final shadowOffset = baseShadowOffset.clamp(1.0, 2.0);
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final maxSize = constraints.maxWidth - 40; // Padding
+        // Grid boyutu ekran boyutuna göre ayarlanır
+        final baseSize = min(
+          screenWidth * (isSmallScreen ? 0.85 : 0.9),
+          screenHeight * (isSmallScreen ? 0.6 : 0.7),
+        );
+
+        // Minimum ve maksimum boyutlar
+        final minSize = min(300.0, screenWidth * 0.7);
+        final maxSize = min(500.0, screenWidth * 0.9);
+
+        // Final boyut
+        final gridSize = (baseSize.clamp(minSize, maxSize) - padding);
 
         return SizedBox(
-          width: maxSize,
-          height: maxSize,
+          width: gridSize,
+          height: gridSize,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: gridSize,
+              crossAxisCount: gridCount,
               mainAxisSpacing: tileSpacing,
               crossAxisSpacing: tileSpacing,
               childAspectRatio: 1,
             ),
-            itemCount: gridSize * gridSize,
+            itemCount: gridCount * gridCount,
             itemBuilder: (context, index) {
-              final row = index ~/ gridSize;
-              final col = index % gridSize;
+              final row = index ~/ gridCount;
+              final col = index % gridCount;
 
               final isHighlighted = gameState.pattern.contains(index);
               final isSelected = gameState.userSelection.contains(index);
@@ -181,14 +247,14 @@ class PatternMemoryScreen extends StatelessWidget {
                       color: Theme.of(
                         context,
                       ).colorScheme.onSurface.withValues(alpha: 0.2),
-                      width: 1,
+                      width: isSmallScreen ? 0.5 : 1.0,
                     ),
                     boxShadow: [
                       if (isSelected || isHighlighted || isWrong)
                         BoxShadow(
                           color: tileColor.withValues(alpha: 0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
+                          blurRadius: blurRadius,
+                          offset: Offset(0, shadowOffset),
                         ),
                     ],
                   ),

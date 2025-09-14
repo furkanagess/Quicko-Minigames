@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:quicko_app/core/config/app_initializer.dart';
+import 'package:device_preview/device_preview.dart';
 import 'l10n/app_localizations.dart';
 
 import 'core/theme/app_theme.dart';
@@ -22,7 +23,12 @@ import 'core/routes/navigation_observer.dart';
 
 void main() async {
   await AppInitializer.initialize();
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !const bool.fromEnvironment('dart.vm.product'),
+      builder: (context) => const MyApp(),
+    ),
+  );
   WidgetsBinding.instance.addPostFrameCallback((_) {
     SoundUtils.playOpeningSound();
   });
@@ -55,6 +61,9 @@ class MyApp extends StatelessWidget {
             title: 'Quicko',
             debugShowCheckedModeBanner: false,
             navigatorKey: GlobalContext.navigatorKey,
+            useInheritedMediaQuery: true,
+            locale:
+                DevicePreview.locale(context) ?? languageProvider.currentLocale,
 
             // Localization
             localizationsDelegates: [
@@ -64,7 +73,6 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: SupportedLocales.locales,
-            locale: languageProvider.currentLocale,
 
             // Theme
             theme: AppTheme.getLightTheme(),

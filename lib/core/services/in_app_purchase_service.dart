@@ -56,7 +56,7 @@ class InAppPurchaseService {
   Future<void> initialize() async {
     if (_isInitialized) return;
 
-    // Don't initialize in-app purchase on iOS
+    // Don't initialize real in-app purchase on iOS (not supported in this app)
     if (Platform.isIOS) {
       _isInitialized = true;
       _isAvailable = false;
@@ -74,6 +74,9 @@ class InAppPurchaseService {
       // Load saved subscription status
       await _loadSubscriptionStatus();
 
+      // Also sync ownership from the store to cover cases like
+      // fresh installs or "you already own this" attempts
+
       // Listen to purchase updates
       _subscription = _inAppPurchase.purchaseStream.listen(
         _onPurchaseUpdate,
@@ -88,6 +91,33 @@ class InAppPurchaseService {
       // Handle error silently in production
     }
   }
+
+  // /// Ensure local ad-free flag reflects store ownership (Android)
+  // Future<void> _syncOwnedPurchaseFromStore() async {
+  //   try {
+  //     // Only attempt when store is available and not on iOS
+  //     if (!_isAvailable || Platform.isIOS) return;
+
+  //     final response = await _inAppPurchase.queryPurchaseHistory();
+  //     if (response.error != null) {
+  //       return;
+  //     }
+
+  //     final owned = response.pastPurchases.any((p) =>
+  //         p.productID == _adFreeSubscriptionIdAndroid ||
+  //         p.productID == _adFreeSubscriptionIdIOS);
+
+  //     if (owned && !_isAdFree) {
+  //       _isAdFree = true;
+  //       _subscriptionExpiry = null;
+  //       _subscriptionStart ??= DateTime.now();
+  //       _lastPaymentDate ??= DateTime.now();
+  //       await _saveSubscriptionStatus();
+  //     }
+  //   } catch (_) {
+  //     // Silently ignore if not supported
+  //   }
+  // }
 
   /// Load subscription status from SharedPreferences
   Future<void> _loadSubscriptionStatus() async {
@@ -207,7 +237,7 @@ class InAppPurchaseService {
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
-    // Don't allow purchases on iOS
+    // Don't allow purchases on iOS (real flow disabled)
     if (Platform.isIOS) {
       return false;
     }
@@ -241,7 +271,13 @@ class InAppPurchaseService {
         purchaseParam: purchaseParam,
       );
 
-      return success;
+      if (success) {
+        return true;
+      }
+
+      // If purchase didn't complete (e.g., already owned), try restore as fallback
+      final restored = await restorePurchases();
+      return restored;
     } catch (e) {
       return false;
     }
@@ -249,7 +285,7 @@ class InAppPurchaseService {
 
   /// Restore purchases
   Future<bool> restorePurchases() async {
-    // Don't allow restore on iOS
+    // Don't allow restore on iOS (real flow disabled)
     if (Platform.isIOS) {
       return false;
     }

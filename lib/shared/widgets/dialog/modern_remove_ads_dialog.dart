@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../core/routes/app_router.dart';
 import 'modern_dialog_base.dart';
 import 'dialog_config.dart';
+import '../../../core/services/in_app_purchase_service.dart';
 
 class ModernRemoveAdsDialog extends ModernDialogBase {
   const ModernRemoveAdsDialog({super.key});
@@ -50,6 +51,45 @@ class _ModernRemoveAdsDialogState
   List<Widget> buildDialogContentList() {
     final localizations = AppLocalizations.of(context)!;
     final headerConfig = DialogConfig.premiumHeader;
+    final isAdFree = InAppPurchaseService().isAdFree;
+
+    // If user is already ad-free, show a simple acknowledgement UI
+    if (isAdFree) {
+      return [
+        buildDialogHeader(
+          icon: Icon(
+            headerConfig.icon,
+            color: Colors.white,
+            size: DialogConfig.iconSize,
+          ),
+          title: localizations.purchaseSuccess,
+          subtitle: localizations.lifetimeAccess,
+          gradientColor: headerConfig.color,
+        ),
+        buildContentSection(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildContentHeader(
+                title: localizations.unlockedBenefits,
+                description: localizations.getCleanExperience,
+              ),
+              DialogConfig.extraLargeVerticalSpacing,
+              buildActionButtons(
+                buttons: [
+                  ModernDialogButton(
+                    text: localizations.gotIt,
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: ModernDialogButtonStyle.primary(AppTheme.darkPrimary),
+                    icon: Icons.check_circle_rounded,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ];
+    }
 
     return [
       // Header

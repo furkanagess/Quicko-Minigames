@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -92,20 +93,35 @@ class _BlindSortView extends StatelessWidget {
     GameState gameState,
     BlindSortProvider provider,
   ) {
-    return Opacity(
-      opacity: gameState.isWaiting ? 0.4 : 1.0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Sabit sayı gösterimi alanı
-          _buildNumberDisplayArea(context, gameState, provider),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing =
+            isSmallScreen
+                ? AppConstants.largeSpacing
+                : AppConstants.extraLargeSpacing;
 
-          const SizedBox(height: AppConstants.extraLargeSpacing),
+        return Opacity(
+          opacity: gameState.isWaiting ? 0.4 : 1.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Sabit sayı gösterimi alanı
+              _buildNumberDisplayArea(
+                context,
+                gameState,
+                provider,
+                isSmallScreen,
+              ),
 
-          // Sabit oyun slotları alanı
-          _buildGameSlots(context, gameState, provider),
-        ],
-      ),
+              SizedBox(height: spacing),
+
+              // Sabit oyun slotları alanı
+              _buildGameSlots(context, gameState, provider, isSmallScreen),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -113,19 +129,26 @@ class _BlindSortView extends StatelessWidget {
     BuildContext context,
     GameState gameState,
     BlindSortProvider provider,
+    bool isSmallScreen,
   ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 300, // Maksimum genişlik
+      constraints: BoxConstraints(
+        maxWidth: min(
+          MediaQuery.of(context).size.width * (isSmallScreen ? 0.75 : 0.85),
+          MediaQuery.of(context).size.height * (isSmallScreen ? 0.3 : 0.35),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Skor rozeti - aydınlık tema için daha iyi kontrast
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            padding: EdgeInsets.symmetric(
+              horizontal: isSmallScreen ? 12 : 16,
+              vertical: isSmallScreen ? 4 : 6,
+            ),
             decoration: BoxDecoration(
               color:
                   isDark
@@ -135,7 +158,7 @@ class _BlindSortView extends StatelessWidget {
                       : Theme.of(
                         context,
                       ).colorScheme.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(isSmallScreen ? 12 : 16),
               border: Border.all(
                 color:
                     isDark
@@ -153,26 +176,42 @@ class _BlindSortView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.emoji_events_rounded,
-                  size: 18,
+                  size: isSmallScreen ? 16 : 18,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                const SizedBox(width: 6),
+                SizedBox(width: isSmallScreen ? 4 : 6),
                 Text(
                   '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-                  style: TextThemeManager.subtitleMedium.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: (isSmallScreen
+                          ? TextThemeManager.bodyMedium
+                          : TextThemeManager.subtitleMedium)
+                      .copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: AppConstants.mediumSpacing),
+          SizedBox(
+            height:
+                isSmallScreen
+                    ? AppConstants.smallSpacing
+                    : AppConstants.mediumSpacing,
+          ),
 
           // Modern sayı gösterimi - aydınlık tema için daha iyi kontrast
           Container(
-            width: 100,
-            height: 100,
+            width: min(
+              MediaQuery.of(context).size.width * (isSmallScreen ? 0.2 : 0.25),
+              MediaQuery.of(context).size.height *
+                  (isSmallScreen ? 0.15 : 0.18),
+            ),
+            height: min(
+              MediaQuery.of(context).size.width * (isSmallScreen ? 0.2 : 0.25),
+              MediaQuery.of(context).size.height *
+                  (isSmallScreen ? 0.15 : 0.18),
+            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -185,14 +224,18 @@ class _BlindSortView extends StatelessWidget {
                   ).withValues(alpha: isDark ? 0.8 : 0.9),
                 ],
               ),
-              borderRadius: BorderRadius.circular(AppConstants.largeRadius),
+              borderRadius: BorderRadius.circular(
+                isSmallScreen
+                    ? AppConstants.mediumRadius
+                    : AppConstants.largeRadius,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: _getNumberDisplayColor(
                     context,
                     gameState,
                   ).withValues(alpha: isDark ? 0.4 : 0.3),
-                  blurRadius: 12,
+                  blurRadius: isSmallScreen ? 8 : 12,
                   spreadRadius: 0,
                   offset: const Offset(0, 4),
                 ),
@@ -201,14 +244,19 @@ class _BlindSortView extends StatelessWidget {
                     context,
                     gameState,
                   ).withValues(alpha: isDark ? 0.2 : 0.15),
-                  blurRadius: 20,
+                  blurRadius: isSmallScreen ? 16 : 20,
                   spreadRadius: 0,
                   offset: const Offset(0, 8),
                 ),
               ],
             ),
             child: Center(
-              child: _buildNumberContent(context, gameState, provider),
+              child: _buildNumberContent(
+                context,
+                gameState,
+                provider,
+                isSmallScreen,
+              ),
             ),
           ),
         ],
@@ -229,8 +277,32 @@ class _BlindSortView extends StatelessWidget {
     BuildContext context,
     GameState gameState,
     BlindSortProvider provider,
+    bool isSmallScreen,
   ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Padding ekran boyutuna göre ayarlanır
+    final basePadding = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final padding = basePadding.clamp(6.0, 8.0);
+
+    // İkon boyutu ekran boyutuna göre ayarlanır
+    final baseIconSize = min(
+      screenWidth * (isSmallScreen ? 0.07 : 0.09),
+      screenHeight * (isSmallScreen ? 0.05 : 0.07),
+    );
+    final iconSize = baseIconSize.clamp(28.0, 36.0);
+
+    // Font boyutu ekran boyutuna göre ayarlanır
+    final baseFontSize = min(
+      screenWidth * (isSmallScreen ? 0.07 : 0.09),
+      screenHeight * (isSmallScreen ? 0.05 : 0.07),
+    );
+    final fontSize = baseFontSize.clamp(28.0, 36.0);
 
     if (gameState.isWaiting) {
       return TweenAnimationBuilder<double>(
@@ -240,7 +312,7 @@ class _BlindSortView extends StatelessWidget {
           return Transform.scale(
             scale: 0.8 + (0.2 * value),
             child: Container(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.all(padding),
               decoration: BoxDecoration(
                 color:
                     isDark
@@ -250,7 +322,7 @@ class _BlindSortView extends StatelessWidget {
               ),
               child: Icon(
                 Icons.question_mark_rounded,
-                size: 36,
+                size: iconSize,
                 color: isDark ? Colors.white : Colors.white,
               ),
             ),
@@ -261,7 +333,7 @@ class _BlindSortView extends StatelessWidget {
 
     if (gameState.isNextNumberUnplayable) {
       return Container(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(padding),
         decoration: BoxDecoration(
           color:
               isDark
@@ -272,7 +344,7 @@ class _BlindSortView extends StatelessWidget {
         child: Text(
           gameState.currentNumber.toString(),
           style: TextThemeManager.gameNumber.copyWith(
-            fontSize: 36,
+            fontSize: fontSize,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -287,7 +359,7 @@ class _BlindSortView extends StatelessWidget {
         return Transform.scale(
           scale: 0.7 + (0.3 * value),
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(padding),
             decoration: BoxDecoration(
               color:
                   isDark
@@ -300,7 +372,7 @@ class _BlindSortView extends StatelessWidget {
                   ? provider.animatedNumber.toString()
                   : gameState.currentNumber.toString(),
               style: TextThemeManager.gameNumber.copyWith(
-                fontSize: 36,
+                fontSize: fontSize,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
@@ -315,55 +387,82 @@ class _BlindSortView extends StatelessWidget {
     BuildContext context,
     GameState gameState,
     BlindSortProvider provider,
+    bool isSmallScreen,
   ) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 350, // Maksimum genişlik
+      constraints: BoxConstraints(
+        maxWidth: min(
+          MediaQuery.of(context).size.width * (isSmallScreen ? 0.88 : 0.94),
+          MediaQuery.of(context).size.height * (isSmallScreen ? 0.42 : 0.48),
+        ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Top Row (1-5)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(5, (index) {
-              return GameSlot(
-                number: gameState.slots[index],
-                position: index,
-                isActive:
-                    gameState.isGameActive &&
-                    !provider.isAnimating &&
-                    gameState.slots[index] == null,
-                onTap:
-                    gameState.isGameActive && !provider.isAnimating
-                        ? () => provider.placeNumber(index)
-                        : null,
-              );
-            }),
-          ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          const cols = 5;
+          const rows = 2;
+          final rowSpacing =
+              isSmallScreen ? AppConstants.smallSpacing : AppConstants.mediumSpacing;
 
-          const SizedBox(height: AppConstants.mediumSpacing),
+          final availableW = constraints.maxWidth;
+          final availableH = constraints.maxHeight;
 
-          // Bottom Row (6-10)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(5, (index) {
-              final slotIndex = index + 5;
-              return GameSlot(
-                number: gameState.slots[slotIndex],
-                position: slotIndex,
-                isActive:
-                    gameState.isGameActive &&
-                    !provider.isAnimating &&
-                    gameState.slots[slotIndex] == null,
-                onTap:
-                    gameState.isGameActive && !provider.isAnimating
-                        ? () => provider.placeNumber(slotIndex)
-                        : null,
-              );
-            }),
-          ),
-        ],
+          // Leave a small breathing room horizontally
+          final slotSizeByWidth = (availableW * 0.96) / cols;
+          // Ensure two rows fit vertically with the spacing between
+          final slotSizeByHeight = (availableH - rowSpacing) / rows;
+          double slotSize = min(slotSizeByWidth, slotSizeByHeight);
+
+          // Clamp to sensible bounds
+          slotSize = slotSize.clamp(44.0, 96.0).toDouble();
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Top Row (1-5)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(5, (index) {
+                  return GameSlot(
+                    number: gameState.slots[index],
+                    position: index,
+                    isActive:
+                        gameState.isGameActive &&
+                        !provider.isAnimating &&
+                        gameState.slots[index] == null,
+                    onTap:
+                        gameState.isGameActive && !provider.isAnimating
+                            ? () => provider.placeNumber(index)
+                            : null,
+                    size: slotSize,
+                  );
+                }),
+              ),
+
+              SizedBox(height: rowSpacing),
+
+              // Bottom Row (6-10)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(5, (index) {
+                  final slotIndex = index + 5;
+                  return GameSlot(
+                    number: gameState.slots[slotIndex],
+                    position: slotIndex,
+                    isActive:
+                        gameState.isGameActive &&
+                        !provider.isAnimating &&
+                        gameState.slots[slotIndex] == null,
+                    onTap:
+                        gameState.isGameActive && !provider.isAnimating
+                            ? () => provider.placeNumber(slotIndex)
+                            : null,
+                    size: slotSize,
+                  );
+                }),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

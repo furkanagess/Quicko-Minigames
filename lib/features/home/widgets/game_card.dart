@@ -19,11 +19,12 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.height < 600;
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: isSmallScreen ? 4 : 6),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 16 : 20),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.06),
           width: 1,
@@ -49,9 +50,9 @@ class GameCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(isSmallScreen ? 16 : 20),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -67,11 +68,13 @@ class GameCard extends StatelessWidget {
               children: [
                 // Game icon with modern design
                 Container(
-                  width: 68,
-                  height: 68,
+                  width: isSmallScreen ? 48 : 56,
+                  height: isSmallScreen ? 48 : 56,
                   decoration: BoxDecoration(
                     color: color,
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(
+                      isSmallScreen ? 14 : 18,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: color.withValues(alpha: 0.3),
@@ -92,15 +95,15 @@ class GameCard extends StatelessWidget {
                     child: Center(
                       child: Image.asset(
                         iconPath,
-                        width: 34,
-                        height: 34,
+                        width: isSmallScreen ? 24 : 28,
+                        height: isSmallScreen ? 24 : 28,
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 16),
+                SizedBox(height: isSmallScreen ? 8 : 12),
 
                 // Game title with modern typography
                 Flexible(
@@ -109,9 +112,9 @@ class GameCard extends StatelessWidget {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w800,
-                      fontSize: 16,
-                      letterSpacing: 0.3,
-                      height: 1.3,
+                      fontSize: isSmallScreen ? 12 : 14,
+                      letterSpacing: isSmallScreen ? 0.1 : 0.2,
+                      height: isSmallScreen ? 1.1 : 1.2,
                     ),
                     textAlign: TextAlign.center,
                     maxLines: 2,
@@ -119,17 +122,19 @@ class GameCard extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                SizedBox(height: isSmallScreen ? 6 : 8),
 
                 // Play indicator with modern design
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isSmallScreen ? 8 : 10,
+                    vertical: isSmallScreen ? 3 : 4,
                   ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(
+                      isSmallScreen ? 10 : 12,
+                    ),
                     border: Border.all(
                       color: color.withValues(alpha: 0.2),
                       width: 1,
@@ -138,15 +143,19 @@ class GameCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.play_arrow_rounded, size: 16, color: color),
-                      const SizedBox(width: 4),
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        size: isSmallScreen ? 12 : 14,
+                        color: color,
+                      ),
+                      SizedBox(width: isSmallScreen ? 2 : 4),
                       Text(
                         AppLocalizations.of(context)!.play,
                         style: TextStyle(
                           color: color,
                           fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          letterSpacing: 0.5,
+                          fontSize: isSmallScreen ? 9 : 10,
+                          letterSpacing: isSmallScreen ? 0.3 : 0.4,
                         ),
                       ),
                     ],

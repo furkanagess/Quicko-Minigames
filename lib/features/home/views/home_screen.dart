@@ -57,20 +57,35 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.height < 600;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: buildAnimatedBody(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+            padding: EdgeInsets.all(
+              isSmallScreen
+                  ? AppConstants.smallSpacing
+                  : AppConstants.mediumSpacing,
+            ),
             child: Column(
               children: [
                 // Header
                 _buildHeader(context),
-                const SizedBox(height: AppConstants.mediumSpacing),
+                SizedBox(
+                  height:
+                      isSmallScreen
+                          ? AppConstants.smallSpacing
+                          : AppConstants.mediumSpacing,
+                ),
                 // Banner Ad fixed below header
                 const BannerAdWidget(),
-                const SizedBox(height: AppConstants.mediumSpacing),
+                SizedBox(
+                  height:
+                      isSmallScreen
+                          ? AppConstants.smallSpacing
+                          : AppConstants.mediumSpacing,
+                ),
                 // Games Grid with inline ads
                 Expanded(child: _buildGamesGridWithInlineAds(context)),
               ],
@@ -82,8 +97,11 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.height < 600;
     return Container(
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
+      padding: EdgeInsets.all(
+        isSmallScreen ? AppConstants.smallSpacing : AppConstants.mediumSpacing,
+      ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -93,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen>
             Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 16 : 20),
         border: Border.all(
           color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
           width: 1,
@@ -115,7 +133,9 @@ class _HomeScreenState extends State<HomeScreen>
                 Expanded(
                   child: Text(
                     AppLocalizations.of(context)!.appName,
-                    style: TextThemeManager.appTitlePrimary(context),
+                    style: TextThemeManager.appTitlePrimary(
+                      context,
+                    ).copyWith(fontSize: isSmallScreen ? 20 : 24),
                   ),
                 ),
                 const SizedBox(width: AppConstants.smallSpacing),
@@ -123,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen>
                 Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(
+                      isSmallScreen ? 10 : 12,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.1),
@@ -138,10 +160,10 @@ class _HomeScreenState extends State<HomeScreen>
                       onTap: _showRatingBottomSheet,
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(isSmallScreen ? 8 : 10),
                         child: Icon(
                           Icons.star_rounded,
-                          size: 20,
+                          size: isSmallScreen ? 18 : 20,
                           color: Colors.amber,
                         ),
                       ),
@@ -323,11 +345,11 @@ class _HomeScreenState extends State<HomeScreen>
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 10),
                   child: Image.asset(
                     'assets/icon/winner.png',
-                    width: 20,
-                    height: 20,
+                    width: isSmallScreen ? 18 : 20,
+                    height: isSmallScreen ? 18 : 20,
                   ),
                 ),
               ),
@@ -356,11 +378,11 @@ class _HomeScreenState extends State<HomeScreen>
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 10),
                   child: Image.asset(
                     'assets/icon/settings.png',
-                    width: 20,
-                    height: 20,
+                    width: isSmallScreen ? 18 : 20,
+                    height: isSmallScreen ? 18 : 20,
                   ),
                 ),
               ),
@@ -424,6 +446,7 @@ class _GamesGridWithAdsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.height < 600;
     final List<Widget> sections = [];
     int processed = 0;
 
@@ -437,11 +460,11 @@ class _GamesGridWithAdsSection extends StatelessWidget {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.75,
+            crossAxisSpacing: isSmallScreen ? 8 : 12,
+            mainAxisSpacing: isSmallScreen ? 8 : 12,
+            childAspectRatio: isSmallScreen ? 0.85 : 0.9,
           ),
           padding: EdgeInsets.zero,
           itemCount: take,

@@ -94,6 +94,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  bool _exitRequested = false;
 
   @override
   void initState() {
@@ -164,7 +165,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
                   widget.onTryAgain?.call();
                 },
                 onExit: () {
-                  widget.onBackToMenu?.call();
+                  // Exit will be handled after potential leaderboard flow
                 },
               ),
         );
@@ -173,7 +174,14 @@ class _GameScreenBaseState extends State<GameScreenBase>
         if (result == ContinueGameResult.continued) return;
 
         // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard kaydı iste
-        await _handleLeaderboardQualification();
+        _exitRequested = result == ContinueGameResult.exited;
+        await _handleLeaderboardQualification(score);
+
+        // If user chose exit, navigate back after handling leaderboard
+        if (_exitRequested) {
+          widget.onBackToMenu?.call();
+        }
+        _exitRequested = false;
       });
       return;
     }
@@ -209,7 +217,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
                 widget.onResetGame?.call();
               },
               onExit: () {
-                widget.onBackToMenu?.call();
+                // Exit will be handled after potential leaderboard flow
               },
             ),
       );
@@ -218,12 +226,18 @@ class _GameScreenBaseState extends State<GameScreenBase>
       if (result == ContinueGameResult.continued) return;
 
       // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard akışını başlat
-      await _handleLeaderboardQualification();
+      _exitRequested = result == ContinueGameResult.exited;
+      await _handleLeaderboardQualification(score);
+    
+      // If user chose exit, navigate back after handling leaderboard
+      if (_exitRequested) {
+        widget.onBackToMenu?.call();
+      }
+      _exitRequested = false;
     });
   }
 
-  Future<void> _handleLeaderboardQualification() async {
-    final int score = widget.gameResult?.score ?? 0;
+  Future<void> _handleLeaderboardQualification(int score) async {
     if (score <= 0) {
       _finishFlowDefault();
       return;
@@ -613,6 +627,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
   void _finishFlowDefault() {
     // Kayıt akışı sonrası veya nitelik yoksa:
     // Kazanıldıysa tebrikler, aksi halde continue dialogu
+    if (_exitRequested) return; // Exit akışında ara UI göstermeden çık
     if (widget.showCongratsOnWin && (widget.gameResult?.isWin ?? false)) {
       _showCongratsOnly();
     } else {
@@ -624,6 +639,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
   void _finishFlowWithLeaderboard() {
     // Leaderboard kayıt akışı sonrası:
     // Kazanıldıysa tebrikler, aksi halde continue dialogu
+    if (_exitRequested) return; // Exit akışında ara UI göstermeden çık
     if (widget.showCongratsOnWin && (widget.gameResult?.isWin ?? false)) {
       _showCongratsWithLeaderboard();
     } else {
@@ -711,50 +727,79 @@ class _GameScreenBaseState extends State<GameScreenBase>
         child: SlideTransition(
           position: _slideAnimation,
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.mediumSpacing,
-                vertical: AppConstants.smallSpacing,
-              ),
-              child: Column(
-                children: [
-                  // Game description - SABİT
-                  if (widget.descriptionIcon != null)
-                    _buildGameDescription()
-                  else
-                    _buildSimpleDescription(),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isSmallScreen = constraints.maxHeight < 600;
+                final horizontalPadding =
+                    isSmallScreen
+                        ? AppConstants.smallSpacing
+                        : AppConstants.mediumSpacing;
+                final verticalPadding =
+                    isSmallScreen
+                        ? AppConstants.smallSpacing / 2
+                        : AppConstants.smallSpacing;
 
-                  const SizedBox(height: AppConstants.largeSpacing),
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding,
+                    vertical: verticalPadding,
+                  ),
+                  child: Column(
+                    children: [
+                      // Game description - SABİT
+                      SizedBox(
+                        height: isSmallScreen ? 80 : 100,
+                        child: SingleChildScrollView(
+                          child:
+                              widget.descriptionIcon != null
+                                  ? _buildGameDescription()
+                                  : _buildSimpleDescription(),
+                        ),
+                      ),
 
-                  // Main game content - FLIP ANİMASYONU SADECE BURADA
-                  Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 500,
-                            maxHeight: 600, // Rapor için daha az yer
-                          ),
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: widget.isWaiting ? 0.5 : 1.0,
-                            child: IgnorePointer(
-                              ignoring: widget.isWaiting,
-                              child: _buildFlipContent(),
+                      SizedBox(
+                        height:
+                            isSmallScreen
+                                ? AppConstants.smallSpacing
+                                : AppConstants.largeSpacing,
+                      ),
+
+                      // Main game content - FLIP ANİMASYONU SADECE BURADA
+                      Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(isSmallScreen ? 8.0 : 16.0),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: isSmallScreen ? 400 : 500,
+                                maxHeight: isSmallScreen ? 450 : 600,
+                              ),
+                              child: AnimatedOpacity(
+                                duration: const Duration(milliseconds: 200),
+                                opacity: widget.isWaiting ? 0.5 : 1.0,
+                                child: IgnorePointer(
+                                  ignoring: widget.isWaiting,
+                                  child: _buildFlipContent(),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
 
-                  // Bottom actions - SABİT (her zaman göster)
-                  const SizedBox(height: AppConstants.mediumSpacing),
-                  _buildBottomActions(context),
-                  const SizedBox(height: AppConstants.smallSpacing),
-                ],
-              ),
+                      // Bottom actions - SABİT (her zaman göster)
+                      SizedBox(
+                        height:
+                            isSmallScreen
+                                ? AppConstants.smallSpacing
+                                : AppConstants.mediumSpacing,
+                      ),
+                      _buildBottomActions(context, isSmallScreen),
+                      const SizedBox(height: AppConstants.smallSpacing),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -776,7 +821,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
     );
   }
 
-  Widget _buildBottomActions(BuildContext context) {
+  Widget _buildBottomActions(BuildContext context, bool isSmallScreen) {
     return GameActionButton(
       isWaiting: widget.isWaiting,
       onPressed: () {
@@ -825,108 +870,149 @@ class _GameScreenBaseState extends State<GameScreenBase>
   }
 
   Widget _buildGameDescription() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.mediumSpacing),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppConstants.largeRadius),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxWidth < 360;
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(
+            isSmallScreen
+                ? AppConstants.smallSpacing
+                : AppConstants.mediumSpacing,
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
               ],
             ),
-            child: Center(child: widget.descriptionIcon!),
+            borderRadius: BorderRadius.circular(AppConstants.largeRadius),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.2),
+              width: 1,
+            ),
           ),
-          const SizedBox(width: AppConstants.mediumSpacing),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _getLocalizedDescription(context),
-                  style: TextThemeManager.bodyMedium.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.w500,
+          child: Row(
+            children: [
+              Container(
+                width: isSmallScreen ? 36 : 48,
+                height: isSmallScreen ? 36 : 48,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(
+                    AppConstants.mediumRadius,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: SizedBox(
+                    width: isSmallScreen ? 20 : 24,
+                    height: isSmallScreen ? 20 : 24,
+                    child: widget.descriptionIcon!,
                   ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                width:
+                    isSmallScreen
+                        ? AppConstants.smallSpacing
+                        : AppConstants.mediumSpacing,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _getLocalizedDescription(context),
+                      style: TextThemeManager.bodySmall.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   Widget _buildSimpleDescription() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.mediumSpacing,
-        vertical: AppConstants.smallSpacing,
-      ),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxWidth < 360;
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal:
+                isSmallScreen
+                    ? AppConstants.smallSpacing
+                    : AppConstants.mediumSpacing,
+            vertical:
+                isSmallScreen
+                    ? AppConstants.smallSpacing / 2
+                    : AppConstants.smallSpacing,
           ),
-        ],
-      ),
-      child: Text(
-        _getLocalizedDescription(context),
-        style: TextThemeManager.bodyMedium.copyWith(
-          color: Theme.of(context).colorScheme.primary,
-          fontWeight: FontWeight.w500,
-        ),
-        textAlign: TextAlign.center,
-      ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.2),
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Text(
+            _getLocalizedDescription(context),
+            style: TextThemeManager.bodySmall.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        );
+      },
     );
   }
 }

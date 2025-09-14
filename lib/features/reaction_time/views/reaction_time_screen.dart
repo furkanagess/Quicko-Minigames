@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
@@ -5,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../../shared/widgets/game_screen_base.dart';
 import '../models/reaction_time_game_state.dart';
 import '../providers/reaction_time_provider.dart';
-import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
 
 class ReactionTimeScreen extends StatelessWidget {
@@ -116,17 +116,24 @@ class _ReactionTimeView extends StatelessWidget {
     ReactionTimeGameState gameState,
     ReactionTimeProvider provider,
   ) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Status display
-        _buildStatusDisplay(context, gameState, provider),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing = isSmallScreen ? 24.0 : 32.0;
 
-        const SizedBox(height: AppConstants.extraLargeSpacing),
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Status display
+            _buildStatusDisplay(context, gameState, provider, isSmallScreen),
 
-        // Game area with targets
-        _buildGameArea(context, gameState, provider),
-      ],
+            SizedBox(height: spacing),
+
+            // Game area with targets
+            _buildGameArea(context, gameState, provider, isSmallScreen),
+          ],
+        );
+      },
     );
   }
 
@@ -134,16 +141,23 @@ class _ReactionTimeView extends StatelessWidget {
     BuildContext context,
     ReactionTimeGameState gameState,
     ReactionTimeProvider provider,
+    bool isSmallScreen,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final horizontalPadding = isSmallScreen ? 12.0 : 16.0;
+    final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+    final borderRadius = isSmallScreen ? 12.0 : 16.0;
+    final spacing = isSmallScreen ? 12.0 : 16.0;
+    final runSpacing = isSmallScreen ? 6.0 : 8.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.mediumSpacing,
-        vertical: AppConstants.smallSpacing,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+        borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
           color: colorScheme.primary.withValues(alpha: 0.25),
           width: 1,
@@ -152,14 +166,15 @@ class _ReactionTimeView extends StatelessWidget {
       child: Wrap(
         alignment: WrapAlignment.center,
         crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: AppConstants.mediumSpacing,
-        runSpacing: AppConstants.smallSpacing,
+        spacing: spacing,
+        runSpacing: runSpacing,
         children: [
           _InfoPill(
             icon: AppIcons.timer,
             label: AppLocalizations.of(context)!.time,
             value: '${gameState.elapsedTime.toStringAsFixed(1)}s',
             color: colorScheme.primary,
+            isSmallScreen: isSmallScreen,
           ),
         ],
       ),
@@ -170,12 +185,29 @@ class _ReactionTimeView extends StatelessWidget {
     BuildContext context,
     ReactionTimeGameState gameState,
     ReactionTimeProvider provider,
+    bool isSmallScreen,
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final gameAreaWidth =
-            constraints.maxWidth - AppConstants.mediumSpacing * 2;
-        final gameAreaHeight = 300.0; // Match Aim Trainer area height
+        final spacing = isSmallScreen ? 12.0 : 16.0;
+        final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
+
+        // Oyun alanı boyutları
+        final baseSize = min(
+          screenWidth * (isSmallScreen ? 0.85 : 0.9),
+          screenHeight * (isSmallScreen ? 0.65 : 0.75),
+        );
+
+        // Minimum ve maksimum boyutlar
+        final minSize = min(300.0, screenWidth * 0.6);
+        final maxSize = min(600.0, screenWidth * 0.9);
+
+        // Final boyutlar
+        final gameSize = baseSize.clamp(minSize, maxSize);
+        final gameAreaWidth = gameSize - spacing * 2;
+        final gameAreaHeight = gameSize - spacing * 2;
+        final borderRadius = isSmallScreen ? 12.0 : 16.0;
 
         // Update provider with game area size
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -187,12 +219,12 @@ class _ReactionTimeView extends StatelessWidget {
           height: gameAreaHeight,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+            borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
               color: Theme.of(
                 context,
               ).colorScheme.outline.withValues(alpha: 0.3),
-              width: 1,
+              width: isSmallScreen ? 0.5 : 1.0,
             ),
           ),
           child: Stack(
@@ -212,14 +244,18 @@ class _ReactionTimeView extends StatelessWidget {
                   // Don't show completed targets (they disappear)
                   if (isCompleted) return const SizedBox.shrink();
 
+                  final targetSize = isSmallScreen ? 32.0 : 40.0;
+                  final halfSize = targetSize / 2;
+
                   return Positioned(
-                    left: position.dx - 20, // Center the target (40px diameter)
-                    top: position.dy - 20,
+                    left: position.dx - halfSize,
+                    top: position.dy - halfSize,
                     child: _buildTarget(
                       context,
                       targetNumber,
                       isNextTarget,
                       provider,
+                      isSmallScreen,
                     ),
                   );
                 }),
@@ -235,25 +271,52 @@ class _ReactionTimeView extends StatelessWidget {
     int targetNumber,
     bool isNextTarget,
     ReactionTimeProvider provider,
+    bool isSmallScreen,
   ) {
     // All targets look the same
     final targetColor = Theme.of(context).colorScheme.primary;
     final textColor = Colors.white;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Hedef boyutu ekran boyutuna göre ayarlanır
+    final baseSize = min(
+      screenWidth * (isSmallScreen ? 0.12 : 0.14),
+      screenHeight * (isSmallScreen ? 0.08 : 0.1),
+    );
+
+    // Minimum ve maksimum boyutlar
+    final minSize = min(40.0, screenWidth * 0.1);
+    final maxSize = min(56.0, screenWidth * 0.15);
+
+    // Final boyut
+    final size = baseSize.clamp(minSize, maxSize);
+
+    // Font boyutu hedef boyutuna göre ayarlanır
+    final baseFontSize = min(
+      screenWidth * (isSmallScreen ? 0.05 : 0.06),
+      screenHeight * (isSmallScreen ? 0.035 : 0.04),
+    );
+    final fontSize = baseFontSize.clamp(16.0, 24.0);
+
+    // Efekt boyutları hedef boyutuna göre ayarlanır
+    final blurRadius = min(size * 0.2, isSmallScreen ? 6.0 : 8.0);
+    final shadowOffset = min(size * 0.05, isSmallScreen ? 1.0 : 2.0);
 
     return GestureDetector(
       onTap: () => provider.onTargetTap(targetNumber),
       child: Container(
-        width: 40, // 40px diameter (reduced from 56px)
-        height: 40,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: targetColor,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
               color: targetColor.withValues(alpha: 0.4),
-              blurRadius: 8,
+              blurRadius: blurRadius,
               spreadRadius: 0,
-              offset: const Offset(0, 2),
+              offset: Offset(0, shadowOffset),
             ),
           ],
         ),
@@ -262,7 +325,7 @@ class _ReactionTimeView extends StatelessWidget {
             targetNumber.toString(),
             style: TextThemeManager.gameScorePrimary(context).copyWith(
               color: textColor,
-              fontSize: 16,
+              fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -277,45 +340,62 @@ class _InfoPill extends StatelessWidget {
   final String label;
   final String value;
   final Color color;
+  final bool isSmallScreen;
 
   const _InfoPill({
     required this.icon,
     required this.label,
     required this.value,
     required this.color,
+    this.isSmallScreen = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final onSurface = Theme.of(context).colorScheme.onSurface;
+    final horizontalPadding = isSmallScreen ? 8.0 : 12.0;
+    final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+    final borderRadius = isSmallScreen ? 8.0 : 12.0;
+    final iconSize = isSmallScreen ? 16.0 : 20.0;
+    final spacing1 = isSmallScreen ? 4.0 : 6.0;
+    final spacing2 = isSmallScreen ? 2.0 : 4.0;
+    final labelFontSize = isSmallScreen ? 10.0 : 12.0;
+    final valueFontSize = isSmallScreen ? 14.0 : 16.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+        borderRadius: BorderRadius.circular(borderRadius),
+        border: Border.all(
+          color: color.withValues(alpha: 0.25),
+          width: isSmallScreen ? 0.5 : 1.0,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(width: 6),
+          Icon(icon, color: color, size: iconSize),
+          SizedBox(width: spacing1),
           Text(
             '$label:',
             style: TextThemeManager.bodySmall.copyWith(
               color: onSurface.withValues(alpha: 0.75),
               fontWeight: FontWeight.w600,
-              fontSize: 12,
+              fontSize: labelFontSize,
             ),
           ),
-          const SizedBox(width: 4),
+          SizedBox(width: spacing2),
           Text(
             value,
             overflow: TextOverflow.ellipsis,
             style: TextThemeManager.subtitleMedium.copyWith(
               color: onSurface,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: valueFontSize,
             ),
           ),
         ],

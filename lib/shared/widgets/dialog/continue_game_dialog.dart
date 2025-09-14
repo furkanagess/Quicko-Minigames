@@ -516,7 +516,8 @@ class _ContinueGameDialogState extends State<ContinueGameDialog>
                             ),
                             child: TextButton(
                               onPressed: () {
-                                widget.onExit();
+                                // Do not exit the game screen here.
+                                // Return the intent and let caller handle post-save exit.
                                 Navigator.of(
                                   context,
                                 ).pop(ContinueGameResult.exited);

@@ -37,6 +37,18 @@ class BlindSortProvider extends ChangeNotifier {
     return availableNumbers.first;
   }
 
+  /// Mevcut slot düzenine yerleştirilebilen ve henüz kullanılmamış aday sayıları döndürür
+  List<int> _getPlaceableCandidates(List<int?> slots, {Set<int>? usedOverride}) {
+    final used = usedOverride ?? _usedNumbers;
+    final candidates = <int>[];
+    for (int i = 1; i <= 50; i++) {
+      if (!used.contains(i) && GameUtils.canPlaceNumberAnywhere(slots, i)) {
+        candidates.add(i);
+      }
+    }
+    return candidates;
+  }
+
   /// Oyunu başlat
   void startGame() {
     // Önce animasyonu durdur (eğer çalışıyorsa)
@@ -274,6 +286,7 @@ class BlindSortProvider extends ChangeNotifier {
 
   /// Oyun bitti
   void _gameOver() async {
+    _isAnimating = false;
     // State is already saved before the losing move
     final finalScore = _gameState.score;
     _hasBrokenRecordThisGame = true;
@@ -301,6 +314,7 @@ class BlindSortProvider extends ChangeNotifier {
 
   /// Oyun kazanıldı
   void _gameWon(int finalScore) async {
+    _isAnimating = false;
     _hasBrokenRecordThisGame = true;
     final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
       'blind_sort',
@@ -331,6 +345,7 @@ class BlindSortProvider extends ChangeNotifier {
 
   /// Yeni sayı hiçbir yere sığmıyor
   void _nextNumberUnplayable(int unplayableNumber, int finalScore) async {
+    _isAnimating = false;
     // State is already saved before showing the unplayable number
     _hasBrokenRecordThisGame = true;
     final previousEntry = await LeaderboardUtils.getLeaderboardEntry(
@@ -394,6 +409,8 @@ class BlindSortProvider extends ChangeNotifier {
     final saved = await GameStateService().loadGameState('blind_sort');
     if (saved == null) return false;
     try {
+      // Ensure interaction is enabled when restoring
+      _isAnimating = false;
       final slots = (saved['slots'] as List).map((e) => e as int?).toList();
       final currentNumber = saved['currentNumber'] as int?;
       final score = (saved['score'] as int?) ?? 0;
@@ -408,9 +425,11 @@ class BlindSortProvider extends ChangeNotifier {
         // Remove the unplayable number from used numbers
         _usedNumbers.remove(currentNumber);
 
-        // Generate a new playable number
-        final newPlayableNumber = _generateUniqueRandomNumber();
-        if (newPlayableNumber != -1) {
+        // Generate a new playable number that fits into current slots
+        final candidates = _getPlaceableCandidates(slots);
+        if (candidates.isNotEmpty) {
+          candidates.shuffle();
+          final newPlayableNumber = candidates.first;
           _usedNumbers.add(newPlayableNumber);
 
           _gameState = _gameState.copyWith(
@@ -421,7 +440,7 @@ class BlindSortProvider extends ChangeNotifier {
             showGameOver: false,
           );
         } else {
-          // All numbers used, game won
+          // No playable number exists; treat as completed/won scenario for safety
           _gameState = _gameState.copyWith(
             slots: slots,
             score: score,
@@ -482,16 +501,23 @@ class BlindSortProvider extends ChangeNotifier {
   ) {
     SoundUtils.playSpinnerSound();
     _isAnimating = true;
-
-    // Generate a unique random number that's not the losing number
-    _animatedNumber = _generateUniqueRandomNumber();
+    // For animation, cycle through placeable candidates if available
+    final initialCandidates = _getPlaceableCandidates(currentSlots);
+    _animatedNumber =
+        initialCandidates.isNotEmpty ? (initialCandidates..shuffle()).first : _generateUniqueRandomNumber();
     notifyListeners();
 
     _numberAnimationTimer = Timer.periodic(const Duration(milliseconds: 100), (
       timer,
     ) {
-      // During animation, show random numbers that are not the losing number
-      _animatedNumber = _generateUniqueRandomNumber();
+      // During animation, show random numbers from placeable candidates if available
+      final candidates = _getPlaceableCandidates(currentSlots);
+      if (candidates.isNotEmpty) {
+        candidates.shuffle();
+        _animatedNumber = candidates.first;
+      } else {
+        _animatedNumber = _generateUniqueRandomNumber();
+      }
       notifyListeners();
     });
 
@@ -499,8 +525,10 @@ class BlindSortProvider extends ChangeNotifier {
     Timer(const Duration(seconds: 2), () async {
       stopNumberAnimation();
 
-      // Generate final number ensuring it's not the losing number
-      final finalNumber = _generateUniqueRandomNumber();
+      // Generate final number ensuring it can be placed somewhere
+      final candidates = _getPlaceableCandidates(currentSlots);
+      final finalNumber =
+          candidates.isNotEmpty ? (candidates..shuffle()).first : _generateUniqueRandomNumber();
 
       if (finalNumber == -1) {
         // Tüm sayılar kullanılmış, oyunu kazandı olarak işaretle
@@ -509,14 +537,28 @@ class BlindSortProvider extends ChangeNotifier {
         return;
       }
 
-      // Save state before showing the new number (in case it's unplayable)
+      // Save state before showing the new number (for consistency)
       await _saveGameStateBeforeNewNumber(currentSlots, finalNumber);
 
-      // Eğer yeni sayı hiçbir yere yerleştirilemiyorsa oyun biter
+      // Safeguard: if somehow not placeable, try to pick a candidate again
       if (!GameUtils.canPlaceNumberAnywhere(currentSlots, finalNumber)) {
-        await SoundUtils.stopSpinnerSound();
-        _nextNumberUnplayable(finalNumber, currentScore);
-        return;
+        final retryCandidates = _getPlaceableCandidates(currentSlots);
+        if (retryCandidates.isNotEmpty) {
+          retryCandidates.shuffle();
+          final safeNumber = retryCandidates.first;
+          _gameState = _gameState.copyWith(currentNumber: safeNumber);
+          _animatedNumber = safeNumber;
+          _isAnimating = false;
+          _usedNumbers.add(safeNumber);
+          await clearSavedGameState();
+          await SoundUtils.stopSpinnerSound();
+          notifyListeners();
+          return;
+        } else {
+          await SoundUtils.stopSpinnerSound();
+          _nextNumberUnplayable(finalNumber, currentScore);
+          return;
+        }
       }
 
       _gameState = _gameState.copyWith(currentNumber: finalNumber);
@@ -536,7 +578,28 @@ class BlindSortProvider extends ChangeNotifier {
 
   Future<bool> canContinueGame() async {
     if (_hasUsedContinue) return false;
-    return await GameStateService().hasGameState('blind_sort');
+    final has = await GameStateService().hasGameState('blind_sort');
+    if (!has) return false;
+
+    // Peek into saved state to ensure a placeable number exists after continue
+    final saved = await GameStateService().loadGameState('blind_sort');
+    if (saved == null) return false;
+    try {
+      final slots = (saved['slots'] as List).map((e) => e as int?).toList();
+      final currentNumber = saved['currentNumber'] as int?;
+      final used = Set<int>.from((saved['usedNumbers'] as List?) ?? []);
+      final lastAction = saved['lastAction'] as String?;
+
+      // Simulate used set after continue
+      if (currentNumber != null && (lastAction == 'before_new_number' || lastAction == 'before_move')) {
+        used.remove(currentNumber);
+      }
+
+      final candidates = _getPlaceableCandidates(slots, usedOverride: used);
+      return candidates.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<void> clearSavedGameState() async {

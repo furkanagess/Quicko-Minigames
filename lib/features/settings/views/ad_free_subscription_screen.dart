@@ -304,6 +304,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
       ],
     );
   }
+  
 
   Widget _buildAdFreeUnlockedContent(
     BuildContext context,
@@ -785,6 +786,9 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           setState(() {});
         },
       );
+
+      // Close this screen after success
+      if (mounted) Navigator.of(context).pop();
     } else if (purchaseProvider.errorMessage != null) {
       // Show error bottom sheet if purchase failed
       _showPurchaseErrorBottomSheet(
@@ -816,6 +820,9 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             setState(() {});
           },
         );
+
+        // Close this screen after success
+        if (mounted) Navigator.of(context).pop();
       } else {
         // Show message that no purchases were found to restore
         _showPurchaseErrorBottomSheet(

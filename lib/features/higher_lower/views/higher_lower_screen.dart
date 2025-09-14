@@ -88,37 +88,58 @@ class _HigherLowerView extends StatelessWidget {
     HigherLowerGameState gameState,
     HigherLowerProvider provider,
   ) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children: [
-          // Score Display
-          _buildScoreDisplay(context, gameState),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final horizontalPadding = isSmallScreen ? 16.0 : 24.0;
+        final spacing = isSmallScreen ? 24.0 : 32.0;
+        final largeSpacing = isSmallScreen ? 32.0 : 48.0;
 
-          const SizedBox(height: 32),
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          child: Column(
+            children: [
+              // Score Display
+              _buildScoreDisplay(context, gameState, isSmallScreen),
 
-          // Main Number Display
-          _buildMainNumberDisplay(context, gameState),
+              SizedBox(height: spacing),
 
-          const SizedBox(height: 48),
+              // Main Number Display
+              _buildMainNumberDisplay(context, gameState, isSmallScreen),
 
-          // Game Buttons
-          _buildGameButtons(context, gameState, provider),
+              SizedBox(height: largeSpacing),
 
-          const SizedBox(height: 32),
+              // Game Buttons
+              _buildGameButtons(context, gameState, provider, isSmallScreen),
 
-          // Game Status Info
-        ],
-      ),
+              SizedBox(height: spacing),
+
+              // Game Status Info
+            ],
+          ),
+        );
+      },
     );
   }
 
   Widget _buildScoreDisplay(
     BuildContext context,
     HigherLowerGameState gameState,
+    bool isSmallScreen,
   ) {
+    final horizontalPadding = isSmallScreen ? 16.0 : 20.0;
+    final verticalPadding = isSmallScreen ? 8.0 : 12.0;
+    final borderRadius = isSmallScreen ? 16.0 : 20.0;
+    final iconSize = isSmallScreen ? 16.0 : 20.0;
+    final iconPadding = isSmallScreen ? 6.0 : 8.0;
+    final iconBorderRadius = isSmallScreen ? 8.0 : 12.0;
+    final spacing = isSmallScreen ? 8.0 : 12.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -126,11 +147,11 @@ class _HigherLowerView extends StatelessWidget {
             Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-            blurRadius: 12,
+            blurRadius: isSmallScreen ? 8 : 12,
             offset: const Offset(0, 4),
           ),
         ],
@@ -139,20 +160,20 @@ class _HigherLowerView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(iconPadding),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(iconBorderRadius),
             ),
-            child: Icon(AppIcons.trophy, size: 20, color: Colors.white),
+            child: Icon(AppIcons.trophy, size: iconSize, color: Colors.white),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: spacing),
           Text(
             '${AppLocalizations.of(context)!.score}: ${gameState.score}',
-            style: TextThemeManager.titleMedium.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: (isSmallScreen
+                    ? TextThemeManager.titleSmall
+                    : TextThemeManager.titleMedium)
+                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -162,10 +183,46 @@ class _HigherLowerView extends StatelessWidget {
   Widget _buildMainNumberDisplay(
     BuildContext context,
     HigherLowerGameState gameState,
+    bool isSmallScreen,
   ) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Sayı gösterimi boyutu ekran boyutuna göre ayarlanır
+    final baseSize = min(
+      screenWidth * (isSmallScreen ? 0.3 : 0.35),
+      screenHeight * (isSmallScreen ? 0.2 : 0.25),
+    );
+    final size = baseSize.clamp(120.0, 160.0);
+    final borderRadius = size / 2;
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius1 = min(
+      screenWidth * (isSmallScreen ? 0.04 : 0.05),
+      screenHeight * (isSmallScreen ? 0.03 : 0.04),
+    );
+    final blurRadius1 = baseBlurRadius1.clamp(16.0, 20.0);
+
+    final baseBlurRadius2 = min(
+      screenWidth * (isSmallScreen ? 0.08 : 0.1),
+      screenHeight * (isSmallScreen ? 0.06 : 0.08),
+    );
+    final blurRadius2 = baseBlurRadius2.clamp(32.0, 40.0);
+
+    final baseOffset1 = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final offset1 = baseOffset1.clamp(6.0, 8.0);
+
+    final baseOffset2 = min(
+      screenWidth * (isSmallScreen ? 0.03 : 0.04),
+      screenHeight * (isSmallScreen ? 0.02 : 0.03),
+    );
+    final offset2 = baseOffset2.clamp(12.0, 16.0);
+
     return Container(
-      width: 160,
-      height: 160,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -175,29 +232,29 @@ class _HigherLowerView extends StatelessWidget {
             _getNumberDisplayColor(context, gameState).withValues(alpha: 0.8),
           ],
         ),
-        borderRadius: BorderRadius.circular(80),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: _getNumberDisplayColor(
               context,
               gameState,
             ).withValues(alpha: 0.4),
-            blurRadius: 20,
+            blurRadius: blurRadius1,
             spreadRadius: 0,
-            offset: const Offset(0, 8),
+            offset: Offset(0, offset1),
           ),
           BoxShadow(
             color: _getNumberDisplayColor(
               context,
               gameState,
             ).withValues(alpha: 0.2),
-            blurRadius: 40,
+            blurRadius: blurRadius2,
             spreadRadius: 0,
-            offset: const Offset(0, 16),
+            offset: Offset(0, offset2),
           ),
         ],
       ),
-      child: const Center(child: _NumberSpinner()),
+      child: Center(child: _NumberSpinner(isSmallScreen: isSmallScreen)),
     );
   }
 
@@ -217,7 +274,10 @@ class _HigherLowerView extends StatelessWidget {
     BuildContext context,
     HigherLowerGameState gameState,
     HigherLowerProvider provider,
+    bool isSmallScreen,
   ) {
+    final spacing = isSmallScreen ? 12.0 : 20.0;
+
     return Row(
       children: [
         // Lower Button
@@ -230,10 +290,11 @@ class _HigherLowerView extends StatelessWidget {
             gameState.isGameActive && !gameState.isAnimating
                 ? () => provider.guessLower()
                 : null,
+            isSmallScreen,
           ),
         ),
 
-        const SizedBox(width: 20),
+        SizedBox(width: spacing),
 
         // Higher Button
         Expanded(
@@ -245,6 +306,7 @@ class _HigherLowerView extends StatelessWidget {
             gameState.isGameActive && !gameState.isAnimating
                 ? () => provider.guessHigher()
                 : null,
+            isSmallScreen,
           ),
         ),
       ],
@@ -257,7 +319,50 @@ class _HigherLowerView extends StatelessWidget {
     IconData icon,
     Color color,
     VoidCallback? onPressed,
+    bool isSmallScreen,
   ) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Buton yüksekliği ekran boyutuna göre ayarlanır
+    final baseHeight = min(
+      screenWidth * (isSmallScreen ? 0.16 : 0.2),
+      screenHeight * (isSmallScreen ? 0.1 : 0.12),
+    );
+    final height = baseHeight.clamp(64.0, 80.0);
+
+    // Kenar yuvarlaklığı ekran boyutuna göre ayarlanır
+    final baseBorderRadius = min(
+      screenWidth * (isSmallScreen ? 0.04 : 0.05),
+      screenHeight * (isSmallScreen ? 0.03 : 0.04),
+    );
+    final borderRadius = baseBorderRadius.clamp(16.0, 20.0);
+
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius1 = min(
+      screenWidth * (isSmallScreen ? 0.02 : 0.03),
+      screenHeight * (isSmallScreen ? 0.015 : 0.02),
+    );
+    final blurRadius1 = baseBlurRadius1.clamp(8.0, 12.0);
+
+    final baseBlurRadius2 = min(
+      screenWidth * (isSmallScreen ? 0.04 : 0.05),
+      screenHeight * (isSmallScreen ? 0.03 : 0.04),
+    );
+    final blurRadius2 = baseBlurRadius2.clamp(16.0, 20.0);
+
+    final baseOffset1 = min(
+      screenWidth * (isSmallScreen ? 0.008 : 0.01),
+      screenHeight * (isSmallScreen ? 0.005 : 0.007),
+    );
+    final offset1 = baseOffset1.clamp(3.0, 4.0);
+
+    final baseOffset2 = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final offset2 = baseOffset2.clamp(6.0, 8.0);
+
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 150),
       tween: Tween(begin: 1.0, end: onPressed != null ? 1.0 : 0.6),
@@ -265,26 +370,26 @@ class _HigherLowerView extends StatelessWidget {
         return Transform.scale(
           scale: value,
           child: Container(
-            height: 80,
+            height: height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [color, color.withValues(alpha: 0.8)],
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
                   color: color.withValues(alpha: 0.4),
-                  blurRadius: 12,
+                  blurRadius: blurRadius1,
                   spreadRadius: 0,
-                  offset: const Offset(0, 4),
+                  offset: Offset(0, offset1),
                 ),
                 BoxShadow(
                   color: color.withValues(alpha: 0.2),
-                  blurRadius: 20,
+                  blurRadius: blurRadius2,
                   spreadRadius: 0,
-                  offset: const Offset(0, 8),
+                  offset: Offset(0, offset2),
                 ),
               ],
             ),
@@ -292,13 +397,14 @@ class _HigherLowerView extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: onPressed,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(borderRadius),
                 splashColor: Colors.white.withValues(alpha: 0.3),
                 highlightColor: Colors.white.withValues(alpha: 0.1),
                 child: _GameButtonContent(
                   text: text,
                   icon: icon,
                   onPressed: onPressed,
+                  isSmallScreen: isSmallScreen,
                 ),
               ),
             ),
@@ -313,11 +419,13 @@ class _GameButtonContent extends StatefulWidget {
   final String text;
   final IconData icon;
   final VoidCallback? onPressed;
+  final bool isSmallScreen;
 
   const _GameButtonContent({
     required this.text,
     required this.icon,
     required this.onPressed,
+    this.isSmallScreen = false,
   });
 
   @override
@@ -379,18 +487,32 @@ class _GameButtonContentState extends State<_GameButtonContent>
           return Transform.scale(
             scale: _scaleAnimation.value,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: widget.isSmallScreen ? 12 : 16,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(widget.icon, color: Colors.white, size: 28),
-                  const SizedBox(height: 8),
+                  Icon(
+                    widget.icon,
+                    color: Colors.white,
+                    size: min(
+                      MediaQuery.of(context).size.width *
+                          (widget.isSmallScreen ? 0.06 : 0.07),
+                      MediaQuery.of(context).size.height *
+                          (widget.isSmallScreen ? 0.04 : 0.05),
+                    ),
+                  ),
+                  SizedBox(height: widget.isSmallScreen ? 6 : 8),
                   Text(
                     widget.text,
-                    style: TextThemeManager.buttonMedium.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: (widget.isSmallScreen
+                            ? TextThemeManager.buttonSmall
+                            : TextThemeManager.buttonMedium)
+                        .copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -404,7 +526,9 @@ class _GameButtonContentState extends State<_GameButtonContent>
 }
 
 class _NumberSpinner extends StatefulWidget {
-  const _NumberSpinner();
+  final bool isSmallScreen;
+
+  const _NumberSpinner({this.isSmallScreen = false});
 
   @override
   State<_NumberSpinner> createState() => _NumberSpinnerState();
@@ -481,12 +605,23 @@ class _NumberSpinnerState extends State<_NumberSpinner> {
           return Transform.scale(
             scale: 0.8 + (0.2 * value),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(widget.isSmallScreen ? 12 : 16),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(
+                  widget.isSmallScreen ? 30 : 40,
+                ),
               ),
-              child: Icon(AppIcons.question, size: 48, color: Colors.white),
+              child: Icon(
+                AppIcons.question,
+                size: min(
+                  MediaQuery.of(context).size.width *
+                      (widget.isSmallScreen ? 0.09 : 0.12),
+                  MediaQuery.of(context).size.height *
+                      (widget.isSmallScreen ? 0.06 : 0.08),
+                ),
+                color: Colors.white,
+              ),
             ),
           );
         },
@@ -503,15 +638,22 @@ class _NumberSpinnerState extends State<_NumberSpinner> {
         return Transform.scale(
           scale: value,
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(widget.isSmallScreen ? 12 : 16),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(
+                widget.isSmallScreen ? 30 : 40,
+              ),
             ),
             child: Text(
               numberToShow.toString(),
               style: TextThemeManager.headlineSmall.copyWith(
-                fontSize: 48,
+                fontSize: min(
+                  MediaQuery.of(context).size.width *
+                      (widget.isSmallScreen ? 0.09 : 0.12),
+                  MediaQuery.of(context).size.height *
+                      (widget.isSmallScreen ? 0.06 : 0.08),
+                ),
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),

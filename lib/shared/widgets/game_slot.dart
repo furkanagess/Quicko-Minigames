@@ -8,6 +8,7 @@ class GameSlot extends StatelessWidget {
   final int position;
   final bool isActive;
   final VoidCallback? onTap;
+  final double? size;
 
   const GameSlot({
     super.key,
@@ -15,6 +16,7 @@ class GameSlot extends StatelessWidget {
     required this.position,
     this.isActive = false,
     this.onTap,
+    this.size,
   });
 
   @override
@@ -31,8 +33,8 @@ class GameSlot extends StatelessWidget {
           return Transform.scale(
             scale: number != null ? 0.9 + (0.1 * value) : 1.0,
             child: Container(
-              width: 60,
-              height: 60,
+              width: size ?? 60,
+              height: size ?? 60,
               decoration: BoxDecoration(
                 color:
                     isDark
@@ -99,8 +101,8 @@ class GameSlot extends StatelessWidget {
                         },
                       )
                       : Container(
-                        width: 20,
-                        height: 20,
+                        width: (size ?? 60) / 3,
+                        height: (size ?? 60) / 3,
                         decoration: BoxDecoration(
                           color:
                               isDark

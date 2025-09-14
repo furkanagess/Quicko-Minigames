@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
@@ -6,7 +7,6 @@ import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/game_screen_base.dart';
 import '../models/aim_trainer_game_state.dart';
 import '../providers/aim_trainer_provider.dart';
-import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/text_theme_manager.dart';
 
 class AimTrainerScreen extends StatelessWidget {
@@ -93,55 +93,71 @@ class _AimTrainerView extends StatelessWidget {
     AimTrainerGameState gameState,
     AimTrainerProvider provider,
   ) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Score and time display
-        _buildScoreTimeDisplay(context, gameState),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing = isSmallScreen ? 24.0 : 32.0;
 
-        const SizedBox(height: AppConstants.extraLargeSpacing),
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Score and time display
+            _buildScoreTimeDisplay(context, gameState, isSmallScreen),
 
-        // Game area with target
-        _buildGameArea(context, gameState, provider),
-      ],
+            SizedBox(height: spacing),
+
+            // Game area with target
+            _buildGameArea(context, gameState, provider, isSmallScreen),
+          ],
+        );
+      },
     );
   }
 
   Widget _buildScoreTimeDisplay(
     BuildContext context,
     AimTrainerGameState gameState,
+    bool isSmallScreen,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final horizontalPadding = isSmallScreen ? 12.0 : 16.0;
+    final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+    final borderRadius = isSmallScreen ? 12.0 : 16.0;
+    final spacing = isSmallScreen ? 12.0 : 16.0;
+    final runSpacing = isSmallScreen ? 6.0 : 8.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.mediumSpacing,
-        vertical: AppConstants.smallSpacing,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+        borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
           color: colorScheme.primary.withValues(alpha: 0.25),
-          width: 1,
+          width: isSmallScreen ? 0.5 : 1.0,
         ),
       ),
       child: Wrap(
         alignment: WrapAlignment.center,
         crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: AppConstants.mediumSpacing,
-        runSpacing: AppConstants.smallSpacing,
+        spacing: spacing,
+        runSpacing: runSpacing,
         children: [
           _InfoPill(
             icon: AppIcons.timer,
             label: AppLocalizations.of(context)!.time,
             value: '${gameState.timeLeft}s',
             color: colorScheme.primary,
+            isSmallScreen: isSmallScreen,
           ),
           _InfoPill(
             icon: AppIcons.score,
             label: AppLocalizations.of(context)!.score,
             value: '${gameState.score}',
             color: colorScheme.primary,
+            isSmallScreen: isSmallScreen,
           ),
         ],
       ),
@@ -152,12 +168,50 @@ class _AimTrainerView extends StatelessWidget {
     BuildContext context,
     AimTrainerGameState gameState,
     AimTrainerProvider provider,
+    bool isSmallScreen,
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final gameAreaWidth =
-            constraints.maxWidth - AppConstants.mediumSpacing * 2;
-        final gameAreaHeight = 300.0; // Fixed height as requested
+        final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
+
+        // Boşluklar ekran boyutuna göre ayarlanır
+        final baseSpacing = min(
+          screenWidth * (isSmallScreen ? 0.03 : 0.04),
+          screenHeight * (isSmallScreen ? 0.02 : 0.03),
+        );
+        final spacing = baseSpacing.clamp(12.0, 16.0);
+
+        // Oyun alanı boyutları ekran boyutuna göre ayarlanır
+        final baseGameAreaWidth = min(
+          screenWidth * (isSmallScreen ? 0.85 : 0.9),
+          screenHeight * (isSmallScreen ? 0.6 : 0.7),
+        );
+        final gameAreaWidth = (baseGameAreaWidth - spacing * 2).clamp(
+          240.0,
+          screenWidth * 0.9,
+        );
+
+        final baseGameAreaHeight = min(
+          screenHeight * (isSmallScreen ? 0.4 : 0.5),
+          screenWidth * (isSmallScreen ? 0.6 : 0.7),
+        );
+        final gameAreaHeight = baseGameAreaHeight.clamp(240.0, 300.0);
+
+        // Kenar yuvarlaklığı ekran boyutuna göre ayarlanır
+        final baseBorderRadius = min(
+          screenWidth * (isSmallScreen ? 0.03 : 0.04),
+          screenHeight * (isSmallScreen ? 0.02 : 0.03),
+        );
+        final borderRadius = baseBorderRadius.clamp(12.0, 16.0);
+
+        // Hedef boyutu ekran boyutuna göre ayarlanır
+        final baseTargetSize = min(
+          screenWidth * (isSmallScreen ? 0.07 : 0.09),
+          screenHeight * (isSmallScreen ? 0.05 : 0.07),
+        );
+        final targetSize = baseTargetSize.clamp(28.0, 36.0);
+        final halfTargetSize = targetSize / 2;
 
         // Update provider with game area size
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -169,12 +223,12 @@ class _AimTrainerView extends StatelessWidget {
           height: gameAreaHeight,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+            borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
               color: Theme.of(
                 context,
               ).colorScheme.outline.withValues(alpha: 0.3),
-              width: 1,
+              width: isSmallScreen ? 0.5 : 1.0,
             ),
           ),
           child: Stack(
@@ -182,11 +236,14 @@ class _AimTrainerView extends StatelessWidget {
               // Target
               if (gameState.isGameActive)
                 Positioned(
-                  left:
-                      gameState.targetPosition.dx -
-                      18, // Center the target (36px diameter)
-                  top: gameState.targetPosition.dy - 18,
-                  child: _buildTarget(context, gameState, provider),
+                  left: gameState.targetPosition.dx - halfTargetSize,
+                  top: gameState.targetPosition.dy - halfTargetSize,
+                  child: _buildTarget(
+                    context,
+                    gameState,
+                    provider,
+                    isSmallScreen,
+                  ),
                 ),
 
               // Civilian target (green circle)
@@ -194,9 +251,14 @@ class _AimTrainerView extends StatelessWidget {
                   gameState.showCivilian &&
                   gameState.civilianPosition != null)
                 Positioned(
-                  left: gameState.civilianPosition!.dx - 18,
-                  top: gameState.civilianPosition!.dy - 18,
-                  child: _buildCivilianTarget(context, gameState, provider),
+                  left: gameState.civilianPosition!.dx - halfTargetSize,
+                  top: gameState.civilianPosition!.dy - halfTargetSize,
+                  child: _buildCivilianTarget(
+                    context,
+                    gameState,
+                    provider,
+                    isSmallScreen,
+                  ),
                 ),
             ],
           ),
@@ -209,21 +271,45 @@ class _AimTrainerView extends StatelessWidget {
     BuildContext context,
     AimTrainerGameState gameState,
     AimTrainerProvider provider,
+    bool isSmallScreen,
   ) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Hedef boyutu ekran boyutuna göre ayarlanır
+    final baseSize = min(
+      screenWidth * (isSmallScreen ? 0.07 : 0.09),
+      screenHeight * (isSmallScreen ? 0.05 : 0.07),
+    );
+    final size = baseSize.clamp(28.0, 36.0);
+
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final blurRadius = baseBlurRadius.clamp(6.0, 8.0);
+
+    final baseShadowOffset = min(
+      screenWidth * (isSmallScreen ? 0.003 : 0.005),
+      screenHeight * (isSmallScreen ? 0.002 : 0.003),
+    );
+    final shadowOffset = baseShadowOffset.clamp(1.0, 2.0);
+
     return GestureDetector(
       onTap: () => provider.onTargetTap(),
       child: Container(
-        width: 36, // 18px radius * 2 (reduced from 48px)
-        height: 36,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: AppTheme.darkError,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
               color: AppTheme.darkError.withValues(alpha: 0.4),
-              blurRadius: 8,
+              blurRadius: blurRadius,
               spreadRadius: 0,
-              offset: const Offset(0, 2),
+              offset: Offset(0, shadowOffset),
             ),
           ],
         ),
@@ -235,21 +321,45 @@ class _AimTrainerView extends StatelessWidget {
     BuildContext context,
     AimTrainerGameState gameState,
     AimTrainerProvider provider,
+    bool isSmallScreen,
   ) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Hedef boyutu ekran boyutuna göre ayarlanır
+    final baseSize = min(
+      screenWidth * (isSmallScreen ? 0.07 : 0.09),
+      screenHeight * (isSmallScreen ? 0.05 : 0.07),
+    );
+    final size = baseSize.clamp(28.0, 36.0);
+
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius = min(
+      screenWidth * (isSmallScreen ? 0.015 : 0.02),
+      screenHeight * (isSmallScreen ? 0.01 : 0.015),
+    );
+    final blurRadius = baseBlurRadius.clamp(6.0, 8.0);
+
+    final baseShadowOffset = min(
+      screenWidth * (isSmallScreen ? 0.003 : 0.005),
+      screenHeight * (isSmallScreen ? 0.002 : 0.003),
+    );
+    final shadowOffset = baseShadowOffset.clamp(1.0, 2.0);
+
     return GestureDetector(
       onTap: () => provider.onCivilianTap(),
       child: Container(
-        width: 36, // Reduced from 48px
-        height: 36,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: Colors.green,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
               color: Colors.green.withValues(alpha: 0.4),
-              blurRadius: 8,
+              blurRadius: blurRadius,
               spreadRadius: 0,
-              offset: const Offset(0, 2),
+              offset: Offset(0, shadowOffset),
             ),
           ],
         ),
@@ -263,45 +373,62 @@ class _InfoPill extends StatelessWidget {
   final String label;
   final String value;
   final Color color;
+  final bool isSmallScreen;
 
   const _InfoPill({
     required this.icon,
     required this.label,
     required this.value,
     required this.color,
+    this.isSmallScreen = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final onSurface = Theme.of(context).colorScheme.onSurface;
+    final horizontalPadding = isSmallScreen ? 8.0 : 12.0;
+    final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+    final borderRadius = isSmallScreen ? 8.0 : 12.0;
+    final iconSize = isSmallScreen ? 16.0 : 20.0;
+    final spacing1 = isSmallScreen ? 4.0 : 6.0;
+    final spacing2 = isSmallScreen ? 2.0 : 4.0;
+    final labelFontSize = isSmallScreen ? 10.0 : 12.0;
+    final valueFontSize = isSmallScreen ? 14.0 : 16.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+        borderRadius: BorderRadius.circular(borderRadius),
+        border: Border.all(
+          color: color.withValues(alpha: 0.25),
+          width: isSmallScreen ? 0.5 : 1.0,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(width: 6),
+          Icon(icon, color: color, size: iconSize),
+          SizedBox(width: spacing1),
           Text(
             '$label:',
             style: TextThemeManager.bodySmall.copyWith(
               color: onSurface.withValues(alpha: 0.75),
               fontWeight: FontWeight.w600,
-              fontSize: 12,
+              fontSize: labelFontSize,
             ),
           ),
-          const SizedBox(width: 4),
+          SizedBox(width: spacing2),
           Text(
             value,
             overflow: TextOverflow.ellipsis,
             style: TextThemeManager.subtitleMedium.copyWith(
               color: onSurface,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: valueFontSize,
             ),
           ),
         ],

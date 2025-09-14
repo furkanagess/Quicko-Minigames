@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:quicko_app/core/constants/app_icons.dart';
 import 'package:quicko_app/l10n/app_localizations.dart';
@@ -81,25 +82,35 @@ class _ColorHuntView extends StatelessWidget {
     ColorHuntGameState gameState,
     ColorHuntProvider provider,
   ) {
-    return Opacity(
-      opacity: gameState.isWaiting ? 0.4 : 1.0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Skor ve zaman gösterimi
-          _buildScoreTimeDisplay(context, gameState),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallScreen = constraints.maxHeight < 600;
+        final spacing =
+            isSmallScreen
+                ? AppConstants.largeSpacing
+                : AppConstants.extraLargeSpacing;
 
-          const SizedBox(height: AppConstants.extraLargeSpacing),
+        return Opacity(
+          opacity: gameState.isWaiting ? 0.4 : 1.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Skor ve zaman gösterimi
+              _buildScoreTimeDisplay(context, gameState, isSmallScreen),
 
-          // Hedef renk gösterimi
-          _buildTargetDisplay(context, gameState),
+              SizedBox(height: spacing),
 
-          const SizedBox(height: AppConstants.extraLargeSpacing),
+              // Hedef renk gösterimi
+              _buildTargetDisplay(context, gameState, isSmallScreen),
 
-          // Renk kutuları
-          _buildColorBoxes(context, gameState, provider),
-        ],
-      ),
+              SizedBox(height: spacing),
+
+              // Renk kutuları
+              _buildColorBoxes(context, gameState, provider, isSmallScreen),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -147,16 +158,28 @@ class _ColorHuntView extends StatelessWidget {
   Widget _buildScoreTimeDisplay(
     BuildContext context,
     ColorHuntGameState gameState,
+    bool isSmallScreen,
   ) {
     final colorScheme = Theme.of(context).colorScheme;
+    final horizontalPadding =
+        isSmallScreen ? AppConstants.smallSpacing : AppConstants.mediumSpacing;
+    final verticalPadding =
+        isSmallScreen
+            ? AppConstants.smallSpacing / 2
+            : AppConstants.smallSpacing;
+    final spacing =
+        isSmallScreen ? AppConstants.smallSpacing : AppConstants.mediumSpacing;
+
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.mediumSpacing,
-        vertical: AppConstants.smallSpacing,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
         color: colorScheme.primary.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+        borderRadius: BorderRadius.circular(
+          isSmallScreen ? AppConstants.smallRadius : AppConstants.mediumRadius,
+        ),
         border: Border.all(
           color: colorScheme.primary.withValues(alpha: 0.25),
           width: 1,
@@ -165,20 +188,22 @@ class _ColorHuntView extends StatelessWidget {
       child: Wrap(
         alignment: WrapAlignment.center,
         crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: AppConstants.mediumSpacing,
-        runSpacing: AppConstants.smallSpacing,
+        spacing: spacing,
+        runSpacing: spacing / 2,
         children: [
           _InfoPill(
             icon: AppIcons.score,
             label: AppLocalizations.of(context)!.score,
             value: '${gameState.score}',
             color: colorScheme.primary,
+            isSmallScreen: isSmallScreen,
           ),
           _InfoPill(
             icon: AppIcons.timer,
             label: AppLocalizations.of(context)!.time,
             value: '${gameState.timeLeft}s',
             color: colorScheme.primary,
+            isSmallScreen: isSmallScreen,
           ),
         ],
       ),
@@ -188,15 +213,23 @@ class _ColorHuntView extends StatelessWidget {
   Widget _buildTargetDisplay(
     BuildContext context,
     ColorHuntGameState gameState,
+    bool isSmallScreen,
   ) {
+    final horizontalPadding =
+        isSmallScreen ? AppConstants.mediumSpacing : AppConstants.largeSpacing;
+    final verticalPadding =
+        isSmallScreen ? AppConstants.smallSpacing : AppConstants.mediumSpacing;
+
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.largeSpacing,
-        vertical: AppConstants.mediumSpacing,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+        borderRadius: BorderRadius.circular(
+          isSmallScreen ? AppConstants.smallRadius : AppConstants.mediumRadius,
+        ),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
           width: 1,
@@ -204,7 +237,7 @@ class _ColorHuntView extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 8,
+            blurRadius: isSmallScreen ? 6 : 8,
             spreadRadius: 0,
             offset: const Offset(0, 2),
           ),
@@ -214,18 +247,27 @@ class _ColorHuntView extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.target,
-            style: TextThemeManager.subtitleMedium.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
-            ),
+            style: (isSmallScreen
+                    ? TextThemeManager.bodyMedium
+                    : TextThemeManager.subtitleMedium)
+                .copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
           ),
-          const SizedBox(height: AppConstants.smallSpacing),
+          SizedBox(
+            height:
+                isSmallScreen
+                    ? AppConstants.smallSpacing / 2
+                    : AppConstants.smallSpacing,
+          ),
           _AnimatedTargetText(
             colorName: _getLocalizedColorName(
               context,
               gameState.targetColorKey,
             ),
             textColor: gameState.textColor,
+            isSmallScreen: isSmallScreen,
           ),
         ],
       ),
@@ -236,18 +278,32 @@ class _ColorHuntView extends StatelessWidget {
     BuildContext context,
     ColorHuntGameState gameState,
     ColorHuntProvider provider,
+    bool isSmallScreen,
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
         // Calculate box size based on available width
         final availableWidth = constraints.maxWidth;
-        final boxSize =
-            (availableWidth - 60) / 4; // 60px for spacing (15px * 4)
-        final finalBoxSize = boxSize.clamp(70.0, 90.0); // Min 70px, max 90px
+        final spacing = isSmallScreen ? 12.0 : 15.0;
+        final totalSpacing = spacing * 4;
+        final boxSize = (availableWidth - totalSpacing) / 4;
+        final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
+
+        // Minimum ve maksimum boyutlar ekran boyutuna göre ayarlanır
+        final minSize = min(
+          screenWidth * (isSmallScreen ? 0.15 : 0.18),
+          screenHeight * (isSmallScreen ? 0.1 : 0.12),
+        );
+        final maxSize = min(
+          screenWidth * (isSmallScreen ? 0.2 : 0.25),
+          screenHeight * (isSmallScreen ? 0.15 : 0.18),
+        );
+        final finalBoxSize = boxSize.clamp(minSize, maxSize);
 
         return Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(4, (index) {
@@ -262,6 +318,7 @@ class _ColorHuntView extends StatelessWidget {
                   gameState.isGameActive,
                   () => provider.onColorTap(index),
                   boxSize: finalBoxSize,
+                  isSmallScreen: isSmallScreen,
                 ),
               );
             }),
@@ -279,7 +336,40 @@ class _ColorHuntView extends StatelessWidget {
     bool isActive,
     VoidCallback? onTap, {
     double boxSize = 100,
+    bool isSmallScreen = false,
   }) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Yarıçap ekran boyutuna göre ayarlanır
+    final baseRadius = min(
+      screenWidth * (isSmallScreen ? 0.03 : 0.04),
+      screenHeight * (isSmallScreen ? 0.02 : 0.03),
+    );
+    final radius = baseRadius.clamp(
+      AppConstants.smallRadius,
+      AppConstants.mediumRadius,
+    );
+
+    // Efekt boyutları ekran boyutuna göre ayarlanır
+    final baseBlurRadius = min(
+      screenWidth * (isSmallScreen ? 0.02 : 0.03),
+      screenHeight * (isSmallScreen ? 0.015 : 0.02),
+    );
+    final blurRadius = baseBlurRadius.clamp(8.0, 12.0);
+
+    final baseSpreadRadius = min(
+      screenWidth * (isSmallScreen ? 0.003 : 0.005),
+      screenHeight * (isSmallScreen ? 0.002 : 0.003),
+    );
+    final spreadRadius = baseSpreadRadius.clamp(1.0, 2.0);
+
+    final baseBorderWidth = min(
+      screenWidth * (isSmallScreen ? 0.003 : 0.004),
+      screenHeight * (isSmallScreen ? 0.002 : 0.003),
+    );
+    final borderWidth = baseBorderWidth.clamp(1.0, 2.0);
+
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 150),
       tween: Tween(begin: 1.0, end: onTap != null ? 1.0 : 0.6),
@@ -291,39 +381,43 @@ class _ColorHuntView extends StatelessWidget {
             height: boxSize,
             decoration: BoxDecoration(
               color: color, // Always use the original color
-              borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+              borderRadius: BorderRadius.circular(radius),
               boxShadow: [
                 BoxShadow(
                   color: color.withValues(
-                    alpha: 0.6, // Increased shadow opacity
-                  ), // Use original color for shadow
-                  blurRadius: 12, // Increased blur radius
-                  spreadRadius: 2, // Added spread radius
-                  offset: const Offset(0, 4), // Increased offset
+                    alpha:
+                        isSmallScreen
+                            ? 0.5
+                            : 0.6, // Reduced shadow opacity for small screens
+                  ),
+                  blurRadius: blurRadius,
+                  spreadRadius: spreadRadius,
+                  offset: const Offset(0, 4),
                 ),
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 4,
+                  blurRadius: isSmallScreen ? 2 : 4,
                   spreadRadius: 0,
                   offset: const Offset(0, 2),
                 ),
               ],
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.2),
-                width: 2,
+                width: borderWidth,
               ),
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
-                borderRadius: BorderRadius.circular(AppConstants.mediumRadius),
+                borderRadius: BorderRadius.circular(radius),
                 splashColor: Colors.white.withValues(alpha: 0.4),
                 highlightColor: Colors.white.withValues(alpha: 0.2),
                 child: _AnimatedColorBoxContent(
                   color: color,
                   onTap: onTap,
                   boxSize: boxSize,
+                  isSmallScreen: isSmallScreen,
                 ),
               ),
             ),
@@ -339,45 +433,60 @@ class _InfoPill extends StatelessWidget {
   final String label;
   final String value;
   final Color color;
+  final bool isSmallScreen;
 
   const _InfoPill({
     required this.icon,
     required this.label,
     required this.value,
     required this.color,
+    this.isSmallScreen = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final onSurface = Theme.of(context).colorScheme.onSurface;
+    final horizontalPadding = isSmallScreen ? 8.0 : 12.0;
+    final verticalPadding = isSmallScreen ? 6.0 : 8.0;
+    final iconSize = isSmallScreen ? 16.0 : 20.0;
+    final spacing = isSmallScreen ? 4.0 : 6.0;
+    final labelFontSize = isSmallScreen ? 10.0 : 12.0;
+    final valueFontSize = isSmallScreen ? 14.0 : 16.0;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+        borderRadius: BorderRadius.circular(isSmallScreen ? 8 : 12),
+        border: Border.all(
+          color: color.withValues(alpha: 0.25),
+          width: isSmallScreen ? 0.5 : 1,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(width: 6),
+          Icon(icon, color: color, size: iconSize),
+          SizedBox(width: spacing),
           Text(
             '$label:',
             style: TextThemeManager.bodySmall.copyWith(
               color: onSurface.withValues(alpha: 0.75),
               fontWeight: FontWeight.w600,
-              fontSize: 12,
+              fontSize: labelFontSize,
             ),
           ),
-          const SizedBox(width: 4),
+          SizedBox(width: spacing / 1.5),
           Text(
             value,
             overflow: TextOverflow.ellipsis,
             style: TextThemeManager.subtitleMedium.copyWith(
               color: onSurface,
               fontWeight: FontWeight.w700,
-              fontSize: 16,
+              fontSize: valueFontSize,
             ),
           ),
         ],
@@ -390,11 +499,13 @@ class _AnimatedColorBoxContent extends StatefulWidget {
   final Color color;
   final VoidCallback? onTap;
   final double boxSize;
+  final bool isSmallScreen;
 
   const _AnimatedColorBoxContent({
     required this.color,
     required this.onTap,
     this.boxSize = 100,
+    this.isSmallScreen = false,
   });
 
   @override
@@ -481,8 +592,13 @@ class _AnimatedColorBoxContentState extends State<_AnimatedColorBoxContent>
 class _AnimatedTargetText extends StatefulWidget {
   final String colorName;
   final Color textColor;
+  final bool isSmallScreen;
 
-  const _AnimatedTargetText({required this.colorName, required this.textColor});
+  const _AnimatedTargetText({
+    required this.colorName,
+    required this.textColor,
+    this.isSmallScreen = false,
+  });
 
   @override
   State<_AnimatedTargetText> createState() => _AnimatedTargetTextState();
@@ -536,14 +652,21 @@ class _AnimatedTargetTextState extends State<_AnimatedTargetText>
             child: Text(
               widget.colorName,
               style: TextThemeManager.gameNumber.copyWith(
-                fontSize: 36,
+                fontSize: min(
+                  MediaQuery.of(context).size.width *
+                      (widget.isSmallScreen ? 0.07 : 0.09),
+                  MediaQuery.of(context).size.height *
+                      (widget.isSmallScreen ? 0.05 : 0.07),
+                ),
                 color: widget.textColor,
                 fontWeight: FontWeight.bold,
                 shadows: [
                   Shadow(
-                    color: Colors.black.withValues(alpha: 0.3),
+                    color: Colors.black.withValues(
+                      alpha: widget.isSmallScreen ? 0.2 : 0.3,
+                    ),
                     offset: const Offset(1, 1),
-                    blurRadius: 2,
+                    blurRadius: widget.isSmallScreen ? 1 : 2,
                   ),
                 ],
               ),

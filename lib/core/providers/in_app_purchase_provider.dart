@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'dart:io';
 import '../services/in_app_purchase_service.dart';
+import 'package:flutter/foundation.dart';
 
 class InAppPurchaseProvider extends ChangeNotifier {
   final InAppPurchaseService _purchaseService = InAppPurchaseService();
@@ -43,6 +43,8 @@ class InAppPurchaseProvider extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  /// (removed) test mode toggle
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
