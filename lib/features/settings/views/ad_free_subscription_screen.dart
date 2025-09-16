@@ -732,14 +732,19 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
 
     // Check if purchase was successful
     if (purchaseProvider.isSubscriptionActive) {
-      // Show success dialog
-      await DialogService.showAdFreeSuccessDialog(
-        context: context,
-        onContinue: () {
-          // Refresh the UI to show ad-free content
-          setState(() {});
-        },
-      );
+      // Show success dialog - ensure it's shown for all platforms including iOS
+      try {
+        await DialogService.showAdFreeSuccessDialog(
+          context: context,
+          onContinue: () {
+            // Refresh the UI to show ad-free content
+            setState(() {});
+          },
+        );
+      } catch (e) {
+        // If dialog fails to show, at least refresh the UI
+        setState(() {});
+      }
 
       // Close this screen after success
       if (mounted) Navigator.of(context).pop();
@@ -766,14 +771,19 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     if (success) {
       // Check if the user is now ad-free (restoration was successful)
       if (purchaseProvider.isSubscriptionActive) {
-        // Show success dialog for restored purchases
-        await DialogService.showAdFreeSuccessDialog(
-          context: context,
-          onContinue: () {
-            // Refresh the UI to show ad-free content
-            setState(() {});
-          },
-        );
+        // Show success dialog for restored purchases - ensure it's shown for all platforms including iOS
+        try {
+          await DialogService.showAdFreeSuccessDialog(
+            context: context,
+            onContinue: () {
+              // Refresh the UI to show ad-free content
+              setState(() {});
+            },
+          );
+        } catch (e) {
+          // If dialog fails to show, at least refresh the UI
+          setState(() {});
+        }
 
         // Close this screen after success
         if (mounted) Navigator.of(context).pop();

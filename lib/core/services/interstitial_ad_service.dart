@@ -4,6 +4,7 @@ import 'in_app_purchase_service.dart';
 import 'package:flutter/material.dart';
 import '../utils/global_context.dart';
 import '../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
+import '../providers/in_app_purchase_provider.dart';
 
 class InterstitialAdService {
   static final InterstitialAdService _instance =
@@ -13,6 +14,7 @@ class InterstitialAdService {
 
   final AppConfig _config = AppConfig();
   final InAppPurchaseService _purchaseService = InAppPurchaseService();
+  InAppPurchaseProvider? _purchaseProvider;
 
   // Interstitial ad management
   InterstitialAd? _interstitialAd;
@@ -39,6 +41,23 @@ class InterstitialAdService {
   Future<void> initialize() async {
     // Preload the first interstitial ad
     await loadInterstitialAd();
+  }
+
+  /// Set up listener for ad-free status changes
+  void setupAdFreeStatusListener(InAppPurchaseProvider purchaseProvider) {
+    _purchaseProvider = purchaseProvider;
+    _purchaseProvider?.addAdFreeStatusListener(_onAdFreeStatusChanged);
+  }
+
+  /// Handle ad-free status changes
+  void _onAdFreeStatusChanged() {
+    // Dispose existing ads if user becomes ad-free
+    if (!_shouldShowAds) {
+      _interstitialAd?.dispose();
+      _interstitialAd = null;
+      _isInterstitialAdLoaded = false;
+      _isInterstitialAdLoading = false;
+    }
   }
 
   /// Load interstitial ad
@@ -230,6 +249,7 @@ class InterstitialAdService {
 
   /// Dispose the service
   void dispose() {
+    _purchaseProvider?.removeAdFreeStatusListener(_onAdFreeStatusChanged);
     _interstitialAd?.dispose();
     _interstitialAd = null;
     _isInterstitialAdLoaded = false;

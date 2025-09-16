@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_config.dart';
 import 'in_app_purchase_service.dart';
+import '../providers/in_app_purchase_provider.dart';
 
 class AdMobService {
   static final AdMobService _instance = AdMobService._internal();
@@ -21,10 +22,32 @@ class AdMobService {
   bool _isAdLoading = false;
   bool _isBannerAdLoaded = false;
   final InAppPurchaseService _purchaseService = InAppPurchaseService();
+  InAppPurchaseProvider? _purchaseProvider;
 
   /// Initialize AdMob
   Future<void> initialize() async {
     await MobileAds.instance.initialize();
+  }
+
+  /// Set up listener for ad-free status changes
+  void setupAdFreeStatusListener(InAppPurchaseProvider purchaseProvider) {
+    _purchaseProvider = purchaseProvider;
+    _purchaseProvider?.addAdFreeStatusListener(_onAdFreeStatusChanged);
+  }
+
+  /// Handle ad-free status changes
+  void _onAdFreeStatusChanged() {
+    // Dispose existing ads if user becomes ad-free
+    if (!shouldShowAds) {
+      _rewardedAd?.dispose();
+      _rewardedAd = null;
+      _isAdLoaded = false;
+      _isAdLoading = false;
+      
+      _bannerAd?.dispose();
+      _bannerAd = null;
+      _isBannerAdLoaded = false;
+    }
   }
 
   /// Load rewarded ad
@@ -271,6 +294,7 @@ class AdMobService {
 
   /// Dispose ad
   void dispose() {
+    _purchaseProvider?.removeAdFreeStatusListener(_onAdFreeStatusChanged);
     _rewardedAd?.dispose();
     _rewardedAd = null;
     _bannerAd?.dispose();

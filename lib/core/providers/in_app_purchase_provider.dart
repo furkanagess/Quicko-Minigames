@@ -8,6 +8,9 @@ class InAppPurchaseProvider extends ChangeNotifier {
   bool _isInitialized = false;
   bool _isLoading = false;
   String? _errorMessage;
+  
+  // Listeners for ad services to get real-time updates
+  final List<VoidCallback> _adFreeStatusListeners = [];
 
   bool get isInitialized => _isInitialized;
   bool get isLoading => _isLoading;
@@ -63,6 +66,13 @@ class InAppPurchaseProvider extends ChangeNotifier {
 
       if (success) {
         _errorMessage = null;
+        // For iOS, ensure UI is updated after successful purchase
+        if (Platform.isIOS) {
+          // Small delay to ensure purchase status is properly updated
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+        // Notify ad services that ad-free status has changed
+        _notifyAdFreeStatusListeners();
       } else {
         _errorMessage = 'Failed to purchase subscription';
       }
@@ -94,6 +104,13 @@ class InAppPurchaseProvider extends ChangeNotifier {
 
       if (success) {
         _errorMessage = null;
+        // For iOS, ensure UI is updated after successful restoration
+        if (Platform.isIOS) {
+          // Small delay to ensure purchase status is properly updated
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+        // Notify ad services that ad-free status has changed
+        _notifyAdFreeStatusListeners();
         // Force UI refresh after successful restoration
         notifyListeners();
       } else {
@@ -152,8 +169,30 @@ class InAppPurchaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Add listener for ad-free status changes
+  void addAdFreeStatusListener(VoidCallback listener) {
+    _adFreeStatusListeners.add(listener);
+  }
+
+  /// Remove listener for ad-free status changes
+  void removeAdFreeStatusListener(VoidCallback listener) {
+    _adFreeStatusListeners.remove(listener);
+  }
+
+  /// Notify all ad-free status listeners
+  void _notifyAdFreeStatusListeners() {
+    for (final listener in _adFreeStatusListeners) {
+      try {
+        listener();
+      } catch (e) {
+        // Handle listener errors silently
+      }
+    }
+  }
+
   @override
   void dispose() {
+    _adFreeStatusListeners.clear();
     _purchaseService.dispose();
     super.dispose();
   }
