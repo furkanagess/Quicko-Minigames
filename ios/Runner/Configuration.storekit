@@ -15,7 +15,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "remove_ads",
+      "productID" : "remove_ads_one_time",
       "referenceName" : "Remove Ads",
       "type" : "NonConsumable"
     }

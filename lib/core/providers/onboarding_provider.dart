@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 class OnboardingProvider extends ChangeNotifier {
   static const String _onboardingCompletedKey = 'onboarding_completed';
@@ -12,8 +11,7 @@ class OnboardingProvider extends ChangeNotifier {
   bool get isOnboardingCompleted => _isOnboardingCompleted;
   bool get isLoading => _isLoading;
   bool get shouldShowOnboarding => !_isOnboardingCompleted;
-  bool get shouldShowRemoveAdsDialog =>
-      _shouldShowRemoveAdsDialog && !Platform.isIOS;
+  bool get shouldShowRemoveAdsDialog => _shouldShowRemoveAdsDialog;
 
   OnboardingProvider() {
     _loadOnboardingState();

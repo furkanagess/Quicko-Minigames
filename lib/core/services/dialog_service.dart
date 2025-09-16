@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
 import '../../shared/widgets/dialog/congrats_dialog.dart';
 import '../../shared/widgets/dialog/continue_game_dialog.dart';
@@ -151,11 +149,6 @@ class DialogService {
 
   /// Show remove ads dialog
   static Future<void> showRemoveAdsDialog({required BuildContext context}) {
-    // Don't show remove ads dialog on iOS
-    if (Platform.isIOS) {
-      return Future.value();
-    }
-
     return showDialog<void>(
       context: context,
       barrierDismissible: true,

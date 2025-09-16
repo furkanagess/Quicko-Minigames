@@ -4,7 +4,6 @@ import 'in_app_purchase_service.dart';
 import 'package:flutter/material.dart';
 import '../utils/global_context.dart';
 import '../../shared/widgets/dialog/modern_remove_ads_dialog.dart';
-import 'dart:io' show Platform;
 
 class InterstitialAdService {
   static final InterstitialAdService _instance =
@@ -175,9 +174,6 @@ class InterstitialAdService {
 
   void _maybeShowAdFreeUpsell() {
     if (!_shouldShowAds) return;
-
-    // Don't show upsell dialog on iOS
-    if (Platform.isIOS) return;
 
     final BuildContext? ctx = GlobalContext.context;
     if (ctx == null) return;

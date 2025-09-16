@@ -1083,14 +1083,4 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Wenn Sie die App deinstallieren, werden alle Ihre Spielergebnisse und Abonnementrechte dauerhaft gelöscht.';
-
-  @override
-  String get comingSoon => 'Demnächst Verfügbar';
-
-  @override
-  String get comingSoonMessage =>
-      'In-App-Käufe sind auf iOS-Geräten nicht verfügbar. Bitte verwenden Sie ein Android-Gerät, um die werbefreie Version zu kaufen.';
-
-  @override
-  String get comingSoonTitle => 'In-App-Käufe Nicht Verfügbar';
 }

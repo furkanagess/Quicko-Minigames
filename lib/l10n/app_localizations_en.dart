@@ -1073,14 +1073,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.';
-
-  @override
-  String get comingSoon => 'Coming Soon';
-
-  @override
-  String get comingSoonMessage =>
-      'In-app purchases are not available on iOS devices. Please use an Android device to purchase the ad-free version.';
-
-  @override
-  String get comingSoonTitle => 'In-App Purchases Not Available';
 }

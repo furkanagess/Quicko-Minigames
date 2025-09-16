@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import '../providers/language_provider.dart';
 import '../providers/theme_provider.dart';
 import '../providers/in_app_purchase_provider.dart';
@@ -133,13 +132,9 @@ class SettingsManager {
         route: '/leaderboard-profile',
       ),
       // Remove Ads option should be visible on all platforms.
-      // On iOS, show "Coming Soon" and keep tap disabled via screen handler.
       SettingsOptionData(
         title: getAdFreeTitle(context, purchaseProvider),
-        subtitle:
-            Platform.isIOS
-                ? AppLocalizations.of(context)!.comingSoon
-                : getAdFreeStatusDisplay(context, purchaseProvider),
+        subtitle: getAdFreeStatusDisplay(context, purchaseProvider),
         icon: Icons.block_rounded,
         emoji: getAdFreeEmoji(purchaseProvider),
         route: '/ad-free-subscription',

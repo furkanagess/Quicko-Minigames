@@ -1452,17 +1452,5 @@
   "uninstallWarningMessage": "If you uninstall the app, all your game scores and subscription rights will be permanently deleted.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "Coming Soon",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "In-app purchases are not available on iOS devices. Please use an Android device to purchase the ad-free version.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "In-App Purchases Not Available",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

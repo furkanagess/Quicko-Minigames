@@ -10,7 +10,6 @@ import '../../../shared/widgets/app_bars.dart';
 import '../../../shared/widgets/settings_option_widget.dart';
 import '../../../shared/widgets/animated_screen_widget.dart';
 import '../../../core/services/animation_service.dart';
-import 'dart:io' show Platform;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -88,18 +87,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Column(
       children:
           settingsOptions.map((option) {
-            final bool isAdFreeOption = option.route == '/ad-free-subscription';
-            final bool disableOnIOS = isAdFreeOption && Platform.isIOS;
             return Column(
               children: [
                 SettingsOptionWidget(
                   optionData: option,
-                  onTap:
-                      disableOnIOS
-                          ? () {}
-                          : () =>
-                              _handleSettingsOptionTap(context, option.route),
-                  showArrow: !disableOnIOS,
+                  onTap: () => _handleSettingsOptionTap(context, option.route),
+                  showArrow: true,
                 ),
                 const SizedBox(height: AppConstants.mediumSpacing),
               ],
@@ -123,10 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         NavigationService.navigateToLeaderboardProfile(context);
         break;
       case '/ad-free-subscription':
-        // Don't navigate to ad-free subscription on iOS
-        if (!Platform.isIOS) {
-          NavigationService.navigateToAdFreeSubscription(context);
-        }
+        NavigationService.navigateToAdFreeSubscription(context);
         break;
       case '/feedback':
         NavigationService.navigateToFeedback(context);

@@ -2121,24 +2121,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.'**
   String get uninstallWarningMessage;
-
-  /// Text shown for features that will be available in the future
-  ///
-  /// In en, this message translates to:
-  /// **'Coming Soon'**
-  String get comingSoon;
-
-  /// Message explaining why in-app purchases are not available on iOS
-  ///
-  /// In en, this message translates to:
-  /// **'In-app purchases are not available on iOS devices. Please use an Android device to purchase the ad-free version.'**
-  String get comingSoonMessage;
-
-  /// Title shown when in-app purchases are not available on iOS
-  ///
-  /// In en, this message translates to:
-  /// **'In-App Purchases Not Available'**
-  String get comingSoonTitle;
 }
 
 class _AppLocalizationsDelegate

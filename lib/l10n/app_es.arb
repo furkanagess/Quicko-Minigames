@@ -1155,17 +1155,5 @@
   "uninstallWarningMessage": "Si desinstalas la aplicación, todas tus puntuaciones de juego y derechos de suscripción se eliminarán permanentemente.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "Próximamente",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "Las compras dentro de la aplicación no están disponibles en dispositivos iOS. Por favor, use un dispositivo Android para comprar la versión sin anuncios.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "Compras Dentro de la Aplicación No Disponibles",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

@@ -861,17 +861,5 @@
   "uninstallWarningMessage": "Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "Yakında Gelecek",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "Uygulama içi satın alımlar iOS cihazlarda mevcut değildir. Reklamsız sürümü satın almak için lütfen bir Android cihaz kullanın.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "Uygulama İçi Satın Alımlar Mevcut Değil",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

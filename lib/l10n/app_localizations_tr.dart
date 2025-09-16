@@ -1079,14 +1079,4 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.';
-
-  @override
-  String get comingSoon => 'Yakında Gelecek';
-
-  @override
-  String get comingSoonMessage =>
-      'Uygulama içi satın alımlar iOS cihazlarda mevcut değildir. Reklamsız sürümü satın almak için lütfen bir Android cihaz kullanın.';
-
-  @override
-  String get comingSoonTitle => 'Uygulama İçi Satın Alımlar Mevcut Değil';
 }

@@ -1093,17 +1093,5 @@
   "uninstallWarningMessage": "إذا قمت بإلغاء تثبيت التطبيق، فسيتم حذف جميع نقاط اللعب وحقوق الاشتراك بشكل دائم.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "قريباً",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "المشتريات داخل التطبيق غير متاحة على أجهزة iOS. يرجى استخدام جهاز Android لشراء النسخة الخالية من الإعلانات.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "المشتريات داخل التطبيق غير متاحة",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

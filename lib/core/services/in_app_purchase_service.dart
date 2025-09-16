@@ -12,7 +12,7 @@ class InAppPurchaseService {
   InAppPurchaseService._internal();
 
   // Platform-specific product IDs
-  static const String _adFreeSubscriptionIdIOS = 'remove_ads_ios';
+  static const String _adFreeSubscriptionIdIOS = 'remove_ads_one_time';
   static const String _adFreeSubscriptionIdAndroid = 'one_time_payment';
 
   // Get the appropriate product ID based on platform
@@ -56,13 +56,6 @@ class InAppPurchaseService {
   Future<void> initialize() async {
     if (_isInitialized) return;
 
-    // Don't initialize real in-app purchase on iOS (not supported in this app)
-    if (Platform.isIOS) {
-      _isInitialized = true;
-      _isAvailable = false;
-      return;
-    }
-
     try {
       // Check if in-app purchase is available
       _isAvailable = await _inAppPurchase.isAvailable();
@@ -74,8 +67,18 @@ class InAppPurchaseService {
       // Load saved subscription status
       await _loadSubscriptionStatus();
 
-      // Also sync ownership from the store to cover cases like
-      // fresh installs or "you already own this" attempts
+      // For iOS, ensure ad-free status is properly loaded
+      if (Platform.isIOS && _isAdFree) {
+        // Double-check that the ad-free status is correctly loaded
+        final prefs = await SharedPreferences.getInstance();
+        final savedAdFreeStatus = prefs.getBool(_isAdFreeKey) ?? false;
+        if (savedAdFreeStatus != _isAdFree) {
+          _isAdFree = savedAdFreeStatus;
+        }
+      }
+
+      // For iOS, we'll rely on the purchase stream and restore mechanism
+      // The purchase history verification will be handled during restore
 
       // Listen to purchase updates
       _subscription = _inAppPurchase.purchaseStream.listen(
@@ -195,6 +198,33 @@ class InAppPurchaseService {
     }
   }
 
+  /// Save subscription status with retry mechanism for iOS
+  Future<void> _saveSubscriptionStatusWithRetry() async {
+    const maxRetries = 3;
+    for (int attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        await _saveSubscriptionStatus();
+
+        // Verify the save was successful by reading it back
+        final prefs = await SharedPreferences.getInstance();
+        final savedAdFreeStatus = prefs.getBool(_isAdFreeKey) ?? false;
+
+        if (savedAdFreeStatus == _isAdFree) {
+          // Save was successful
+          return;
+        } else if (attempt < maxRetries) {
+          // Save failed, wait and retry
+          await Future.delayed(Duration(milliseconds: 100 * attempt));
+        }
+      } catch (e) {
+        if (attempt < maxRetries) {
+          // Wait before retry
+          await Future.delayed(Duration(milliseconds: 100 * attempt));
+        }
+      }
+    }
+  }
+
   /// Handle purchase updates
   void _onPurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) {
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
@@ -222,6 +252,15 @@ class InAppPurchaseService {
     // Check for both iOS and Android product IDs
     if (purchaseDetails.productID == _adFreeSubscriptionIdIOS ||
         purchaseDetails.productID == _adFreeSubscriptionIdAndroid) {
+      // Additional validation for iOS
+      if (Platform.isIOS) {
+        // Verify the purchase is not null and has valid transaction data
+        if (purchaseDetails.purchaseID == null ||
+            purchaseDetails.purchaseID!.isEmpty) {
+          return; // Invalid purchase
+        }
+      }
+
       final now = DateTime.now();
 
       _isAdFree = true;
@@ -231,21 +270,22 @@ class InAppPurchaseService {
       // For one-time payment, no expiry date (lifetime)
       _subscriptionExpiry = null;
 
-      await _saveSubscriptionStatus();
+      // Save subscription status with retry mechanism for iOS
+      await _saveSubscriptionStatusWithRetry();
     }
   }
 
   /// Purchase ad-free subscription
   Future<bool> purchaseAdFreeSubscription() async {
-    // Don't allow purchases on iOS (real flow disabled)
-    if (Platform.isIOS) {
-      return false;
-    }
-
     try {
       // Check if already subscribed
       if (_isAdFree) {
         return true;
+      }
+
+      // Verify in-app purchase is available
+      if (!_isAvailable) {
+        return false;
       }
 
       // Get product details
@@ -260,8 +300,13 @@ class InAppPurchaseService {
         return false;
       }
 
-      // Create purchase params
+      // Validate product details
       final ProductDetails productDetails = response.productDetails.first;
+      if (productDetails.id != _adFreeSubscriptionId) {
+        return false; // Product ID mismatch
+      }
+
+      // Create purchase params
       final PurchaseParam purchaseParam = PurchaseParam(
         productDetails: productDetails,
       );
@@ -285,11 +330,6 @@ class InAppPurchaseService {
 
   /// Restore purchases
   Future<bool> restorePurchases() async {
-    // Don't allow restore on iOS (real flow disabled)
-    if (Platform.isIOS) {
-      return false;
-    }
-
     try {
       // Check if already ad-free (no need to restore if already active)
       if (_isAdFree) {
@@ -304,6 +344,18 @@ class InAppPurchaseService {
 
       // Wait a bit for the purchase stream to process the restored purchases
       await Future.delayed(const Duration(seconds: 2));
+
+      // For iOS, the restore mechanism will trigger purchase stream updates
+      // which will be handled by _onPurchaseUpdate method
+
+      // For iOS, double-check the ad-free status after restore
+      if (Platform.isIOS) {
+        final prefs = await SharedPreferences.getInstance();
+        final savedAdFreeStatus = prefs.getBool(_isAdFreeKey) ?? false;
+        if (savedAdFreeStatus != _isAdFree) {
+          _isAdFree = savedAdFreeStatus;
+        }
+      }
 
       // Check if restoration was successful by checking if we're now ad-free
       return _isAdFree;
@@ -333,7 +385,25 @@ class InAppPurchaseService {
 
   /// Check if subscription is active (for lifetime access, always true if purchased)
   bool isSubscriptionActive() {
+    // For iOS, double-check the ad-free status from storage
+    if (Platform.isIOS) {
+      _verifyAdFreeStatusFromStorage();
+    }
     return _isAdFree;
+  }
+
+  /// Verify ad-free status from storage (iOS specific)
+  void _verifyAdFreeStatusFromStorage() {
+    try {
+      SharedPreferences.getInstance().then((prefs) {
+        final savedAdFreeStatus = prefs.getBool(_isAdFreeKey) ?? false;
+        if (savedAdFreeStatus != _isAdFree) {
+          _isAdFree = savedAdFreeStatus;
+        }
+      });
+    } catch (e) {
+      // Handle error silently
+    }
   }
 
   /// Get remaining subscription days (for lifetime access, returns -1)

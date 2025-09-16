@@ -1078,14 +1078,4 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'यदि आप ऐप को अनइंस्टॉल करते हैं, तो आपके सभी गेम स्कोर और सदस्यता अधिकार स्थायी रूप से हटा दिए जाएंगे।';
-
-  @override
-  String get comingSoon => 'जल्द आ रहा है';
-
-  @override
-  String get comingSoonMessage =>
-      'ऐप-इन खरीदारी iOS डिवाइस पर उपलब्ध नहीं है। कृपया विज्ञापन-मुक्त संस्करण खरीदने के लिए Android डिवाइस का उपयोग करें।';
-
-  @override
-  String get comingSoonTitle => 'ऐप-इन खरीदारी उपलब्ध नहीं है';
 }

@@ -1069,14 +1069,4 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'إذا قمت بإلغاء تثبيت التطبيق، فسيتم حذف جميع نقاط اللعب وحقوق الاشتراك بشكل دائم.';
-
-  @override
-  String get comingSoon => 'قريباً';
-
-  @override
-  String get comingSoonMessage =>
-      'المشتريات داخل التطبيق غير متاحة على أجهزة iOS. يرجى استخدام جهاز Android لشراء النسخة الخالية من الإعلانات.';
-
-  @override
-  String get comingSoonTitle => 'المشتريات داخل التطبيق غير متاحة';
 }

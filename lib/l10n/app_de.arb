@@ -1143,17 +1143,5 @@
   "uninstallWarningMessage": "Wenn Sie die App deinstallieren, werden alle Ihre Spielergebnisse und Abonnementrechte dauerhaft gelöscht.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "Demnächst Verfügbar",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "In-App-Käufe sind auf iOS-Geräten nicht verfügbar. Bitte verwenden Sie ein Android-Gerät, um die werbefreie Version zu kaufen.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "In-App-Käufe Nicht Verfügbar",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }

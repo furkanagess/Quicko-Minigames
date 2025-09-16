@@ -1450,17 +1450,5 @@
   "uninstallWarningMessage": "Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  },
-  "comingSoon": "Скоро Доступно",
-  "@comingSoon": {
-    "description": "Text shown for features that will be available in the future"
-  },
-  "comingSoonMessage": "Покупки в приложении недоступны на устройствах iOS. Пожалуйста, используйте устройство Android для покупки версии без рекламы.",
-  "@comingSoonMessage": {
-    "description": "Message explaining why in-app purchases are not available on iOS"
-  },
-  "comingSoonTitle": "Покупки В Приложении Недоступны",
-  "@comingSoonTitle": {
-    "description": "Title shown when in-app purchases are not available on iOS"
   }
 }
