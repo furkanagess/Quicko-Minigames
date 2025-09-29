@@ -263,6 +263,15 @@
     "description": "Descrizione per il gioco 21 (Blackjack)"
   },
   
+  "ticTacToe": "Tris",
+  "@ticTacToe": {
+    "description": "Titolo per il gioco Tris"
+  },
+  "ticTacToeDescription": "Gioca contro il computer! Ottieni tre di fila per vincere.",
+  "@ticTacToeDescription": {
+    "description": "Descrizione per il gioco Tris"
+  },
+  
   "nowYourTurn": "Ora è il tuo turno!",
   "@nowYourTurn": {
     "description": "Messaggio che ora è il turno del giocatore"
@@ -503,6 +512,13 @@
     "description": "Etichetta del punteggio finale"
   },
   "youWon": "Hai Vinto!",
+  "computerWon": "Il computer ha vinto!",
+  "itsADraw": "Pareggio!",
+  "goodGame": "Bella partita!",
+  "tapToStart": "Tocca per iniziare",
+  "computerThinking": "Il computer sta pensando...",
+  "yourTurn": "Il tuo turno",
+  "computerTurn": "Turno del computer",
   "rateQuicko": "Valuta Quicko",
   "rateQuickoDescription": "Il tuo feedback ci aiuta a migliorare e raggiungere più utenti!",
   "howWouldYouRate": "Come valuteresti Quicko?",
@@ -947,6 +963,46 @@
   "restoreErrorDescription": "Non siamo riusciti a ripristinare i tuoi acquisti. Riprova.",
   "noPurchasesFound": "Nessun Acquisto Precedente Trovato",
   "noPurchasesFoundDescription": "Non abbiamo trovato acquisti precedenti da ripristinare. Assicurati di essere connesso con lo stesso Apple ID che hai usato per l'acquisto originale.",
+  
+  "connectionProblem": "Problema di Connessione",
+  "@connectionProblem": {"description": "Titolo per errori di connessione di rete"},
+  "connectionProblemDescription": "Controlla la tua connessione internet e riprova. È necessaria una connessione stabile per gli acquisti.",
+  "@connectionProblemDescription": {"description": "Descrizione per errori di connessione di rete"},
+  
+  "paymentMethodIssue": "Problema con il Metodo di Pagamento",
+  "@paymentMethodIssue": {"description": "Titolo per errori del metodo di pagamento"},
+  "paymentMethodIssueDescription": "C'è un problema con il tuo metodo di pagamento. Controlla i dettagli della tua carta o prova un metodo di pagamento diverso.",
+  "@paymentMethodIssueDescription": {"description": "Descrizione per errori del metodo di pagamento"},
+  
+  "insufficientFunds": "Fondi Insufficienti",
+  "@insufficientFunds": {"description": "Titolo per errori di fondi insufficienti"},
+  "insufficientFundsDescription": "Il tuo metodo di pagamento non ha fondi sufficienti. Aggiungi denaro al tuo account o usa un metodo di pagamento diverso.",
+  "@insufficientFundsDescription": {"description": "Descrizione per errori di fondi insufficienti"},
+  
+  "purchaseCancelled": "Acquisto Annullato",
+  "@purchaseCancelled": {"description": "Titolo per acquisti annullati"},
+  "purchaseCancelledDescription": "Hai annullato l'acquisto. Puoi riprovare in qualsiasi momento.",
+  "@purchaseCancelledDescription": {"description": "Descrizione per acquisti annullati"},
+  
+  "productNotAvailable": "Prodotto Non Disponibile",
+  "@productNotAvailable": {"description": "Titolo per errori di prodotto non trovato"},
+  "productNotAvailableDescription": "Questo prodotto non è temporaneamente disponibile. Riprova più tardi o contatta il supporto se il problema persiste.",
+  "@productNotAvailableDescription": {"description": "Descrizione per errori di prodotto non trovato"},
+  
+  "alreadyPurchased": "Già Acquistato",
+  "@alreadyPurchased": {"description": "Titolo per errori di prodotto già posseduto"},
+  "alreadyPurchasedDescription": "Possiedi già questo prodotto. Prova a ripristinare i tuoi acquisti se non vedi i benefici.",
+  "@alreadyPurchasedDescription": {"description": "Descrizione per errori di prodotto già posseduto"},
+  
+  "storeUnavailable": "Store Non Disponibile",
+  "@storeUnavailable": {"description": "Titolo per errori di store non disponibile"},
+  "storeUnavailableDescription": "L'App Store non è temporaneamente disponibile. Riprova tra qualche minuto.",
+  "@storeUnavailableDescription": {"description": "Descrizione per errori di store non disponibile"},
+  
+  "restoreFailed": "Ripristino Fallito",
+  "@restoreFailed": {"description": "Titolo per fallimenti di ripristino"},
+  "restoreFailedDescription": "Non siamo riusciti a ripristinare i tuoi acquisti. Controlla la tua connessione internet e riprova.",
+  "@restoreFailedDescription": {"description": "Descrizione per fallimenti di ripristino"},
 
   "feedback": "Feedback",
   "feedbackAndSuggestions": "Feedback e Suggerimenti",
@@ -1130,5 +1186,32 @@
   "uninstallWarningMessage": "Se disinstalli l'app, tutti i tuoi punteggi di gioco e diritti di abbonamento verranno eliminati definitivamente.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "guessTheFlag": "Indovina la Bandiera",
+  "@guessTheFlag": {"description": "Titolo per il gioco Indovina la Bandiera"},
+  "guessTheFlagDescription": "Metti alla prova la tua conoscenza delle bandiere del mondo! Abbina l'emoji della bandiera al nome del paese corretto.",
+  "@guessTheFlagDescription": {"description": "Descrizione per il gioco Indovina la Bandiera"},
+  "whichCountry": "A quale paese appartiene questa bandiera?",
+  "@whichCountry": {"description": "Domanda su a quale paese appartiene la bandiera"},
+  "timeUp": "Tempo Scaduto!",
+  "@timeUp": {"description": "Messaggio quando il tempo è scaduto"},
+  "timeUpDescription": "Il tuo tempo è scaduto! Prova a essere più veloce la prossima volta.",
+  "@timeUpDescription": {"description": "Descrizione quando il tempo è scaduto"},
+  "wrongAnswer": "Risposta Sbagliata!",
+  "@wrongAnswer": {"description": "Messaggio quando la risposta è sbagliata"},
+  "wrongAnswerDescription": "Non è il paese corretto. Migliore fortuna la prossima volta!",
+  "@wrongAnswerDescription": {"description": "Descrizione quando la risposta è sbagliata"},
+  "round": "Round",
+  "@round": {"description": "Etichetta round"},
+  "readyToStart": "Pronto a Iniziare?",
+  "@readyToStart": {"description": "Messaggio quando pronto a iniziare il gioco"},
+  "lives": "Vite",
+  "@lives": {"description": "Label per le vite nel gioco"},
+  "yourScore": "Il Tuo Punteggio",
+  "@yourScore": {"description": "Label for player's score in TicTacToe game"},
+  "currentRound": "Round Corrente",
+  "@currentRound": {"description": "Label for current round in TicTacToe game"},
+  "computerWon": "Computer Vinto!",
+  "@computerWon": {"description": "Message when computer wins in TicTacToe game"}
 }

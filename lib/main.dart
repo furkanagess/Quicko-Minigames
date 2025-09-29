@@ -62,8 +62,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             navigatorKey: GlobalContext.navigatorKey,
             useInheritedMediaQuery: true,
-            locale:
-                DevicePreview.locale(context) ?? languageProvider.currentLocale,
+            locale: languageProvider.currentLocale,
 
             // Localization
             localizationsDelegates: [

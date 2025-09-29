@@ -263,6 +263,15 @@
     "description": "Description for the 21 (Blackjack) game"
   },
   
+  "ticTacToe": "Jogo da Velha",
+  "@ticTacToe": {
+    "description": "Title for the Jogo da Velha game"
+  },
+  "ticTacToeDescription": "Jogue contra o computador! Faça três seguidas para ganhar.",
+  "@ticTacToeDescription": {
+    "description": "Description for the Jogo da Velha game"
+  },
+  
   "nowYourTurn": "Agora é sua vez!",
   "@nowYourTurn": {
     "description": "Message indicating it's the player's turn"
@@ -1124,5 +1133,45 @@
   "uninstallWarningMessage": "Se você desinstalar o aplicativo, todas as suas pontuações de jogo e direitos de assinatura serão permanentemente excluídos.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "connectionProblem": "Problema de Conexão",
+  "@connectionProblem": {"description": "Título para erros de conexão de rede"},
+  "connectionProblemDescription": "Verifique sua conexão com a internet e tente novamente. Uma conexão estável é necessária para compras.",
+  "@connectionProblemDescription": {"description": "Descrição para erros de conexão de rede"},
+  
+  "paymentMethodIssue": "Problema com Método de Pagamento",
+  "@paymentMethodIssue": {"description": "Título para erros de método de pagamento"},
+  "paymentMethodIssueDescription": "Há um problema com seu método de pagamento. Verifique os detalhes do seu cartão ou tente um método de pagamento diferente.",
+  "@paymentMethodIssueDescription": {"description": "Descrição para erros de método de pagamento"},
+  
+  "insufficientFunds": "Fundos Insuficientes",
+  "@insufficientFunds": {"description": "Título para erros de fundos insuficientes"},
+  "insufficientFundsDescription": "Seu método de pagamento não tem fundos suficientes. Adicione dinheiro à sua conta ou use um método de pagamento diferente.",
+  "@insufficientFundsDescription": {"description": "Descrição para erros de fundos insuficientes"},
+  
+  "purchaseCancelled": "Compra Cancelada",
+  "@purchaseCancelled": {"description": "Título para compras canceladas"},
+  "purchaseCancelledDescription": "Você cancelou a compra. Pode tentar novamente a qualquer momento.",
+  "@purchaseCancelledDescription": {"description": "Descrição para compras canceladas"},
+  
+  "productNotAvailable": "Produto Não Disponível",
+  "@productNotAvailable": {"description": "Título para erros de produto não encontrado"},
+  "productNotAvailableDescription": "Este produto não está temporariamente disponível. Tente novamente mais tarde ou entre em contato com o suporte se o problema persistir.",
+  "@productNotAvailableDescription": {"description": "Descrição para erros de produto não encontrado"},
+  
+  "alreadyPurchased": "Já Comprado",
+  "@alreadyPurchased": {"description": "Título para erros de produto já possuído"},
+  "alreadyPurchasedDescription": "Você já possui este produto. Tente restaurar suas compras se não estiver vendo os benefícios.",
+  "@alreadyPurchasedDescription": {"description": "Descrição para erros de produto já possuído"},
+  
+  "storeUnavailable": "Loja Indisponível",
+  "@storeUnavailable": {"description": "Título para erros de loja não disponível"},
+  "storeUnavailableDescription": "A loja de aplicativos está temporariamente indisponível. Tente novamente em alguns minutos.",
+  "@storeUnavailableDescription": {"description": "Descrição para erros de loja não disponível"},
+  
+  "restoreFailed": "Restauração Falhou",
+  "@restoreFailed": {"description": "Título para falhas de restauração"},
+  "restoreFailedDescription": "Não conseguimos restaurar suas compras. Verifique sua conexão com a internet e tente novamente.",
+  "@restoreFailedDescription": {"description": "Descrição para falhas de restauração"}
 }

@@ -261,6 +261,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Krupiyeyi 21\'e kadar yenin! Aşmadan mümkün olduğunca yaklaşın.';
 
   @override
+  String get ticTacToe => 'X-O-X';
+
+  @override
+  String get ticTacToeDescription =>
+      'Bilgisayara karşı oyna! Üçlü sıra yaparak kazan.';
+
+  @override
   String get nowYourTurn => 'Şimdi sıra sizde!';
 
   @override
@@ -421,7 +428,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Başarılar paylaşılırken hata oluştu. Lütfen tekrar deneyin.';
 
   @override
-  String get timeUp => 'Süre Doldu';
+  String get timeUp => 'Süre Doldu!';
 
   @override
   String get timeUpMessage => 'Süreniz bitti!';
@@ -431,6 +438,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get youWon => 'Kazandınız!';
+
+  @override
+  String get computerWon => 'Bilgisayar Kazandı!';
+
+  @override
+  String get itsADraw => 'Berabere!';
+
+  @override
+  String get goodGame => 'İyi Oyun!';
+
+  @override
+  String get tapToStart => 'Başlamak için Dokunun';
+
+  @override
+  String get computerThinking => 'Bilgisayar düşünüyor...';
+
+  @override
+  String get yourTurn => 'Sizin Sıranız';
+
+  @override
+  String get computerTurn => 'Bilgisayarın Sırası';
 
   @override
   String get rateQuicko => 'Quicko\'yu Değerlendir';
@@ -658,7 +686,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get correctGuesses => 'Doğru Tahminler';
 
   @override
-  String get yourScore => 'skorunuz:';
+  String get yourScore => 'Senin Puanın';
 
   @override
   String get cpuScore => 'PC Skoru';
@@ -802,6 +830,62 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'Geri yüklenecek önceki satın alım bulunamadı. Orijinal satın alım için kullandığınız aynı Apple ID ile giriş yaptığınızdan emin olun.';
+
+  @override
+  String get connectionProblem => 'Bağlantı Sorunu';
+
+  @override
+  String get connectionProblemDescription =>
+      'Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin. Satın alma işlemleri için kararlı bir bağlantı gereklidir.';
+
+  @override
+  String get paymentMethodIssue => 'Ödeme Yöntemi Sorunu';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'Ödeme yönteminizle ilgili bir sorun var. Lütfen kart bilgilerinizi kontrol edin veya farklı bir ödeme yöntemi deneyin.';
+
+  @override
+  String get insufficientFunds => 'Yetersiz Bakiye';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Ödeme yönteminizde yeterli bakiye bulunmuyor. Lütfen hesabınıza para ekleyin veya farklı bir ödeme yöntemi kullanın.';
+
+  @override
+  String get purchaseCancelled => 'Satın Alma İptal Edildi';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Satın alma işlemini iptal ettiniz. İstediğiniz zaman tekrar deneyebilirsiniz.';
+
+  @override
+  String get productNotAvailable => 'Ürün Mevcut Değil';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Bu ürün geçici olarak mevcut değil. Lütfen daha sonra tekrar deneyin veya sorun devam ederse destek ekibiyle iletişime geçin.';
+
+  @override
+  String get alreadyPurchased => 'Zaten Satın Alındı';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'Bu ürünü zaten satın aldınız. Faydaları göremiyorsanız satın alma işlemlerinizi geri yüklemeyi deneyin.';
+
+  @override
+  String get storeUnavailable => 'Mağaza Kullanılamıyor';
+
+  @override
+  String get storeUnavailableDescription =>
+      'Uygulama mağazası geçici olarak kullanılamıyor. Lütfen birkaç dakika sonra tekrar deneyin.';
+
+  @override
+  String get restoreFailed => 'Geri Yükleme Başarısız';
+
+  @override
+  String get restoreFailedDescription =>
+      'Satın alma işlemlerinizi geri yükleyemedik. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.';
 
   @override
   String get feedback => 'Geri Bildirim';
@@ -1079,4 +1163,37 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.';
+
+  @override
+  String get guessTheFlag => 'Bayrak Tahmin Et';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Dünya bayrakları bilginizi test edin! Bayrak emojisini doğru ülke adıyla eşleştirin.';
+
+  @override
+  String get whichCountry => 'Bu bayrak hangi ülkeye ait?';
+
+  @override
+  String get timeUpDescription =>
+      'Süreniz doldu! Bir dahaki sefere daha hızlı olmaya çalışın.';
+
+  @override
+  String get wrongAnswer => 'Yanlış Cevap!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'Bu doğru ülke değil. Bir dahaki sefere daha şanslısınız!';
+
+  @override
+  String get round => 'Tur';
+
+  @override
+  String get readyToStart => 'Başlamaya Hazır mısınız?';
+
+  @override
+  String get lives => 'Can';
+
+  @override
+  String get currentRound => 'Mevcut Tur';
 }

@@ -263,6 +263,15 @@
     "description": "Deskripsi untuk permainan 21 (Blackjack)"
   },
   
+  "ticTacToe": "Tic Tac Toe",
+  "@ticTacToe": {
+    "description": "Judul untuk permainan Tic Tac Toe"
+  },
+  "ticTacToeDescription": "Bermain melawan komputer! Dapatkan tiga berturut-turut untuk menang.",
+  "@ticTacToeDescription": {
+    "description": "Deskripsi untuk permainan Tic Tac Toe"
+  },
+  
   "nowYourTurn": "Sekarang giliran Anda!",
   "@nowYourTurn": {
     "description": "Pesan bahwa sekarang giliran pemain"
@@ -1120,5 +1129,98 @@
   "uninstallWarningMessage": "Jika Anda menghapus aplikasi, semua skor permainan dan hak berlangganan Anda akan dihapus secara permanen.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  
+  "connectionProblem": "Masalah Koneksi",
+  "@connectionProblem": {"description": "Judul untuk kesalahan koneksi jaringan"},
+  "connectionProblemDescription": "Silakan periksa koneksi internet Anda dan coba lagi. Koneksi yang stabil diperlukan untuk pembelian.",
+  "@connectionProblemDescription": {"description": "Deskripsi untuk kesalahan koneksi jaringan"},
+  
+  "paymentMethodIssue": "Masalah Metode Pembayaran",
+  "@paymentMethodIssue": {"description": "Judul untuk kesalahan metode pembayaran"},
+  "paymentMethodIssueDescription": "Ada masalah dengan metode pembayaran Anda. Silakan periksa detail kartu Anda atau coba metode pembayaran lain.",
+  "@paymentMethodIssueDescription": {"description": "Deskripsi untuk kesalahan metode pembayaran"},
+  
+  "insufficientFunds": "Dana Tidak Cukup",
+  "@insufficientFunds": {"description": "Judul untuk kesalahan dana tidak cukup"},
+  "insufficientFundsDescription": "Metode pembayaran Anda tidak memiliki dana yang cukup. Silakan tambahkan uang ke akun Anda atau gunakan metode pembayaran lain.",
+  "@insufficientFundsDescription": {"description": "Deskripsi untuk kesalahan dana tidak cukup"},
+  
+  "purchaseCancelled": "Pembelian Dibatalkan",
+  "@purchaseCancelled": {"description": "Judul untuk pembelian yang dibatalkan"},
+  "purchaseCancelledDescription": "Anda membatalkan pembelian. Anda dapat mencoba lagi kapan saja.",
+  "@purchaseCancelledDescription": {"description": "Deskripsi untuk pembelian yang dibatalkan"},
+  
+  "productNotAvailable": "Produk Tidak Tersedia",
+  "@productNotAvailable": {"description": "Judul untuk kesalahan produk tidak ditemukan"},
+  "productNotAvailableDescription": "Produk ini tidak tersedia sementara. Silakan coba lagi nanti atau hubungi dukungan jika masalah berlanjut.",
+  "@productNotAvailableDescription": {"description": "Deskripsi untuk kesalahan produk tidak ditemukan"},
+  
+  "alreadyPurchased": "Sudah Dibeli",
+  "@alreadyPurchased": {"description": "Judul untuk kesalahan produk yang sudah dimiliki"},
+  "alreadyPurchasedDescription": "Anda sudah memiliki produk ini. Coba pulihkan pembelian Anda jika Anda tidak melihat manfaatnya.",
+  "@alreadyPurchasedDescription": {"description": "Deskripsi untuk kesalahan produk yang sudah dimiliki"},
+  
+  "storeUnavailable": "Toko Tidak Tersedia",
+  "@storeUnavailable": {"description": "Judul untuk kesalahan toko tidak tersedia"},
+  "storeUnavailableDescription": "Toko aplikasi tidak tersedia sementara. Silakan coba lagi dalam beberapa menit.",
+  "@storeUnavailableDescription": {"description": "Deskripsi untuk kesalahan toko tidak tersedia"},
+  
+  "restoreFailed": "Pemulihan Gagal",
+  "@restoreFailed": {"description": "Judul untuk kegagalan pemulihan"},
+  "restoreFailedDescription": "Kami tidak dapat memulihkan pembelian Anda. Silakan periksa koneksi internet Anda dan coba lagi.",
+  "@restoreFailedDescription": {"description": "Deskripsi untuk kegagalan pemulihan"},
+  
+  "guessTheFlag": "Tebak Bendera",
+  "@guessTheFlag": {
+    "description": "Judul untuk permainan Tebak Bendera"
+  },
+  "guessTheFlagDescription": "Uji pengetahuan Anda tentang bendera dunia! Cocokkan emoji bendera dengan nama negara yang benar.",
+  "@guessTheFlagDescription": {
+    "description": "Deskripsi untuk permainan Tebak Bendera"
+  },
+  "whichCountry": "Negara mana yang memiliki bendera ini?",
+  "@whichCountry": {
+    "description": "Pertanyaan tentang negara yang memiliki bendera"
+  },
+  "timeUp": "Waktu Habis!",
+  "@timeUp": {
+    "description": "Pesan ketika waktu habis"
+  },
+  "timeUpDescription": "Waktu Anda habis! Coba lebih cepat lain kali.",
+  "@timeUpDescription": {
+    "description": "Deskripsi ketika waktu habis"
+  },
+  "wrongAnswer": "Jawaban Salah!",
+  "@wrongAnswer": {
+    "description": "Pesan ketika jawaban salah"
+  },
+  "wrongAnswerDescription": "Itu bukan negara yang benar. Semoga beruntung lain kali!",
+  "@wrongAnswerDescription": {
+    "description": "Deskripsi ketika jawaban salah"
+  },
+  "round": "Ronde",
+  "@round": {
+    "description": "Label ronde"
+  },
+  "readyToStart": "Siap untuk Memulai?",
+  "@readyToStart": {
+    "description": "Pesan ketika siap untuk memulai permainan"
+  },
+  "lives": "Nyawa",
+  "@lives": {
+    "description": "Label untuk nyawa dalam permainan"
+  },
+  "yourScore": "Skor Anda",
+  "@yourScore": {
+    "description": "Label for player's score in TicTacToe game"
+  },
+  "currentRound": "Ronde Saat Ini",
+  "@currentRound": {
+    "description": "Label for current round in TicTacToe game"
+  },
+  "computerWon": "Komputer Menang!",
+  "@computerWon": {
+    "description": "Message when computer wins in TicTacToe game"
   }
 }

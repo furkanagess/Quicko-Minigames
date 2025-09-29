@@ -52,6 +52,10 @@ class GameModel {
         return localizations.reactionTime;
       case 'patternMemory':
         return localizations.patternMemory;
+      case 'tic_tac_toe':
+        return localizations.ticTacToe;
+      case 'guess_the_flag':
+        return localizations.guessTheFlag;
       default:
         return key;
     }
@@ -81,6 +85,10 @@ class GameModel {
         return localizations.reactionTimeDescription;
       case 'patternMemoryDescription':
         return localizations.patternMemoryDescription;
+      case 'tic_tac_toe_description':
+        return localizations.ticTacToeDescription;
+      case 'guess_the_flag_description':
+        return localizations.guessTheFlagDescription;
       default:
         return key;
     }

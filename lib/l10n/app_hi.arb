@@ -263,6 +263,15 @@
     "description": "21 (ब्लैकजैक) खेल के लिए विवरण"
   },
   
+  "ticTacToe": "टिक टैक टो",
+  "@ticTacToe": {
+    "description": "टिक टैक टो खेल के लिए शीर्षक"
+  },
+  "ticTacToeDescription": "कंप्यूटर के खिलाफ खेलें! जीतने के लिए तीन को एक पंक्ति में बनाएं।",
+  "@ticTacToeDescription": {
+    "description": "टिक टैक टो खेल के लिए विवरण"
+  },
+  
   "nowYourTurn": "अब आपकी बारी है!",
   "@nowYourTurn": {
     "description": "संदेश कि अब खिलाड़ी की बारी है"
@@ -1115,5 +1124,98 @@
   "uninstallWarningMessage": "यदि आप ऐप को अनइंस्टॉल करते हैं, तो आपके सभी गेम स्कोर और सदस्यता अधिकार स्थायी रूप से हटा दिए जाएंगे।",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  
+  "connectionProblem": "कनेक्शन समस्या",
+  "@connectionProblem": {"description": "नेटवर्क कनेक्शन त्रुटियों के लिए शीर्षक"},
+  "connectionProblemDescription": "कृपया अपना इंटरनेट कनेक्शन जांचें और फिर से कोशिश करें। खरीदारी के लिए स्थिर कनेक्शन आवश्यक है।",
+  "@connectionProblemDescription": {"description": "नेटवर्क कनेक्शन त्रुटियों के लिए विवरण"},
+  
+  "paymentMethodIssue": "भुगतान विधि समस्या",
+  "@paymentMethodIssue": {"description": "भुगतान विधि त्रुटियों के लिए शीर्षक"},
+  "paymentMethodIssueDescription": "आपकी भुगतान विधि में एक समस्या है। कृपया अपने कार्ड विवरण जांचें या कोई अन्य भुगतान विधि आज़माएं।",
+  "@paymentMethodIssueDescription": {"description": "भुगतान विधि त्रुटियों के लिए विवरण"},
+  
+  "insufficientFunds": "अपर्याप्त धन",
+  "@insufficientFunds": {"description": "अपर्याप्त धन त्रुटियों के लिए शीर्षक"},
+  "insufficientFundsDescription": "आपकी भुगतान विधि में पर्याप्त धन नहीं है। कृपया अपने खाते में पैसे जोड़ें या कोई अन्य भुगतान विधि उपयोग करें।",
+  "@insufficientFundsDescription": {"description": "अपर्याप्त धन त्रुटियों के लिए विवरण"},
+  
+  "purchaseCancelled": "खरीदारी रद्द",
+  "@purchaseCancelled": {"description": "रद्द खरीदारी के लिए शीर्षक"},
+  "purchaseCancelledDescription": "आपने खरीदारी रद्द कर दी। आप कभी भी फिर से कोशिश कर सकते हैं।",
+  "@purchaseCancelledDescription": {"description": "रद्द खरीदारी के लिए विवरण"},
+  
+  "productNotAvailable": "उत्पाद उपलब्ध नहीं",
+  "@productNotAvailable": {"description": "उत्पाद नहीं मिला त्रुटियों के लिए शीर्षक"},
+  "productNotAvailableDescription": "यह उत्पाद अस्थायी रूप से उपलब्ध नहीं है। कृपया बाद में कोशिश करें या यदि समस्या बनी रहती है तो सहायता से संपर्क करें।",
+  "@productNotAvailableDescription": {"description": "उत्पाद नहीं मिला त्रुटियों के लिए विवरण"},
+  
+  "alreadyPurchased": "पहले से खरीदा गया",
+  "@alreadyPurchased": {"description": "पहले से स्वामित्व वाले उत्पाद त्रुटियों के लिए शीर्षक"},
+  "alreadyPurchasedDescription": "आपके पास पहले से यह उत्पाद है। यदि आप लाभ नहीं देख रहे हैं तो अपनी खरीदारी को पुनर्स्थापित करने का प्रयास करें।",
+  "@alreadyPurchasedDescription": {"description": "पहले से स्वामित्व वाले उत्पाद त्रुटियों के लिए विवरण"},
+  
+  "storeUnavailable": "स्टोर उपलब्ध नहीं",
+  "@storeUnavailable": {"description": "स्टोर उपलब्ध नहीं त्रुटियों के लिए शीर्षक"},
+  "storeUnavailableDescription": "ऐप स्टोर अस्थायी रूप से उपलब्ध नहीं है। कृपया कुछ मिनटों में फिर से कोशिश करें।",
+  "@storeUnavailableDescription": {"description": "स्टोर उपलब्ध नहीं त्रुटियों के लिए विवरण"},
+  
+  "restoreFailed": "पुनर्स्थापना विफल",
+  "@restoreFailed": {"description": "पुनर्स्थापना विफलताओं के लिए शीर्षक"},
+  "restoreFailedDescription": "हम आपकी खरीदारी को पुनर्स्थापित नहीं कर सके। कृपया अपना इंटरनेट कनेक्शन जांचें और फिर से कोशिश करें।",
+  "@restoreFailedDescription": {"description": "पुनर्स्थापना विफलताओं के लिए विवरण"},
+  
+  "guessTheFlag": "झंडा अनुमान लगाएं",
+  "@guessTheFlag": {
+    "description": "झंडा अनुमान खेल के लिए शीर्षक"
+  },
+  "guessTheFlagDescription": "दुनिया के झंडों के बारे में अपने ज्ञान का परीक्षण करें! झंडे के इमोजी को सही देश के नाम से मिलाएं।",
+  "@guessTheFlagDescription": {
+    "description": "झंडा अनुमान खेल के लिए विवरण"
+  },
+  "whichCountry": "यह झंडा किस देश का है?",
+  "@whichCountry": {
+    "description": "प्रश्न कि झंडा किस देश का है"
+  },
+  "timeUp": "समय समाप्त!",
+  "@timeUp": {
+    "description": "जब समय समाप्त हो जाता है तो संदेश"
+  },
+  "timeUpDescription": "आपका समय समाप्त हो गया! अगली बार तेज होने की कोशिश करें।",
+  "@timeUpDescription": {
+    "description": "जब समय समाप्त हो जाता है तो विवरण"
+  },
+  "wrongAnswer": "गलत उत्तर!",
+  "@wrongAnswer": {
+    "description": "जब उत्तर गलत हो तो संदेश"
+  },
+  "wrongAnswerDescription": "यह सही देश नहीं है। अगली बार बेहतर किस्मत!",
+  "@wrongAnswerDescription": {
+    "description": "जब उत्तर गलत हो तो विवरण"
+  },
+  "round": "राउंड",
+  "@round": {
+    "description": "राउंड लेबल"
+  },
+  "readyToStart": "शुरू करने के लिए तैयार?",
+  "@readyToStart": {
+    "description": "जब खेल शुरू करने के लिए तैयार हों तो संदेश"
+  },
+  "lives": "जीवन",
+  "@lives": {
+    "description": "खेल में जीवन के लिए लेबल"
+  },
+  "yourScore": "आपका स्कोर",
+  "@yourScore": {
+    "description": "Label for player's score in TicTacToe game"
+  },
+  "currentRound": "वर्तमान राउंड",
+  "@currentRound": {
+    "description": "Label for current round in TicTacToe game"
+  },
+  "computerWon": "कंप्यूटर जीता!",
+  "@computerWon": {
+    "description": "Message when computer wins in TicTacToe game"
   }
 }

@@ -328,6 +328,15 @@
     "description": "Description for the 21 (Blackjack) game"
   },
   
+  "ticTacToe": "Крестики-Нолики",
+  "@ticTacToe": {
+    "description": "Title for the Tic Tac Toe game"
+  },
+  "ticTacToeDescription": "Играйте против компьютера! Соберите три в ряд, чтобы выиграть.",
+  "@ticTacToeDescription": {
+    "description": "Description for the Tic Tac Toe game"
+  },
+  
   "nowYourTurn": "Теперь ваша очередь!",
   "@nowYourTurn": {
     "description": "Message indicating it's the player's turn"
@@ -1450,5 +1459,98 @@
   "uninstallWarningMessage": "Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  
+  "connectionProblem": "Проблема с Подключением",
+  "@connectionProblem": {"description": "Заголовок для ошибок подключения к сети"},
+  "connectionProblemDescription": "Пожалуйста, проверьте ваше интернет-соединение и попробуйте снова. Для покупок требуется стабильное соединение.",
+  "@connectionProblemDescription": {"description": "Описание для ошибок подключения к сети"},
+  
+  "paymentMethodIssue": "Проблема с Способом Оплаты",
+  "@paymentMethodIssue": {"description": "Заголовок для ошибок способа оплаты"},
+  "paymentMethodIssueDescription": "Проблема с вашим способом оплаты. Пожалуйста, проверьте данные вашей карты или попробуйте другой способ оплаты.",
+  "@paymentMethodIssueDescription": {"description": "Описание для ошибок способа оплаты"},
+  
+  "insufficientFunds": "Недостаточно Средств",
+  "@insufficientFunds": {"description": "Заголовок для ошибок недостаточных средств"},
+  "insufficientFundsDescription": "На вашем способе оплаты недостаточно средств. Пожалуйста, добавьте деньги на ваш счет или используйте другой способ оплаты.",
+  "@insufficientFundsDescription": {"description": "Описание для ошибок недостаточных средств"},
+  
+  "purchaseCancelled": "Покупка Отменена",
+  "@purchaseCancelled": {"description": "Заголовок для отмененных покупок"},
+  "purchaseCancelledDescription": "Вы отменили покупку. Вы можете попробовать снова в любое время.",
+  "@purchaseCancelledDescription": {"description": "Описание для отмененных покупок"},
+  
+  "productNotAvailable": "Продукт Недоступен",
+  "@productNotAvailable": {"description": "Заголовок для ошибок продукт не найден"},
+  "productNotAvailableDescription": "Этот продукт временно недоступен. Пожалуйста, попробуйте позже или обратитесь в поддержку, если проблема сохраняется.",
+  "@productNotAvailableDescription": {"description": "Описание для ошибок продукт не найден"},
+  
+  "alreadyPurchased": "Уже Куплено",
+  "@alreadyPurchased": {"description": "Заголовок для ошибок уже купленного продукта"},
+  "alreadyPurchasedDescription": "У вас уже есть этот продукт. Попробуйте восстановить ваши покупки, если вы не видите преимуществ.",
+  "@alreadyPurchasedDescription": {"description": "Описание для ошибок уже купленного продукта"},
+  
+  "storeUnavailable": "Магазин Недоступен",
+  "@storeUnavailable": {"description": "Заголовок для ошибок магазин недоступен"},
+  "storeUnavailableDescription": "Магазин приложений временно недоступен. Пожалуйста, попробуйте через несколько минут.",
+  "@storeUnavailableDescription": {"description": "Описание для ошибок магазин недоступен"},
+  
+  "restoreFailed": "Восстановление Неудачно",
+  "@restoreFailed": {"description": "Заголовок для ошибок восстановления"},
+  "restoreFailedDescription": "Мы не смогли восстановить ваши покупки. Пожалуйста, проверьте ваше интернет-соединение и попробуйте снова.",
+  "@restoreFailedDescription": {"description": "Описание для ошибок восстановления"},
+  
+  "guessTheFlag": "Угадай Флаг",
+  "@guessTheFlag": {
+    "description": "Название игры Угадай Флаг"
+  },
+  "guessTheFlagDescription": "Проверьте свои знания флагов мира! Сопоставьте эмодзи флага с правильным названием страны.",
+  "@guessTheFlagDescription": {
+    "description": "Описание игры Угадай Флаг"
+  },
+  "whichCountry": "Какой стране принадлежит этот флаг?",
+  "@whichCountry": {
+    "description": "Вопрос о том, какой стране принадлежит флаг"
+  },
+  "timeUp": "Время Вышло!",
+  "@timeUp": {
+    "description": "Сообщение когда время истекло"
+  },
+  "timeUpDescription": "У вас закончилось время! Попробуйте быть быстрее в следующий раз.",
+  "@timeUpDescription": {
+    "description": "Описание когда время истекло"
+  },
+  "wrongAnswer": "Неправильный Ответ!",
+  "@wrongAnswer": {
+    "description": "Сообщение когда ответ неправильный"
+  },
+  "wrongAnswerDescription": "Это не правильная страна. Удачи в следующий раз!",
+  "@wrongAnswerDescription": {
+    "description": "Описание когда ответ неправильный"
+  },
+  "round": "Раунд",
+  "@round": {
+    "description": "Метка раунда"
+  },
+  "readyToStart": "Готовы Начать?",
+  "@readyToStart": {
+    "description": "Сообщение когда готовы начать игру"
+  },
+  "lives": "Жизни",
+  "@lives": {
+    "description": "Метка для жизней в игре"
+  },
+  "yourScore": "Твой Счет",
+  "@yourScore": {
+    "description": "Label for player's score in TicTacToe game"
+  },
+  "currentRound": "Текущий Раунд",
+  "@currentRound": {
+    "description": "Label for current round in TicTacToe game"
+  },
+  "computerWon": "Компьютер Победил!",
+  "@computerWon": {
+    "description": "Message when computer wins in TicTacToe game"
   }
 }

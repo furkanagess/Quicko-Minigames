@@ -15,7 +15,7 @@ class GamesConfig {
       route: '/rps',
       icon: 'rock-paper-scissors',
       category: 'Reflex',
-      order: 0,
+      order: 9,
     ),
     GameModel(
       id: 'higher_lower',
@@ -44,7 +44,7 @@ class GamesConfig {
       route: '/find-difference',
       icon: 'color-circle',
       category: 'Vision',
-      order: 3,
+      order: 1,
     ),
     GameModel(
       id: 'blind_sort',
@@ -102,6 +102,24 @@ class GamesConfig {
       category: 'Cards',
       order: 9,
     ),
+    GameModel(
+      id: 'guess_the_flag',
+      titleKey: 'guess_the_flag',
+      descriptionKey: 'guess_the_flag_description',
+      route: '/guess-the-flag',
+      icon: 'flag',
+      category: 'Knowledge',
+      order: 0, // Yeni oyun - en üstte görünmesi için
+    ),
+    GameModel(
+      id: 'tic_tac_toe',
+      titleKey: 'tic_tac_toe',
+      descriptionKey: 'tic_tac_toe_description',
+      route: '/tic-tac-toe',
+      icon: 'tic-tac-toe',
+      category: 'Logic',
+      order: 0, // İkinci sırada
+    ),
   ];
 
   // Oyun renkleri
@@ -120,6 +138,8 @@ class GamesConfig {
     'reaction_time': AppTheme.darkPrimary, // purple - reflex
     'pattern_memory': AppTheme.darkSecondary, // soft purple - advanced memory
     'twenty_one': AppTheme.goldYellow, // gold - casino style
+    'guess_the_flag': AppTheme.darkSuccess, // green - knowledge
+    'tic_tac_toe': AppTheme.vividGreen, // blue - strategy
   };
 
   /// Belirli bir oyunu ID'ye göre bul

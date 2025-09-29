@@ -261,6 +261,13 @@ class AppLocalizationsIt extends AppLocalizations {
       'Batti il banco fino a 21! Avvicinati il più possibile senza superare il limite.';
 
   @override
+  String get ticTacToe => 'Tris';
+
+  @override
+  String get ticTacToeDescription =>
+      'Gioca contro il computer! Ottieni tre di fila per vincere.';
+
+  @override
   String get nowYourTurn => 'Ora è il tuo turno!';
 
   @override
@@ -422,7 +429,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Errore durante la condivisione dei risultati. Riprova.';
 
   @override
-  String get timeUp => 'Tempo Scaduto';
+  String get timeUp => 'Tempo Scaduto!';
 
   @override
   String get timeUpMessage => 'Il tuo tempo è scaduto!';
@@ -432,6 +439,27 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get youWon => 'Hai Vinto!';
+
+  @override
+  String get computerWon => 'Computer Vinto!';
+
+  @override
+  String get itsADraw => 'Pareggio!';
+
+  @override
+  String get goodGame => 'Bella partita!';
+
+  @override
+  String get tapToStart => 'Tocca per iniziare';
+
+  @override
+  String get computerThinking => 'Il computer sta pensando...';
+
+  @override
+  String get yourTurn => 'Il tuo turno';
+
+  @override
+  String get computerTurn => 'Turno del computer';
 
   @override
   String get rateQuicko => 'Valuta Quicko';
@@ -661,7 +689,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get correctGuesses => 'Indovinelli Corretti';
 
   @override
-  String get yourScore => 'il tuo punteggio:';
+  String get yourScore => 'Il Tuo Punteggio';
 
   @override
   String get cpuScore => 'Punteggio CPU';
@@ -804,6 +832,62 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'Non abbiamo trovato acquisti precedenti da ripristinare. Assicurati di essere connesso con lo stesso Apple ID che hai usato per l\'acquisto originale.';
+
+  @override
+  String get connectionProblem => 'Problema di Connessione';
+
+  @override
+  String get connectionProblemDescription =>
+      'Controlla la tua connessione internet e riprova. È necessaria una connessione stabile per gli acquisti.';
+
+  @override
+  String get paymentMethodIssue => 'Problema con il Metodo di Pagamento';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'C\'è un problema con il tuo metodo di pagamento. Controlla i dettagli della tua carta o prova un metodo di pagamento diverso.';
+
+  @override
+  String get insufficientFunds => 'Fondi Insufficienti';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Il tuo metodo di pagamento non ha fondi sufficienti. Aggiungi denaro al tuo account o usa un metodo di pagamento diverso.';
+
+  @override
+  String get purchaseCancelled => 'Acquisto Annullato';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Hai annullato l\'acquisto. Puoi riprovare in qualsiasi momento.';
+
+  @override
+  String get productNotAvailable => 'Prodotto Non Disponibile';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Questo prodotto non è temporaneamente disponibile. Riprova più tardi o contatta il supporto se il problema persiste.';
+
+  @override
+  String get alreadyPurchased => 'Già Acquistato';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'Possiedi già questo prodotto. Prova a ripristinare i tuoi acquisti se non vedi i benefici.';
+
+  @override
+  String get storeUnavailable => 'Store Non Disponibile';
+
+  @override
+  String get storeUnavailableDescription =>
+      'L\'App Store non è temporaneamente disponibile. Riprova tra qualche minuto.';
+
+  @override
+  String get restoreFailed => 'Ripristino Fallito';
+
+  @override
+  String get restoreFailedDescription =>
+      'Non siamo riusciti a ripristinare i tuoi acquisti. Controlla la tua connessione internet e riprova.';
 
   @override
   String get feedback => 'Feedback';
@@ -1081,4 +1165,37 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Se disinstalli l\'app, tutti i tuoi punteggi di gioco e diritti di abbonamento verranno eliminati definitivamente.';
+
+  @override
+  String get guessTheFlag => 'Indovina la Bandiera';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Metti alla prova la tua conoscenza delle bandiere del mondo! Abbina l\'emoji della bandiera al nome del paese corretto.';
+
+  @override
+  String get whichCountry => 'A quale paese appartiene questa bandiera?';
+
+  @override
+  String get timeUpDescription =>
+      'Il tuo tempo è scaduto! Prova a essere più veloce la prossima volta.';
+
+  @override
+  String get wrongAnswer => 'Risposta Sbagliata!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'Non è il paese corretto. Migliore fortuna la prossima volta!';
+
+  @override
+  String get round => 'Round';
+
+  @override
+  String get readyToStart => 'Pronto a Iniziare?';
+
+  @override
+  String get lives => 'Vite';
+
+  @override
+  String get currentRound => 'Round Corrente';
 }

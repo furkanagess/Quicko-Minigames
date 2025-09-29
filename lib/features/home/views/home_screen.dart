@@ -61,36 +61,46 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: buildAnimatedBody(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(
-              isSmallScreen
-                  ? AppConstants.smallSpacing
-                  : AppConstants.mediumSpacing,
+        child: Column(
+          children: [
+            // Safe area for header and banner
+            SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.all(
+                  isSmallScreen
+                      ? AppConstants.smallSpacing
+                      : AppConstants.mediumSpacing,
+                ),
+                child: Column(
+                  children: [
+                    // Header
+                    _buildHeader(context),
+                    SizedBox(
+                      height:
+                          isSmallScreen
+                              ? AppConstants.smallSpacing
+                              : AppConstants.mediumSpacing,
+                    ),
+                    // Banner Ad fixed below header
+                    const BannerAdWidget(),
+                  ],
+                ),
+              ),
             ),
-            child: Column(
-              children: [
-                // Header
-                _buildHeader(context),
-                SizedBox(
-                  height:
+            // Games Grid with inline ads - extends to bottom
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal:
                       isSmallScreen
                           ? AppConstants.smallSpacing
                           : AppConstants.mediumSpacing,
                 ),
-                // Banner Ad fixed below header
-                const BannerAdWidget(),
-                SizedBox(
-                  height:
-                      isSmallScreen
-                          ? AppConstants.smallSpacing
-                          : AppConstants.mediumSpacing,
-                ),
-                // Games Grid with inline ads
-                Expanded(child: _buildGamesGridWithInlineAds(context)),
-              ],
+                child: _buildGamesGridWithInlineAds(context),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -410,7 +420,11 @@ class _HomeScreenState extends State<HomeScreen>
     return CustomScrollView(
       slivers: [
         SliverPadding(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.only(
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                20, // Add bottom padding
+          ),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               // The grid wrapped as a sliver list of sections
@@ -462,9 +476,9 @@ class _GamesGridWithAdsSection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: isSmallScreen ? 8 : 12,
-            mainAxisSpacing: isSmallScreen ? 8 : 12,
-            childAspectRatio: isSmallScreen ? 0.85 : 0.9,
+            crossAxisSpacing: isSmallScreen ? 12 : 16,
+            mainAxisSpacing: isSmallScreen ? 12 : 16,
+            childAspectRatio: isSmallScreen ? 0.75 : 0.8,
           ),
           padding: EdgeInsets.zero,
           itemCount: take,
@@ -482,6 +496,9 @@ class _GamesGridWithAdsSection extends StatelessWidget {
                       iconPath: GamesConfig.getGameIconPath(game.icon),
                       color: GamesConfig.getGameColor(game.id),
                       gameId: game.id,
+                      showNewBadge:
+                          game.id == 'guess_the_flag' ||
+                          game.id == 'tic_tac_toe',
                       onTap: () {
                         AppRouter.pushNamed(context, game.route);
                       },

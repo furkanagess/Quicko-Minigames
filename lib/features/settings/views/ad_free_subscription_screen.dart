@@ -749,12 +749,28 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
       // Close this screen after success
       if (mounted) Navigator.of(context).pop();
     } else if (purchaseProvider.errorMessage != null) {
-      // Show error bottom sheet if purchase failed
-      _showPurchaseErrorBottomSheet(
-        context,
-        title: AppLocalizations.of(context)!.purchaseError,
-        description: AppLocalizations.of(context)!.purchaseErrorDescription,
-      );
+      // Show error bottom sheet if purchase failed with user-friendly error info
+      final errorInfo = purchaseProvider.purchaseErrorInfo;
+      if (errorInfo != null) {
+        // Use localized error info if available
+        final localizedErrorInfo =
+            InAppPurchaseProvider.classifyErrorWithLocalization(
+              errorInfo.originalError ?? errorInfo.userFriendlyTitle,
+              AppLocalizations.of(context)!,
+            );
+        _showPurchaseErrorBottomSheet(
+          context,
+          title: localizedErrorInfo.userFriendlyTitle,
+          description: localizedErrorInfo.userFriendlyDescription,
+          errorType: localizedErrorInfo.type,
+        );
+      } else {
+        _showPurchaseErrorBottomSheet(
+          context,
+          title: AppLocalizations.of(context)!.purchaseError,
+          description: AppLocalizations.of(context)!.purchaseErrorDescription,
+        );
+      }
     }
   }
 
@@ -789,19 +805,53 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         if (mounted) Navigator.of(context).pop();
       } else {
         // Show message that no purchases were found to restore
-        _showPurchaseErrorBottomSheet(
-          context,
-          title: AppLocalizations.of(context)!.noPurchasesFound,
-          description:
-              AppLocalizations.of(context)!.noPurchasesFoundDescription,
-        );
+        final errorInfo = purchaseProvider.purchaseErrorInfo;
+        if (errorInfo != null) {
+          // Use localized error info if available
+          final localizedErrorInfo =
+              InAppPurchaseProvider.classifyErrorWithLocalization(
+                errorInfo.originalError ?? errorInfo.userFriendlyTitle,
+                AppLocalizations.of(context)!,
+                isRestore: true,
+              );
+          _showPurchaseErrorBottomSheet(
+            context,
+            title: localizedErrorInfo.userFriendlyTitle,
+            description: localizedErrorInfo.userFriendlyDescription,
+            errorType: localizedErrorInfo.type,
+          );
+        } else {
+          _showPurchaseErrorBottomSheet(
+            context,
+            title: AppLocalizations.of(context)!.noPurchasesFound,
+            description:
+                AppLocalizations.of(context)!.noPurchasesFoundDescription,
+          );
+        }
       }
     } else {
-      _showPurchaseErrorBottomSheet(
-        context,
-        title: AppLocalizations.of(context)!.restoreError,
-        description: AppLocalizations.of(context)!.restoreErrorDescription,
-      );
+      final errorInfo = purchaseProvider.purchaseErrorInfo;
+      if (errorInfo != null) {
+        // Use localized error info if available
+        final localizedErrorInfo =
+            InAppPurchaseProvider.classifyErrorWithLocalization(
+              errorInfo.originalError ?? errorInfo.userFriendlyTitle,
+              AppLocalizations.of(context)!,
+              isRestore: true,
+            );
+        _showPurchaseErrorBottomSheet(
+          context,
+          title: localizedErrorInfo.userFriendlyTitle,
+          description: localizedErrorInfo.userFriendlyDescription,
+          errorType: localizedErrorInfo.type,
+        );
+      } else {
+        _showPurchaseErrorBottomSheet(
+          context,
+          title: AppLocalizations.of(context)!.restoreError,
+          description: AppLocalizations.of(context)!.restoreErrorDescription,
+        );
+      }
     }
   }
 
@@ -809,6 +859,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
     BuildContext context, {
     required String title,
     required String description,
+    PurchaseErrorType? errorType,
   }) {
     showModalBottomSheet(
       context: context,
@@ -844,19 +895,20 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                     ),
                   ),
                   const SizedBox(height: AppConstants.largeSpacing),
-                  // Icon
+                  // Icon - different icons based on error type
                   Center(
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Theme.of(
+                        color: _getErrorIconColor(
                           context,
-                        ).colorScheme.error.withValues(alpha: 0.1),
+                          errorType,
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Icon(
-                        Icons.error_outline_rounded,
-                        color: Theme.of(context).colorScheme.error,
+                        _getErrorIcon(errorType),
+                        color: _getErrorIconColor(context, errorType),
                         size: 32,
                       ),
                     ),
@@ -866,7 +918,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                   Text(
                     title,
                     style: TextThemeManager.sectionTitle.copyWith(
-                      color: Theme.of(context).colorScheme.error,
+                      color: _getErrorIconColor(context, errorType),
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
@@ -889,7 +941,7 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error,
+                        backgroundColor: _getErrorIconColor(context, errorType),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
@@ -1017,5 +1069,57 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         );
       },
     );
+  }
+
+  /// Get appropriate icon for error type
+  IconData _getErrorIcon(PurchaseErrorType? errorType) {
+    switch (errorType) {
+      case PurchaseErrorType.networkError:
+        return Icons.wifi_off_rounded;
+      case PurchaseErrorType.paymentMethodError:
+        return Icons.credit_card_off_rounded;
+      case PurchaseErrorType.insufficientFunds:
+        return Icons.account_balance_wallet_outlined;
+      case PurchaseErrorType.userCancelled:
+        return Icons.cancel_outlined;
+      case PurchaseErrorType.productNotFound:
+        return Icons.inventory_2_outlined;
+      case PurchaseErrorType.alreadyOwned:
+        return Icons.check_circle_outline_rounded;
+      case PurchaseErrorType.storeNotAvailable:
+        return Icons.store_outlined;
+      case PurchaseErrorType.restoreFailed:
+      case PurchaseErrorType.noPurchasesFound:
+        return Icons.restore_from_trash_outlined;
+      case PurchaseErrorType.unknownError:
+      default:
+        return Icons.error_outline_rounded;
+    }
+  }
+
+  /// Get appropriate color for error type
+  Color _getErrorIconColor(BuildContext context, PurchaseErrorType? errorType) {
+    switch (errorType) {
+      case PurchaseErrorType.networkError:
+        return Colors.orange;
+      case PurchaseErrorType.paymentMethodError:
+        return Colors.red;
+      case PurchaseErrorType.insufficientFunds:
+        return Colors.deepOrange;
+      case PurchaseErrorType.userCancelled:
+        return Colors.grey;
+      case PurchaseErrorType.productNotFound:
+        return Colors.amber;
+      case PurchaseErrorType.alreadyOwned:
+        return Colors.green;
+      case PurchaseErrorType.storeNotAvailable:
+        return Colors.purple;
+      case PurchaseErrorType.restoreFailed:
+      case PurchaseErrorType.noPurchasesFound:
+        return Colors.blue;
+      case PurchaseErrorType.unknownError:
+      default:
+        return Theme.of(context).colorScheme.error;
+    }
   }
 }

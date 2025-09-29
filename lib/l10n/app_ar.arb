@@ -255,6 +255,15 @@
   "@twentyOneDescription": {
     "description": "وصف لعبة 21"
   },
+  
+  "ticTacToe": "تيك تاك تو",
+  "@ticTacToe": {
+    "description": "عنوان لعبة تيك تاك تو"
+  },
+  "ticTacToeDescription": "العب ضد الكمبيوتر! اجمع ثلاثة متتالية للفوز.",
+  "@ticTacToeDescription": {
+    "description": "وصف لعبة تيك تاك تو"
+  },
   "nowYourTurn": "دورك الآن!",
   "@nowYourTurn": {
     "description": "رسالة دور اللاعب"
@@ -1093,5 +1102,98 @@
   "uninstallWarningMessage": "إذا قمت بإلغاء تثبيت التطبيق، فسيتم حذف جميع نقاط اللعب وحقوق الاشتراك بشكل دائم.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  
+  "connectionProblem": "مشكلة في الاتصال",
+  "@connectionProblem": {"description": "عنوان لأخطاء اتصال الشبكة"},
+  "connectionProblemDescription": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى. مطلوب اتصال مستقر للمشتريات.",
+  "@connectionProblemDescription": {"description": "وصف لأخطاء اتصال الشبكة"},
+  
+  "paymentMethodIssue": "مشكلة في طريقة الدفع",
+  "@paymentMethodIssue": {"description": "عنوان لأخطاء طريقة الدفع"},
+  "paymentMethodIssueDescription": "هناك مشكلة في طريقة الدفع الخاصة بك. يرجى التحقق من تفاصيل البطاقة أو تجربة طريقة دفع أخرى.",
+  "@paymentMethodIssueDescription": {"description": "وصف لأخطاء طريقة الدفع"},
+  
+  "insufficientFunds": "رصيد غير كافٍ",
+  "@insufficientFunds": {"description": "عنوان لأخطاء الرصيد غير الكافي"},
+  "insufficientFundsDescription": "طريقة الدفع الخاصة بك لا تحتوي على رصيد كافٍ. يرجى إضافة المال إلى حسابك أو استخدام طريقة دفع أخرى.",
+  "@insufficientFundsDescription": {"description": "وصف لأخطاء الرصيد غير الكافي"},
+  
+  "purchaseCancelled": "تم إلغاء الشراء",
+  "@purchaseCancelled": {"description": "عنوان للعمليات المشتراة الملغاة"},
+  "purchaseCancelledDescription": "لقد ألغيت عملية الشراء. يمكنك المحاولة مرة أخرى في أي وقت.",
+  "@purchaseCancelledDescription": {"description": "وصف للعمليات المشتراة الملغاة"},
+  
+  "productNotAvailable": "المنتج غير متوفر",
+  "@productNotAvailable": {"description": "عنوان لأخطاء المنتج غير الموجود"},
+  "productNotAvailableDescription": "هذا المنتج غير متوفر مؤقتاً. يرجى المحاولة لاحقاً أو الاتصال بالدعم إذا استمرت المشكلة.",
+  "@productNotAvailableDescription": {"description": "وصف لأخطاء المنتج غير الموجود"},
+  
+  "alreadyPurchased": "تم الشراء مسبقاً",
+  "@alreadyPurchased": {"description": "عنوان لأخطاء المنتج المملوك مسبقاً"},
+  "alreadyPurchasedDescription": "لديك هذا المنتج بالفعل. حاول استعادة مشترياتك إذا لم تر الفوائد.",
+  "@alreadyPurchasedDescription": {"description": "وصف لأخطاء المنتج المملوك مسبقاً"},
+  
+  "storeUnavailable": "المتجر غير متوفر",
+  "@storeUnavailable": {"description": "عنوان لأخطاء المتجر غير المتوفر"},
+  "storeUnavailableDescription": "متجر التطبيقات غير متوفر مؤقتاً. يرجى المحاولة خلال بضع دقائق.",
+  "@storeUnavailableDescription": {"description": "وصف لأخطاء المتجر غير المتوفر"},
+  
+  "restoreFailed": "فشل الاستعادة",
+  "@restoreFailed": {"description": "عنوان لأخطاء الاستعادة"},
+  "restoreFailedDescription": "لم نتمكن من استعادة مشترياتك. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
+  "@restoreFailedDescription": {"description": "وصف لأخطاء الاستعادة"},
+  
+  "guessTheFlag": "خمن العلم",
+  "@guessTheFlag": {
+    "description": "عنوان لعبة خمن العلم"
+  },
+  "guessTheFlagDescription": "اختبر معرفتك بأعلام العالم! اطابق إيموجي العلم مع اسم البلد الصحيح.",
+  "@guessTheFlagDescription": {
+    "description": "وصف لعبة خمن العلم"
+  },
+  "whichCountry": "أي بلد ينتمي إليه هذا العلم؟",
+  "@whichCountry": {
+    "description": "سؤال عن البلد الذي ينتمي إليه العلم"
+  },
+  "timeUp": "انتهى الوقت!",
+  "@timeUp": {
+    "description": "رسالة عندما ينتهي الوقت"
+  },
+  "timeUpDescription": "انتهى وقتك! حاول أن تكون أسرع في المرة القادمة.",
+  "@timeUpDescription": {
+    "description": "وصف عندما ينتهي الوقت"
+  },
+  "wrongAnswer": "إجابة خاطئة!",
+  "@wrongAnswer": {
+    "description": "رسالة عندما تكون الإجابة خاطئة"
+  },
+  "wrongAnswerDescription": "هذا ليس البلد الصحيح. حظ أوفر في المرة القادمة!",
+  "@wrongAnswerDescription": {
+    "description": "وصف عندما تكون الإجابة خاطئة"
+  },
+  "round": "جولة",
+  "@round": {
+    "description": "تسمية الجولة"
+  },
+  "readyToStart": "مستعد للبدء؟",
+  "@readyToStart": {
+    "description": "رسالة عندما تكون مستعداً لبدء اللعبة"
+  },
+  "lives": "الأرواح",
+  "@lives": {
+    "description": "تسمية للأرواح في اللعبة"
+  },
+  "yourScore": "نقاطك",
+  "@yourScore": {
+    "description": "Label for player's score in TicTacToe game"
+  },
+  "currentRound": "الجولة الحالية",
+  "@currentRound": {
+    "description": "Label for current round in TicTacToe game"
+  },
+  "computerWon": "فاز الكمبيوتر!",
+  "@computerWon": {
+    "description": "Message when computer wins in TicTacToe game"
   }
 }

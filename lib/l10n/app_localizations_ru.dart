@@ -262,6 +262,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Победите дилера до 21! Подойдите как можно ближе, не превышая.';
 
   @override
+  String get ticTacToe => 'Крестики-Нолики';
+
+  @override
+  String get ticTacToeDescription =>
+      'Играйте против компьютера! Соберите три в ряд, чтобы выиграть.';
+
+  @override
   String get nowYourTurn => 'Теперь ваша очередь!';
 
   @override
@@ -422,7 +429,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get shareError => 'Ошибка при обмене достижениями. Попробуйте снова.';
 
   @override
-  String get timeUp => 'Время Истекло';
+  String get timeUp => 'Время Вышло!';
 
   @override
   String get timeUpMessage => 'У вас закончилось время!';
@@ -432,6 +439,27 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get youWon => 'Вы Победили!';
+
+  @override
+  String get computerWon => 'Компьютер Победил!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'Оценить Quicko';
@@ -662,7 +690,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get correctGuesses => 'Правильные Догадки';
 
   @override
-  String get yourScore => 'ваш результат:';
+  String get yourScore => 'Твой Счет';
 
   @override
   String get cpuScore => 'Результат Компьютера';
@@ -807,6 +835,62 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'Мы не смогли найти предыдущие покупки для восстановления. Убедитесь, что вы вошли в систему с тем же Apple ID, который использовали для оригинальной покупки.';
+
+  @override
+  String get connectionProblem => 'Проблема с Подключением';
+
+  @override
+  String get connectionProblemDescription =>
+      'Пожалуйста, проверьте ваше интернет-соединение и попробуйте снова. Для покупок требуется стабильное соединение.';
+
+  @override
+  String get paymentMethodIssue => 'Проблема с Способом Оплаты';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'Проблема с вашим способом оплаты. Пожалуйста, проверьте данные вашей карты или попробуйте другой способ оплаты.';
+
+  @override
+  String get insufficientFunds => 'Недостаточно Средств';
+
+  @override
+  String get insufficientFundsDescription =>
+      'На вашем способе оплаты недостаточно средств. Пожалуйста, добавьте деньги на ваш счет или используйте другой способ оплаты.';
+
+  @override
+  String get purchaseCancelled => 'Покупка Отменена';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Вы отменили покупку. Вы можете попробовать снова в любое время.';
+
+  @override
+  String get productNotAvailable => 'Продукт Недоступен';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Этот продукт временно недоступен. Пожалуйста, попробуйте позже или обратитесь в поддержку, если проблема сохраняется.';
+
+  @override
+  String get alreadyPurchased => 'Уже Куплено';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'У вас уже есть этот продукт. Попробуйте восстановить ваши покупки, если вы не видите преимуществ.';
+
+  @override
+  String get storeUnavailable => 'Магазин Недоступен';
+
+  @override
+  String get storeUnavailableDescription =>
+      'Магазин приложений временно недоступен. Пожалуйста, попробуйте через несколько минут.';
+
+  @override
+  String get restoreFailed => 'Восстановление Неудачно';
+
+  @override
+  String get restoreFailedDescription =>
+      'Мы не смогли восстановить ваши покупки. Пожалуйста, проверьте ваше интернет-соединение и попробуйте снова.';
 
   @override
   String get feedback => 'Обратная Связь';
@@ -1085,4 +1169,37 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Если вы удалите приложение, все ваши игровые очки и права подписки будут безвозвратно удалены.';
+
+  @override
+  String get guessTheFlag => 'Угадай Флаг';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Проверьте свои знания флагов мира! Сопоставьте эмодзи флага с правильным названием страны.';
+
+  @override
+  String get whichCountry => 'Какой стране принадлежит этот флаг?';
+
+  @override
+  String get timeUpDescription =>
+      'У вас закончилось время! Попробуйте быть быстрее в следующий раз.';
+
+  @override
+  String get wrongAnswer => 'Неправильный Ответ!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'Это не правильная страна. Удачи в следующий раз!';
+
+  @override
+  String get round => 'Раунд';
+
+  @override
+  String get readyToStart => 'Готовы Начать?';
+
+  @override
+  String get lives => 'Жизни';
+
+  @override
+  String get currentRound => 'Текущий Раунд';
 }

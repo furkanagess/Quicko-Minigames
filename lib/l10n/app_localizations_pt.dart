@@ -260,6 +260,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Beat the dealer to 21! Get as close as possible without going over.';
 
   @override
+  String get ticTacToe => 'Jogo da Velha';
+
+  @override
+  String get ticTacToeDescription =>
+      'Jogue contra o computador! Faça três seguidas para ganhar.';
+
+  @override
   String get nowYourTurn => 'Now, your turn!';
 
   @override
@@ -417,7 +424,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get shareError => 'Error sharing achievements. Please try again.';
 
   @override
-  String get timeUp => 'Time\'s Up';
+  String get timeUp => 'Tempo Esgotado!';
 
   @override
   String get timeUpMessage => 'You ran out of time!';
@@ -427,6 +434,27 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get youWon => 'You Won!';
+
+  @override
+  String get computerWon => 'Computador Ganhou!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'Rate Quicko';
@@ -654,7 +682,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get correctGuesses => 'Correct Guesses';
 
   @override
-  String get yourScore => 'your score:';
+  String get yourScore => 'Sua Pontuação';
 
   @override
   String get cpuScore => 'CPU Score';
@@ -798,6 +826,62 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'We couldn\'t find any previous purchases to restore. Make sure you\'re signed in with the same Apple ID you used for the original purchase.';
+
+  @override
+  String get connectionProblem => 'Problema de Conexão';
+
+  @override
+  String get connectionProblemDescription =>
+      'Verifique sua conexão com a internet e tente novamente. Uma conexão estável é necessária para compras.';
+
+  @override
+  String get paymentMethodIssue => 'Problema com Método de Pagamento';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'Há um problema com seu método de pagamento. Verifique os detalhes do seu cartão ou tente um método de pagamento diferente.';
+
+  @override
+  String get insufficientFunds => 'Fundos Insuficientes';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Seu método de pagamento não tem fundos suficientes. Adicione dinheiro à sua conta ou use um método de pagamento diferente.';
+
+  @override
+  String get purchaseCancelled => 'Compra Cancelada';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Você cancelou a compra. Pode tentar novamente a qualquer momento.';
+
+  @override
+  String get productNotAvailable => 'Produto Não Disponível';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Este produto não está temporariamente disponível. Tente novamente mais tarde ou entre em contato com o suporte se o problema persistir.';
+
+  @override
+  String get alreadyPurchased => 'Já Comprado';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'Você já possui este produto. Tente restaurar suas compras se não estiver vendo os benefícios.';
+
+  @override
+  String get storeUnavailable => 'Loja Indisponível';
+
+  @override
+  String get storeUnavailableDescription =>
+      'A loja de aplicativos está temporariamente indisponível. Tente novamente em alguns minutos.';
+
+  @override
+  String get restoreFailed => 'Restauração Falhou';
+
+  @override
+  String get restoreFailedDescription =>
+      'Não conseguimos restaurar suas compras. Verifique sua conexão com a internet e tente novamente.';
 
   @override
   String get feedback => 'Feedback';
@@ -1074,6 +1158,39 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.';
+
+  @override
+  String get guessTheFlag => 'Adivinhe a Bandeira';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Teste seu conhecimento das bandeiras do mundo! Combine o emoji da bandeira com o nome do país correto.';
+
+  @override
+  String get whichCountry => 'A qual país pertence esta bandeira?';
+
+  @override
+  String get timeUpDescription =>
+      'Seu tempo esgotou! Tente ser mais rápido da próxima vez.';
+
+  @override
+  String get wrongAnswer => 'Resposta Errada!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'Não é o país correto. Melhor sorte da próxima vez!';
+
+  @override
+  String get round => 'Rodada';
+
+  @override
+  String get readyToStart => 'Pronto para Começar?';
+
+  @override
+  String get lives => 'Vidas';
+
+  @override
+  String get currentRound => 'Rodada Atual';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -1319,6 +1436,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get twentyOneDescription =>
       'Vence o crupiê até 21! Chegue o mais perto possível sem ultrapassar.';
+
+  @override
+  String get ticTacToe => 'Jogo da Velha';
+
+  @override
+  String get ticTacToeDescription =>
+      'Jogue contra o computador! Faça três seguidas para ganhar.';
 
   @override
   String get nowYourTurn => 'Agora é sua vez!';
@@ -1844,6 +1968,62 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get noPurchasesFoundDescription =>
       'Não conseguimos encontrar compras anteriores para restaurar. Certifique-se de estar conectado com o mesmo Apple ID que você usou para a compra original.';
+
+  @override
+  String get connectionProblem => 'Problema de Conexão';
+
+  @override
+  String get connectionProblemDescription =>
+      'Verifique sua conexão com a internet e tente novamente. Uma conexão estável é necessária para compras.';
+
+  @override
+  String get paymentMethodIssue => 'Problema com Método de Pagamento';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'Há um problema com seu método de pagamento. Verifique os detalhes do seu cartão ou tente um método de pagamento diferente.';
+
+  @override
+  String get insufficientFunds => 'Fundos Insuficientes';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Seu método de pagamento não tem fundos suficientes. Adicione dinheiro à sua conta ou use um método de pagamento diferente.';
+
+  @override
+  String get purchaseCancelled => 'Compra Cancelada';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Você cancelou a compra. Pode tentar novamente a qualquer momento.';
+
+  @override
+  String get productNotAvailable => 'Produto Não Disponível';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Este produto não está temporariamente disponível. Tente novamente mais tarde ou entre em contato com o suporte se o problema persistir.';
+
+  @override
+  String get alreadyPurchased => 'Já Comprado';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'Você já possui este produto. Tente restaurar suas compras se não estiver vendo os benefícios.';
+
+  @override
+  String get storeUnavailable => 'Loja Indisponível';
+
+  @override
+  String get storeUnavailableDescription =>
+      'A loja de aplicativos está temporariamente indisponível. Tente novamente em alguns minutos.';
+
+  @override
+  String get restoreFailed => 'Restauração Falhou';
+
+  @override
+  String get restoreFailedDescription =>
+      'Não conseguimos restaurar suas compras. Verifique sua conexão com a internet e tente novamente.';
 
   @override
   String get feedback => 'Feedback';

@@ -328,6 +328,15 @@
     "description": "Description for the 21 (Blackjack) game"
   },
   
+  "ticTacToe": "Tic Tac Toe",
+  "@ticTacToe": {
+    "description": "Title for the Tic Tac Toe game"
+  },
+  "ticTacToeDescription": "Play against the computer! Get three in a row to win.",
+  "@ticTacToeDescription": {
+    "description": "Description for the Tic Tac Toe game"
+  },
+  
   "nowYourTurn": "Now, your turn!",
   "@nowYourTurn": {
     "description": "Message indicating it's the player's turn"
@@ -563,6 +572,34 @@
     "description": "Message indicating time ran out"
   },
   "youWon": "You Won!",
+  "computerWon": "Computer Won!",
+  "@computerWon": {
+    "description": "Computer won message"
+  },
+  "itsADraw": "It's a Draw!",
+  "@itsADraw": {
+    "description": "Draw game message"
+  },
+  "goodGame": "Good Game!",
+  "@goodGame": {
+    "description": "Good game message"
+  },
+  "tapToStart": "Tap to Start",
+  "@tapToStart": {
+    "description": "Tap to start message"
+  },
+  "computerThinking": "Computer is thinking...",
+  "@computerThinking": {
+    "description": "Computer thinking message"
+  },
+  "yourTurn": "Your Turn",
+  "@yourTurn": {
+    "description": "Your turn message"
+  },
+  "computerTurn": "Computer's Turn",
+  "@computerTurn": {
+    "description": "Computer's turn message"
+  },
   "rateQuicko": "Rate Quicko",
   "@rateQuicko": {
     "description": "Title for rating bottom sheet"
@@ -1086,6 +1123,46 @@
   "@noPurchasesFound": {"description": "Title shown when no purchases are found to restore"},
   "noPurchasesFoundDescription": "We couldn't find any previous purchases to restore. Make sure you're signed in with the same Apple ID you used for the original purchase.",
   "@noPurchasesFoundDescription": {"description": "Description shown when no purchases are found to restore"},
+  
+  "connectionProblem": "Connection Problem",
+  "@connectionProblem": {"description": "Title for network connection errors"},
+  "connectionProblemDescription": "Please check your internet connection and try again. A stable connection is required for purchases.",
+  "@connectionProblemDescription": {"description": "Description for network connection errors"},
+  
+  "paymentMethodIssue": "Payment Method Issue",
+  "@paymentMethodIssue": {"description": "Title for payment method errors"},
+  "paymentMethodIssueDescription": "There's an issue with your payment method. Please check your card details or try a different payment method.",
+  "@paymentMethodIssueDescription": {"description": "Description for payment method errors"},
+  
+  "insufficientFunds": "Insufficient Funds",
+  "@insufficientFunds": {"description": "Title for insufficient funds errors"},
+  "insufficientFundsDescription": "Your payment method doesn't have sufficient funds. Please add money to your account or use a different payment method.",
+  "@insufficientFundsDescription": {"description": "Description for insufficient funds errors"},
+  
+  "purchaseCancelled": "Purchase Cancelled",
+  "@purchaseCancelled": {"description": "Title for cancelled purchases"},
+  "purchaseCancelledDescription": "You cancelled the purchase. You can try again anytime.",
+  "@purchaseCancelledDescription": {"description": "Description for cancelled purchases"},
+  
+  "productNotAvailable": "Product Not Available",
+  "@productNotAvailable": {"description": "Title for product not found errors"},
+  "productNotAvailableDescription": "This product is temporarily unavailable. Please try again later or contact support if the issue persists.",
+  "@productNotAvailableDescription": {"description": "Description for product not found errors"},
+  
+  "alreadyPurchased": "Already Purchased",
+  "@alreadyPurchased": {"description": "Title for already owned product errors"},
+  "alreadyPurchasedDescription": "You already own this product. Try restoring your purchases if you're not seeing the benefits.",
+  "@alreadyPurchasedDescription": {"description": "Description for already owned product errors"},
+  
+  "storeUnavailable": "Store Unavailable",
+  "@storeUnavailable": {"description": "Title for store not available errors"},
+  "storeUnavailableDescription": "The app store is temporarily unavailable. Please try again in a few minutes.",
+  "@storeUnavailableDescription": {"description": "Description for store not available errors"},
+  
+  "restoreFailed": "Restore Failed",
+  "@restoreFailed": {"description": "Title for restore failures"},
+  "restoreFailedDescription": "We couldn't restore your purchases. Please check your internet connection and try again.",
+  "@restoreFailedDescription": {"description": "Description for restore failures"},
 
   "feedback": "Feedback",
   "@feedback": {
@@ -1452,5 +1529,58 @@
   "uninstallWarningMessage": "If you uninstall the app, all your game scores and subscription rights will be permanently deleted.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
+  },
+  
+  "guessTheFlag": "Guess the Flag",
+  "@guessTheFlag": {
+    "description": "Title for the Guess the Flag game"
+  },
+  "guessTheFlagDescription": "Test your knowledge of world flags! Match the flag emoji to the correct country name.",
+  "@guessTheFlagDescription": {
+    "description": "Description for the Guess the Flag game"
+  },
+  "whichCountry": "Which country does this flag belong to?",
+  "@whichCountry": {
+    "description": "Question asking which country the flag belongs to"
+  },
+  "timeUp": "Time's Up!",
+  "@timeUp": {
+    "description": "Message when time runs out"
+  },
+  "timeUpDescription": "You ran out of time! Try to be faster next time.",
+  "@timeUpDescription": {
+    "description": "Description when time runs out"
+  },
+  "wrongAnswer": "Wrong Answer!",
+  "@wrongAnswer": {
+    "description": "Message when answer is wrong"
+  },
+  "wrongAnswerDescription": "That's not the correct country. Better luck next time!",
+  "@wrongAnswerDescription": {
+    "description": "Description when answer is wrong"
+  },
+  "round": "Round",
+  "@round": {
+    "description": "Round label"
+  },
+  "readyToStart": "Ready to Start?",
+  "@readyToStart": {
+    "description": "Message when ready to start the game"
+  },
+  "lives": "Lives",
+  "@lives": {
+    "description": "Label for lives in the game"
+  },
+  "yourScore": "Your Score",
+  "@yourScore": {
+    "description": "Label for player's score in TicTacToe game"
+  },
+  "currentRound": "Current Round",
+  "@currentRound": {
+    "description": "Label for current round in TicTacToe game"
+  },
+  "computerWon": "Computer Won!",
+  "@computerWon": {
+    "description": "Message when computer wins in TicTacToe game"
   }
 }

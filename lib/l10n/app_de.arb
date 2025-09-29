@@ -263,6 +263,15 @@
     "description": "Beschreibung für das 21 (Blackjack) Spiel"
   },
   
+  "ticTacToe": "Tic Tac Toe",
+  "@ticTacToe": {
+    "description": "Titel für das Tic Tac Toe Spiel"
+  },
+  "ticTacToeDescription": "Spiele gegen den Computer! Erreiche drei in einer Reihe zum Gewinnen.",
+  "@ticTacToeDescription": {
+    "description": "Beschreibung für das Tic Tac Toe Spiel"
+  },
+  
   "nowYourTurn": "Jetzt bist du dran!",
   "@nowYourTurn": {
     "description": "Nachricht dass der Spieler an der Reihe ist"
@@ -505,6 +514,13 @@
     "description": "Endpunktzahl Bezeichnung"
   },
   "youWon": "Du hast Gewonnen!",
+  "computerWon": "Computer hat gewonnen!",
+  "itsADraw": "Unentschieden!",
+  "goodGame": "Gutes Spiel!",
+  "tapToStart": "Tippen zum Starten",
+  "computerThinking": "Computer denkt nach...",
+  "yourTurn": "Du bist dran",
+  "computerTurn": "Computer ist dran",
   "rateQuicko": "Quicko bewerten",
   "rateQuickoDescription": "Ihr Feedback hilft uns, uns zu verbessern und mehr Benutzer zu erreichen!",
   "howWouldYouRate": "Wie würden Sie Quicko bewerten?",
@@ -1143,5 +1159,72 @@
   "uninstallWarningMessage": "Wenn Sie die App deinstallieren, werden alle Ihre Spielergebnisse und Abonnementrechte dauerhaft gelöscht.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "connectionProblem": "Verbindungsproblem",
+  "@connectionProblem": {"description": "Titel für Netzwerkverbindungsfehler"},
+  "connectionProblemDescription": "Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut. Für Käufe ist eine stabile Verbindung erforderlich.",
+  "@connectionProblemDescription": {"description": "Beschreibung für Netzwerkverbindungsfehler"},
+  
+  "paymentMethodIssue": "Zahlungsmethode Problem",
+  "@paymentMethodIssue": {"description": "Titel für Zahlungsmethodenfehler"},
+  "paymentMethodIssueDescription": "Es gibt ein Problem mit Ihrer Zahlungsmethode. Bitte überprüfen Sie Ihre Kartendetails oder versuchen Sie eine andere Zahlungsmethode.",
+  "@paymentMethodIssueDescription": {"description": "Beschreibung für Zahlungsmethodenfehler"},
+  
+  "insufficientFunds": "Unzureichende Mittel",
+  "@insufficientFunds": {"description": "Titel für unzureichende Mittel Fehler"},
+  "insufficientFundsDescription": "Ihre Zahlungsmethode hat nicht genügend Mittel. Bitte fügen Sie Geld zu Ihrem Konto hinzu oder verwenden Sie eine andere Zahlungsmethode.",
+  "@insufficientFundsDescription": {"description": "Beschreibung für unzureichende Mittel Fehler"},
+  
+  "purchaseCancelled": "Kauf Abgebrochen",
+  "@purchaseCancelled": {"description": "Titel für abgebrochene Käufe"},
+  "purchaseCancelledDescription": "Sie haben den Kauf abgebrochen. Sie können jederzeit erneut versuchen.",
+  "@purchaseCancelledDescription": {"description": "Beschreibung für abgebrochene Käufe"},
+  
+  "productNotAvailable": "Produkt Nicht Verfügbar",
+  "@productNotAvailable": {"description": "Titel für Produkt nicht gefunden Fehler"},
+  "productNotAvailableDescription": "Dieses Produkt ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht.",
+  "@productNotAvailableDescription": {"description": "Beschreibung für Produkt nicht gefunden Fehler"},
+  
+  "alreadyPurchased": "Bereits Gekauft",
+  "@alreadyPurchased": {"description": "Titel für bereits besessene Produkt Fehler"},
+  "alreadyPurchasedDescription": "Sie besitzen dieses Produkt bereits. Versuchen Sie, Ihre Käufe wiederherzustellen, wenn Sie die Vorteile nicht sehen.",
+  "@alreadyPurchasedDescription": {"description": "Beschreibung für bereits besessene Produkt Fehler"},
+  
+  "storeUnavailable": "Store Nicht Verfügbar",
+  "@storeUnavailable": {"description": "Titel für Store nicht verfügbar Fehler"},
+  "storeUnavailableDescription": "Der App Store ist vorübergehend nicht verfügbar. Bitte versuchen Sie es in einigen Minuten erneut.",
+  "@storeUnavailableDescription": {"description": "Beschreibung für Store nicht verfügbar Fehler"},
+  
+  "restoreFailed": "Wiederherstellung Fehlgeschlagen",
+  "@restoreFailed": {"description": "Titel für Wiederherstellungsfehler"},
+  "restoreFailedDescription": "Wir konnten Ihre Käufe nicht wiederherstellen. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+  "@restoreFailedDescription": {"description": "Beschreibung für Wiederherstellungsfehler"},
+  
+  "guessTheFlag": "Flagge Erraten",
+  "@guessTheFlag": {"description": "Titel für das Flagge Erraten Spiel"},
+  "guessTheFlagDescription": "Testen Sie Ihr Wissen über Weltflaggen! Ordnen Sie das Flaggen-Emoji dem richtigen Ländernamen zu.",
+  "@guessTheFlagDescription": {"description": "Beschreibung für das Flagge Erraten Spiel"},
+  "whichCountry": "Zu welchem Land gehört diese Flagge?",
+  "@whichCountry": {"description": "Frage, zu welchem Land die Flagge gehört"},
+  "timeUp": "Zeit Abgelaufen!",
+  "@timeUp": {"description": "Nachricht wenn die Zeit abgelaufen ist"},
+  "timeUpDescription": "Ihre Zeit ist abgelaufen! Versuchen Sie beim nächsten Mal schneller zu sein.",
+  "@timeUpDescription": {"description": "Beschreibung wenn die Zeit abgelaufen ist"},
+  "wrongAnswer": "Falsche Antwort!",
+  "@wrongAnswer": {"description": "Nachricht wenn die Antwort falsch ist"},
+  "wrongAnswerDescription": "Das ist nicht das richtige Land. Beim nächsten Mal haben Sie mehr Glück!",
+  "@wrongAnswerDescription": {"description": "Beschreibung wenn die Antwort falsch ist"},
+  "round": "Runde",
+  "@round": {"description": "Runde Bezeichnung"},
+  "readyToStart": "Bereit zum Starten?",
+  "@readyToStart": {"description": "Nachricht wenn bereit zum Spielstart"},
+  "lives": "Leben",
+  "@lives": {"description": "Label für Leben im Spiel"},
+  "yourScore": "Dein Punktestand",
+  "@yourScore": {"description": "Label for player's score in TicTacToe game"},
+  "currentRound": "Aktuelle Runde",
+  "@currentRound": {"description": "Label for current round in TicTacToe game"},
+  "computerWon": "Computer Gewonnen!",
+  "@computerWon": {"description": "Message when computer wins in TicTacToe game"}
 }

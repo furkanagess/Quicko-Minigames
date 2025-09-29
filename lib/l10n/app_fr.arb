@@ -263,6 +263,15 @@
     "description": "Description pour le jeu 21 (Blackjack)"
   },
   
+  "ticTacToe": "Morpion",
+  "@ticTacToe": {
+    "description": "Titre pour le jeu Morpion"
+  },
+  "ticTacToeDescription": "Jouez contre l'ordinateur ! Alignez trois pour gagner.",
+  "@ticTacToeDescription": {
+    "description": "Description pour le jeu Morpion"
+  },
+  
   "nowYourTurn": "C'est maintenant votre tour !",
   "@nowYourTurn": {
     "description": "Message que c'est le tour du joueur"
@@ -505,6 +514,13 @@
     "description": "Étiquette du score final"
   },
   "youWon": "Vous avez Gagné !",
+  "computerWon": "L'ordinateur a gagné !",
+  "itsADraw": "Match nul !",
+  "goodGame": "Bien joué !",
+  "tapToStart": "Appuyez pour commencer",
+  "computerThinking": "L'ordinateur réfléchit...",
+  "yourTurn": "Votre tour",
+  "computerTurn": "Tour de l'ordinateur",
   "rateQuicko": "Évaluer Quicko",
   "rateQuickoDescription": "Votre avis nous aide à nous améliorer et à atteindre plus d'utilisateurs !",
   "howWouldYouRate": "Comment évalueriez-vous Quicko ?",
@@ -1143,5 +1159,72 @@
   "uninstallWarningMessage": "Si vous désinstallez l'application, tous vos scores de jeu et droits d'abonnement seront définitivement supprimés.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "connectionProblem": "Problème de Connexion",
+  "@connectionProblem": {"description": "Titre pour les erreurs de connexion réseau"},
+  "connectionProblemDescription": "Veuillez vérifier votre connexion internet et réessayer. Une connexion stable est requise pour les achats.",
+  "@connectionProblemDescription": {"description": "Description pour les erreurs de connexion réseau"},
+  
+  "paymentMethodIssue": "Problème de Méthode de Paiement",
+  "@paymentMethodIssue": {"description": "Titre pour les erreurs de méthode de paiement"},
+  "paymentMethodIssueDescription": "Il y a un problème avec votre méthode de paiement. Veuillez vérifier les détails de votre carte ou essayer une méthode de paiement différente.",
+  "@paymentMethodIssueDescription": {"description": "Description pour les erreurs de méthode de paiement"},
+  
+  "insufficientFunds": "Fonds Insuffisants",
+  "@insufficientFunds": {"description": "Titre pour les erreurs de fonds insuffisants"},
+  "insufficientFundsDescription": "Votre méthode de paiement n'a pas de fonds suffisants. Veuillez ajouter de l'argent à votre compte ou utiliser une méthode de paiement différente.",
+  "@insufficientFundsDescription": {"description": "Description pour les erreurs de fonds insuffisants"},
+  
+  "purchaseCancelled": "Achat Annulé",
+  "@purchaseCancelled": {"description": "Titre pour les achats annulés"},
+  "purchaseCancelledDescription": "Vous avez annulé l'achat. Vous pouvez réessayer à tout moment.",
+  "@purchaseCancelledDescription": {"description": "Description pour les achats annulés"},
+  
+  "productNotAvailable": "Produit Non Disponible",
+  "@productNotAvailable": {"description": "Titre pour les erreurs de produit non trouvé"},
+  "productNotAvailableDescription": "Ce produit n'est temporairement pas disponible. Veuillez réessayer plus tard ou contacter le support si le problème persiste.",
+  "@productNotAvailableDescription": {"description": "Description pour les erreurs de produit non trouvé"},
+  
+  "alreadyPurchased": "Déjà Acheté",
+  "@alreadyPurchased": {"description": "Titre pour les erreurs de produit déjà possédé"},
+  "alreadyPurchasedDescription": "Vous possédez déjà ce produit. Essayez de restaurer vos achats si vous ne voyez pas les avantages.",
+  "@alreadyPurchasedDescription": {"description": "Description pour les erreurs de produit déjà possédé"},
+  
+  "storeUnavailable": "Boutique Indisponible",
+  "@storeUnavailable": {"description": "Titre pour les erreurs de boutique non disponible"},
+  "storeUnavailableDescription": "La boutique d'applications est temporairement indisponible. Veuillez réessayer dans quelques minutes.",
+  "@storeUnavailableDescription": {"description": "Description pour les erreurs de boutique non disponible"},
+  
+  "restoreFailed": "Restauration Échouée",
+  "@restoreFailed": {"description": "Titre pour les échecs de restauration"},
+  "restoreFailedDescription": "Nous n'avons pas pu restaurer vos achats. Veuillez vérifier votre connexion internet et réessayer.",
+  "@restoreFailedDescription": {"description": "Description pour les échecs de restauration"},
+  
+  "guessTheFlag": "Deviner le Drapeau",
+  "@guessTheFlag": {"description": "Titre pour le jeu Deviner le Drapeau"},
+  "guessTheFlagDescription": "Testez vos connaissances des drapeaux du monde ! Associez l'emoji du drapeau au nom du pays correct.",
+  "@guessTheFlagDescription": {"description": "Description pour le jeu Deviner le Drapeau"},
+  "whichCountry": "À quel pays appartient ce drapeau ?",
+  "@whichCountry": {"description": "Question demandant à quel pays appartient le drapeau"},
+  "timeUp": "Temps Écoulé !",
+  "@timeUp": {"description": "Message quand le temps est écoulé"},
+  "timeUpDescription": "Votre temps est écoulé ! Essayez d'être plus rapide la prochaine fois.",
+  "@timeUpDescription": {"description": "Description quand le temps est écoulé"},
+  "wrongAnswer": "Mauvaise Réponse !",
+  "@wrongAnswer": {"description": "Message quand la réponse est fausse"},
+  "wrongAnswerDescription": "Ce n'est pas le bon pays. Bonne chance la prochaine fois !",
+  "@wrongAnswerDescription": {"description": "Description quand la réponse est fausse"},
+  "round": "Tour",
+  "@round": {"description": "Étiquette de tour"},
+  "readyToStart": "Prêt à Commencer ?",
+  "@readyToStart": {"description": "Message quand prêt à commencer le jeu"},
+  "lives": "Vies",
+  "@lives": {"description": "Label pour les vies dans le jeu"},
+  "yourScore": "Ton Score",
+  "@yourScore": {"description": "Label for player's score in TicTacToe game"},
+  "currentRound": "Round Actuel",
+  "@currentRound": {"description": "Label for current round in TicTacToe game"},
+  "computerWon": "Ordinateur Gagné !",
+  "@computerWon": {"description": "Message when computer wins in TicTacToe game"}
 }

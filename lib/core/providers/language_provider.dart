@@ -25,12 +25,10 @@ class LanguageProvider extends ChangeNotifier {
       final savedLanguage = prefs.getString(_languageKey);
 
       if (savedLanguage != null) {
-        // Handle country-specific locales
-        if (savedLanguage == 'pt_BR') {
-          _currentLocale = const Locale('pt', 'BR');
-        } else {
-          _currentLocale = Locale(savedLanguage);
-        }
+        // Use the improved getLocaleByLanguageCode method
+        _currentLocale =
+            SupportedLocales.getLocaleByLanguageCode(savedLanguage) ??
+            SupportedLocales.defaultLocale;
       } else {
         // Default to English for new installations
         _currentLocale = SupportedLocales.defaultLocale;
@@ -52,12 +50,8 @@ class LanguageProvider extends ChangeNotifier {
   Future<void> changeLanguage(String languageCode) async {
     Locale? newLocale = SupportedLocales.getLocaleByLanguageCode(languageCode);
 
-    // Handle country-specific locales
-    if (languageCode == 'pt_BR') {
-      newLocale = const Locale('pt', 'BR');
-    } else {
-      newLocale ??= SupportedLocales.defaultLocale;
-    }
+    // Fallback to default locale if not found
+    newLocale ??= SupportedLocales.defaultLocale;
 
     if (_currentLocale.languageCode == newLocale.languageCode &&
         _currentLocale.countryCode == newLocale.countryCode) {
@@ -128,7 +122,7 @@ class LanguageProvider extends ChangeNotifier {
   bool get isTurkish => _currentLocale.languageCode == 'tr';
   bool get isSpanish => _currentLocale.languageCode == 'es';
   bool get isPortuguese =>
-      _currentLocale.languageCode == 'pt' && _currentLocale.countryCode == 'BR';
+      _currentLocale.languageCode == 'pt' && _currentLocale.countryCode == 'br';
   bool get isArabic => _currentLocale.languageCode == 'ar';
   bool get isGerman => _currentLocale.languageCode == 'de';
   bool get isFrench => _currentLocale.languageCode == 'fr';

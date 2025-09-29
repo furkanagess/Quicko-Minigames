@@ -22,6 +22,7 @@ class GameScreenBase extends StatefulWidget {
   final String gameId;
   final Widget child;
   final Widget? descriptionIcon;
+  final Widget? customTopWidget;
   final bool isWaiting;
   final GameResult? gameResult;
   final VoidCallback? onTryAgain;
@@ -43,6 +44,7 @@ class GameScreenBase extends StatefulWidget {
     required this.gameId,
     required this.child,
     this.descriptionIcon,
+    this.customTopWidget,
     this.isWaiting = false,
     this.gameResult,
     this.onTryAgain,
@@ -228,7 +230,7 @@ class _GameScreenBaseState extends State<GameScreenBase>
       // Devam edilmediyse (restart/exit/dismiss), skor belli oldu → leaderboard akışını başlat
       _exitRequested = result == ContinueGameResult.exited;
       await _handleLeaderboardQualification(score);
-    
+
       // If user chose exit, navigate back after handling leaderboard
       if (_exitRequested) {
         widget.onBackToMenu?.call();
@@ -684,6 +686,10 @@ class _GameScreenBaseState extends State<GameScreenBase>
         return localizations.twentyOne;
       case 'reaction_time':
         return localizations.reactionTime;
+      case 'tic_tac_toe':
+        return localizations.ticTacToe;
+      case 'guess_the_flag':
+        return localizations.guessTheFlag;
       default:
         return widget.title;
     }
@@ -712,6 +718,10 @@ class _GameScreenBaseState extends State<GameScreenBase>
         return localizations.twentyOneDescription;
       case 'reactionTimeDescription':
         return localizations.reactionTimeDescription;
+      case 'tic_tac_toe_description':
+        return localizations.ticTacToeDescription;
+      case 'guess_the_flag_description':
+        return localizations.guessTheFlagDescription;
       default:
         return widget.descriptionKey;
     }
@@ -763,6 +773,17 @@ class _GameScreenBaseState extends State<GameScreenBase>
                                 ? AppConstants.smallSpacing
                                 : AppConstants.largeSpacing,
                       ),
+
+                      // Custom top widget (score/round displays)
+                      if (widget.customTopWidget != null) ...[
+                        widget.customTopWidget!,
+                        SizedBox(
+                          height:
+                              isSmallScreen
+                                  ? AppConstants.smallSpacing
+                                  : AppConstants.mediumSpacing,
+                        ),
+                      ],
 
                       // Main game content - FLIP ANİMASYONU SADECE BURADA
                       Expanded(

@@ -261,6 +261,13 @@ class AppLocalizationsId extends AppLocalizations {
       'Kalahkan dealer sampai 21! Mendekatlah sebisa mungkin tanpa melewati batas.';
 
   @override
+  String get ticTacToe => 'Tic Tac Toe';
+
+  @override
+  String get ticTacToeDescription =>
+      'Bermain melawan komputer! Dapatkan tiga berturut-turut untuk menang.';
+
+  @override
   String get nowYourTurn => 'Sekarang giliran Anda!';
 
   @override
@@ -420,7 +427,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get shareError => 'Error saat membagikan prestasi. Coba lagi.';
 
   @override
-  String get timeUp => 'Waktu Habis';
+  String get timeUp => 'Waktu Habis!';
 
   @override
   String get timeUpMessage => 'Waktu Anda habis!';
@@ -430,6 +437,27 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get youWon => 'Anda Menang!';
+
+  @override
+  String get computerWon => 'Komputer Menang!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'Nilai Quicko';
@@ -662,7 +690,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get correctGuesses => 'Tebakan Benar';
 
   @override
-  String get yourScore => 'skor Anda:';
+  String get yourScore => 'Skor Anda';
 
   @override
   String get cpuScore => 'Skor CPU';
@@ -806,6 +834,62 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'Kami tidak dapat menemukan pembelian sebelumnya untuk dipulihkan. Pastikan Anda masuk dengan Apple ID yang sama yang Anda gunakan untuk pembelian asli.';
+
+  @override
+  String get connectionProblem => 'Masalah Koneksi';
+
+  @override
+  String get connectionProblemDescription =>
+      'Silakan periksa koneksi internet Anda dan coba lagi. Koneksi yang stabil diperlukan untuk pembelian.';
+
+  @override
+  String get paymentMethodIssue => 'Masalah Metode Pembayaran';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'Ada masalah dengan metode pembayaran Anda. Silakan periksa detail kartu Anda atau coba metode pembayaran lain.';
+
+  @override
+  String get insufficientFunds => 'Dana Tidak Cukup';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Metode pembayaran Anda tidak memiliki dana yang cukup. Silakan tambahkan uang ke akun Anda atau gunakan metode pembayaran lain.';
+
+  @override
+  String get purchaseCancelled => 'Pembelian Dibatalkan';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'Anda membatalkan pembelian. Anda dapat mencoba lagi kapan saja.';
+
+  @override
+  String get productNotAvailable => 'Produk Tidak Tersedia';
+
+  @override
+  String get productNotAvailableDescription =>
+      'Produk ini tidak tersedia sementara. Silakan coba lagi nanti atau hubungi dukungan jika masalah berlanjut.';
+
+  @override
+  String get alreadyPurchased => 'Sudah Dibeli';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'Anda sudah memiliki produk ini. Coba pulihkan pembelian Anda jika Anda tidak melihat manfaatnya.';
+
+  @override
+  String get storeUnavailable => 'Toko Tidak Tersedia';
+
+  @override
+  String get storeUnavailableDescription =>
+      'Toko aplikasi tidak tersedia sementara. Silakan coba lagi dalam beberapa menit.';
+
+  @override
+  String get restoreFailed => 'Pemulihan Gagal';
+
+  @override
+  String get restoreFailedDescription =>
+      'Kami tidak dapat memulihkan pembelian Anda. Silakan periksa koneksi internet Anda dan coba lagi.';
 
   @override
   String get feedback => 'Umpan Balik';
@@ -1083,4 +1167,37 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'Jika Anda menghapus aplikasi, semua skor permainan dan hak berlangganan Anda akan dihapus secara permanen.';
+
+  @override
+  String get guessTheFlag => 'Tebak Bendera';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Uji pengetahuan Anda tentang bendera dunia! Cocokkan emoji bendera dengan nama negara yang benar.';
+
+  @override
+  String get whichCountry => 'Negara mana yang memiliki bendera ini?';
+
+  @override
+  String get timeUpDescription =>
+      'Waktu Anda habis! Coba lebih cepat lain kali.';
+
+  @override
+  String get wrongAnswer => 'Jawaban Salah!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'Itu bukan negara yang benar. Semoga beruntung lain kali!';
+
+  @override
+  String get round => 'Ronde';
+
+  @override
+  String get readyToStart => 'Siap untuk Memulai?';
+
+  @override
+  String get lives => 'Nyawa';
+
+  @override
+  String get currentRound => 'Ronde Saat Ini';
 }

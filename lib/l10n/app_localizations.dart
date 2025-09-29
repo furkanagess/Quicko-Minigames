@@ -106,6 +106,7 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('tr'),
     Locale('es'),
+    Locale('pt'),
     Locale('pt', 'br'),
     Locale('ar'),
     Locale('de'),
@@ -114,7 +115,6 @@ abstract class AppLocalizations {
     Locale('hi'),
     Locale('ru'),
     Locale('it'),
-    Locale('pt'),
     Locale('pt', 'BR'),
   ];
 
@@ -592,6 +592,18 @@ abstract class AppLocalizations {
   /// **'Beat the dealer to 21! Get as close as possible without going over.'**
   String get twentyOneDescription;
 
+  /// Title for the Tic Tac Toe game
+  ///
+  /// In en, this message translates to:
+  /// **'Tic Tac Toe'**
+  String get ticTacToe;
+
+  /// Description for the Tic Tac Toe game
+  ///
+  /// In en, this message translates to:
+  /// **'Play against the computer! Get three in a row to win.'**
+  String get ticTacToeDescription;
+
   /// Message indicating it's the player's turn
   ///
   /// In en, this message translates to:
@@ -886,10 +898,10 @@ abstract class AppLocalizations {
   /// **'Error sharing achievements. Please try again.'**
   String get shareError;
 
-  /// Time up message
+  /// Message when time runs out
   ///
   /// In en, this message translates to:
-  /// **'Time\'s Up'**
+  /// **'Time\'s Up!'**
   String get timeUp;
 
   /// Message when time runs out
@@ -909,6 +921,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You Won!'**
   String get youWon;
+
+  /// Message when computer wins in TicTacToe game
+  ///
+  /// In en, this message translates to:
+  /// **'Computer Won!'**
+  String get computerWon;
+
+  /// Draw game message
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s a Draw!'**
+  String get itsADraw;
+
+  /// Good game message
+  ///
+  /// In en, this message translates to:
+  /// **'Good Game!'**
+  String get goodGame;
+
+  /// Tap to start message
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to Start'**
+  String get tapToStart;
+
+  /// Computer thinking message
+  ///
+  /// In en, this message translates to:
+  /// **'Computer is thinking...'**
+  String get computerThinking;
+
+  /// Your turn message
+  ///
+  /// In en, this message translates to:
+  /// **'Your Turn'**
+  String get yourTurn;
+
+  /// Computer's turn message
+  ///
+  /// In en, this message translates to:
+  /// **'Computer\'s Turn'**
+  String get computerTurn;
 
   /// Title for rating bottom sheet
   ///
@@ -1348,10 +1402,10 @@ abstract class AppLocalizations {
   /// **'Correct Guesses'**
   String get correctGuesses;
 
-  /// Label for user's score
+  /// Label for player's score in TicTacToe game
   ///
   /// In en, this message translates to:
-  /// **'your score:'**
+  /// **'Your Score'**
   String get yourScore;
 
   /// Label for CPU score in RPS game
@@ -1623,6 +1677,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We couldn\'t find any previous purchases to restore. Make sure you\'re signed in with the same Apple ID you used for the original purchase.'**
   String get noPurchasesFoundDescription;
+
+  /// Title for network connection errors
+  ///
+  /// In en, this message translates to:
+  /// **'Connection Problem'**
+  String get connectionProblem;
+
+  /// Description for network connection errors
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your internet connection and try again. A stable connection is required for purchases.'**
+  String get connectionProblemDescription;
+
+  /// Title for payment method errors
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method Issue'**
+  String get paymentMethodIssue;
+
+  /// Description for payment method errors
+  ///
+  /// In en, this message translates to:
+  /// **'There\'s an issue with your payment method. Please check your card details or try a different payment method.'**
+  String get paymentMethodIssueDescription;
+
+  /// Title for insufficient funds errors
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient Funds'**
+  String get insufficientFunds;
+
+  /// Description for insufficient funds errors
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment method doesn\'t have sufficient funds. Please add money to your account or use a different payment method.'**
+  String get insufficientFundsDescription;
+
+  /// Title for cancelled purchases
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Cancelled'**
+  String get purchaseCancelled;
+
+  /// Description for cancelled purchases
+  ///
+  /// In en, this message translates to:
+  /// **'You cancelled the purchase. You can try again anytime.'**
+  String get purchaseCancelledDescription;
+
+  /// Title for product not found errors
+  ///
+  /// In en, this message translates to:
+  /// **'Product Not Available'**
+  String get productNotAvailable;
+
+  /// Description for product not found errors
+  ///
+  /// In en, this message translates to:
+  /// **'This product is temporarily unavailable. Please try again later or contact support if the issue persists.'**
+  String get productNotAvailableDescription;
+
+  /// Title for already owned product errors
+  ///
+  /// In en, this message translates to:
+  /// **'Already Purchased'**
+  String get alreadyPurchased;
+
+  /// Description for already owned product errors
+  ///
+  /// In en, this message translates to:
+  /// **'You already own this product. Try restoring your purchases if you\'re not seeing the benefits.'**
+  String get alreadyPurchasedDescription;
+
+  /// Title for store not available errors
+  ///
+  /// In en, this message translates to:
+  /// **'Store Unavailable'**
+  String get storeUnavailable;
+
+  /// Description for store not available errors
+  ///
+  /// In en, this message translates to:
+  /// **'The app store is temporarily unavailable. Please try again in a few minutes.'**
+  String get storeUnavailableDescription;
+
+  /// Title for restore failures
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Failed'**
+  String get restoreFailed;
+
+  /// Description for restore failures
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t restore your purchases. Please check your internet connection and try again.'**
+  String get restoreFailedDescription;
 
   /// Feedback screen title
   ///
@@ -2121,6 +2271,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.'**
   String get uninstallWarningMessage;
+
+  /// Title for the Guess the Flag game
+  ///
+  /// In en, this message translates to:
+  /// **'Guess the Flag'**
+  String get guessTheFlag;
+
+  /// Description for the Guess the Flag game
+  ///
+  /// In en, this message translates to:
+  /// **'Test your knowledge of world flags! Match the flag emoji to the correct country name.'**
+  String get guessTheFlagDescription;
+
+  /// Question asking which country the flag belongs to
+  ///
+  /// In en, this message translates to:
+  /// **'Which country does this flag belong to?'**
+  String get whichCountry;
+
+  /// Description when time runs out
+  ///
+  /// In en, this message translates to:
+  /// **'You ran out of time! Try to be faster next time.'**
+  String get timeUpDescription;
+
+  /// Message when answer is wrong
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong Answer!'**
+  String get wrongAnswer;
+
+  /// Description when answer is wrong
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s not the correct country. Better luck next time!'**
+  String get wrongAnswerDescription;
+
+  /// Round label
+  ///
+  /// In en, this message translates to:
+  /// **'Round'**
+  String get round;
+
+  /// Message when ready to start the game
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to Start?'**
+  String get readyToStart;
+
+  /// Label for lives in the game
+  ///
+  /// In en, this message translates to:
+  /// **'Lives'**
+  String get lives;
+
+  /// Label for current round in TicTacToe game
+  ///
+  /// In en, this message translates to:
+  /// **'Current Round'**
+  String get currentRound;
 }
 
 class _AppLocalizationsDelegate

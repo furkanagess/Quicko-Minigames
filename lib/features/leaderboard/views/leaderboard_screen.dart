@@ -546,7 +546,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
                             child: Image.asset(
                               gameConfig != null
                                   ? GamesConfig.getGameIconPath(gameConfig.icon)
-                                  : 'assets/icon/quicko.png',
+                                  : 'assets/icon/joystick.png',
                               width: 30,
                               height: 30,
                               fit: BoxFit.contain,

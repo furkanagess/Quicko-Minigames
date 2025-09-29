@@ -262,6 +262,13 @@ class AppLocalizationsHi extends AppLocalizations {
       '21 तक डीलर को हराएं! सीमा से अधिक बिना जितना संभव हो उतना करीब जाएं।';
 
   @override
+  String get ticTacToe => 'टिक टैक टो';
+
+  @override
+  String get ticTacToeDescription =>
+      'कंप्यूटर के खिलाफ खेलें! जीतने के लिए तीन को एक पंक्ति में बनाएं।';
+
+  @override
   String get nowYourTurn => 'अब आपकी बारी है!';
 
   @override
@@ -421,7 +428,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'उपलब्धियां साझा करते समय त्रुटि। फिर से कोशिश करें।';
 
   @override
-  String get timeUp => 'समय समाप्त';
+  String get timeUp => 'समय समाप्त!';
 
   @override
   String get timeUpMessage => 'आपका समय समाप्त हो गया!';
@@ -431,6 +438,27 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get youWon => 'आप जीत गए!';
+
+  @override
+  String get computerWon => 'कंप्यूटर जीता!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'Quicko को रेट करें';
@@ -658,7 +686,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get correctGuesses => 'सही अनुमान';
 
   @override
-  String get yourScore => 'आपका स्कोर:';
+  String get yourScore => 'आपका स्कोर';
 
   @override
   String get cpuScore => 'सीपीयू स्कोर';
@@ -801,6 +829,62 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'हमें पुनर्स्थापित करने के लिए कोई पिछली खरीद नहीं मिली। सुनिश्चित करें कि आप उसी Apple ID से लॉग इन हैं जिसका उपयोग आपने मूल खरीद के लिए किया था।';
+
+  @override
+  String get connectionProblem => 'कनेक्शन समस्या';
+
+  @override
+  String get connectionProblemDescription =>
+      'कृपया अपना इंटरनेट कनेक्शन जांचें और फिर से कोशिश करें। खरीदारी के लिए स्थिर कनेक्शन आवश्यक है।';
+
+  @override
+  String get paymentMethodIssue => 'भुगतान विधि समस्या';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'आपकी भुगतान विधि में एक समस्या है। कृपया अपने कार्ड विवरण जांचें या कोई अन्य भुगतान विधि आज़माएं।';
+
+  @override
+  String get insufficientFunds => 'अपर्याप्त धन';
+
+  @override
+  String get insufficientFundsDescription =>
+      'आपकी भुगतान विधि में पर्याप्त धन नहीं है। कृपया अपने खाते में पैसे जोड़ें या कोई अन्य भुगतान विधि उपयोग करें।';
+
+  @override
+  String get purchaseCancelled => 'खरीदारी रद्द';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'आपने खरीदारी रद्द कर दी। आप कभी भी फिर से कोशिश कर सकते हैं।';
+
+  @override
+  String get productNotAvailable => 'उत्पाद उपलब्ध नहीं';
+
+  @override
+  String get productNotAvailableDescription =>
+      'यह उत्पाद अस्थायी रूप से उपलब्ध नहीं है। कृपया बाद में कोशिश करें या यदि समस्या बनी रहती है तो सहायता से संपर्क करें।';
+
+  @override
+  String get alreadyPurchased => 'पहले से खरीदा गया';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'आपके पास पहले से यह उत्पाद है। यदि आप लाभ नहीं देख रहे हैं तो अपनी खरीदारी को पुनर्स्थापित करने का प्रयास करें।';
+
+  @override
+  String get storeUnavailable => 'स्टोर उपलब्ध नहीं';
+
+  @override
+  String get storeUnavailableDescription =>
+      'ऐप स्टोर अस्थायी रूप से उपलब्ध नहीं है। कृपया कुछ मिनटों में फिर से कोशिश करें।';
+
+  @override
+  String get restoreFailed => 'पुनर्स्थापना विफल';
+
+  @override
+  String get restoreFailedDescription =>
+      'हम आपकी खरीदारी को पुनर्स्थापित नहीं कर सके। कृपया अपना इंटरनेट कनेक्शन जांचें और फिर से कोशिश करें।';
 
   @override
   String get feedback => 'प्रतिक्रिया';
@@ -1078,4 +1162,37 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'यदि आप ऐप को अनइंस्टॉल करते हैं, तो आपके सभी गेम स्कोर और सदस्यता अधिकार स्थायी रूप से हटा दिए जाएंगे।';
+
+  @override
+  String get guessTheFlag => 'झंडा अनुमान लगाएं';
+
+  @override
+  String get guessTheFlagDescription =>
+      'दुनिया के झंडों के बारे में अपने ज्ञान का परीक्षण करें! झंडे के इमोजी को सही देश के नाम से मिलाएं।';
+
+  @override
+  String get whichCountry => 'यह झंडा किस देश का है?';
+
+  @override
+  String get timeUpDescription =>
+      'आपका समय समाप्त हो गया! अगली बार तेज होने की कोशिश करें।';
+
+  @override
+  String get wrongAnswer => 'गलत उत्तर!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'यह सही देश नहीं है। अगली बार बेहतर किस्मत!';
+
+  @override
+  String get round => 'राउंड';
+
+  @override
+  String get readyToStart => 'शुरू करने के लिए तैयार?';
+
+  @override
+  String get lives => 'जीवन';
+
+  @override
+  String get currentRound => 'वर्तमान राउंड';
 }

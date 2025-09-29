@@ -88,7 +88,7 @@ class AdMobService {
     return _isAdLoaded;
   }
 
-  /// Setup ad event listeners
+  /// Setup default ad event listeners (without external callbacks)
   void _setupAdEventListeners() {
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
       onAdDismissedFullScreenContent: (ad) {
@@ -125,13 +125,27 @@ class AdMobService {
     }
 
     try {
+      // Attach per-show callbacks so we can notify when the ad is actually dismissed
+      _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          _isAdLoaded = false;
+          _rewardedAd = null;
+          onAdClosed();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          _isAdLoaded = false;
+          _rewardedAd = null;
+          onAdFailed(error.toString());
+        },
+        onAdShowedFullScreenContent: (ad) {},
+      );
+
       await _rewardedAd!.show(
         onUserEarnedReward: (ad, reward) {
           onRewarded();
         },
       );
 
-      onAdClosed();
       return true;
     } catch (e) {
       onAdFailed(e.toString());

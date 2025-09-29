@@ -86,6 +86,9 @@
   "twentyOne": "21 (Yirmi Bir)",
   "twentyOneDescription": "Krupiyeyi 21'e kadar yenin! Aşmadan mümkün olduğunca yaklaşın.",
   
+  "ticTacToe": "X-O-X",
+  "ticTacToeDescription": "Bilgisayara karşı oyna! Üçlü sıra yaparak kazan.",
+  
   "nowYourTurn": "Şimdi sıra sizde!",
   "correct": "Doğru!",
   "playing": "Oynanıyor",
@@ -150,6 +153,13 @@
   "finalScore": "Final Skor",
   "timeRanOut": "Süre bitti!",
   "youWon": "Kazandınız!",
+  "computerWon": "Bilgisayar Kazandı!",
+  "itsADraw": "Berabere!",
+  "goodGame": "İyi Oyun!",
+  "tapToStart": "Başlamak için Dokunun",
+  "computerThinking": "Bilgisayar düşünüyor...",
+  "yourTurn": "Sizin Sıranız",
+  "computerTurn": "Bilgisayarın Sırası",
   "rateQuicko": "Quicko'yu Değerlendir",
   "rateQuickoDescription": "Geri bildiriminiz bize gelişmemize ve daha fazla kullanıcıya ulaşmamıza yardımcı olur!",
   "howWouldYouRate": "Quicko'yu nasıl değerlendirirsiniz?",
@@ -861,5 +871,72 @@
   "uninstallWarningMessage": "Uygulamayı kaldırırsanız, tüm oyun skorlarınız ve abonelik haklarınız kalıcı olarak silinecektir.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "connectionProblem": "Bağlantı Sorunu",
+  "@connectionProblem": {"description": "Title for network connection errors"},
+  "connectionProblemDescription": "Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin. Satın alma işlemleri için kararlı bir bağlantı gereklidir.",
+  "@connectionProblemDescription": {"description": "Description for network connection errors"},
+  
+  "paymentMethodIssue": "Ödeme Yöntemi Sorunu",
+  "@paymentMethodIssue": {"description": "Title for payment method errors"},
+  "paymentMethodIssueDescription": "Ödeme yönteminizle ilgili bir sorun var. Lütfen kart bilgilerinizi kontrol edin veya farklı bir ödeme yöntemi deneyin.",
+  "@paymentMethodIssueDescription": {"description": "Description for payment method errors"},
+  
+  "insufficientFunds": "Yetersiz Bakiye",
+  "@insufficientFunds": {"description": "Title for insufficient funds errors"},
+  "insufficientFundsDescription": "Ödeme yönteminizde yeterli bakiye bulunmuyor. Lütfen hesabınıza para ekleyin veya farklı bir ödeme yöntemi kullanın.",
+  "@insufficientFundsDescription": {"description": "Description for insufficient funds errors"},
+  
+  "purchaseCancelled": "Satın Alma İptal Edildi",
+  "@purchaseCancelled": {"description": "Title for cancelled purchases"},
+  "purchaseCancelledDescription": "Satın alma işlemini iptal ettiniz. İstediğiniz zaman tekrar deneyebilirsiniz.",
+  "@purchaseCancelledDescription": {"description": "Description for cancelled purchases"},
+  
+  "productNotAvailable": "Ürün Mevcut Değil",
+  "@productNotAvailable": {"description": "Title for product not found errors"},
+  "productNotAvailableDescription": "Bu ürün geçici olarak mevcut değil. Lütfen daha sonra tekrar deneyin veya sorun devam ederse destek ekibiyle iletişime geçin.",
+  "@productNotAvailableDescription": {"description": "Description for product not found errors"},
+  
+  "alreadyPurchased": "Zaten Satın Alındı",
+  "@alreadyPurchased": {"description": "Title for already owned product errors"},
+  "alreadyPurchasedDescription": "Bu ürünü zaten satın aldınız. Faydaları göremiyorsanız satın alma işlemlerinizi geri yüklemeyi deneyin.",
+  "@alreadyPurchasedDescription": {"description": "Description for already owned product errors"},
+  
+  "storeUnavailable": "Mağaza Kullanılamıyor",
+  "@storeUnavailable": {"description": "Title for store not available errors"},
+  "storeUnavailableDescription": "Uygulama mağazası geçici olarak kullanılamıyor. Lütfen birkaç dakika sonra tekrar deneyin.",
+  "@storeUnavailableDescription": {"description": "Description for store not available errors"},
+  
+  "restoreFailed": "Geri Yükleme Başarısız",
+  "@restoreFailed": {"description": "Title for restore failures"},
+  "restoreFailedDescription": "Satın alma işlemlerinizi geri yükleyemedik. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.",
+  "@restoreFailedDescription": {"description": "Description for restore failures"},
+  
+  "guessTheFlag": "Bayrak Tahmin Et",
+  "@guessTheFlag": {"description": "Title for the Guess the Flag game"},
+  "guessTheFlagDescription": "Dünya bayrakları bilginizi test edin! Bayrak emojisini doğru ülke adıyla eşleştirin.",
+  "@guessTheFlagDescription": {"description": "Description for the Guess the Flag game"},
+  "whichCountry": "Bu bayrak hangi ülkeye ait?",
+  "@whichCountry": {"description": "Question asking which country the flag belongs to"},
+  "timeUp": "Süre Doldu!",
+  "@timeUp": {"description": "Message when time runs out"},
+  "timeUpDescription": "Süreniz doldu! Bir dahaki sefere daha hızlı olmaya çalışın.",
+  "@timeUpDescription": {"description": "Description when time runs out"},
+  "wrongAnswer": "Yanlış Cevap!",
+  "@wrongAnswer": {"description": "Message when answer is wrong"},
+  "wrongAnswerDescription": "Bu doğru ülke değil. Bir dahaki sefere daha şanslısınız!",
+  "@wrongAnswerDescription": {"description": "Description when answer is wrong"},
+  "round": "Tur",
+  "@round": {"description": "Round label"},
+  "readyToStart": "Başlamaya Hazır mısınız?",
+  "@readyToStart": {"description": "Message when ready to start the game"},
+  "lives": "Can",
+  "@lives": {"description": "Label for lives in the game"},
+  "yourScore": "Senin Puanın",
+  "@yourScore": {"description": "Label for player's score in TicTacToe game"},
+  "currentRound": "Mevcut Tur",
+  "@currentRound": {"description": "Label for current round in TicTacToe game"},
+  "computerWon": "Bilgisayar Kazandı!",
+  "@computerWon": {"description": "Message when computer wins in TicTacToe game"}
 }

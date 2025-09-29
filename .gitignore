@@ -225,3 +225,6 @@ coverage/
 *.freezed.dart
 **/generated_plugin_registrant.dart
 
+# Project docs to ignore
+game_standarts.md
+

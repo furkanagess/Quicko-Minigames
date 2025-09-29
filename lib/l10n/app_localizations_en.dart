@@ -260,6 +260,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Beat the dealer to 21! Get as close as possible without going over.';
 
   @override
+  String get ticTacToe => 'Tic Tac Toe';
+
+  @override
+  String get ticTacToeDescription =>
+      'Play against the computer! Get three in a row to win.';
+
+  @override
   String get nowYourTurn => 'Now, your turn!';
 
   @override
@@ -417,7 +424,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareError => 'Error sharing achievements. Please try again.';
 
   @override
-  String get timeUp => 'Time\'s Up';
+  String get timeUp => 'Time\'s Up!';
 
   @override
   String get timeUpMessage => 'You ran out of time!';
@@ -427,6 +434,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youWon => 'You Won!';
+
+  @override
+  String get computerWon => 'Computer Won!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'Rate Quicko';
@@ -654,7 +682,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get correctGuesses => 'Correct Guesses';
 
   @override
-  String get yourScore => 'your score:';
+  String get yourScore => 'Your Score';
 
   @override
   String get cpuScore => 'CPU Score';
@@ -797,6 +825,62 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'We couldn\'t find any previous purchases to restore. Make sure you\'re signed in with the same Apple ID you used for the original purchase.';
+
+  @override
+  String get connectionProblem => 'Connection Problem';
+
+  @override
+  String get connectionProblemDescription =>
+      'Please check your internet connection and try again. A stable connection is required for purchases.';
+
+  @override
+  String get paymentMethodIssue => 'Payment Method Issue';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'There\'s an issue with your payment method. Please check your card details or try a different payment method.';
+
+  @override
+  String get insufficientFunds => 'Insufficient Funds';
+
+  @override
+  String get insufficientFundsDescription =>
+      'Your payment method doesn\'t have sufficient funds. Please add money to your account or use a different payment method.';
+
+  @override
+  String get purchaseCancelled => 'Purchase Cancelled';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'You cancelled the purchase. You can try again anytime.';
+
+  @override
+  String get productNotAvailable => 'Product Not Available';
+
+  @override
+  String get productNotAvailableDescription =>
+      'This product is temporarily unavailable. Please try again later or contact support if the issue persists.';
+
+  @override
+  String get alreadyPurchased => 'Already Purchased';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'You already own this product. Try restoring your purchases if you\'re not seeing the benefits.';
+
+  @override
+  String get storeUnavailable => 'Store Unavailable';
+
+  @override
+  String get storeUnavailableDescription =>
+      'The app store is temporarily unavailable. Please try again in a few minutes.';
+
+  @override
+  String get restoreFailed => 'Restore Failed';
+
+  @override
+  String get restoreFailedDescription =>
+      'We couldn\'t restore your purchases. Please check your internet connection and try again.';
 
   @override
   String get feedback => 'Feedback';
@@ -1073,4 +1157,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'If you uninstall the app, all your game scores and subscription rights will be permanently deleted.';
+
+  @override
+  String get guessTheFlag => 'Guess the Flag';
+
+  @override
+  String get guessTheFlagDescription =>
+      'Test your knowledge of world flags! Match the flag emoji to the correct country name.';
+
+  @override
+  String get whichCountry => 'Which country does this flag belong to?';
+
+  @override
+  String get timeUpDescription =>
+      'You ran out of time! Try to be faster next time.';
+
+  @override
+  String get wrongAnswer => 'Wrong Answer!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'That\'s not the correct country. Better luck next time!';
+
+  @override
+  String get round => 'Round';
+
+  @override
+  String get readyToStart => 'Ready to Start?';
+
+  @override
+  String get lives => 'Lives';
+
+  @override
+  String get currentRound => 'Current Round';
 }

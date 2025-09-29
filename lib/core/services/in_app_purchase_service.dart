@@ -41,6 +41,8 @@ class InAppPurchaseService {
   DateTime? _lastPaymentDate;
   bool _isInitialized = false;
   bool _isAvailable = false;
+  String? _lastPurchaseError;
+  String? _lastPurchaseErrorCode;
 
   bool get isAdFree => _isAdFree;
   DateTime? get subscriptionExpiry => _subscriptionExpiry;
@@ -48,6 +50,8 @@ class InAppPurchaseService {
   DateTime? get lastPaymentDate => _lastPaymentDate;
   bool get isInitialized => _isInitialized;
   bool get isAvailable => _isAvailable;
+  String? get lastPurchaseError => _lastPurchaseError;
+  String? get lastPurchaseErrorCode => _lastPurchaseErrorCode;
 
   /// Get the current platform's product ID (for debugging/logging)
   String get currentProductId => _adFreeSubscriptionId;
@@ -61,7 +65,7 @@ class InAppPurchaseService {
       _isAvailable = await _inAppPurchase.isAvailable();
 
       if (!_isAvailable) {
-        return;
+        throw Exception('In-app purchase not available on this device');
       }
 
       // Load saved subscription status
@@ -235,9 +239,18 @@ class InAppPurchaseService {
         // Handle successful purchase
         _handleSuccessfulPurchase(purchaseDetails);
       } else if (purchaseDetails.status == PurchaseStatus.error) {
-        // Handle purchase error
+        // Handle purchase error with detailed information
+        final errorMessage =
+            purchaseDetails.error?.message ?? 'Unknown purchase error';
+        final errorCode = purchaseDetails.error?.code ?? 'unknown';
+        print('Purchase error: $errorMessage (Code: $errorCode)');
+
+        // Store the detailed error for the provider to use
+        _lastPurchaseError = errorMessage;
+        _lastPurchaseErrorCode = errorCode;
       } else if (purchaseDetails.status == PurchaseStatus.canceled) {
         // Handle canceled purchase
+        print('Purchase canceled by user');
       }
 
       // Complete the purchase
@@ -285,7 +298,7 @@ class InAppPurchaseService {
 
       // Verify in-app purchase is available
       if (!_isAvailable) {
-        return false;
+        throw Exception('In-app purchase not available on this device');
       }
 
       // Get product details
@@ -293,17 +306,19 @@ class InAppPurchaseService {
           .queryProductDetails({_adFreeSubscriptionId});
 
       if (response.error != null) {
-        return false;
+        throw Exception('Product query failed: ${response.error!.message}');
       }
 
       if (response.productDetails.isEmpty) {
-        return false;
+        throw Exception('Product not found: $_adFreeSubscriptionId');
       }
 
       // Validate product details
       final ProductDetails productDetails = response.productDetails.first;
       if (productDetails.id != _adFreeSubscriptionId) {
-        return false; // Product ID mismatch
+        throw Exception(
+          'Product ID mismatch: expected $_adFreeSubscriptionId, got ${productDetails.id}',
+        );
       }
 
       // Create purchase params
@@ -390,6 +405,12 @@ class InAppPurchaseService {
       _verifyAdFreeStatusFromStorage();
     }
     return _isAdFree;
+  }
+
+  /// Clear last purchase error
+  void clearLastPurchaseError() {
+    _lastPurchaseError = null;
+    _lastPurchaseErrorCode = null;
   }
 
   /// Verify ad-free status from storage (iOS specific)

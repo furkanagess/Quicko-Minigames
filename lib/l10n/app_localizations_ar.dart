@@ -259,6 +259,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'اهزم الموزع حتى 21! اقترب قدر الإمكان دون تجاوز.';
 
   @override
+  String get ticTacToe => 'تيك تاك تو';
+
+  @override
+  String get ticTacToeDescription =>
+      'العب ضد الكمبيوتر! اجمع ثلاثة متتالية للفوز.';
+
+  @override
   String get nowYourTurn => 'دورك الآن!';
 
   @override
@@ -416,7 +423,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get shareError => 'خطأ في مشاركة الإنجازات. حاول مرة أخرى.';
 
   @override
-  String get timeUp => 'انتهى الوقت';
+  String get timeUp => 'انتهى الوقت!';
 
   @override
   String get timeUpMessage => 'انتهى وقتك!';
@@ -426,6 +433,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get youWon => 'لقد فزت!';
+
+  @override
+  String get computerWon => 'فاز الكمبيوتر!';
+
+  @override
+  String get itsADraw => 'It\'s a Draw!';
+
+  @override
+  String get goodGame => 'Good Game!';
+
+  @override
+  String get tapToStart => 'Tap to Start';
+
+  @override
+  String get computerThinking => 'Computer is thinking...';
+
+  @override
+  String get yourTurn => 'Your Turn';
+
+  @override
+  String get computerTurn => 'Computer\'s Turn';
 
   @override
   String get rateQuicko => 'قيّم Quicko';
@@ -652,7 +680,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get correctGuesses => 'التخمينات الصحيحة';
 
   @override
-  String get yourScore => 'نتيجتك:';
+  String get yourScore => 'نقاطك';
 
   @override
   String get cpuScore => 'نقاط المعالج';
@@ -795,6 +823,62 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noPurchasesFoundDescription =>
       'لم نتمكن من العثور على مشتريات سابقة لاستعادتها. تأكد من تسجيل الدخول بنفس Apple ID الذي استخدمته للشراء الأصلي.';
+
+  @override
+  String get connectionProblem => 'مشكلة في الاتصال';
+
+  @override
+  String get connectionProblemDescription =>
+      'يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى. مطلوب اتصال مستقر للمشتريات.';
+
+  @override
+  String get paymentMethodIssue => 'مشكلة في طريقة الدفع';
+
+  @override
+  String get paymentMethodIssueDescription =>
+      'هناك مشكلة في طريقة الدفع الخاصة بك. يرجى التحقق من تفاصيل البطاقة أو تجربة طريقة دفع أخرى.';
+
+  @override
+  String get insufficientFunds => 'رصيد غير كافٍ';
+
+  @override
+  String get insufficientFundsDescription =>
+      'طريقة الدفع الخاصة بك لا تحتوي على رصيد كافٍ. يرجى إضافة المال إلى حسابك أو استخدام طريقة دفع أخرى.';
+
+  @override
+  String get purchaseCancelled => 'تم إلغاء الشراء';
+
+  @override
+  String get purchaseCancelledDescription =>
+      'لقد ألغيت عملية الشراء. يمكنك المحاولة مرة أخرى في أي وقت.';
+
+  @override
+  String get productNotAvailable => 'المنتج غير متوفر';
+
+  @override
+  String get productNotAvailableDescription =>
+      'هذا المنتج غير متوفر مؤقتاً. يرجى المحاولة لاحقاً أو الاتصال بالدعم إذا استمرت المشكلة.';
+
+  @override
+  String get alreadyPurchased => 'تم الشراء مسبقاً';
+
+  @override
+  String get alreadyPurchasedDescription =>
+      'لديك هذا المنتج بالفعل. حاول استعادة مشترياتك إذا لم تر الفوائد.';
+
+  @override
+  String get storeUnavailable => 'المتجر غير متوفر';
+
+  @override
+  String get storeUnavailableDescription =>
+      'متجر التطبيقات غير متوفر مؤقتاً. يرجى المحاولة خلال بضع دقائق.';
+
+  @override
+  String get restoreFailed => 'فشل الاستعادة';
+
+  @override
+  String get restoreFailedDescription =>
+      'لم نتمكن من استعادة مشترياتك. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.';
 
   @override
   String get feedback => 'التعليقات';
@@ -1069,4 +1153,37 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get uninstallWarningMessage =>
       'إذا قمت بإلغاء تثبيت التطبيق، فسيتم حذف جميع نقاط اللعب وحقوق الاشتراك بشكل دائم.';
+
+  @override
+  String get guessTheFlag => 'خمن العلم';
+
+  @override
+  String get guessTheFlagDescription =>
+      'اختبر معرفتك بأعلام العالم! اطابق إيموجي العلم مع اسم البلد الصحيح.';
+
+  @override
+  String get whichCountry => 'أي بلد ينتمي إليه هذا العلم؟';
+
+  @override
+  String get timeUpDescription =>
+      'انتهى وقتك! حاول أن تكون أسرع في المرة القادمة.';
+
+  @override
+  String get wrongAnswer => 'إجابة خاطئة!';
+
+  @override
+  String get wrongAnswerDescription =>
+      'هذا ليس البلد الصحيح. حظ أوفر في المرة القادمة!';
+
+  @override
+  String get round => 'جولة';
+
+  @override
+  String get readyToStart => 'مستعد للبدء؟';
+
+  @override
+  String get lives => 'الأرواح';
+
+  @override
+  String get currentRound => 'الجولة الحالية';
 }

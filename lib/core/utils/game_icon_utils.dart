@@ -12,6 +12,8 @@ class GameIconUtils {
     'quick-response': 'assets/icon/quick-response.png',
     'pattern': 'assets/icon/pattern.png',
     'blackjack': 'assets/icon/blackjack.png',
+    'tic-tac-toe': 'assets/icon/tic-tac-toe.png',
+    'flag': 'assets/icon/flag.png',
 
     // Other icons
     'winner': 'assets/icon/winner.png',
@@ -22,7 +24,7 @@ class GameIconUtils {
 
   /// Get the asset path for a given icon name
   static String getIconPath(String iconName) {
-    return _iconPaths[iconName] ?? 'assets/icon/quicko.png';
+    return _iconPaths[iconName] ?? 'assets/icon/joystick.png';
   }
 
   /// Check if an icon exists

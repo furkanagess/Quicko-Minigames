@@ -263,6 +263,15 @@
     "description": "Description for the 21 (Blackjack) game"
   },
   
+  "ticTacToe": "Tres en Raya",
+  "@ticTacToe": {
+    "description": "Title for the Tres en Raya game"
+  },
+  "ticTacToeDescription": "¡Juega contra la computadora! Consigue tres en línea para ganar.",
+  "@ticTacToeDescription": {
+    "description": "Description for the Tres en Raya game"
+  },
+  
   "nowYourTurn": "¡Ahora es tu turno!",
   "@nowYourTurn": {
     "description": "Message indicating it's the player's turn"
@@ -485,6 +494,13 @@
     "description": "Final score label"
   },
   "youWon": "¡Ganaste!",
+  "computerWon": "¡La computadora ganó!",
+  "itsADraw": "¡Empate!",
+  "goodGame": "¡Buen juego!",
+  "tapToStart": "Toca para empezar",
+  "computerThinking": "La computadora está pensando...",
+  "yourTurn": "Tu turno",
+  "computerTurn": "Turno de la computadora",
   "rateQuicko": "Calificar Quicko",
   "rateQuickoDescription": "¡Tu opinión nos ayuda a mejorar y llegar a más usuarios!",
   "howWouldYouRate": "¿Cómo calificarías Quicko?",
@@ -1155,5 +1171,72 @@
   "uninstallWarningMessage": "Si desinstalas la aplicación, todas tus puntuaciones de juego y derechos de suscripción se eliminarán permanentemente.",
   "@uninstallWarningMessage": {
     "description": "Message for uninstall warning dialog"
-  }
+  },
+  
+  "connectionProblem": "Problema de Conexión",
+  "@connectionProblem": {"description": "Título para errores de conexión de red"},
+  "connectionProblemDescription": "Por favor verifica tu conexión a internet e inténtalo de nuevo. Se requiere una conexión estable para las compras.",
+  "@connectionProblemDescription": {"description": "Descripción para errores de conexión de red"},
+  
+  "paymentMethodIssue": "Problema con el Método de Pago",
+  "@paymentMethodIssue": {"description": "Título para errores de método de pago"},
+  "paymentMethodIssueDescription": "Hay un problema con tu método de pago. Por favor verifica los detalles de tu tarjeta o prueba con un método de pago diferente.",
+  "@paymentMethodIssueDescription": {"description": "Descripción para errores de método de pago"},
+  
+  "insufficientFunds": "Fondos Insuficientes",
+  "@insufficientFunds": {"description": "Título para errores de fondos insuficientes"},
+  "insufficientFundsDescription": "Tu método de pago no tiene fondos suficientes. Por favor agrega dinero a tu cuenta o usa un método de pago diferente.",
+  "@insufficientFundsDescription": {"description": "Descripción para errores de fondos insuficientes"},
+  
+  "purchaseCancelled": "Compra Cancelada",
+  "@purchaseCancelled": {"description": "Título para compras canceladas"},
+  "purchaseCancelledDescription": "Cancelaste la compra. Puedes intentarlo de nuevo en cualquier momento.",
+  "@purchaseCancelledDescription": {"description": "Descripción para compras canceladas"},
+  
+  "productNotAvailable": "Producto No Disponible",
+  "@productNotAvailable": {"description": "Título para errores de producto no encontrado"},
+  "productNotAvailableDescription": "Este producto no está disponible temporalmente. Por favor inténtalo más tarde o contacta soporte si el problema persiste.",
+  "@productNotAvailableDescription": {"description": "Descripción para errores de producto no encontrado"},
+  
+  "alreadyPurchased": "Ya Comprado",
+  "@alreadyPurchased": {"description": "Título para errores de producto ya poseído"},
+  "alreadyPurchasedDescription": "Ya posees este producto. Intenta restaurar tus compras si no ves los beneficios.",
+  "@alreadyPurchasedDescription": {"description": "Descripción para errores de producto ya poseído"},
+  
+  "storeUnavailable": "Tienda No Disponible",
+  "@storeUnavailable": {"description": "Título para errores de tienda no disponible"},
+  "storeUnavailableDescription": "La tienda de aplicaciones no está disponible temporalmente. Por favor inténtalo en unos minutos.",
+  "@storeUnavailableDescription": {"description": "Descripción para errores de tienda no disponible"},
+  
+  "restoreFailed": "Restauración Fallida",
+  "@restoreFailed": {"description": "Título para fallos de restauración"},
+  "restoreFailedDescription": "No pudimos restaurar tus compras. Por favor verifica tu conexión a internet e inténtalo de nuevo.",
+  "@restoreFailedDescription": {"description": "Descripción para fallos de restauración"},
+  
+  "guessTheFlag": "Adivina la Bandera",
+  "@guessTheFlag": {"description": "Título para el juego Adivina la Bandera"},
+  "guessTheFlagDescription": "¡Pon a prueba tu conocimiento de las banderas del mundo! Haz coincidir el emoji de la bandera con el nombre del país correcto.",
+  "@guessTheFlagDescription": {"description": "Descripción para el juego Adivina la Bandera"},
+  "whichCountry": "¿A qué país pertenece esta bandera?",
+  "@whichCountry": {"description": "Pregunta sobre a qué país pertenece la bandera"},
+  "timeUp": "¡Tiempo Agotado!",
+  "@timeUp": {"description": "Mensaje cuando se agota el tiempo"},
+  "timeUpDescription": "¡Se te agotó el tiempo! Intenta ser más rápido la próxima vez.",
+  "@timeUpDescription": {"description": "Descripción cuando se agota el tiempo"},
+  "wrongAnswer": "¡Respuesta Incorrecta!",
+  "@wrongAnswer": {"description": "Mensaje cuando la respuesta es incorrecta"},
+  "wrongAnswerDescription": "Ese no es el país correcto. ¡Mejor suerte la próxima vez!",
+  "@wrongAnswerDescription": {"description": "Descripción cuando la respuesta es incorrecta"},
+  "round": "Ronda",
+  "@round": {"description": "Etiqueta de ronda"},
+  "readyToStart": "¿Listo para Empezar?",
+  "@readyToStart": {"description": "Mensaje cuando está listo para comenzar el juego"},
+  "lives": "Vidas",
+  "@lives": {"description": "Label para vidas en el juego"},
+  "yourScore": "Tu Puntuación",
+  "@yourScore": {"description": "Label for player's score in TicTacToe game"},
+  "currentRound": "Ronda Actual",
+  "@currentRound": {"description": "Label for current round in TicTacToe game"},
+  "computerWon": "¡Computadora Ganó!",
+  "@computerWon": {"description": "Message when computer wins in TicTacToe game"}
 }

@@ -13,6 +13,8 @@ import '../../features/find_difference/views/find_difference_page.dart';
 import '../../features/twenty_one/views/twenty_one_screen.dart';
 import '../../features/reaction_time/views/reaction_time_screen.dart';
 import '../../features/pattern_memory/views/pattern_memory_screen.dart';
+import '../../features/tictactoe/views/tictactoe_screen.dart';
+import '../../features/guess_the_flag/views/guess_the_flag_screen.dart';
 import '../../features/favorites/views/favorites_screen.dart';
 import '../../features/leaderboard/views/leaderboard_screen.dart';
 import '../../features/leaderboard/views/game_leaderboard_screen.dart';
@@ -33,6 +35,8 @@ class AppRouter {
   static const String twentyOne = '/twenty-one';
   static const String reactionTime = '/reaction-time';
   static const String patternMemory = '/pattern-memory';
+  static const String ticTacToe = '/tic-tac-toe';
+  static const String guessTheFlag = '/guess-the-flag';
   static const String favorites = '/favorites';
   static const String leaderboard = '/leaderboard';
   static const String gameLeaderboard = '/game-leaderboard';
@@ -75,6 +79,12 @@ class AppRouter {
 
       case patternMemory:
         return _buildModernRoute(routeSettings, const PatternMemoryScreen());
+
+      case ticTacToe:
+        return _buildModernRoute(routeSettings, const TicTacToeScreen());
+
+      case guessTheFlag:
+        return _buildModernRoute(routeSettings, const GuessTheFlagScreen());
 
       case favorites:
         return _buildModernRoute(routeSettings, const FavoritesScreen());
