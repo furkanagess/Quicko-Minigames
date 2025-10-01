@@ -8,6 +8,9 @@ import '../../../core/constants/app_constants.dart';
 // import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme_manager.dart';
 import '../../../core/providers/in_app_purchase_provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'dart:io';
+import 'package:flutter/gestures.dart';
 
 import '../../../core/services/dialog_service.dart';
 import '../../../shared/widgets/app_bars.dart';
@@ -226,6 +229,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
                           ),
                         ),
                       ],
+                      const SizedBox(height: AppConstants.mediumSpacing),
+                      _buildLegalRow(context),
                     ],
                   ),
                 ),
@@ -692,6 +697,8 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
             ),
           ),
         ),
+        const SizedBox(height: AppConstants.mediumSpacing),
+        _buildLegalRow(context),
       ],
     );
   }
@@ -718,6 +725,55 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
         ],
       ),
     );
+  }
+
+  Widget _buildLegalRow(BuildContext context) {
+    // Only show legal links on iOS
+    if (!Platform.isIOS) return const SizedBox.shrink();
+
+    final colorScheme = Theme.of(context).colorScheme;
+    return Center(
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: TextThemeManager.bodyMedium.copyWith(
+            color: colorScheme.primary,
+            decoration: TextDecoration.underline,
+            fontWeight: FontWeight.w600,
+          ),
+          children: [
+            TextSpan(
+              text: 'Privacy Policy',
+              recognizer:
+                  TapGestureRecognizer()
+                    ..onTap = () => _openUrl(AppConstants.privacyPolicyUrl),
+            ),
+            TextSpan(
+              text: '  ·  ',
+              style: TextThemeManager.bodyMedium.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                decoration: TextDecoration.none,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            TextSpan(
+              text: 'Terms of Use',
+              recognizer:
+                  TapGestureRecognizer()
+                    ..onTap = () => _openUrl(AppConstants.termsOfUseUrl),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openUrl(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url, mode: LaunchMode.externalApplication);
+    }
   }
 
   // Removed uninstall warning card and inline error widget to avoid extra overlays during purchase flows
