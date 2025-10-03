@@ -75,8 +75,25 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
     super.dispose();
   }
 
+  void _checkAdFreeStatus() {
+    final shouldShow = _adMobService.shouldShowAds;
+    if (!shouldShow && _bannerAd != null) {
+      // User became ad-free, dispose ad immediately
+      _bannerAd?.dispose();
+      _bannerAd = null;
+      _isLoaded = false;
+      _isLoading = false;
+      if (mounted) {
+        setState(() {});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Check ad-free status on every build
+    _checkAdFreeStatus();
+
     final shouldShow = _adMobService.shouldShowAds;
 
     if (!shouldShow) {

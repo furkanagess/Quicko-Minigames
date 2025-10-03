@@ -698,7 +698,6 @@ class _AdFreeSubscriptionScreenState extends State<AdFreeSubscriptionScreen>
           ),
         ),
         const SizedBox(height: AppConstants.mediumSpacing),
-        _buildLegalRow(context),
       ],
     );
   }

@@ -35,7 +35,17 @@ class InterstitialAdService {
   String get _interstitialAdUnitId => _config.interstitialAdUnitId;
 
   /// Check if ads should be shown (respects ad-free subscription and test mode)
-  bool get _shouldShowAds => !_purchaseService.isAdFree;
+  bool get _shouldShowAds {
+    // Always check the latest status from the purchase service
+    final isAdFree = _purchaseService.isAdFree;
+
+    // If user is ad-free, dispose any existing ads
+    if (isAdFree) {
+      _disposeAllAds();
+    }
+
+    return !isAdFree;
+  }
 
   /// Initialize the service
   Future<void> initialize() async {
@@ -51,12 +61,22 @@ class InterstitialAdService {
 
   /// Handle ad-free status changes
   void _onAdFreeStatusChanged() {
-    // Dispose existing ads if user becomes ad-free
-    if (!_shouldShowAds) {
+    // Check current status and dispose ads if user becomes ad-free
+    final isAdFree = _purchaseService.isAdFree;
+    if (isAdFree) {
+      _disposeAllAds();
+    }
+  }
+
+  /// Dispose all ads immediately
+  void _disposeAllAds() {
+    try {
       _interstitialAd?.dispose();
       _interstitialAd = null;
       _isInterstitialAdLoaded = false;
       _isInterstitialAdLoading = false;
+    } catch (e) {
+      // Handle disposal errors silently
     }
   }
 

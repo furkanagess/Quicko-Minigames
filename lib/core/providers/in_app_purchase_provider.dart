@@ -382,6 +382,8 @@ class InAppPurchaseProvider extends ChangeNotifier {
         }
         // Notify ad services that ad-free status has changed
         _notifyAdFreeStatusListeners();
+        // Force UI refresh after successful purchase
+        notifyListeners();
       } else {
         // Use detailed error from service if available, otherwise use generic message
         final detailedError =

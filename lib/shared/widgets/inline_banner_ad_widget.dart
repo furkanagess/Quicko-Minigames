@@ -98,14 +98,25 @@ class _InlineBannerAdWidgetState extends State<InlineBannerAdWidget> {
     super.dispose();
   }
 
+  void _checkAdFreeStatus() {
+    final shouldShow = _adMobService.shouldShowAds;
+    if (!shouldShow && _bannerAd != null) {
+      // User became ad-free, dispose ad immediately
+      _disposeBannerIfAny();
+      if (mounted) {
+        setState(() {});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Check ad-free status on every build
+    _checkAdFreeStatus();
+
     final shouldShow = _adMobService.shouldShowAds;
 
     if (!shouldShow) {
-      if (_bannerAd != null) {
-        _disposeBannerIfAny();
-      }
       // Use fallback height that matches list spacing when ads are disabled
       return SizedBox(height: _getFallbackHeight());
     }
