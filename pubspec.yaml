@@ -1,7 +1,7 @@
 name: quicko_app
 description: "Quicko"
 publish_to: 'none' 
-version: 1.1.0+12
+version: 1.1.1+13
 
 environment:
   sdk: ^3.7.0
@@ -88,10 +88,10 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path_ios: "assets/icon/ios_logo.png"
-  image_path_android: "assets/icon/new_logo.png"
-  adaptive_icon_foreground: "assets/icon/new_logo.png"
-  adaptive_icon_background: "assets/icon/new_remove_bg.png"
+  image_path_ios: "assets/icon/quicko-glow.png"
+  image_path_android: "assets/icon/quicko-glow.png"
+  adaptive_icon_foreground: "assets/icon/quicko-glow.png"
+  adaptive_icon_background: "assets/icon/quicko-glow.png"
   remove_alpha_ios: true
   min_sdk_android: 23
 
@@ -100,12 +100,12 @@ flutter_native_splash:
   color: "#8E44AD"
   color_dark: "#8E44AD"
   
-  image: assets/icon/new_logo.png
-  image_dark: assets/icon/new_logo.png
+  image: assets/icon/new-splash.png
+  image_dark: assets/icon/new-splash.png
   
   android_12:
-    image: assets/icon/new_remove_bg.png
-    image_dark: assets/icon/new_remove_bg.png
+    image: assets/icon/new-splash.png
+    image_dark: assets/icon/new-splash.png
     color: "#8E44AD"
     color_dark: "#8E44AD"
     icon_background_color: "#8E44AD"
@@ -115,3 +115,8 @@ flutter_native_splash:
   ios_content_mode: center
   
   web: false
+  
+  # Modern splash screen settings
+  fullscreen: true
+  android_gravity: center
+
